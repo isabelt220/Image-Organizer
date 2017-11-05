@@ -6,18 +6,18 @@ import java.util.HashMap;
 public class ImageInfo {
 
 
-    private String Location;
-    private String Name;
-    private ArrayList<Tag> TagList;
-    private HashMap NameLog;
-    private static int IdCounter;
-    private int ID;
+    private String location;
+    private String name;
+    private ArrayList<Tag> tagList;
+    private HashMap nameLog;
+    private static int idCounter;
+    private int id;
 
     public ImageInfo(String name, String location) {
         setImageName(name);
         setImageLocation(location);
-        setImageID(IdCounter);
-        IdCounter++;
+        setImageID(idCounter);
+        idCounter++;
     }
 //
 //    public String printLog(){
@@ -25,42 +25,42 @@ public class ImageInfo {
 //    }
 
     private void setImageID(int IdCounter){
-        ID = IdCounter;
+        id = IdCounter;
 
     }
 
     public int getImageID(){
-        return ID;
+        return id;
     }
 
-    public void setImageLocation(String location){
-        Location = location;
+    public void setImageLocation(String imageLocation){
+        location = imageLocation;
     }
 
-    public String setImageName(ArrayList<Tag> tags) {
+    public void setImageName(ArrayList<Tag> tags) {
         String compressedName = "";
         for (int i = 0; i < tags.size(); i++) {
             compressedName += tags.get(i).getTagName();
         }
-        return compressedName;
+        name = compressedName;
     }
 
-    public void setImageName(String name) {
-        Name = name;
+    public void setImageName(String tagname) {
+        name = tagname;
     }
 
     public String getImageLocation() {
-        return Location;
+        return location;
     }
 
     public String getImageName() {
-        return Name;
+        return name;
     }
 
     @Override
     public boolean equals(Object other){
-        return (other instanceof ImageInfo) && (Location.equals(((ImageInfo) other).getImageLocation())) &&
-                (ID == ((ImageInfo) other).getImageID());
+        return (other instanceof ImageInfo) && (location.equals(((ImageInfo) other).getImageLocation())) &&
+                (id == ((ImageInfo) other).getImageID());
 
     }
 }
