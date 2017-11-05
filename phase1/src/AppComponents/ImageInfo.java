@@ -1,5 +1,6 @@
 package AppComponents;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,7 +10,8 @@ public class ImageInfo {
     private String location;
     private String name;
     private ArrayList<Tag> tagList;
-    private HashMap nameLog;
+//  String: timestamp, String: name of image, or location
+    private HashMap<String, String> nameLog;
     private static int idCounter;
     private int id;
 
@@ -38,11 +40,14 @@ public class ImageInfo {
     }
 
     public void setImageName(ArrayList<Tag> tags) {
-        String compressedName = "";
+        StringBuilder compressedName = new StringBuilder(name);
         for (int i = 0; i < tags.size(); i++) {
-            compressedName += tags.get(i).getTagName();
+            compressedName.append(" @" + tags.get(i).getTagName());
         }
-        name = compressedName;
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        // "Changed name to compressedName"
+        nameLog.put(time.toString(), name);
+        name = compressedName.toString();
     }
 
     public void setImageName(String tagname) {
