@@ -21,10 +21,17 @@ public class ImageInfo {
         setImageID(idCounter);
         idCounter++;
     }
-//
-//    public String printLog(){
-//
-//    }
+
+
+    public String printLog(){
+        StringBuilder log = new StringBuilder();
+        for (String time: nameLog.keySet()){
+            log.append(time + "---" + nameLog.get(time));
+            log.append(System.getProperty("line.separator"));
+        }
+        return log.toString();
+
+    }
 
     private void setImageID(int IdCounter){
         id = IdCounter;
@@ -36,6 +43,8 @@ public class ImageInfo {
     }
 
     public void setImageLocation(String imageLocation){
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        nameLog.put(time.toString(), "location change" + location + "-->" + imageLocation);
         location = imageLocation;
     }
 
@@ -46,11 +55,13 @@ public class ImageInfo {
         }
         Timestamp time = new Timestamp(System.currentTimeMillis());
         // "Changed name to compressedName"
-        nameLog.put(time.toString(), name);
+        nameLog.put(time.toString(), "tag change" + name + "-->" + compressedName.toString());
         name = compressedName.toString();
     }
 
     public void setImageName(String tagname) {
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        nameLog.put(time.toString(), "tag change" + name + "-->" + tagname);
         name = tagname;
     }
 
