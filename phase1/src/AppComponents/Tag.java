@@ -7,11 +7,16 @@ public class Tag {
     private String name;
     private ArrayList<ImageInfo> associatedImages;
 
-    protected void AddImage(ImageInfo image) {
+    protected Tag(String names){
+        this.name=names.toLowerCase();
+        this.associatedImages =  new ArrayList<ImageInfo>();
+    }
+
+    protected void addImage(ImageInfo image) {
         this.associatedImages.add(image);
     }
 
-    protected void RemoveImage(ImageInfo image) {
+    protected void removeImage(ImageInfo image) {
         this.associatedImages.remove(image);
     }
 
@@ -21,7 +26,7 @@ public class Tag {
     }
 
     public void setTagName(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public void setAssociatedImages(ArrayList<ImageInfo> associatedImages) {
