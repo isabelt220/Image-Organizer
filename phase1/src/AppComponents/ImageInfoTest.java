@@ -1,18 +1,33 @@
 package AppComponents;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ImageInfoTest {
-    ImageInfo p = new ImageInfo("SpringFields", "Vacation");
+
     @Test
-    public void testImageInfoGetID() {
+    public void testEqualsFalse() {
         ImageInfo p = new ImageInfo("SpringFields", "Vacation");
         ImageInfo a = new ImageInfo("SpringFieldsRain", "Vacation");
-        assertEquals(1, p.getImageID());
-        assertEquals(2, a.getImageID());
+        assertFalse(p.equals(a));
     }
+    @Test
+    public void testEqualsFalseTwo() {
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
+        ImageInfo a = new ImageInfo("SpringFields", "Vacation");
+        assertFalse(p.equals(a));
+    }
+    @Test
+    public void testEqualsTrue() {
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
+        ImageInfo a = p;
+        assertTrue(p.equals(a));
+    }
+
 
     @Test
     public void testImageInfoGetLocation() {
@@ -43,26 +58,29 @@ public class ImageInfoTest {
 
     @Test
     public void testImageInfoPrintLogInnit() {
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
         String time = p.getLastChangeTime();
         String log = time + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
         assertEquals(log, p.printLog());
     }
 
     @Test
-    public void testImageInfoPrintLogLocation() {
+    public void testImageInfoPrintLogLocation() throws InterruptedException {
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
         String time1 = p.getLastChangeTime();
-        System.out.println(time1);
+        TimeUnit.MILLISECONDS.sleep(1);
         p.setImageLocation("Wallpaper");
         String time2 = p.getLastChangeTime();
-        System.out.println(time2);
         String log = time1 + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
         log += time2 + "---location change: Vacation --> Wallpaper" + System.getProperty("line.separator");
         assertEquals(log, p.printLog());
     }
 
     @Test
-    public void testImageInfoPrintLogName() {
+    public void testImageInfoPrintLogName() throws InterruptedException {
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
         String time1 = p.getLastChangeTime();
+        TimeUnit.MILLISECONDS.sleep(1);
         p.setImageName("SpringFields @Holland @2017");
         String time2 = p.getLastChangeTime();
         String log = time1 + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
