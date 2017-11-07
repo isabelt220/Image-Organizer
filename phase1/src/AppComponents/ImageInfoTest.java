@@ -9,8 +9,8 @@ public class ImageInfoTest {
     public void testImageInfoGetID() {
         ImageInfo p = new ImageInfo("SpringFields", "Vacation");
         ImageInfo a = new ImageInfo("SpringFieldsRain", "Vacation");
-        assertEquals(0, p.getImageID());
-        assertEquals(1, a.getImageID());
+        assertEquals(1, p.getImageID());
+        assertEquals(2, a.getImageID());
     }
 
     @Test
