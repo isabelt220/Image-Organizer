@@ -14,6 +14,8 @@ public class ImageInfo {
     private HashMap<String, String> nameLog;
     private static int idCounter;
     private int id;
+    //For testing purposes
+    private String lastChangeTime;
 
     public ImageInfo(String name, String location) {
         setImageName(name);
@@ -44,7 +46,8 @@ public class ImageInfo {
 
     public void setImageLocation(String imageLocation){
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        nameLog.put(time.toString(), "location change" + location + "-->" + imageLocation);
+        nameLog.put(time.toString(), "location change: " + location + " --> " + imageLocation);
+        lastChangeTime = time.toString();
         location = imageLocation;
     }
 
@@ -55,18 +58,25 @@ public class ImageInfo {
         }
         Timestamp time = new Timestamp(System.currentTimeMillis());
         // "Changed name to compressedName"
-        nameLog.put(time.toString(), "tag change" + name + "-->" + compressedName.toString());
+        nameLog.put(time.toString(), "tag change: " + name + " --> " + compressedName.toString());
         name = compressedName.toString();
+        lastChangeTime = time.toString();
     }
 
     public void setImageName(String tagname) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        nameLog.put(time.toString(), "tag change" + name + "-->" + tagname);
+        nameLog.put(time.toString(), "tag change: " + name + " --> " + tagname);
         name = tagname;
+        lastChangeTime = time.toString();
     }
 
     public String getImageLocation() {
         return location;
+    }
+
+    //For testing purposes
+    public String getLastChangeTime() {
+        return lastChangeTime;
     }
 
     public String getImageName() {
