@@ -1,14 +1,17 @@
 package AppComponents;
 
+import javafx.scene.control.Tab;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ImageInfo {
 
 
-    private String location = new String("");
-    private String name = new String("");
+    private String location = "";
+    private String name = "";
     private ArrayList<Tag> tagList;
 //  String: timestamp, String: name of image, or location
     private HashMap<String, String> nameLog = new HashMap<>();
@@ -20,18 +23,27 @@ public class ImageInfo {
     public ImageInfo(String name, String location) {
         setImageName(name);
         setImageLocation(location);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        nameLog.put(time.toString(), "Initially named : "+ name+", initially in : "  + location);
         setImageID(idCounter);
         idCounter++;
     }
 
 
     public String printLog(){
-        StringBuilder log = new StringBuilder();
-        for (String time: nameLog.keySet()){
-            log.append(time + "---" + nameLog.get(time));
-            log.append(System.getProperty("line.separator"));
+        String log = "";
+        System.out.println(nameLog);
+        for (Map.Entry<String, String> entry : nameLog.entrySet()){
+            String key = entry.getKey();
+            String value = entry.getValue();
+            log += key + "---" + value;
+            log += System.getProperty("line.separator");
         }
-        return log.toString();
+        //for (String entry: nameLog.keySet()){
+        //    log += entry + "---" + nameLog.get(entry);
+        //    log += System.getProperty("line.separator");
+        //}
+        return log;
 
     }
 
@@ -47,11 +59,11 @@ public class ImageInfo {
     public void setImageLocation(String imageLocation){
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (location.length() == 0){
-            nameLog.put(time.toString(), "Initially in : "  + imageLocation);
-            lastChangeTime = time.toString();
             location = imageLocation;
+            lastChangeTime = time.toString();
         }
         else{nameLog.put(time.toString(), "location change: " + location + " --> " + imageLocation);
+            location = imageLocation;
             lastChangeTime = time.toString();
             location = imageLocation; }
     }
@@ -63,7 +75,7 @@ public class ImageInfo {
         }
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (name.length() == 0){
-            nameLog.put(time.toString(), "Initially named : "  + compressedName.toString());
+            name = compressedName.toString();
             lastChangeTime = time.toString();
         }
         else{// "Changed name to compressedName"
@@ -76,10 +88,10 @@ public class ImageInfo {
     public void setImageName(String tagname) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (name.length() == 0){
-            nameLog.put(time.toString(), "Initially named : "  + tagname);
             name = tagname;
             lastChangeTime = time.toString();}
         else{nameLog.put(time.toString(), "tag change: " + name + " --> " + tagname);
+
             name = tagname;
             lastChangeTime = time.toString();}
     }

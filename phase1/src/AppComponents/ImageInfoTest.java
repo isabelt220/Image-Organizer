@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ImageInfoTest {
+    ImageInfo p = new ImageInfo("SpringFields", "Vacation");
     @Test
     public void testImageInfoGetID() {
         ImageInfo p = new ImageInfo("SpringFields", "Vacation");
@@ -39,14 +40,32 @@ public class ImageInfoTest {
         assertEquals("SpringFields @Holland @2017", p.getImageName());
     }
 
+
     @Test
-    public void testImageInfoPrintLog() {
-        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
+    public void testImageInfoPrintLogInnit() {
+        String time = p.getLastChangeTime();
+        String log = time + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
+        assertEquals(log, p.printLog());
+    }
+
+    @Test
+    public void testImageInfoPrintLogLocation() {
+        String time1 = p.getLastChangeTime();
+        System.out.println(time1);
         p.setImageLocation("Wallpaper");
+        String time2 = p.getLastChangeTime();
+        System.out.println(time2);
+        String log = time1 + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
+        log += time2 + "---location change: Vacation --> Wallpaper" + System.getProperty("line.separator");
+        assertEquals(log, p.printLog());
+    }
+
+    @Test
+    public void testImageInfoPrintLogName() {
         String time1 = p.getLastChangeTime();
         p.setImageName("SpringFields @Holland @2017");
         String time2 = p.getLastChangeTime();
-        String log = time1 + "---location change: Vacation --> Wallpaper" + System.getProperty("line.separator");
+        String log = time1 + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
         log += time2 + "---tag change: SpringFields --> SpringFields @Holland @2017" + System.getProperty("line.separator");
         assertEquals(log, p.printLog());
     }
