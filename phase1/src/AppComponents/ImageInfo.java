@@ -5,6 +5,7 @@ import javafx.scene.control.Tab;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ImageInfo {
@@ -14,7 +15,7 @@ public class ImageInfo {
     private String name = "";
     private ArrayList<Tag> tagList;
 //  String: timestamp, String: name of image, or location
-    private HashMap<String, String> nameLog = new HashMap<>();
+    private LinkedHashMap<String, String> nameLog = new LinkedHashMap<>();
     private static int idCounter;
     private int id;
     //For testing purposes
@@ -32,7 +33,6 @@ public class ImageInfo {
 
     public String printLog(){
         String log = "";
-        System.out.println(nameLog);
         for (Map.Entry<String, String> entry : nameLog.entrySet()){
             String key = entry.getKey();
             String value = entry.getValue();
