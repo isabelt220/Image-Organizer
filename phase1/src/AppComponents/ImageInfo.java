@@ -13,6 +13,7 @@ public class ImageInfo {
 
     private String location = "";
     private String name = "";
+    private String coreName = "";
     private ArrayList<Tag> tagList;
 //  String: timestamp, String: name of image, or location
     private LinkedHashMap<String, String> nameLog = new LinkedHashMap<>();
@@ -23,9 +24,11 @@ public class ImageInfo {
 
     public ImageInfo(String name, String location) {
         setImageName(name);
+        coreName = name;
         setImageLocation(location);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         nameLog.put(time.toString(), "Initially named : "+ name+", initially in : "  + location);
+        tagList = new ArrayList<>();
         setImageID(idCounter);
         idCounter++;
     }
@@ -68,31 +71,37 @@ public class ImageInfo {
             location = imageLocation; }
     }
 
-    public void setImageName(ArrayList<Tag> tags) {
-        StringBuilder compressedName = new StringBuilder(name);
+    public void setImageTags(ArrayList<Tag> tags) {
+        StringBuilder compressedTags = new StringBuilder(coreName);
+
         for (int i = 0; i < tags.size(); i++) {
-            compressedName.append(" @" + tags.get(i).getTagName());
+            if(tagList.contains(tags.get(i))){
+                //do nothing
+            }
+            else{
+                tagList.add(tags.get(i));
+                compressedTags.append(" @" + tags.get(i).getTagName());
+            }
         }
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (name.length() == 0){
-            name = compressedName.toString();
+            name = compressedTags.toString();
             lastChangeTime = time.toString();
         }
         else{// "Changed name to compressedName"
-            nameLog.put(time.toString(), "tag change: " + name + " --> " + compressedName.toString());
-            name = compressedName.toString();
+            nameLog.put(time.toString(), "tag change: " + name + " --> " + compressedTags.toString());
+            name = compressedTags.toString();
             lastChangeTime = time.toString();}
 
     }
 
-    public void setImageName(String tagname) {
+    public void setImageName(String newName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (name.length() == 0){
-            name = tagname;
+            name = newName;
             lastChangeTime = time.toString();}
-        else{nameLog.put(time.toString(), "tag change: " + name + " --> " + tagname);
-
-            name = tagname;
+        else{nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
+            name = newName;
             lastChangeTime = time.toString();}
     }
 

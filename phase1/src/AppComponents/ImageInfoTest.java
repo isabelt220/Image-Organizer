@@ -1,6 +1,7 @@
 package AppComponents;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,6 +87,20 @@ public class ImageInfoTest {
         String log = time1 + "---Initially named : SpringFields, initially in : Vacation"  + System.getProperty("line.separator");
         log += time2 + "---tag change: SpringFields --> SpringFields @Holland @2017" + System.getProperty("line.separator");
         assertEquals(log, p.printLog());
+    }
+
+    @Test
+    public void testImageInfoSetImageTags(){
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
+        ArrayList<Tag> tags = new ArrayList<>();
+        Tag a = new Tag("HoLLaND");
+        Tag b = new Tag("2017");
+        Tag c = new Tag("Holland");
+        tags.add(a);
+        tags.add(b);
+        tags.add(c);
+        p.setImageTags(tags);
+        assertEquals("SpringFields @holland @2017", p.getImageName());
     }
 
 
