@@ -75,10 +75,7 @@ public class ImageInfo {
         StringBuilder compressedTags = new StringBuilder(coreName);
 
         for (int i = 0; i < tags.size(); i++) {
-            if(tagList.contains(tags.get(i))){
-                //do nothing
-            }
-            else{
+            if(!(tagList.contains(tags.get(i)))){
                 tagList.add(tags.get(i));
                 compressedTags.append(" @" + tags.get(i).getTagName());
             }
@@ -103,6 +100,10 @@ public class ImageInfo {
         else{nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
             name = newName;
             lastChangeTime = time.toString();}
+    }
+
+    public ArrayList<Tag> getImageTags() {
+        return tagList;
     }
 
     public String getImageLocation() {

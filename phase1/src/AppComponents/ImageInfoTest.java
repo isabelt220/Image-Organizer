@@ -103,5 +103,23 @@ public class ImageInfoTest {
         assertEquals("SpringFields @holland @2017", p.getImageName());
     }
 
+    @Test
+    public void testImageInfoSetImageTagsTwo(){
+        ImageInfo p = new ImageInfo("SpringFields", "Vacation");
+        ArrayList<Tag> tags = new ArrayList<>();
+        Tag a = new Tag("HoLLaND");
+        Tag b = new Tag("2017");
+        Tag c = new Tag("Holland");
+        tags.add(a);
+        tags.add(b);
+        tags.add(c);
+        p.setImageTags(tags);
+        ArrayList<Tag> test = new ArrayList<>();
+        Tag aa = new Tag("holland");
+        Tag bb = new Tag("2017");
+        test.add(aa);
+        test.add(bb);
+        assertEquals(test, p.getImageTags());}
+
 
 }
