@@ -2,6 +2,7 @@ package AppComponents;
 
 import javafx.scene.control.Tab;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +60,26 @@ public class ImageInfo {
         return id;
     }
 
+    public void deleteTags(ArrayList<Tag> dTags){
+        for (int i = 0; i < dTags.size(); i++) {
+            if((tagList.contains(dTags.get(i)))){
+                tagList.remove(dTags.get(i));}
+            }
+        //goes to Isabel and Pyush
+        setImageTags(tagList);
+
+    }
+
+    public void addTags(ArrayList<Tag> newTags){
+        for (int i = 0; i < newTags.size(); i++) {
+            if(!(tagList.contains(newTags.get(i)))){
+                tagList.add(newTags.get(i));
+            }
+        }
+        setImageTags(tagList);
+    }
+
+
     public void setImageLocation(String imageLocation){
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (location.length() == 0){
@@ -75,20 +96,13 @@ public class ImageInfo {
         StringBuilder compressedTags = new StringBuilder(coreName);
 
         for (int i = 0; i < tags.size(); i++) {
-            if(!(tagList.contains(tags.get(i)))){
-                tagList.add(tags.get(i));
-                compressedTags.append(" @" + tags.get(i).getTagName());
-            }
+            compressedTags.append(" @" + tags.get(i).getTagName());
         }
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        if (name.length() == 0){
-            name = compressedTags.toString();
-            lastChangeTime = time.toString();
-        }
-        else{// "Changed name to compressedName"
-            nameLog.put(time.toString(), "tag change: " + name + " --> " + compressedTags.toString());
-            name = compressedTags.toString();
-            lastChangeTime = time.toString();}
+        setImageName(compressedTags.toString());
+//            nameLog.put(time.toString(), "tag change: " + name + " --> " + compressedTags.toString());
+//            name = compressedTags.toString();
+//            lastChangeTime = time.toString();}
 
     }
 
@@ -96,10 +110,26 @@ public class ImageInfo {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (name.length() == 0){
             name = newName;
-            lastChangeTime = time.toString();}
+            File oldName = new File(location+"");
+            File addedName = new File(location+name);
+            boolean flag = oldName.renameTo(addedName);
+            lastChangeTime = time.toString();
+            if(flag){
+                //image changed successfully
+            }else{
+                //image rename fails
+            }}
         else{nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
+            File oldName = new File(location+name);
+            File addedName = new File(location+newName);
+            boolean flag = oldName.renameTo(addedName);
             name = newName;
-            lastChangeTime = time.toString();}
+            lastChangeTime = time.toString();
+            if(flag){
+                //image changed successfully
+            }else{
+                //image rename fails
+            }}
     }
 
     public ArrayList<Tag> getImageTags() {
