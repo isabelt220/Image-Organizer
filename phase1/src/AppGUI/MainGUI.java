@@ -24,6 +24,7 @@ public class MainGUI extends Application {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
         showMainView();
+        showTreeView();
     }
 
     private void showMainView() throws IOException{
@@ -33,6 +34,12 @@ public class MainGUI extends Application {
         Scene scene = new Scene(mainLayout);
         mainStage.setScene(scene);
         mainStage.show();
+    }
+    private void showTreeView() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
+        BorderPane treeView = loader.load();
+        mainLayout.setLeft(treeView);
     }
 
     public static void main(String[] args){
