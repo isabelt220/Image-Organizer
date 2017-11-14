@@ -3,3 +3,6 @@ phase1/phase1.iml
 phase1/.idea/*
 src/AppComponents/.idea/*
 src/AppComponents/AppComponents.iml
+.idea/*
+out/*
+phase1.iml
