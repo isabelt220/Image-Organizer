@@ -46,4 +46,16 @@ public class TreeViewController {
         }
     }
 
+    public void openImageTagEditor() throws Exception{
+        File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
+        if(currentFile!=null && currentFile.isDirectory()){
+            System.out.println("CANNOT RENAME A FOLDER");
+        }
+        else if(currentFile != null){
+            selectedImage = new Image(currentFile.toURI().toString());
+            ImageTagEditor imageTagEditor = new ImageTagEditor();
+            imageTagEditor.display();}
+    }
+
+   
 }
