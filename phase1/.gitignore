@@ -1,0 +1,5 @@
+phase1/out/*
+phase1/phase1.iml
+phase1/.idea/*
+src/AppComponents/.idea/*
+src/AppComponents/AppComponents.iml
