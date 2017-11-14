@@ -9,22 +9,42 @@ public class TagManager {
 
     }
 
-    public static void addTag(String tagName) {
-        String name = tagName.toLowerCase();
-        if (!tagExists(name)) {
-            Tag tag = new Tag(name);
-            // Tag name string already converted to lower case here to
-            // figure out if a tag already exists, Tag constructor also
-            // changes tag name to lower case, may be redundant code?
-            listOfTags.add(tag);
+    public static void tmAddTagWithoutImage(ArrayList<String> tagNameList) {
+        for (String tagName : tagNameList) {
+            String name = tagName.toLowerCase();
+            if (!tagExists(name)) {
+                Tag tag = new Tag(name);
+                // Tag name string already converted to lower case here to
+                // figure out if a tag already exists, Tag constructor also
+                // changes tag name to lower case, may be redundant code?
+                listOfTags.add(tag);
+            }
+            // should anything be done to inform user if a tag already exists?
         }
-        // should anything be done to inform user if a tag already exists?
     }
 
-    public static void addTag(ArrayList<String> tagNameList) {
+    public static void tmAddTagWithImage(ArrayList<String> tagNameList) {
         for (String tagName : tagNameList) {
-            addTag(tagName);
+            String name = tagName.toLowerCase();
+            if (!tagExists(name)) {
+                Tag tag = new Tag(name);
+                // Tag name string already converted to lower case here to
+                // figure out if a tag already exists, Tag constructor also
+                // changes tag name to lower case, may be redundant code?
+                listOfTags.add(tag);
+            }
+            // should anything be done to inform user if a tag already exists?
         }
+    }
+
+    public static ArrayList<ImageInfo> removeTag(String tagName) {
+        if (tagExists(tagName)) {
+            Tag tag = getTag(tagName);
+            ArrayList<ImageInfo> listOfImagesWithTag = getImagesWithTag(tagName);
+            listOfTags.remove(tag);
+            return listOfImagesWithTag;
+        }
+        return null;
     }
 
     public static ArrayList<Tag> getListOfTags() {
