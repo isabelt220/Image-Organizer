@@ -57,5 +57,40 @@ public class TreeViewController {
             imageTagEditor.display();}
     }
 
-   
+    public void deleteFile() throws IOException{
+        TreeItem<File> targetNode = treeView.getSelectionModel().getSelectedItem();
+        File target = targetNode.getValue();
+        if(target == null){
+            System.out.println("File does not exist");
+        }
+        else{
+            try{
+            Path directory = target.toPath();
+            Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
+                }
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    if (exc == null)
+                    {
+                        Files.delete(dir);
+                        return FileVisitResult.CONTINUE;
+                    }
+                    else
+                    {
+                        throw exc;
+                    }
+                }
+            });
+
+            targetNode.getParent().getChildren().remove(targetNode);
+            }
+            catch (IOException e){
+                System.out.println("Deletion Failed");
+            }
+        }
+    }
 }
