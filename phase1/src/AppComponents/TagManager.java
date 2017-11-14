@@ -23,18 +23,19 @@ public class TagManager {
         }
     }
 
-    public static void tmAddTagWithImage(ArrayList<String> tagNameList) {
+    public static ArrayList<Tag> tmAddTagWithImage(ArrayList<String> tagNameList) {
+        ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
             if (!tagExists(name)) {
                 Tag tag = new Tag(name);
-                // Tag name string already converted to lower case here to
-                // figure out if a tag already exists, Tag constructor also
-                // changes tag name to lower case, may be redundant code?
                 listOfTags.add(tag);
+                listOfTagsToAttachToImage.add(tag);
+            } else {
+                listOfTagsToAttachToImage.add(getTag(name));
             }
-            // should anything be done to inform user if a tag already exists?
         }
+        return listOfTagsToAttachToImage;
     }
 
     public static ArrayList<ImageInfo> removeTag(String tagName) {
