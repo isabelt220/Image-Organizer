@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class Tag {
 
     private String name;
-    private ArrayList<ImageInfo> associatedImages;
+    private ArrayList<ImageData> associatedImages;
 
     protected Tag(String names){
         this.name=names.toLowerCase();
-        this.associatedImages =  new ArrayList<ImageInfo>();
+        this.associatedImages =  new ArrayList<ImageData>();
     }
 
-    protected void addImage(ImageInfo image) {
+    protected void addImage(ImageData image) {
         this.associatedImages.add(image);
     }
 
-    protected void removeImage(ImageInfo image) {
+    protected void removeImage(ImageData image) {
         this.associatedImages.remove(image);
     }
 
@@ -29,7 +29,7 @@ public class Tag {
         this.name = name.toLowerCase();
     }
 
-    public void setAssociatedImages(ArrayList<ImageInfo> associatedImages) {
+    public void setAssociatedImages(ArrayList<ImageData> associatedImages) {
         this.associatedImages = associatedImages;
     }
 
@@ -38,7 +38,7 @@ public class Tag {
         return name;
     }
 
-    public ArrayList<ImageInfo> getAssociatedImages() {
+    public ArrayList<ImageData> getAssociatedImages() {
         return associatedImages;
     }
 }

@@ -38,10 +38,10 @@ public class TagManager {
         return listOfTagsToAttachToImage;
     }
 
-    public static ArrayList<ImageInfo> removeTag(String tagName) {
+    public static ArrayList<ImageData> removeTag(String tagName) {
         if (tagExists(tagName)) {
             Tag tag = getTag(tagName);
-            ArrayList<ImageInfo> listOfImagesWithTag = getImagesWithTag(tagName);
+            ArrayList<ImageData> listOfImagesWithTag = getImagesWithTag(tagName);
             listOfTags.remove(tag);
             return listOfImagesWithTag;
         }
@@ -70,7 +70,7 @@ public class TagManager {
      * @param tagName the tag name to be searched for in images.
      * @return ArrayList<ImageInfo>
      */
-    public static ArrayList<ImageInfo> getImagesWithTag(String tagName) {
+    public static ArrayList<ImageData> getImagesWithTag(String tagName) {
         Tag tag = getTag(tagName);
         if (tag != null) {
             return tag.getAssociatedImages();

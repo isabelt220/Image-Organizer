@@ -1,24 +1,23 @@
 package AppComponents;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /*
 Keeps track of all images and the info for each image
 */
 public class ImageManager {
 
-    private ArrayList<ImageInfo> imageList;
+    private ArrayList<ImageData> imageList;
 
     public ImageManager() {
         imageList = new ArrayList<>();
     }
 
-    public void addImage(ImageInfo newImage) {
+    public void addImage(ImageData newImage) {
         imageList.add(newImage);
     }
 
-    public ArrayList<ImageInfo> getImageList() {
+    public ArrayList<ImageData> getImageList() {
         return imageList;
     }
 }
