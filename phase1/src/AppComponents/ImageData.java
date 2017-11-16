@@ -16,8 +16,8 @@ public class ImageData implements Serializable{
     private ArrayList<Tag> tagList;
 //  String: timestamp, String: name of image, or location
     private LinkedHashMap<String, String> nameLog = new LinkedHashMap<>();
-    private static int idCounter;
-    private int id;
+//    private static int idCounter;
+//    private int id;
     //For testing purposes
     private String lastChangeTime;
     private String path;
@@ -27,7 +27,7 @@ public class ImageData implements Serializable{
         File imageFile = new File(location);
         setImageName(imageFile.getName());
         coreName = name;
-        path = imageFile.getPath();
+        path = imageFile.getAbsolutePath();
         String extension = "";
         int i = imageFile.getName().lastIndexOf('.');
         if (i >= 0) { extension = imageFile.getName().substring(i+1); }
@@ -36,8 +36,8 @@ public class ImageData implements Serializable{
         Timestamp time = new Timestamp(System.currentTimeMillis());
         nameLog.put(time.toString(), "Initially named : "+ name);
         tagList = new ArrayList<>();
-        setImageID(idCounter);
-        idCounter++;
+//        setImageID(idCounter);
+//        idCounter++;
     }
 
     public String getPath() {
@@ -64,14 +64,14 @@ public class ImageData implements Serializable{
 
     }
 
-    private void setImageID(int IdCounter){
-        id = IdCounter;
+//    private void setImageID(int IdCounter){
+//        id = IdCounter;
+//
+//    }
 
-    }
-
-    public int getImageID(){
-        return id;
-    }
+//    public int getImageID(){
+//        return id;
+//    }
 
     public void deleteTags(ArrayList<Tag> dTags){
 //        for (int i = 0; i < dTags.size(); i++) {
@@ -187,8 +187,12 @@ public class ImageData implements Serializable{
 
     @Override
     public boolean equals(Object other){
-        return (other instanceof ImageData) && (location.equals(((ImageData) other).getImageLocation())) &&
-                (id == ((ImageData) other).getImageID());
-
-    }
+        if(!(other instanceof ImageData)){
+            return false;
+        }
+        else{
+        File thisFile = new File(location);
+        File otherFile = new File(((ImageData) other).getImageLocation());
+        return thisFile.getAbsolutePath().equals(otherFile.getAbsolutePath());
+    }}
 }
