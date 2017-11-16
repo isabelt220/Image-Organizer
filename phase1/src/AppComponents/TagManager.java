@@ -3,6 +3,7 @@ package AppComponents;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class TagManager {
@@ -10,8 +11,13 @@ public class TagManager {
     private static ObservableList<Tag> observableTagList= FXCollections.observableList(new ArrayList<>());
 
 
-    public TagManager() {
-
+    public TagManager(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.exists()) {
+            readTagsFromFile(filePath);
+        } else {
+            file.createNewFile();
+        }
     }
 
     public static ArrayList<Tag> getListOfTags() {
@@ -113,6 +119,49 @@ public class TagManager {
     public void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
         for (Tag tag : tagList) {
             tag.removeImage(image);
+        }
+    }
+
+    public void readTagsFromFile(String filePath) {
+        try(FileInputStream is = new FileInputStream(filePath)) {
+
+            ObjectInputStream os = new ObjectInputStream(is);
+
+            int num = os.readInt();
+            for (int i=0; i < num; i++) {
+                Tag tag = (Tag) os.readObject();
+                listOfTags.add(tag);
+                // TODO Add code to also add tag to observerList<Tag>
+            }
+
+            os.close();
+
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveTagsToFile(String filePath) {
+        try(FileOutputStream fs = new FileOutputStream(filePath)) {
+
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+
+            os.writeInt(listOfTags.size());
+
+            for (Tag tag : listOfTags) {
+                os.writeObject(tag);
+            }
+
+            os.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
