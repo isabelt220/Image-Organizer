@@ -31,6 +31,7 @@ public class MainGUI extends Application{
         showMainView();
         showTreeView();
 //        showSearchBar();
+        showCenterView();
     }
 
     private void showMainView() throws IOException{
@@ -41,10 +42,17 @@ public class MainGUI extends Application{
         mainStage.setScene(scene);
         mainStage.show();
     }
+
+    private void showCenterView() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
+        Pane centerPane = loader.load();
+        mainLayout.setCenter(centerPane);
+    }
     private void showTreeView() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
-        BorderPane treeView = loader.load();
+        Pane treeView = loader.load();
         mainLayout.setLeft(treeView);
     }
 
