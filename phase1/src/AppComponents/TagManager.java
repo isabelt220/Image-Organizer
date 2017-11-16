@@ -11,12 +11,18 @@ public class TagManager {
     private static ObservableList<Tag> observableTagList= FXCollections.observableList(new ArrayList<>());
 
 
-    public TagManager(String filePath) throws IOException {
+    public TagManager(){
+        String filePath = System.getProperty("user.dir");
         File file = new File(filePath);
         if (file.exists()) {
             readTagsFromFile(filePath);
         } else {
-            file.createNewFile();
+            try{
+                file.createNewFile();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
         }
     }
 
