@@ -13,7 +13,7 @@ class TagTest {
     @Test
     void testTagAddImage() {
         Tag ham = new Tag("ham");
-        ImageInfo hamImage = new ImageInfo("@ham", "C://Photo");
+        ImageData hamImage = new ImageData("@ham", "C://Photo");
         ham.addImage(hamImage);
         assertTrue(ham.getAssociatedImages().size() == 1);
         assertTrue(ham.getAssociatedImages().contains(hamImage));
@@ -22,16 +22,16 @@ class TagTest {
     @Test
     void testTagRemoveImage() {
         Tag breakfast = new Tag("breakfast");
-        ImageInfo hamImage = new ImageInfo("@ham @breakfast", "C://Photo");
-        ImageInfo baconImage = new ImageInfo("@bacon @breakfast", "C://Photo");
-        ImageInfo cheeseImage = new ImageInfo("@cheese @breakfast", "C://Photo");
+        ImageData hamImage = new ImageData("@ham @breakfast", "C://Photo");
+        ImageData baconImage = new ImageData("@bacon @breakfast", "C://Photo");
+        ImageData cheeseImage = new ImageData("@cheese @breakfast", "C://Photo");
         breakfast.addImage(hamImage);
         breakfast.addImage(baconImage);
         breakfast.addImage(cheeseImage);
 
         assertTrue(breakfast.getAssociatedImages().size() == 3);
 
-        ArrayList<ImageInfo> foodList = new ArrayList<>();
+        ArrayList<ImageData> foodList = new ArrayList<>();
         foodList.add(hamImage);
         foodList.add(baconImage);
         foodList.add(cheeseImage);
