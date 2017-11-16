@@ -3,34 +3,38 @@ package AppGUI.TreeView;
 import AppComponents.Tag;
 import AppComponents.TagManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class TreeViewController {
+public class TreeViewController implements Initializable{
     @FXML
     TreeView<File> treeView = new TreeView<>();
     @FXML
     ListView<Tag> listView = new ListView<>();
     @FXML
     HBox hBox = new HBox();
+    @FXML
+    TextField addTagField = new TextField();
     static Image selectedImage;
 
-    public void tagSelected(){
-        ArrayList<String> tags =new ArrayList<String>();
-        tags.add("Test");
-        TagManager.tmAddTagWithoutImage(tags);
+    public void initialize(URL location, ResourceBundle r){
         ArrayList<Tag> tag = TagManager.getListOfTags();
         for(Tag t: tag){
             listView.getItems().add(t);
@@ -77,6 +81,7 @@ public class TreeViewController {
     public void addTagClick(){
         hBox.setVisible(!hBox.isVisible());
     }
+
     public void openImageTagEditor() throws Exception{
         File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
         if(currentFile!=null && currentFile.isDirectory()){
