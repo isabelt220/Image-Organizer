@@ -5,6 +5,7 @@ import AppComponents.TagManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 
@@ -22,6 +23,8 @@ public class TreeViewController {
     TreeView<File> treeView = new TreeView<>();
     @FXML
     ListView<Tag> listView = new ListView<>();
+    @FXML
+    HBox hBox = new HBox();
     static Image selectedImage;
 
     public void tagSelected(){
@@ -71,6 +74,9 @@ public class TreeViewController {
         }
     }
 
+    public void addTagClick(){
+        hBox.setVisible(!hBox.isVisible());
+    }
     public void openImageTagEditor() throws Exception{
         File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
         if(currentFile!=null && currentFile.isDirectory()){
