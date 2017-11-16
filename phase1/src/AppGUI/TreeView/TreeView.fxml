@@ -53,6 +53,13 @@
                                  <padding>
                                     <Insets top="19.0" />
                                  </padding>
+                                 <contextMenu>
+                                    <ContextMenu>
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#deleteTagClick" text="Delete" />
+                                       </items>
+                                    </ContextMenu>
+                                 </contextMenu>
                               </ListView>
                               <HBox fx:id="hBox" layoutX="7.0" layoutY="21.0" prefHeight="27.0" prefWidth="186.0" visible="false">
                                  <children>
@@ -62,7 +69,7 @@
                               <Circle fill="#e0e0e0" layoutX="24.0" layoutY="21.0" radius="8.0" stroke="#e9e3e3" strokeType="INSIDE" AnchorPane.bottomAnchor="353.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="3.0" />
                               <Circle fill="#e0e0e0" layoutX="33.0" layoutY="11.0" radius="8.0" stroke="#e9e3e3" strokeType="INSIDE" />
                               <Text layoutX="10.0" layoutY="15.0" onMouseClicked="#addTagClick" strokeType="OUTSIDE" strokeWidth="0.0" text="+" />
-                              <Text layoutX="25.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="16.0">
+                              <Text layoutX="25.0" layoutY="17.0" onMouseClicked="#deleteTagClick" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="16.0">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
