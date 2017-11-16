@@ -2,16 +2,18 @@ package AppGUI.TreeView;
 
 import AppComponents.Tag;
 import AppComponents.TagManager;
+import AppGUI.PopUpWindow.DialogBox;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -50,6 +52,25 @@ public class TreeViewController implements Initializable{
                             setText(item.getTagName()); }
                     }
                 };
+            }
+        });
+
+        addTagField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                String text = addTagField.getText();
+                if (keyEvent.getCode() == KeyCode.ENTER && !TagManager.tagExists(text))  {
+                    ArrayList<String > tag = new ArrayList<>();
+                    tag.add(text);
+                    Tag newTag = new Tag(text);
+                    TagManager.tmAddTagWithoutImage(tag);
+                    listView.getItems().add(0,newTag);
+                    addTagField.setText("");
+                }
+                else if(TagManager.tagExists(text)){
+                    DialogBox dialogBox = new DialogBox("Info","Tag already exist");
+                    dialogBox.display();
+                }
             }
         });
     }
