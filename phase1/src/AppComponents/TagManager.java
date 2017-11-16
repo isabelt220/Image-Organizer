@@ -9,6 +9,40 @@ public class TagManager {
 
     }
 
+    public static ArrayList<Tag> getListOfTags() {
+        return listOfTags;
+    }
+
+    public static Tag getTag(String tagName) {
+        String name = tagName.toLowerCase();
+        if (!listOfTags.isEmpty() && tagExists(name)) {
+            for (Tag tag : listOfTags) {
+                if (name.equals(tag.getTagName())) {
+                    return tag;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks and returns whether a tag already exists in listOfTags
+     *
+     * @param tagName the tag to be determined whether it already exists in listOfTags.Sm
+     * @return boolean
+     */
+    public static boolean tagExists(String tagName) {
+        String name = tagName.toLowerCase();
+        if (!listOfTags.isEmpty()) {
+            for (Tag tag : listOfTags) {
+                if (name.equals(tag.getTagName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void tmAddTagWithoutImage(ArrayList<String> tagNameList) {
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
@@ -41,25 +75,10 @@ public class TagManager {
     public static ArrayList<ImageData> removeTag(String tagName) {
         if (tagExists(tagName)) {
             Tag tag = getTag(tagName);
-            ArrayList<ImageData> listOfImagesWithTag = getImagesWithTag(tagName);
+            // getTag() may return null
+            ArrayList<ImageData> listOfImagesWithTag = tag.getAssociatedImages();
             listOfTags.remove(tag);
             return listOfImagesWithTag;
-        }
-        return null;
-    }
-
-    public static ArrayList<Tag> getListOfTags() {
-        return listOfTags;
-    }
-
-    public static Tag getTag(String tagName) {
-        String name = tagName.toLowerCase();
-        if (!listOfTags.isEmpty() && tagExists(name)) {
-            for (Tag tag : listOfTags) {
-                if (name.equals(tag.getTagName())) {
-                    return tag;
-                }
-            }
         }
         return null;
     }
@@ -70,6 +89,7 @@ public class TagManager {
      * @param tagName the tag name to be searched for in images.
      * @return ArrayList<ImageInfo>
      */
+    // May be redundant code as getAssociatedImages() exist in Tag class?
     public static ArrayList<ImageData> getImagesWithTag(String tagName) {
         Tag tag = getTag(tagName);
         if (tag != null) {
@@ -78,22 +98,10 @@ public class TagManager {
         return null;
     }
 
-    /**
-     * Checks and returns whether a tag already exists in listOfTags
-     *
-     * @param tagName the tag to be determined whether it already exists in listOfTags.Sm
-     * @return boolean
-     */
-    public static boolean tagExists(String tagName) {
-        String name = tagName.toLowerCase();
-        if (!listOfTags.isEmpty()) {
-            for (Tag tag : listOfTags) {
-                if (name.equals(tag.getTagName())) {
-                    return true;
-                }
-            }
+    public void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
+        for (Tag tag : tagList) {
+            tag.removeImage(image);
         }
-        return false;
     }
 
 }

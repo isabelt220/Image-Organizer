@@ -12,7 +12,7 @@ class ImageManagerTest {
     @Test
     void testImageManagerAddImage() {
         ImageManager im = new ImageManager();
-        ImageData image1 = new ImageData("image1", "Toronto");
+        ImageData image1 = new ImageData("Toronto");
         im.addImage(image1);
 
         assertTrue(im.getImageList().size() == 1);
@@ -22,9 +22,9 @@ class ImageManagerTest {
     @Test
     void testImageManagerGetImageList() {
         ImageManager im = new ImageManager();
-        ImageData image1 = new ImageData("image1", "Toronto");
-        ImageData image2 = new ImageData("image2", "Toronto");
-        ImageData image3 = new ImageData("image3", "Toronto");
+        ImageData image1 = new ImageData("Toronto");
+        ImageData image2 = new ImageData("Toronto");
+        ImageData image3 = new ImageData("Toronto");
         im.addImage(image1);
         im.addImage(image2);
         im.addImage(image3);

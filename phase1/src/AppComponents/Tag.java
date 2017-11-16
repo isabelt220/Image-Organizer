@@ -7,7 +7,7 @@ public class Tag {
     private String name;
     private ArrayList<ImageData> associatedImages;
 
-    protected Tag(String names){
+    public Tag(String names){
         this.name=names.toLowerCase();
         this.associatedImages =  new ArrayList<ImageData>();
     }
