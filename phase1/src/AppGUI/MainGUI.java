@@ -27,7 +27,7 @@ public class MainGUI extends Application {
         this.mainStage.setTitle("Photo Manager");
         showMainView();
         showTreeView();
-        showSearchBar();
+//        showSearchBar();
     }
 
     private void showMainView() throws IOException{
@@ -45,12 +45,12 @@ public class MainGUI extends Application {
         mainLayout.setLeft(treeView);
     }
 
-    private void showSearchBar() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("SearchBox/SearchBar.fxml"));
-        Pane searchBar = loader.load();
-        mainLayout.setRight(searchBar);
-    }
+//    private void showSearchBar() throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(MainGUI.class.getResource("SearchBox/SearchBar.fxml"));
+//        Pane searchBar = loader.load();
+//        mainLayout.setRight(searchBar);
+//    }
 
 
     public static void main(String[] args){
