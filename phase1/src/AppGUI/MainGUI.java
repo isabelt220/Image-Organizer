@@ -1,5 +1,7 @@
 package AppGUI;
 
+import AppComponents.ImageManager;
+import AppComponents.TagManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,11 +19,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainGUI extends Application {
+public class MainGUI extends Application{
     private Stage mainStage;
     private BorderPane mainLayout;
-    @Override
-
+    public static TagManager appTagManager = new TagManager();
+    public static ImageManager appImageManager = new ImageManager();
+    
     public void start(Stage primaryStage) throws Exception {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
