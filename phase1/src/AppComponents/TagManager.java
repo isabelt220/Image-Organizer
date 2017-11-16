@@ -97,7 +97,7 @@ public class TagManager {
         return null;
     }
 
-    public static ObservableList getOservableTagList(){
+    public static ObservableList getObservableTagList(){
         return observableTagList;
     }
 
@@ -131,7 +131,8 @@ public class TagManager {
             for (int i=0; i < num; i++) {
                 Tag tag = (Tag) os.readObject();
                 listOfTags.add(tag);
-                // TODO Add code to also add tag to observerList<Tag>
+                observableTagList.add(tag);
+                System.out.println(tag.getTagName());
             }
 
             os.close();

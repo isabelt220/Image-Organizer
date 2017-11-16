@@ -42,7 +42,7 @@ public class TreeViewController implements Initializable{
     static TreeViewImage selectedImage;
 
     public void initialize(URL location, ResourceBundle r){
-        listView.setItems(TagManager.getOservableTagList());
+        listView.setItems(TagManager.getObservableTagList());
         listView.setCellFactory(new Callback<ListView<Tag>, ListCell<Tag>>(){
             @Override
             public ListCell<Tag> call(ListView<Tag> param) {
