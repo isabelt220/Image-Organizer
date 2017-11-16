@@ -17,11 +17,11 @@ public class ImageManager {
         imageList.add(newImage);
     }
 
-    public ArrayList<ImageData> getImageList() {
+    public static ArrayList<ImageData> getImageList() {
         return imageList;
     }
 
-    public void imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
+    public static void imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
         ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
         currImage.addTags(newTags);
     }
