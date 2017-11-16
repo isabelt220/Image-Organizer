@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class MiddleWindowController implements Initializable{
     @FXML
-    static VBox imageDisplayer = new VBox(10);
+    static VBox displayImage = new VBox(10);
     private static File selectedFile;
 
     public void initialize(URL location, ResourceBundle r){}
@@ -30,7 +30,7 @@ public class MiddleWindowController implements Initializable{
         for(TreeItem<File> t: dirNode.getChildren()){
             if(!t.getValue().isDirectory()){
                 ImageView imageView = new ImageView(new Image(t.getValue().toURI().toString()));
-                imageDisplayer.getChildren().add(imageView);}
+                displayImage.getChildren().add(imageView);}
         }
     }
 
