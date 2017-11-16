@@ -7,7 +7,7 @@ Keeps track of all images and the info for each image
 */
 public class ImageManager {
 
-    private ArrayList<ImageData> imageList;
+    private static ArrayList<ImageData> imageList;
 
     public ImageManager() {
         imageList = new ArrayList<>();
@@ -19,5 +19,10 @@ public class ImageManager {
 
     public ArrayList<ImageData> getImageList() {
         return imageList;
+    }
+
+    public void imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
+        ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
+        currImage.addTags(newTags);
     }
 }
