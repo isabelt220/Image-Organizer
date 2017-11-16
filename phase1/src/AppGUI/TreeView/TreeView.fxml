@@ -40,11 +40,11 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Tag List">
+                  <Tab onSelectionChanged="#tagSelected" text="Tag List">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="134.0">
                            <children>
-                              <ListView prefHeight="373.0" prefWidth="165.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+                              <ListView fx:id="listView" prefHeight="373.0" prefWidth="165.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                                  <padding>
                                     <Insets top="19.0" />
                                  </padding>

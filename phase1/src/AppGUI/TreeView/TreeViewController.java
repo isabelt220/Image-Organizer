@@ -1,9 +1,9 @@
 package AppGUI.TreeView;
 
+import AppComponents.Tag;
+import AppComponents.TagManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
@@ -15,12 +15,37 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 
 public class TreeViewController {
     @FXML
     TreeView<File> treeView = new TreeView<>();
-
+    @FXML
+    ListView<Tag> listView = new ListView<>();
     static Image selectedImage;
+
+    public void tagSelected(){
+        ArrayList<String> tags =new ArrayList<String>();
+        tags.add("Test");
+        TagManager.tmAddTagWithoutImage(tags);
+        ArrayList<Tag> tag = TagManager.getListOfTags();
+        for(Tag t: tag){
+            listView.getItems().add(t);
+        }
+        listView.setCellFactory(new Callback<ListView<Tag>, ListCell<Tag>>(){
+            @Override
+            public ListCell<Tag> call(ListView<Tag> param) {
+                return new ListCell<Tag>() {
+                    @Override
+                    protected void updateItem(Tag item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getTagName()); }
+                    }
+                };
+            }
+        });
+    }
 
     public void openFolder() {
         DirectoryChooser dc = new DirectoryChooser();
@@ -30,7 +55,7 @@ public class TreeViewController {
             treeView.setRoot(listHelper.generateTreeItem(choice));
             treeView.setCellFactory(new Callback<TreeView<File>, TreeCell<File>>() {
 
-                public TreeCell<File> call(TreeView<File> tv) {
+                public TreeCell<File> call(TreeView<File> file) {
                     return new TreeCell<File>() {
 
                         @Override
@@ -65,28 +90,28 @@ public class TreeViewController {
         }
         else{
             try{
-            Path directory = target.toPath();
-            Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                    if (exc == null)
-                    {
-                        Files.delete(dir);
+                Path directory = target.toPath();
+                Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                        Files.delete(file);
                         return FileVisitResult.CONTINUE;
                     }
-                    else
-                    {
-                        throw exc;
+                    @Override
+                    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                        if (exc == null)
+                        {
+                            Files.delete(dir);
+                            return FileVisitResult.CONTINUE;
+                        }
+                        else
+                        {
+                            throw exc;
+                        }
                     }
-                }
-            });
+                });
 
-            targetNode.getParent().getChildren().remove(targetNode);
+                targetNode.getParent().getChildren().remove(targetNode);
             }
             catch (IOException e){
                 System.out.println("Deletion Failed");
