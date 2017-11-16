@@ -1,9 +1,14 @@
 package AppComponents;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class TagManager {
     private static ArrayList<Tag> listOfTags = new ArrayList<>(0);
+    private static ObservableList<Tag> observableTagList= FXCollections.observableList(new ArrayList<>());
+
 
     public TagManager() {
 
@@ -52,6 +57,7 @@ public class TagManager {
                 // figure out if a tag already exists, Tag constructor also
                 // changes tag name to lower case, may be redundant code?
                 listOfTags.add(tag);
+                observableTagList.add(tag);
             }
             // should anything be done to inform user if a tag already exists?
         }
@@ -64,6 +70,7 @@ public class TagManager {
             if (!tagExists(name)) {
                 Tag tag = new Tag(name);
                 listOfTags.add(tag);
+                observableTagList.add(tag);
                 listOfTagsToAttachToImage.add(tag);
             } else {
                 listOfTagsToAttachToImage.add(getTag(name));
@@ -78,9 +85,14 @@ public class TagManager {
             // getTag() may return null
             ArrayList<ImageData> listOfImagesWithTag = tag.getAssociatedImages();
             listOfTags.remove(tag);
+            observableTagList.remove(tag);
             return listOfImagesWithTag;
         }
         return null;
+    }
+
+    public static ObservableList getOservableTagList(){
+        return observableTagList;
     }
 
     /**

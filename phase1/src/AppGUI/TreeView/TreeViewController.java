@@ -5,6 +5,7 @@ import AppComponents.TagManager;
 import AppGUI.PopUpWindow.DialogBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -41,10 +42,7 @@ public class TreeViewController implements Initializable{
     static Image selectedImage;
 
     public void initialize(URL location, ResourceBundle r){
-        ArrayList<Tag> tag = TagManager.getListOfTags();
-        for(Tag t: tag){
-            listView.getItems().add(t);
-        }
+        listView.setItems(TagManager.getOservableTagList());
         listView.setCellFactory(new Callback<ListView<Tag>, ListCell<Tag>>(){
             @Override
             public ListCell<Tag> call(ListView<Tag> param) {
@@ -65,9 +63,7 @@ public class TreeViewController implements Initializable{
                 if (keyEvent.getCode() == KeyCode.ENTER && !TagManager.tagExists(text))  {
                     ArrayList<String > tag = new ArrayList<>();
                     tag.add(text);
-                    Tag newTag = new Tag(text);
                     TagManager.tmAddTagWithoutImage(tag);
-                    listView.getItems().add(0,newTag);
                     addTagField.setText("");
                 }
                 else if(keyEvent.getCode() == KeyCode.ENTER && TagManager.tagExists(text)){
