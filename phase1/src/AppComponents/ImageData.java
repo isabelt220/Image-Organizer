@@ -1,12 +1,13 @@
 package AppComponents;
 
 import java.io.File;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ImageData {
+public class ImageData implements Serializable{
 
 
     private String location = "";
@@ -19,18 +20,33 @@ public class ImageData {
     private int id;
     //For testing purposes
     private String lastChangeTime;
+    private String path;
+    private String type;
 
-    public ImageData(String name, String location) {
-        setImageName(name);
+    public ImageData(String location) {
+        File imageFile = new File(location);
+        setImageName(imageFile.getName());
         coreName = name;
-        setImageLocation(location);
+        path = imageFile.getPath();
+        String extension = "";
+        int i = imageFile.getName().lastIndexOf('.');
+        if (i >= 0) { extension = imageFile.getName().substring(i+1); }
+        type = "."+extension;
+//        setImageLocation(location);
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        nameLog.put(time.toString(), "Initially named : "+ name+", initially in : "  + location);
+        nameLog.put(time.toString(), "Initially named : "+ name);
         tagList = new ArrayList<>();
         setImageID(idCounter);
         idCounter++;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public String getType() {
+        return type;
+    }
 
     public String printLog(){
         String log = "";
@@ -92,17 +108,19 @@ public class ImageData {
     }
 
 
-    public void setImageLocation(String imageLocation){
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        if (location.length() == 0){
-            location = imageLocation;
-            lastChangeTime = time.toString();
-        }
-        else{nameLog.put(time.toString(), "location change: " + location + " --> " + imageLocation);
-            location = imageLocation;
-            lastChangeTime = time.toString();
-            location = imageLocation; }
-    }
+//    public void setImageLocation(String imageLocation){
+//        Timestamp time = new Timestamp(System.currentTimeMillis());
+//        if (location.length() == 0){
+//            location = imageLocation;
+//            lastChangeTime = time.toString();
+//        }
+//        else{nameLog.put(time.toString(), "location change: " + location + " --> " + imageLocation);
+//            File before = new File(location);
+//            boolean after = before.renameTo(new File(imageLocation + before.getName()));
+//            location = imageLocation + name;
+//            lastChangeTime = time.toString();
+//            location = imageLocation; }
+//    }
 
     public void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
@@ -126,8 +144,9 @@ public class ImageData {
         if (name.length() == 0){
             name = newName;
             File oldName = new File(location+"");
-            File addedName = new File(location+name);
+            File addedName = new File(path+name+type);
             boolean flag = oldName.renameTo(addedName);
+            location = path+name+type;
             lastChangeTime = time.toString();
             if(flag){
                 //image changed successfully
@@ -135,10 +154,11 @@ public class ImageData {
                 //image rename fails
             }}
         else{nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
-            File oldName = new File(location+name);
-            File addedName = new File(location+newName);
+            File oldName = new File(location);
+            File addedName = new File(path+newName+type);
             boolean flag = oldName.renameTo(addedName);
             name = newName;
+            location = path+name+type;
             lastChangeTime = time.toString();
 //            if(flag){
 //                //image changed successfully
