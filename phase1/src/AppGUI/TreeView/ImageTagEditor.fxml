@@ -6,10 +6,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="452.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TreeView.ImageTagEditorController">
+<AnchorPane prefHeight="452.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TreeView.ImageTagEditorController">
     <children>
         <MenuBar prefHeight="25.0" prefWidth="548.0" />
-        <TextField fx:id="addTagField" layoutX="314.0" layoutY="166.0" prefHeight="23.0" prefWidth="110.0" AnchorPane.topAnchor="166.0" />
+        <TextField fx:id="addTagFieldTagEditor" layoutX="314.0" layoutY="166.0" prefHeight="23.0" prefWidth="110.0" AnchorPane.topAnchor="166.0" />
         <TextField layoutX="314.0" layoutY="263.0" prefHeight="23.0" prefWidth="110.0" AnchorPane.bottomAnchor="166.0" />
         <Button layoutX="434.0" layoutY="166.0" mnemonicParsing="false" onAction="#addTagToImage" prefHeight="23.0" prefWidth="78.0" text="Add Tag" />
         <Button layoutX="434.0" layoutY="263.0" mnemonicParsing="false" text="Delete Tag" />
