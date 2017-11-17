@@ -27,7 +27,6 @@ public class TagManager {
             } catch (IOException e){
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -135,35 +134,19 @@ public class TagManager {
 
     public void readTagsFromFile(String filePath) {
         try {
-//            FileInputStream is = new FileInputStream(filePath);
-//            ObjectInputStream os = new ObjectInputStream(is);
-//            InputStreamReader os = new InputStreamReader(is);
+            FileInputStream is = new FileInputStream(filePath);
+            ObjectInputStream os = new ObjectInputStream(is);
 
-            InputStream file = new FileInputStream(filePath);
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            int num = input.readInt();
+            int num = os.readInt();
 
             for (int i=0; i < num; i++) {
-//                System.out.println("hello");
-                Tag tag = (Tag) input.readObject();
+                Tag tag = (Tag) os.readObject();
                 listOfTags.add(tag);
                 observableTagList.add(tag);
-                System.out.println(tag.getTagName());
             }
-//            int num = os.readInt();
-//
-//            for (int i=0; i < num; i++) {
-////                System.out.println("hello");
-//                Tag tag = (Tag) os.readObject();
-//                listOfTags.add(tag);
-//                observableTagList.add(tag);
-//                System.out.println(tag.getTagName());
-//            }
-//
-////            System.out.println("after for loop");
-            input.close();
+
+            os.close();
+            is.close();
 
         } catch (FileNotFoundException e){
             e.printStackTrace();
@@ -175,8 +158,8 @@ public class TagManager {
     }
 
     public void saveTagsToFile(String filePath) {
-        try(FileOutputStream fs = new FileOutputStream(filePath)) {
-
+        try {
+            FileOutputStream fs = new FileOutputStream(filePath);
             ObjectOutputStream os = new ObjectOutputStream(fs);
 
             os.writeInt(listOfTags.size());
