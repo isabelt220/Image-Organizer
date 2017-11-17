@@ -1,5 +1,8 @@
 package AppComponents;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.io.File;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -46,6 +49,23 @@ public class ImageData implements Serializable{
 
     public String getType() {
         return type;
+    }
+
+    public String getName(){return name;}
+
+    public StringProperty getPathProperty() {
+        StringProperty pPath = new SimpleStringProperty(path);
+        return pPath;
+    }
+
+    public StringProperty getTypeProperty() {
+        StringProperty pType = new SimpleStringProperty(type);
+        return pType;
+    }
+
+    public StringProperty getNameProperty(){
+        StringProperty pName = new SimpleStringProperty(name);
+        return pName;
     }
 
     public String printLog(){

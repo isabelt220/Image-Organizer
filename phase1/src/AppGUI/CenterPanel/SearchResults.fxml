@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.CenterPanel.SearchResultsController">
+   <children>
+      <TableView fx:id="resultTable" prefHeight="402.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="imagePath" prefWidth="104.0" text="Path" />
+          <TableColumn fx:id="imageName" minWidth="0.0" prefWidth="489.0" text="Name" />
+            <!--<TreeTableColumn fx:id="imagePreview" prefWidth="162.0" text="Preview" />-->
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
