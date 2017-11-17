@@ -26,7 +26,7 @@ public class TagManager {
         }
     }
 
-    public static ArrayList<Tag> getListOfTags() {
+    public ArrayList<Tag> getListOfTags() {
         return listOfTags;
     }
 
