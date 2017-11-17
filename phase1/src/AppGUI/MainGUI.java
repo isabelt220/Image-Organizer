@@ -24,8 +24,8 @@ import java.io.IOException;
 public class MainGUI extends Application{
     private Stage mainStage;
     private BorderPane mainLayout;
-    //public static TagManager appTagManager = new TagManager();
-    //public static ImageManager appImageManager = new ImageManager();
+    public static TagManager appTagManager = new TagManager();
+    public static ImageManager appImageManager = new ImageManager();
     public static TreeViewController treeViewController;
     public static MiddleWindowController middleWindowController;
 
