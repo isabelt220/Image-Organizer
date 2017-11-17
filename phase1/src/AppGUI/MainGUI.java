@@ -83,11 +83,17 @@ public class MainGUI extends Application{
 //        mainLayout.setRight(searchBar);
 //    }
 
-    private void showOperatingMenu() throws IOException{
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-    Pane operatingMenu = loader.load();
-    mainLayout.setLeft(operatingMenu); }
+    public void showOperatingMenu() throws IOException{
+        if (MainController.getOperatingMenuController() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+            Pane operatingMenu = loader.load();
+            mainLayout.setLeft(operatingMenu);
+            MainController.setOperatingMenuController(loader.getController());
+            MainController.setOperatingMenuPane(operatingMenu );}
+        else{
+            mainLayout.setLeft(MainController.getOperatingMenu());
+        }}
 
 
 

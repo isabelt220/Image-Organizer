@@ -3,6 +3,7 @@ package AppGUI;
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.MiddleWindowController;
+import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
 import javafx.scene.layout.Pane;
 
@@ -13,10 +14,26 @@ public class MainController {
     private static MiddleWindowController middleWindowController;
     private static MainGUI main;
     private static Pane treeViewPanel;
+//    private static Pane operatingMenu;
+//    private static OperatingMenuController operatingMenuController;
+//
+//    public static OperatingMenuController getOperatingMenuController() {
+//        return operatingMenuController;
+//    }
+//
+//    public static void setOperatingMenuController(OperatingMenuController operatingMenuController) {
+//        MainController.operatingMenuController = operatingMenuController;
+//    }
+//
+//    public static void setOperatingMenuPane(Pane operatingMenuPane){MainController.operatingMenu = operatingMenuPane;}
 
     public static void setTreeViewPanel(Pane treeViewPanel) {
         MainController.treeViewPanel = treeViewPanel;
     }
+
+//    public static Pane getOperatingMenu() {
+//        return operatingMenu;
+//    }
 
     public static void setCenterPanel(Pane centerPanel) {
         MainController.centerPanel = centerPanel;
