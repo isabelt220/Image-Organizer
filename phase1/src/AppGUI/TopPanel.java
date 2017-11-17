@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
-
+import sun.applet.Main;
 
 
 public class TopPanel {
@@ -17,19 +17,18 @@ public class TopPanel {
     private MenuItem exitButton;
 
     public void addNewTag() {
-        MainGUI.treeViewController.addTagClick();
+        MainController.getTreeViewController().addTagClick();
     }
 
-    public void deleteExistingTag() {
-        MainGUI.treeViewController.deleteTagClick();
+    public void deleteExistingTag() {MainController.getTreeViewController().deleteTagClick();
     }
 
     public void openImageTagEditor() throws Exception {
-        MainGUI.treeViewController.openImageTagEditor();
+       MainController.getTreeViewController().openImageTagEditor();
     }
 
     public void openChooseDirectory() {
-        MainGUI.treeViewController.openFolder();
+        MainController.getTreeViewController().openFolder();
     }
 
 }

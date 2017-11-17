@@ -2,28 +2,19 @@ package AppGUI.TreeView;
 
 import AppComponents.Tag;
 import AppComponents.TagManager;
-import AppGUI.CenterPanel.MiddleWindowController;
-import AppGUI.MainGUI;
+import AppGUI.MainController;
 import AppGUI.PopUpWindow.DialogBox;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import javax.swing.text.html.ImageView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -118,11 +109,14 @@ public class TreeViewController implements Initializable{
         hBox.setVisible(!hBox.isVisible());
     }
 
-    public void treeItemClick(){
+    public void treeItemClick() throws  IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!=null && currentNode.getValue()!=null){
             if(!currentNode.getValue().isDirectory()){
-                MainGUI.middleWindowController.setCenterPanel(currentNode);
+                MainController.getMiddleWindowController().setCenterPanel(currentNode);
+                MainController.getMain().showCenterView();
+            }else{
+                MainController.getMain().showFolderPanel();
             }
         }
     }

@@ -1,15 +1,12 @@
 package AppGUI.TreeView;
 
 import AppComponents.ImageData;
-import AppComponents.ImageManager;
-import AppComponents.TagManager;
-import AppGUI.MainGUI;
+import AppGUI.MainController;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ImageTagEditorController {
     @FXML
@@ -29,7 +26,7 @@ public class ImageTagEditorController {
         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagFieldTagEditor.getText());
 
-        MainGUI.appImageManager.imAddTagWithImage(currImage, tagEditorTagList);
+        MainController.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
 
     }
 
