@@ -3,6 +3,7 @@ package AppGUI;
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.MiddleWindowController;
+import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,7 @@ public class MainGUI extends Application{
     public static ImageManager appImageManager = new ImageManager();
     public static TreeViewController treeViewController;
     public static MiddleWindowController middleWindowController;
+    public static OperatingMenuController operatingMenuController;
 
     public void start(Stage primaryStage) throws Exception {
         this.mainStage = primaryStage;
@@ -67,6 +69,14 @@ public class MainGUI extends Application{
 //        Pane searchBar = loader.load();
 //        mainLayout.setRight(searchBar);
 //    }
+
+    private void showOperatingMenu() throws IOException{
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+    Pane operatingMenu = loader.load();
+    mainLayout.setLeft(operatingMenu);
+    operatingMenuController = loader.getController(); }
+
 
 
     public static void main(String[] args){
