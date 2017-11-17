@@ -89,7 +89,9 @@ public class MainGUI extends Application{
     Pane operatingMenu = loader.load();
     mainLayout.setLeft(operatingMenu); }
 
-
+    public void closeApplication() {
+        mainStage.close();
+    }
 
     public static void main(String[] args){
         launch(args);

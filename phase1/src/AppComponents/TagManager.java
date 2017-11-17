@@ -13,13 +13,13 @@ public class TagManager {
     private static ObservableList<Tag> observableTagList= FXCollections.observableList(new ArrayList<>());
 
 
-    public TagManager(){
+    public TagManager() {
         Path currentRelativePath = Paths.get("");
         String filePath = currentRelativePath.toAbsolutePath().toString();
         filePath += "/tagConfig.txt";
 
         File file = new File(filePath);
-        if (file.exists()) {
+        if (file.exists() && file.length() != 0) {
             readTagsFromFile(filePath);
         } else {
             try{
