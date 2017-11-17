@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TagManager {
@@ -12,7 +14,10 @@ public class TagManager {
 
 
     public TagManager(){
-        String filePath = System.getProperty("user.dir");
+        Path currentRelativePath = Paths.get("");
+        String filePath = currentRelativePath.toAbsolutePath().toString();
+        filePath += "/tagConfig.txt";
+
         File file = new File(filePath);
         if (file.exists()) {
             readTagsFromFile(filePath);
@@ -129,19 +134,36 @@ public class TagManager {
     }
 
     public void readTagsFromFile(String filePath) {
-        try(FileInputStream is = new FileInputStream(filePath)) {
+        try {
+//            FileInputStream is = new FileInputStream(filePath);
+//            ObjectInputStream os = new ObjectInputStream(is);
+//            InputStreamReader os = new InputStreamReader(is);
 
-            ObjectInputStream os = new ObjectInputStream(is);
+            InputStream file = new FileInputStream(filePath);
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
 
-            int num = os.readInt();
+            int num = input.readInt();
+
             for (int i=0; i < num; i++) {
-                Tag tag = (Tag) os.readObject();
+//                System.out.println("hello");
+                Tag tag = (Tag) input.readObject();
                 listOfTags.add(tag);
                 observableTagList.add(tag);
                 System.out.println(tag.getTagName());
             }
-
-            os.close();
+//            int num = os.readInt();
+//
+//            for (int i=0; i < num; i++) {
+////                System.out.println("hello");
+//                Tag tag = (Tag) os.readObject();
+//                listOfTags.add(tag);
+//                observableTagList.add(tag);
+//                System.out.println(tag.getTagName());
+//            }
+//
+////            System.out.println("after for loop");
+            input.close();
 
         } catch (FileNotFoundException e){
             e.printStackTrace();
