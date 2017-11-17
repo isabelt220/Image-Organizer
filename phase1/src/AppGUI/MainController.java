@@ -4,6 +4,7 @@ import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.MiddleWindowController;
 import AppGUI.TreeView.TreeViewController;
+import javafx.scene.layout.Pane;
 
 public class MainController {
     private static TagManager appTagManager = new TagManager();
@@ -11,6 +12,26 @@ public class MainController {
     private static TreeViewController treeViewController;
     private static MiddleWindowController middleWindowController;
     private static MainGUI main;
+    private static Pane treeViewPanel;
+
+    public static void setTreeViewPanel(Pane treeViewPanel) {
+        MainController.treeViewPanel = treeViewPanel;
+    }
+
+    public static void setCenterPanel(Pane centerPanel) {
+        MainController.centerPanel = centerPanel;
+    }
+
+    public static Pane getTreeViewPanel() {
+
+        return treeViewPanel;
+    }
+
+    public static Pane getCenterPanel() {
+        return centerPanel;
+    }
+
+    private static Pane centerPanel;
 
     public static void setAppTagManager(TagManager appTagManager) {
         MainController.appTagManager = appTagManager;

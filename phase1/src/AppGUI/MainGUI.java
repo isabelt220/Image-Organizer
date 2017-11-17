@@ -50,19 +50,30 @@ public class MainGUI extends Application{
         mainLayout.setCenter(centerPane);
     }
 
-    public void showCenterView() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
-        Pane centerPane = loader.load();
-        mainLayout.setCenter(centerPane);
-        MainController.setMiddleWindowController(loader.getController());
+    public void showCenterView() throws IOException {
+        if (MainController.getCenterPanel() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
+            Pane centerPane = loader.load();
+            mainLayout.setCenter(centerPane);
+            MainController.setMiddleWindowController(loader.getController());
+            MainController.setCenterPanel(centerPane);
+        } else {
+            mainLayout.setCenter(MainController.getCenterPanel());
+        }
     }
+
     private void showTreeView() throws IOException{
+        if (MainController.getTreeViewPanel() == null) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
         Pane treeView = loader.load();
         mainLayout.setLeft(treeView);
         MainController.setTreeViewController(loader.getController());
+        MainController.setTreeViewPanel(treeView );
+        } else {
+            mainLayout.setCenter(MainController.getTreeViewPanel());
+        }
     }
 
 //    private void showSearchBar() throws IOException{
