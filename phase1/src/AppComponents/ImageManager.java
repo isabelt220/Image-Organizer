@@ -24,7 +24,7 @@ public class ImageManager {
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
                 ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
-                currImage.addTags(newTags);
+                i.addTags(newTags);
                 return;
             }
         }
