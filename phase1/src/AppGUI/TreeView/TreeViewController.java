@@ -2,7 +2,10 @@ package AppGUI.TreeView;
 
 import AppComponents.Tag;
 import AppComponents.TagManager;
+import AppGUI.CenterPanel.MiddleWindowController;
+import AppGUI.MainGUI;
 import AppGUI.PopUpWindow.DialogBox;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +23,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import javax.swing.text.html.ImageView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +46,7 @@ public class TreeViewController implements Initializable{
     HBox hBox = new HBox();
     @FXML
     TextField addTagField = new TextField();
-    static TreeViewImage selectedImage;
+    public static TreeViewImage selectedImage;
 
     public void initialize(URL location, ResourceBundle r){
         listView.setItems(TagManager.getObservableTagList());
@@ -92,7 +96,6 @@ public class TreeViewController implements Initializable{
                         @Override
                         protected void updateItem(File item, boolean empty) {
                             super.updateItem(item, empty);
-
                             setText((empty || item == null) ? "" : item.getName());
                         }
 
@@ -115,6 +118,16 @@ public class TreeViewController implements Initializable{
         hBox.setVisible(!hBox.isVisible());
     }
 
+    public void treeItemClick(){
+        TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
+        if(currentNode!=null && currentNode.getValue()!=null){
+            if(!currentNode.getValue().isDirectory()){
+                MainGUI.middleWindowController.setCenterPanel(currentNode);
+            }
+        }
+    }
+
+
     public void openImageTagEditor() throws Exception{
         File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
         if(currentFile!=null && currentFile.isDirectory()){
@@ -123,6 +136,7 @@ public class TreeViewController implements Initializable{
         }
         else if(currentFile != null){
             selectedImage = new TreeViewImage(currentFile.toURI().toString());
+            System.out.println(currentFile.toURI().toString());
             ImageTagEditor imageTagEditor = new ImageTagEditor();
             imageTagEditor.display();}
     }
