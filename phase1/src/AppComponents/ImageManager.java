@@ -16,18 +16,25 @@ public class ImageManager {
         imageList.add(newImage);
     }
 
-    public static ArrayList<ImageData> getImageList() {
+    public ArrayList<ImageData> getImageList() {
         return imageList;
     }
 
-    public static void imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
-        ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
-        currImage.addTags(newTags);
+    public void imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
+        for (ImageData i : imageList) {
+            if (i.equals(currImage)) {
+                ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
+                currImage.addTags(newTags);
+                return;
+            }
+        }
+
+        imAddTagNewImage(currImage, tagNameList);
     }
 
-    public static void imAddTagNewImage(String newUrl, ArrayList<String> tagNameList) {
-        ImageData newCreatedImage = new ImageData(newUrl);
-        imageList.add(newCreatedImage);
-        imAddTagWithImage(newCreatedImage, tagNameList);
+    private void imAddTagNewImage(ImageData currImage, ArrayList<String> tagNameList) {
+        imageList.add(currImage);
+        ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
+        currImage.addTags(newTags);
     }
 }
