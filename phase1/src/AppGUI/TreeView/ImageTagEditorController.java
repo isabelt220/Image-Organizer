@@ -3,11 +3,13 @@ package AppGUI.TreeView;
 import AppComponents.ImageData;
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
+import AppGUI.MainGUI;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ImageTagEditorController {
     @FXML
@@ -20,25 +22,15 @@ public class ImageTagEditorController {
     }
 
 
-    public void addTagExistingImage() {
+    public void addTagToImage() {
         ImageData currImage = new ImageData(
                 TreeViewController.selectedImage.getUrl());
 
         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagFieldTagEditor.getText());
 
-        for (ImageData i : ImageManager.getImageList()) {
-            if (((ImageData) i).equals(currImage)) {
-                ImageManager.imAddTagWithImage(i, tagEditorTagList);
-                return;
-            }
-        }
+        MainGUI.appImageManager.imAddTagWithImage(currImage, tagEditorTagList);
 
-        this.addTagNewImage();
-    }
-
-    public void addTagNewImage(){
-        // Need to complete.
     }
 
 }
