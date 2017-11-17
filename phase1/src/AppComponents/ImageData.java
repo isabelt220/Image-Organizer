@@ -53,6 +53,8 @@ public class ImageData implements Serializable{
 
     public String getName(){return name;}
 
+    public String getCoreName(){return coreName;}
+
     public StringProperty getPathProperty() {
         StringProperty pPath = new SimpleStringProperty(path);
         return pPath;
