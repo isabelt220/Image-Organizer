@@ -3,7 +3,7 @@ package AppGUI;
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.MiddleWindowController;
-import AppGUI.TreeView.OperatingMenuController;
+//import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
 import javafx.scene.layout.Pane;
 

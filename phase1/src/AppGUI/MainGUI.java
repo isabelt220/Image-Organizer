@@ -83,17 +83,21 @@ public class MainGUI extends Application{
 //        mainLayout.setRight(searchBar);
 //    }
 
-    public void showOperatingMenu() throws IOException{
-        if (MainController.getOperatingMenuController() == null) {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-            Pane operatingMenu = loader.load();
-            mainLayout.setLeft(operatingMenu);
-            MainController.setOperatingMenuController(loader.getController());
-            MainController.setOperatingMenuPane(operatingMenu );}
-        else{
-            mainLayout.setLeft(MainController.getOperatingMenu());
-        }}
+//    public void showOperatingMenu() throws IOException{
+//        if (MainController.getOperatingMenuController() == null) {
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+//            Pane operatingMenu = loader.load();
+//            mainLayout.setLeft(operatingMenu);
+//            MainController.setOperatingMenuController(loader.getController());
+//            MainController.setOperatingMenuPane(operatingMenu );}
+//        else{
+//            mainLayout.setLeft(MainController.getOperatingMenu());
+//        }}
+
+    public void stop() {
+        MainController.getAppTagManager().saveTagsToFile("tagConfig.txt");
+    }
 
     public void closeApplication() {
         mainStage.close();
