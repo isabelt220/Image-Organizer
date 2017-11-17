@@ -51,17 +51,22 @@ public class MiddleWindowController implements Initializable{
     }
 
     public void setCenterPanel(TreeItem<File> pic){
+        tableView.getColumns().clear();
+        tableView.getItems().clear();
         Image image = new Image(pic.getValue().toURI().toString());
         this.imageView.setImage(image);
         TreeItem<File> dir = pic.getParent();
         ArrayList<TableListElement> imageTable =  new ArrayList<>();
         for(TreeItem<File> f: dir.getChildren()){
             if(!f.getValue().isDirectory()){
+                Image image2 = new Image(f.getValue().toURI().toString(),100,100,true,true);
+                ImageView tableImage = new ImageView();
+                tableImage.setImage(image2);
                 TableListElement newElement = new TableListElement(f.getValue().getName());
+                newElement.setPicture(tableImage);
                 imageTable.add(newElement);
             }
         }
-        tableView.getColumns().clear();
         tableView.getColumns().addAll(tableColumn1,tableColumn2);
         tableView.setItems(FXCollections.observableList(imageTable));
 
