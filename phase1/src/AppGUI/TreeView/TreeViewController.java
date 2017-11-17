@@ -38,6 +38,7 @@ public class TreeViewController implements Initializable{
     @FXML
     TextField addTagField = new TextField();
     public static TreeViewImage selectedImage;
+    public boolean imageClicked;
 
     public void initialize(URL location, ResourceBundle r){
         listView.setItems(TagManager.getObservableTagList());
@@ -117,6 +118,8 @@ public class TreeViewController implements Initializable{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!=null && currentNode.getValue()!=null){
             if(!currentNode.getValue().isDirectory()){
+//                MainController.getOperatingMenuController().setOperatingMenu(selectedImage);
+//                MainController.getMain().showOperatingMenu();
                 MainController.getMiddleWindowController().setCenterPanel(currentNode);
                 MainController.getMain().showCenterView();
             }else{
@@ -124,6 +127,8 @@ public class TreeViewController implements Initializable{
             }
         }
     }
+
+
 
 
     public void openImageTagEditor() throws Exception{
