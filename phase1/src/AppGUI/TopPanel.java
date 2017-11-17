@@ -13,14 +13,13 @@ import sun.applet.Main;
 
 
 public class TopPanel {
-    @FXML
-    private MenuItem exitButton;
 
     public void addNewTag() {
         MainController.getTreeViewController().addTagClick();
     }
 
-    public void deleteExistingTag() {MainController.getTreeViewController().deleteTagClick();
+    public void deleteExistingTag() {
+        MainController.getTreeViewController().deleteTagClick();
     }
 
     public void openImageTagEditor() throws Exception {
@@ -29,6 +28,11 @@ public class TopPanel {
 
     public void openChooseDirectory() {
         MainController.getTreeViewController().openFolder();
+    }
+
+    public void saveTagsAndExitApp() {
+        MainController.getAppTagManager().saveTagsToFile("tagConfig.txt");
+        MainController.getMain().closeApplication();
     }
 
 }

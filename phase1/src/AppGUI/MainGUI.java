@@ -95,7 +95,9 @@ public class MainGUI extends Application{
             mainLayout.setLeft(MainController.getOperatingMenu());
         }}
 
-
+    public void closeApplication() {
+        mainStage.close();
+    }
 
     public static void main(String[] args){
         launch(args);
