@@ -1,38 +1,27 @@
 package AppGUI;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Pane;
-import sun.applet.Main;
-
 
 public class TopPanel {
 
     public void addNewTag() {
-        MainController.getTreeViewController().addTagClick();
+        MainContainer.getTreeViewController().addTagClick();
     }
 
     public void deleteExistingTag() {
-        MainController.getTreeViewController().deleteTagClick();
+        MainContainer.getTreeViewController().deleteTagClick();
     }
 
     public void openImageTagEditor() throws Exception {
-       MainController.getTreeViewController().openImageTagEditor();
+       MainContainer.getTreeViewController().openImageTagEditor();
     }
 
     public void openChooseDirectory() {
-        MainController.getTreeViewController().openFolder();
+        MainContainer.getTreeViewController().openFolder();
     }
 
     public void saveTagsAndExitApp() {
-        MainController.getAppTagManager().saveTagsToFile("tagConfig.txt");
-        MainController.getMain().closeApplication();
+        MainContainer.getAppTagManager().saveTagsToFile("tagConfig.txt");
+        MainContainer.getMain().closeApplication();
     }
 
 }

@@ -1,6 +1,6 @@
 package AppGUI.CenterPanel;
 
-import AppGUI.MainController;
+import AppGUI.MainContainer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,8 +37,8 @@ public class FolderPanelController  implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 try {TreeItem<File> location= tableView.getSelectionModel().getSelectedItem().getDir();
-                MainController.getMiddleWindowController().setPanel(location);
-                MainController.getMain().showCenterView();
+                MainContainer.getMiddleWindowController().setPanel(location);
+                MainContainer.getMain().showCenterView();
                 }catch(Exception e){
                     e.printStackTrace();
                 };
@@ -97,8 +97,8 @@ public class FolderPanelController  implements Initializable {
                 newElement.setPicture(tableImage);
                 newElement.setDir(f);
                 imageTable.add(newElement);
-                if(MainController.getAppImageManager().ImageExist(url)){
-                    newElement.setCoreName(MainController.getAppImageManager().getImage(url).getCoreName());
+                if(MainContainer.getAppImageManager().ImageExist(url)){
+                    newElement.setCoreName(MainContainer.getAppImageManager().getImage(url).getCoreName());
                 }
             }
         }

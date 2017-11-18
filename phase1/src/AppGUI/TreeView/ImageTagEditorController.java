@@ -1,8 +1,7 @@
 package AppGUI.TreeView;
 
 import AppComponents.ImageData;
-import AppComponents.ImageManager;
-import AppGUI.MainController;
+import AppGUI.MainContainer;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,15 +24,16 @@ public class ImageTagEditorController {
 
 
     public void addTagToImage() {
-        File selectedFile = MainController.getTreeViewController().treeView.getSelectionModel().getSelectedItem().getValue();
-        ImageData currImage = MainController.getAppImageManager().getImage(selectedFile.toPath().toString());
+        File selectedFile = MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().getValue();
+        ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
 
         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagFieldTagEditor.getText());
 
-        ImageData newNode = MainController.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
+        ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
         File f= new File(newNode.getLocation());
-        MainController.getTreeViewController().treeView.getSelectionModel().getSelectedItem().setValue(f);
+        MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().setValue(f);
+        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem());
 
 
 

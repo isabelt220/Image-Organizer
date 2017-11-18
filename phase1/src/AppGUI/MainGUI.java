@@ -15,7 +15,7 @@ public class MainGUI extends Application{
 
 
     public void start(Stage primaryStage) throws Exception {
-        MainController.setMain(this);
+        MainContainer.setMain(this);
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
         showMainView();
@@ -32,41 +32,41 @@ public class MainGUI extends Application{
         mainStage.show();
     }
     public void showFolderPanel()throws IOException{
-        if(MainController.getFolderPanel()==null){
+        if(MainContainer.getFolderPanel()==null){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
         Pane folderPanel = loader.load();
         mainLayout.setCenter(folderPanel);
-        MainController.setFolderPanelController(loader.getController());
-        MainController.setFolderPanel(folderPanel);}
+        MainContainer.setFolderPanelController(loader.getController());
+        MainContainer.setFolderPanel(folderPanel);}
         else {
-            mainLayout.setCenter(MainController.getFolderPanel());
+            mainLayout.setCenter(MainContainer.getFolderPanel());
         }
     }
 
     public void showCenterView() throws IOException {
-        if (MainController.getCenterPanel() == null) {
+        if (MainContainer.getCenterPanel() == null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
             Pane centerPane = loader.load();
             mainLayout.setCenter(centerPane);
-            MainController.setMiddleWindowController(loader.getController());
-            MainController.setCenterPanel(centerPane);
+            MainContainer.setMiddleWindowController(loader.getController());
+            MainContainer.setCenterPanel(centerPane);
         } else {
-            mainLayout.setCenter(MainController.getCenterPanel());
+            mainLayout.setCenter(MainContainer.getCenterPanel());
         }
     }
 
     private void showTreeView() throws IOException{
-        if (MainController.getTreeViewPanel() == null) {
+        if (MainContainer.getTreeViewPanel() == null) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
         Pane treeView = loader.load();
         mainLayout.setLeft(treeView);
-        MainController.setTreeViewController(loader.getController());
-        MainController.setTreeViewPanel(treeView );
+        MainContainer.setTreeViewController(loader.getController());
+        MainContainer.setTreeViewPanel(treeView );
         } else {
-            mainLayout.setCenter(MainController.getTreeViewPanel());
+            mainLayout.setCenter(MainContainer.getTreeViewPanel());
         }
     }
 
@@ -78,22 +78,22 @@ public class MainGUI extends Application{
 //    }
 
 //    public void showOperatingMenu() throws IOException{
-//        if (MainController.getOperatingMenuController() == null) {
+//        if (MainContainer.getOperatingMenuController() == null) {
 //            FXMLLoader loader = new FXMLLoader();
 //            loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
 //            Pane operatingMenu = loader.load();
 //            mainLayout.setLeft(operatingMenu);
-//            MainController.setOperatingMenuController(loader.getController());
-//            MainController.setOperatingMenuPane(operatingMenu );}
+//            MainContainer.setOperatingMenuController(loader.getController());
+//            MainContainer.setOperatingMenuPane(operatingMenu );}
 //        else{
-//            mainLayout.setLeft(MainController.getOperatingMenu());
+//            mainLayout.setLeft(MainContainer.getOperatingMenu());
 //        }}
 
 
 
     public void stop() {
-        MainController.getAppTagManager().saveTagsToFile("tagConfig.txt");
-        MainController.getAppImageManager().saveImagesToFile("imageConfig.txt");
+        MainContainer.getAppTagManager().saveTagsToFile("tagConfig.txt");
+        MainContainer.getAppImageManager().saveImagesToFile("imageConfig.txt");
     }
 
     public void closeApplication() {

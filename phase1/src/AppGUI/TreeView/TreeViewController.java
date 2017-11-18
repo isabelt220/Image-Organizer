@@ -2,7 +2,7 @@ package AppGUI.TreeView;
 
 import AppComponents.Tag;
 import AppComponents.TagManager;
-import AppGUI.MainController;
+import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -99,7 +99,7 @@ public class TreeViewController implements Initializable{
     public void deleteTagClick(){
         ObservableList<Tag> selectedItems= listView.getSelectionModel().getSelectedItems();
         for(Tag t: selectedItems){
-            MainController.getAppImageManager().removeTagFromPic(t.getTagName());
+            MainContainer.getAppImageManager().removeTagFromPic(t.getTagName());
             TreeViewItem listHelper = new TreeViewItem();
             File newRoot = treeView.getRoot().getValue();
             treeView.setRoot(listHelper.generateTreeItem(newRoot));
@@ -117,13 +117,13 @@ public class TreeViewController implements Initializable{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!=null && currentNode.getValue()!=null){
             if(!currentNode.getValue().isDirectory()){
-//                MainController.getOperatingMenuController().setOperatingMenu(selectedImage);
-//                MainController.getMain().showOperatingMenu();
-                MainController.getMiddleWindowController().setPanel(currentNode);
-                MainController.getMain().showCenterView();
+//                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
+//                MainContainer.getMain().showOperatingMenu();
+                MainContainer.getMiddleWindowController().setPanel(currentNode);
+                MainContainer.getMain().showCenterView();
             }else{
-                MainController.getMain().showFolderPanel();
-                MainController.getFolderPanelController().setPanel(currentNode);
+                MainContainer.getMain().showFolderPanel();
+                MainContainer.getFolderPanelController().setPanel(currentNode);
             }
         }
     }
