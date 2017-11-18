@@ -4,6 +4,7 @@ import AppComponents.Tag;
 import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
@@ -29,6 +32,7 @@ import java.util.ResourceBundle;
 public class TreeViewController implements Initializable{
     @FXML
     public Button editButton;
+    public ContextMenu contextMenu;
     @FXML
     TreeView<File> treeView = new TreeView<>();
     @FXML
@@ -115,20 +119,38 @@ public class TreeViewController implements Initializable{
 
     public void treeItemClick() throws  IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
-        if(currentNode!=null && currentNode.getValue()!=null){
+
             if(!currentNode.getValue().isDirectory()){
-                MainContainer.getMain().showOperatingMenu();
+                if(currentNode!=null && currentNode.getValue()!=null){
+                    treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
+                        if(t.getButton() == MouseButton.SECONDARY)
+                        {
+                            contextMenu.show(treeView, t.getScreenX() , t.getScreenY());
+                        }else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2){
+                                try{
+                                    MainContainer.getMain().showOperatingMenu();
+                                MainContainer.getMiddleWindowController().setPanel(currentNode);
+                                MainContainer.getMain().showCenterView();}
+                            catch(IOException e){System.err.println("Caught IOException: " + e.getMessage());}}
+                        else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 1){
+                            try{
+//                                MainContainer.getMain().showOperatingMenu();
 //                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
 //                MainContainer.getMain().showOperatingMenu();
-                MainContainer.getMiddleWindowController().setPanel(currentNode);
-                MainContainer.getMain().showCenterView();
-            }else{
+                                MainContainer.getMiddleWindowController().setPanel(currentNode);
+                                MainContainer.getMain().showCenterView();}
+                            catch(IOException e){System.err.println("Caught IOException: " + e.getMessage());}}
+
+//                    MainContainer.getMain().showOperatingMenu();
+////                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
+////                MainContainer.getMain().showOperatingMenu();
+//                    MainContainer.getMiddleWindowController().setPanel(currentNode);
+//                    MainContainer.getMain().showCenterView();
+            });}}else{
                 MainContainer.getMain().showFolderPanel();
                 MainContainer.getFolderPanelController().setPanel(currentNode);
             }
         }
-    }
-
 
 
 

@@ -34,7 +34,7 @@
                            <children>
                               <TreeView fx:id="treeView" onMouseClicked="#treeItemClick" prefHeight="370.0" prefWidth="137.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                                  <contextMenu>
-                                    <ContextMenu>
+                                    <ContextMenu fx:id="contextMenu">
                                        <items>
                                           <MenuItem mnemonicParsing="false" onAction="#openImageTagEditor" text="Rename" />
                                           <MenuItem mnemonicParsing="false" onAction="#deleteFile" text="Delete" />
