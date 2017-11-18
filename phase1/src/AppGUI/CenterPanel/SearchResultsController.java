@@ -21,14 +21,11 @@ import java.util.*;
 
 public class SearchResultsController {
 
-
-//    @FXML
-//    public TreeTableColumn imagePreview;
+    
     private static ObservableList<ImageData> images;
     @FXML
     public TableView<TableListElement> resultTable;
-//    @FXML
-//    public TableColumn<ImageData,String> imagePath;
+
     @FXML
     public TableColumn<TableListElement, String> imageName;
     @FXML
@@ -52,33 +49,13 @@ public class SearchResultsController {
                 }
             };
         });
-//        imagePath.setCellValueFactory(cellData -> cellData.getValue().getPathProperty());
-//        imageName.setCellValueFactory(cellData -> cellData.getValue().getName());
+
         imageName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TableListElement, String>,
                 ObservableValue<String>>() {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<TableListElement, String> t) {
                 return new SimpleStringProperty(t.getValue().getName());
             }
-        });setResults();
-//        SortedList<ImageData> sortedData = new SortedList<>(images);
-//        sortedData.comparatorProperty().bind(resultTable.comparatorProperty());
-//        resultTable.setItems(sortedData);
-//        ArrayList<TableListElement> imageTable =  new ArrayList<>();
-//        for(ImageData pic: images){
-//            Image image2 = new Image(pic.getImageLocation(),100,100,true,true);
-//                ImageView tableImage = new ImageView();
-//                tableImage.setImage(image2);
-//                TableListElement newElement = new TableListElement(pic.getImageLocation());
-//                newElement.setPicture(tableImage);
-//                imageTable.add(newElement);
-//            }
-//        }
-////        resultTable.get
-////        tableView.setItems(FXCollections.observableList(imageTable));
-
-
-//
-}
+        });setResults(); }
 
     public static void setImages(ObservableList<ImageData> iImages){
         images = iImages;
@@ -98,7 +75,7 @@ public class SearchResultsController {
             newElement.setPicture(tableImage);
             imageTable.add(newElement);
         }
-        resultTable.getColumns().addAll(imagePreview,imageName);
+
         resultTable.setItems(FXCollections.observableList(imageTable));
     }
 }
