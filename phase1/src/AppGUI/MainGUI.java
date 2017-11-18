@@ -14,6 +14,7 @@ public class MainGUI extends Application{
     private Stage mainStage;
     private BorderPane mainLayout;
     public Pane operatingMenu;
+    public Pane treeView;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -72,7 +73,7 @@ public class MainGUI extends Application{
         }
     }
 
-    private void showTreeView() throws IOException{
+    public void showTreeView() throws IOException{
         if (MainContainer.getTreeViewPanel() == null) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
@@ -81,7 +82,7 @@ public class MainGUI extends Application{
         MainContainer.setTreeViewController(loader.getController());
         MainContainer.setTreeViewPanel(treeView );
         } else {
-            mainLayout.setCenter(MainContainer.getTreeViewPanel());
+            mainLayout.setLeft(MainContainer.getTreeViewPanel());
         }
     }
 

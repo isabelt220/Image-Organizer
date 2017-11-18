@@ -41,7 +41,8 @@ public class OperatingMenuController implements Initializable{
     public void initialize(URL location, ResourceBundle r){}
 
 @FXML
-    public void returnToOtherPane() throws IOException{ ;
+    public void returnToOtherPane() throws IOException{
+        MainContainer.getMain().showTreeView();
     }
 
     public void setOperatingMenu(ImageData chosenImage){
