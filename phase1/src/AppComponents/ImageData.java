@@ -1,7 +1,8 @@
 package AppComponents;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.Serializable;
@@ -22,19 +23,20 @@ public class ImageData implements Serializable{
 //    private static int idCounter;
 //    private int id;
     //For testing purposes
+    private ImageView view;
     private String lastChangeTime;
     private String path;
     private String type;
 
     public ImageData(String location) {
         this.location = location;
+        setView();
         File imageFile = new File(location);
         String temp = imageFile.getName();
         name = temp.substring(0,temp.lastIndexOf("."));
         coreName = name;
         int x = location.lastIndexOf(File.separator)+1;
         path = location.substring(0,x);
-        String extension = "";
         int i = imageFile.getName().lastIndexOf('.');
         type = imageFile.getName().substring(i+1);
 //        setImageLocation(location);
@@ -45,32 +47,9 @@ public class ImageData implements Serializable{
 //        idCounter++;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public String getType() {
-        return type;
-    }
-
     public String getName(){return name;}
 
     public String getCoreName(){return coreName;}
-
-    public StringProperty getPathProperty() {
-        StringProperty pPath = new SimpleStringProperty(path);
-        return pPath;
-    }
-
-    public StringProperty getTypeProperty() {
-        StringProperty pType = new SimpleStringProperty(type);
-        return pType;
-    }
-
-    public StringProperty getNameProperty(){
-        StringProperty pName = new SimpleStringProperty(name);
-        return pName;
-    }
 
     public String printLog(){
         String log = "";
@@ -97,7 +76,7 @@ public class ImageData implements Serializable{
 //        return id;
 //    }
 
-    public void deleteTags(ArrayList<Tag> dTags){
+   void deleteTags(ArrayList<Tag> dTags){
 //        for (int i = 0; i < dTags.size(); i++) {
 //            if((tagList.contains(dTags.get(i)))){
 //                tagList.remove(dTags.get(i));}
@@ -117,7 +96,7 @@ public class ImageData implements Serializable{
         setImageTags(tagList);
     }
 
-    public void addTags(ArrayList<Tag> newTags){
+    void addTags(ArrayList<Tag> newTags){
         for (Tag newTag : newTags) {
             if (!(tagList.contains(newTag))) {
                 tagList.add(newTag);
@@ -146,7 +125,7 @@ public class ImageData implements Serializable{
 //            location = imageLocation; }
 //    }
 
-    public void setImageTags(ArrayList<Tag> tags) {
+    private void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
 
         for (Tag tag : tags) {
@@ -162,11 +141,7 @@ public class ImageData implements Serializable{
 
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setImageName(String newName) {
+    private void setImageName(String newName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
          nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
             File oldName = new File(location);
@@ -182,13 +157,26 @@ public class ImageData implements Serializable{
 //                //image rename fails
 }
 
+    private void setView(){
+        File imageFile = new File(location);
+        Image image = new Image(imageFile.toURI().toString());
+        this.view = new ImageView(image);
 
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public ImageView getView() {
+        return view;
+    }
 
     public ArrayList<Tag> getImageTags(){
         return tagList;
     }
 
-    public String getImageLocation() {
+    private String getImageLocation() {
         return location;
     }
 
@@ -197,16 +185,9 @@ public class ImageData implements Serializable{
         return lastChangeTime;
     }
 
-    public String getImageName() {
-        return name;
-    }
 
     @Override
     public boolean equals(Object other){
-        if(!(other instanceof ImageData)){
-            return false;
-        }
-        else{
-        return location.equals(((ImageData) other).getImageLocation());
-    }}
+        return other instanceof ImageData && location.equals(((ImageData) other).getImageLocation());
+    }
 }
