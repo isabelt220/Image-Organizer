@@ -1,5 +1,7 @@
 package AppComponents;
 
+import AppGUI.MainController;
+
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Path;
@@ -88,8 +90,8 @@ public class ImageManager {
     public ImageData imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
-                ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
-                i.setImageTags(newTags);
+                ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(currImage ,tagNameList);
+                i.addTags(newTags);
                 return i;
             }
         }
@@ -109,13 +111,24 @@ public class ImageManager {
                 return i;
             }
         }
-        return null;
+        return new ImageData(location);
     }
 
     private ImageData imAddTagNewImage(ImageData currImage, ArrayList<String> tagNameList) {
         imageList.add(currImage);
-        ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
+        ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(currImage, tagNameList);
         currImage.addTags(newTags);
         return currImage;
+    }
+
+    public void removeTagFromPic(String tagName){
+        Tag tag = new Tag(tagName);
+        ArrayList<Tag> tagList = new ArrayList<>();
+        tagList.add(tag);
+        ArrayList<ImageData> associatedImages=TagManager.removeTag(tagName);
+        if(associatedImages!=null){
+        for(ImageData image:associatedImages){
+            image.deleteTags(tagList);
+        }}
     }
 }

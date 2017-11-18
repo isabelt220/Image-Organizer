@@ -4,6 +4,7 @@ import AppGUI.MainController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableCell;
@@ -13,6 +14,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 import java.io.File;
@@ -31,6 +33,17 @@ public class FolderPanelController  implements Initializable {
     TableColumn<TableListElement, String > tableColumn3 = new TableColumn<>();
 
     public void initialize(URL location, ResourceBundle r){
+        tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {TreeItem<File> location= tableView.getSelectionModel().getSelectedItem().getDir();
+                MainController.getMiddleWindowController().setPanel(location);
+                MainController.getMain().showCenterView();
+                }catch(Exception e){
+                    e.printStackTrace();
+                };
+            }
+        });
         tableColumn1.setCellValueFactory(new PropertyValueFactory<>("picture"));
         tableColumn1.setCellFactory(column -> {
             return new TableCell<TableListElement, ImageView>() {
@@ -82,6 +95,7 @@ public class FolderPanelController  implements Initializable {
                 String temp = f.getValue().getName();
                 TableListElement newElement = new TableListElement(temp.substring(0,temp.lastIndexOf(".")));
                 newElement.setPicture(tableImage);
+                newElement.setDir(f);
                 imageTable.add(newElement);
                 if(MainController.getAppImageManager().ImageExist(url)){
                     newElement.setCoreName(MainController.getAppImageManager().getImage(url).getCoreName());

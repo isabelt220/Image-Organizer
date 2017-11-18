@@ -79,16 +79,19 @@ public class TagManager {
         }
     }
 
-    public static ArrayList<Tag> tmAddTagWithImage(ArrayList<String> tagNameList) {
+    public static ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
             if (!tagExists(name)) {
                 Tag tag = new Tag(name);
+                tag.getAssociatedImages().add(image);
                 listOfTags.add(tag);
                 observableTagList.add(tag);
                 listOfTagsToAttachToImage.add(tag);
             } else {
+                Tag tag = getTag(name);
+                tag.getAssociatedImages().add(image);
                 listOfTagsToAttachToImage.add(getTag(name));
             }
         }

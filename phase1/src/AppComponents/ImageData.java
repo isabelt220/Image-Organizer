@@ -172,11 +172,7 @@ public class ImageData implements Serializable{
          nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
             File oldName = new File(location);
             File addedName = new File(path+newName+"."+type);
-            System.out.println(path+newName+"."+type);
-            System.out.println(location);
             boolean flag = oldName.renameTo(addedName);
-            System.out.println(flag);
-
             name = newName;
             location = path+name+"."+type;
             lastChangeTime = time.toString();
@@ -211,8 +207,6 @@ public class ImageData implements Serializable{
             return false;
         }
         else{
-        File thisFile = new File(location);
-        File otherFile = new File(((ImageData) other).getImageLocation());
-        return thisFile.getAbsolutePath().equals(otherFile.getAbsolutePath());
+        return location.equals(((ImageData) other).getImageLocation());
     }}
 }

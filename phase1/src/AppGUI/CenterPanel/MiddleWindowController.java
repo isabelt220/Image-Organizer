@@ -34,7 +34,8 @@ public class MiddleWindowController extends FolderPanelController{
     public ArrayList<ImageData> foundImages;
     public ObservableList<ImageData> obserImages;
 
-    public void setCenterPanel(TreeItem<File> pic){
+    @Override
+    public void setPanel(TreeItem<File> pic){
         super.setPanel(pic);
         Image image = new Image(pic.getValue().toURI().toString());
         this.imageView.setImage(image);

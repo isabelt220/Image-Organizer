@@ -1,16 +1,28 @@
 package AppGUI.CenterPanel;
 
 
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.ImageView;
+
+import java.io.File;
 
 public class TableListElement {
     private String name;
     private ImageView picture;
     private String coreName;
+    private TreeItem<File> dir;
 
     public TableListElement(String name){
         this.name=name;
         this.coreName=name;
+    }
+
+    public void setDir(TreeItem<File> dir) {
+        this.dir = dir;
+    }
+
+    public TreeItem<File> getDir() {
+        return dir;
     }
 
     public void setName(String name) {

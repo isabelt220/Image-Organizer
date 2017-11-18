@@ -99,7 +99,10 @@ public class TreeViewController implements Initializable{
     public void deleteTagClick(){
         ObservableList<Tag> selectedItems= listView.getSelectionModel().getSelectedItems();
         for(Tag t: selectedItems){
-            TagManager.removeTag(t.getTagName());
+            MainController.getAppImageManager().removeTagFromPic(t.getTagName());
+            TreeViewItem listHelper = new TreeViewItem();
+            File newRoot = treeView.getRoot().getValue();
+            treeView.setRoot(listHelper.generateTreeItem(newRoot));
             listView.getItems().remove(t);
         }
 
@@ -116,7 +119,7 @@ public class TreeViewController implements Initializable{
             if(!currentNode.getValue().isDirectory()){
 //                MainController.getOperatingMenuController().setOperatingMenu(selectedImage);
 //                MainController.getMain().showOperatingMenu();
-                MainController.getMiddleWindowController().setCenterPanel(currentNode);
+                MainController.getMiddleWindowController().setPanel(currentNode);
                 MainController.getMain().showCenterView();
             }else{
                 MainController.getMain().showFolderPanel();

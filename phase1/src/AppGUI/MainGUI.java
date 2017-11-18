@@ -89,6 +89,8 @@ public class MainGUI extends Application{
 //            mainLayout.setLeft(MainController.getOperatingMenu());
 //        }}
 
+
+
     public void stop() {
         MainController.getAppTagManager().saveTagsToFile("tagConfig.txt");
         MainController.getAppImageManager().saveImagesToFile("imageConfig.txt");
