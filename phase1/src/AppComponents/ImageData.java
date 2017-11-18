@@ -32,7 +32,7 @@ public class ImageData implements Serializable{
         String temp = imageFile.getName();
         name = temp.substring(0,temp.lastIndexOf("."));
         coreName = name;
-        int x = location.lastIndexOf("/")+1;
+        int x = location.lastIndexOf(File.separator)+1;
         path = location.substring(0,x);
         String extension = "";
         int i = imageFile.getName().lastIndexOf('.');
@@ -172,6 +172,7 @@ public class ImageData implements Serializable{
             File oldName = new File(location);
             File addedName = new File(path+newName+"."+type);
             oldName.renameTo(addedName);
+            System.out.println(path+newName+"."+type+"FromImageData");
             name = newName;
             location = path+name+"."+type;
             lastChangeTime = time.toString();
