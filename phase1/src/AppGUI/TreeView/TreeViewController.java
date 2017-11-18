@@ -3,6 +3,7 @@ package AppGUI.TreeView;
 import AppComponents.Tag;
 import AppComponents.TagManager;
 import AppGUI.MainContainer;
+import AppGUI.MainGUI;
 import AppGUI.PopUpWindow.DialogBox;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -18,13 +19,12 @@ import javafx.util.Callback;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class TreeViewController implements Initializable{
     @FXML
@@ -76,7 +76,7 @@ public class TreeViewController implements Initializable{
 
     public void openFolder() {
         DirectoryChooser dc = new DirectoryChooser();
-        File choice = dc.showDialog(treeView.getScene().getWindow());
+        File choice =  dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
         if (choice != null) {
             TreeViewItem listHelper = new TreeViewItem();
             treeView.setRoot(listHelper.generateTreeItem(choice));
@@ -146,43 +146,20 @@ public class TreeViewController implements Initializable{
             imageTagEditor.display();}
     }
 
-    public void deleteFile(){
-        TreeItem<File> targetNode = treeView.getSelectionModel().getSelectedItem();
-        File target = targetNode.getValue();
-        if(target == null){
-            DialogBox alertBox = new DialogBox("Alert","File does not exist! Please refresh");
-            alertBox.display();
-        }
-        else{
+    public void removeFile(){
+        File selectedFile = treeView.getSelectionModel().getSelectedItem().getValue();
+        DirectoryChooser dc = new DirectoryChooser();
+        File choice = dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
+       if (choice != null) {
             try{
-                Path directory = target.toPath();
-                Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                        Files.delete(file);
-                        return FileVisitResult.CONTINUE;
-                    }
-                    @Override
-                    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                        if (exc == null)
-                        {
-                            Files.delete(dir);
-                            return FileVisitResult.CONTINUE;
-                        }
-                        else
-                        {
-                            throw exc;
-                        }
-                    }
-                });
-
-                targetNode.getParent().getChildren().remove(targetNode);
-            }
+                String name = selectedFile.getName();
+                Path targetPath = Paths.get(choice.toPath().toString()+File.separator+name);
+            Files.move(selectedFile.toPath(),targetPath , REPLACE_EXISTING);}
             catch (IOException e){
-                DialogBox alertBox = new DialogBox("Alert","Sorry!Deletion Failed!");
-                alertBox.display();
+                DialogBox Warning = new DialogBox("Warning","Remove Failed");
             }
-        }
+       }
+
     }
 //    @FXML
 //    public void switchToEditPane(ActionEvent event) throws IOException{
