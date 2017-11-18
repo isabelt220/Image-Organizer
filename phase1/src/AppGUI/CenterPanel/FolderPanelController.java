@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public abstract class ParentTable  implements Initializable {
+public class FolderPanelController  implements Initializable {
     @FXML
     private   TableView<TableListElement> tableView = new TableView<>();
     @FXML
@@ -40,6 +40,7 @@ public abstract class ParentTable  implements Initializable {
 
                     if (image == null || empty) {
                         setText(null);
+                        setGraphic(null);
                         setStyle("");
                     } else {setGraphic(image);
                     }
@@ -73,12 +74,13 @@ public abstract class ParentTable  implements Initializable {
         ArrayList<TableListElement> imageTable =  new ArrayList<>();
         for(TreeItem<File> f: dir.getChildren()){
             if(!f.getValue().isDirectory()){
-                String url = f.getValue().toURI().toString();
+                String url = f.getValue().toPath().toString();
                 Image image2 = new Image(f.getValue().toURI().toString(),100,100,true,true);
                 ImageView tableImage = new ImageView();
                 tableImage.setImage(image2);
 
-                TableListElement newElement = new TableListElement(f.getValue().getName());
+                String temp = f.getValue().getName();
+                TableListElement newElement = new TableListElement(temp.substring(0,temp.lastIndexOf(".")));
                 newElement.setPicture(tableImage);
                 imageTable.add(newElement);
                 if(MainController.getAppImageManager().ImageExist(url)){

@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.CenterPanel.FolderPanelController">
+<Pane prefHeight="439.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.CenterPanel.FolderPanelController">
    <children>
-      <VBox prefHeight="348.0" prefWidth="573.0">
+      <VBox prefHeight="439.0" prefWidth="544.0">
          <children>
-            <TableView fx:id="tableView" prefHeight="355.0" prefWidth="573.0">
+            <TableView fx:id="tableView" prefHeight="442.0" prefWidth="530.0">
                <columns>
                   <TableColumn fx:id="tableColumn1" prefWidth="150.0" text="Image" />
-                  <TableColumn fx:id="tableColumn3" prefWidth="75.0" text="Core Name" />
-                  <TableColumn fx:id="tableColumn2" prefWidth="300.0" text="Name" />
+                  <TableColumn fx:id="tableColumn3" prefWidth="200.0" text="Core Name" />
+                  <TableColumn fx:id="tableColumn2" prefWidth="200.0" text="Name" />
                </columns>
             </TableView>
          </children>

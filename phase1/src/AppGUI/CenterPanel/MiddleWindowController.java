@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import static AppComponents.TagManager.getImagesWithTag;
 import static AppComponents.TagManager.tagExists;
 
-public class MiddleWindowController extends ParentTable{
+public class MiddleWindowController extends FolderPanelController{
     @FXML
     public Button searchButton = new Button();
     @FXML

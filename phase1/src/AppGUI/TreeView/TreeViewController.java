@@ -110,10 +110,6 @@ public class TreeViewController implements Initializable{
         hBox.setVisible(!hBox.isVisible());
     }
 
-    void updateListView(ObservableList<Tag> newList){
-        listView.setItems(newList);
-    }
-
     public void treeItemClick() throws  IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!=null && currentNode.getValue()!=null){
@@ -128,6 +124,8 @@ public class TreeViewController implements Initializable{
             }
         }
     }
+
+
 
 
 
