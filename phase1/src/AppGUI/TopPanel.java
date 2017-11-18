@@ -24,4 +24,8 @@ public class TopPanel {
         MainContainer.getMain().closeApplication();
     }
 
+    public void openNameLog() throws Exception {
+        MainContainer.getTreeViewController().openNameLogPopUp();
+    }
+
 }

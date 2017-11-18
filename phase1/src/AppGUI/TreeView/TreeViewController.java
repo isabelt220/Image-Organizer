@@ -5,6 +5,7 @@ import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.MainGUI;
 import AppGUI.PopUpWindow.DialogBox;
+import AppGUI.PopUpWindow.NameLogPopUp;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -191,4 +192,17 @@ public class TreeViewController implements Initializable{
 //        appStage.setScene(scene);
 //        appStage.show();
 //    }
+
+    public void openNameLogPopUp() throws Exception{
+        File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
+        if(currentFile!=null && currentFile.isDirectory()){
+            DialogBox alertBox = new DialogBox("Info","Cannot rename a folder");
+            alertBox.display();
+        }
+        else if(currentFile != null){
+            selectedImage = currentFile;
+            NameLogPopUp nameLogPopUp = new NameLogPopUp();
+            nameLogPopUp.display();}
+    }
+
 }
