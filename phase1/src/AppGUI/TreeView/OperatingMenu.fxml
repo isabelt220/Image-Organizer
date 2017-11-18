@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TreeView.OperatingMenuController">
+   <children>
+      <VBox prefHeight="370.0" prefWidth="137.0">
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+               <items>
+                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#returnToOtherPane" text="←" textFill="RED">
+                     <font>
+                        <Font name="AR DARLING" size="10.0" />
+                     </font>
+                  </Button>
+               </items>
+            </ToolBar>
+            <Pane prefHeight="367.0" prefWidth="135.0">
+               <children>
+                  <Button fx:id="addButton" layoutX="93.0" layoutY="50.0" mnemonicParsing="false" onAction="#addTagButton" text="Add" />
+                  <TextField fx:id="addTagTestField" layoutX="2.0" layoutY="86.0" prefHeight="25.0" prefWidth="129.0" />
+                  <TextField fx:id="deleteTagTestField" layoutX="5.0" layoutY="171.0" prefHeight="25.0" prefWidth="128.0" />
+                  <Button fx:id="deleteButton" layoutX="5.0" layoutY="203.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</Pane>

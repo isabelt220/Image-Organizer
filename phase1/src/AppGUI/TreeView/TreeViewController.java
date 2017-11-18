@@ -117,6 +117,7 @@ public class TreeViewController implements Initializable{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!=null && currentNode.getValue()!=null){
             if(!currentNode.getValue().isDirectory()){
+                MainContainer.getMain().showOperatingMenu();
 //                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
 //                MainContainer.getMain().showOperatingMenu();
                 MainContainer.getMiddleWindowController().setPanel(currentNode);

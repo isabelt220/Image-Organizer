@@ -1,5 +1,6 @@
 package AppGUI;
 
+import AppGUI.TreeView.TreeViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import java.io.IOException;
 public class MainGUI extends Application{
     private Stage mainStage;
     private BorderPane mainLayout;
+    public Pane operatingMenu;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -41,6 +43,19 @@ public class MainGUI extends Application{
         MainContainer.setFolderPanel(folderPanel);}
         else {
             mainLayout.setCenter(MainContainer.getFolderPanel());
+        }
+    }
+
+    public void showOperatingMenu()throws IOException{
+        if(MainContainer.getOperatingMenu()==null){
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+            Pane OMenuPanel = loader.load();
+            mainLayout.setLeft(OMenuPanel);
+            MainContainer.setOperatingMenuController(loader.getController());
+            MainContainer.setOperatingMenu(OMenuPanel);}
+        else {
+            mainLayout.setLeft(MainContainer.getOperatingMenu());
         }
     }
 

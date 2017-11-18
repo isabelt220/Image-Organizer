@@ -80,7 +80,7 @@ public class ImageManager {
         imageList.add(newImage);
     }
 
-    public ArrayList<ImageData> getImageList() {
+    public static ArrayList<ImageData> getImageList() {
         return imageList;
     }
 
@@ -101,7 +101,7 @@ public class ImageManager {
         return imageList.contains(temp);
 
     }
-    public ImageData getImage(String location){
+    public static ImageData getImage(String location){
         ImageData temp = new ImageData(location);
         for(ImageData i: imageList){
             if(temp.equals(i)){
@@ -128,4 +128,6 @@ public class ImageManager {
             image.deleteTags(tagList);
         }}
     }
+
+
 }
