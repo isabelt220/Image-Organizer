@@ -37,7 +37,7 @@ public class TreeViewController implements Initializable{
     HBox hBox = new HBox();
     @FXML
     TextField addTagField = new TextField();
-    public static TreeViewImage selectedImage;
+    public static File selectedImage;
     public boolean imageClicked;
 
     public void initialize(URL location, ResourceBundle r){
@@ -139,8 +139,7 @@ public class TreeViewController implements Initializable{
             alertBox.display();
         }
         else if(currentFile != null){
-            selectedImage = new TreeViewImage(currentFile.toURI().toString());
-            System.out.println(currentFile.toURI().toString());
+            selectedImage = currentFile;
             ImageTagEditor imageTagEditor = new ImageTagEditor();
             imageTagEditor.display();}
     }

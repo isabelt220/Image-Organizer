@@ -24,12 +24,27 @@ public class ImageManager {
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
                 ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(tagNameList);
-                i.addTags(newTags);
+                i.setImageTags(newTags);
                 return;
             }
         }
 
         imAddTagNewImage(currImage, tagNameList);
+    }
+
+    public boolean ImageExist(String location){
+        ImageData temp = new ImageData(location);
+        return imageList.contains(temp);
+
+    }
+    public ImageData getImage(String location){
+        ImageData temp = new ImageData(location);
+        for(ImageData i: imageList){
+            if(temp.equals(i)){
+                return i;
+            }
+        }
+        return null;
     }
 
     private void imAddTagNewImage(ImageData currImage, ArrayList<String> tagNameList) {

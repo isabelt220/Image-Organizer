@@ -88,7 +88,6 @@ public abstract class ParentTable  implements Initializable {
         }
         tableView.getColumns().addAll(tableColumn1,tableColumn3,tableColumn2);
         tableView.setItems(FXCollections.observableList(imageTable));
-        System.out.println(tableColumn2.getCellData(0));
 
     }
 
