@@ -37,7 +37,7 @@
                                     <ContextMenu fx:id="contextMenu">
                                        <items>
                                           <MenuItem mnemonicParsing="false" onAction="#openImageTagEditor" text="Rename" />
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteFile" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" onAction="#removeFile" text="Move..." />
                                        </items>
                                     </ContextMenu>
                                  </contextMenu>

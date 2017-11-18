@@ -16,6 +16,9 @@ public class MainGUI extends Application{
     public Pane operatingMenu;
     public Pane treeView;
 
+    public Stage getMainStage() {
+        return mainStage;
+    }
 
     public void start(Stage primaryStage) throws Exception {
         MainContainer.setMain(this);
