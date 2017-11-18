@@ -54,7 +54,7 @@ public class ImageManager {
         }
     }
 
-    public void saveTagsToFile(String filePath) {
+    public void saveImagesToFile(String filePath) {
         try {
             FileOutputStream fs = new FileOutputStream(filePath);
             ObjectOutputStream os = new ObjectOutputStream(fs);
