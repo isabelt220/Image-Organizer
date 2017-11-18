@@ -2,6 +2,7 @@ package AppGUI;
 
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
+import AppGUI.CenterPanel.FolderPanelController;
 import AppGUI.CenterPanel.MiddleWindowController;
 //import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
@@ -12,6 +13,26 @@ public class MainController {
     private static ImageManager appImageManager = new ImageManager();
     private static TreeViewController treeViewController;
     private static MiddleWindowController middleWindowController;
+
+    public static void setFolderPanelController(FolderPanelController folderPanelController) {
+        MainController.folderPanelController = folderPanelController;
+    }
+
+    public static void setFolderPanel(Pane folderPanel) {
+        MainController.folderPanel = folderPanel;
+    }
+
+    public static FolderPanelController getFolderPanelController() {
+
+        return folderPanelController;
+    }
+
+    public static Pane getFolderPanel() {
+        return folderPanel;
+    }
+
+    private static FolderPanelController folderPanelController;
+    private static Pane folderPanel;
     private static MainGUI main;
     private static Pane treeViewPanel;
 //    private static Pane operatingMenu;

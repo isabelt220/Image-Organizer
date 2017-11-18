@@ -124,6 +124,7 @@ public class TreeViewController implements Initializable{
                 MainController.getMain().showCenterView();
             }else{
                 MainController.getMain().showFolderPanel();
+                MainController.getFolderPanelController().setPanel(currentNode);
             }
         }
     }

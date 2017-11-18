@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sun.applet.Main;
 
 import java.io.IOException;
 
@@ -44,10 +45,17 @@ public class MainGUI extends Application{
         mainStage.show();
     }
     public void showFolderPanel()throws IOException{
+        if(MainController.getFolderPanel()==null){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
-        Pane centerPane = loader.load();
-        mainLayout.setCenter(centerPane);
+        Pane folderPanel = loader.load();
+        mainLayout.setCenter(folderPanel);
+        MainController.setFolderPanelController(loader.getController());
+        MainController.setFolderPanel(folderPanel);}
+        else {
+            System.out.println("aaa");
+            mainLayout.setCenter(MainController.getFolderPanel());
+        }
     }
 
     public void showCenterView() throws IOException {

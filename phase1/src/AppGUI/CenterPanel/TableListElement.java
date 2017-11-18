@@ -1,12 +1,30 @@
 package AppGUI.CenterPanel;
 
-import AppComponents.ImageData;
-import javafx.beans.property.ObjectProperty;
+
 import javafx.scene.image.ImageView;
 
 public class TableListElement {
     private String name;
     private ImageView picture;
+    private String coreName;
+
+    public TableListElement(String name){
+        this.name=name;
+        this.coreName=name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoreName(String coreName) {
+        this.coreName = coreName;
+    }
+
+    public String getCoreName() {
+
+        return coreName;
+    }
 
     public String getName() {
         return name;
@@ -16,9 +34,6 @@ public class TableListElement {
         return picture;
     }
 
-    public TableListElement(String name){
-        this.name=name;
-    }
 
     public void setTag(String name) {
         this.name = name;
