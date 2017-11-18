@@ -1,24 +1,11 @@
 package AppGUI;
 
-import AppComponents.ImageManager;
-import AppComponents.TagManager;
-import AppGUI.CenterPanel.MiddleWindowController;
-import AppGUI.TreeView.TreeViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import sun.applet.Main;
 
 import java.io.IOException;
 
@@ -53,7 +40,6 @@ public class MainGUI extends Application{
         MainController.setFolderPanelController(loader.getController());
         MainController.setFolderPanel(folderPanel);}
         else {
-            System.out.println("aaa");
             mainLayout.setCenter(MainController.getFolderPanel());
         }
     }
@@ -105,6 +91,7 @@ public class MainGUI extends Application{
 
     public void stop() {
         MainController.getAppTagManager().saveTagsToFile("tagConfig.txt");
+        MainController.getAppImageManager().saveImagesToFile("imageConfig.txt");
     }
 
     public void closeApplication() {

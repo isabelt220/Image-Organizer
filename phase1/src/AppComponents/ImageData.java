@@ -27,14 +27,16 @@ public class ImageData implements Serializable{
     private String type;
 
     public ImageData(String location) {
+        this.location = location;
         File imageFile = new File(location);
-        setImageName(imageFile.getName());
+        String temp = imageFile.getName();
+        name = temp.substring(0,temp.lastIndexOf("."));
         coreName = name;
-        path = imageFile.getAbsolutePath();
+        int x = location.lastIndexOf("/")+1;
+        path = location.substring(0,x);
         String extension = "";
         int i = imageFile.getName().lastIndexOf('.');
-        if (i >= 0) { extension = imageFile.getName().substring(i+1); }
-        type = "."+extension;
+        type = imageFile.getName().substring(i+1);
 //        setImageLocation(location);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         nameLog.put(time.toString(), "Initially named : "+ name);
@@ -161,32 +163,28 @@ public class ImageData implements Serializable{
 
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     public void setImageName(String newName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        if (name.length() == 0){
-            name = newName;
-            File oldName = new File(location+"");
-            File addedName = new File(path+name+type);
-            boolean flag = oldName.renameTo(addedName);
-            location = path+name+type;
-            lastChangeTime = time.toString();
-            if(flag){
-                //image changed successfully
-            }else{
-                //image rename fails
-            }}
-        else{nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
+         nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
             File oldName = new File(location);
-            File addedName = new File(path+newName+type);
+            File addedName = new File(path+newName+"."+type);
+            System.out.println(path+newName+"."+type);
+            System.out.println(location);
             boolean flag = oldName.renameTo(addedName);
+            System.out.println(flag);
+
             name = newName;
-            location = path+name+type;
+            location = path+name+"."+type;
             lastChangeTime = time.toString();
 //            if(flag){
 //                //image changed successfully
 //            }else{}
 //                //image rename fails
-}}
+}
 
 
 
