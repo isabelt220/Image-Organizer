@@ -155,7 +155,6 @@ public class ImageData implements Serializable{
 //        for (int i = 0; i < tags.size(); i++) {
 //            compressedTags.append(" @" + tags.get(i).getTagName());
 //        }
-        Timestamp time = new Timestamp(System.currentTimeMillis());
         setImageName(compressedTags.toString());
 //            nameLog.put(time.toString(), "tag change: " + name + " --> " + compressedTags.toString());
 //            name = compressedTags.toString();
@@ -172,7 +171,7 @@ public class ImageData implements Serializable{
          nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
             File oldName = new File(location);
             File addedName = new File(path+newName+"."+type);
-            boolean flag = oldName.renameTo(addedName);
+            oldName.renameTo(addedName);
             name = newName;
             location = path+name+"."+type;
             lastChangeTime = time.toString();
