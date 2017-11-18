@@ -21,7 +21,7 @@ import java.util.*;
 
 public class SearchResultsController {
 
-    
+
     private static ObservableList<ImageData> images;
     @FXML
     public TableView<TableListElement> resultTable;
