@@ -34,7 +34,7 @@ public class NameLogPopUpController {
 
     @FXML
     public void initialize() {
-        File selectedFile = MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().getValue();
+        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
         ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         curImage = currImage;
         data.putAll(curImage.getNameLog());

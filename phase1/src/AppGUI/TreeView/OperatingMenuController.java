@@ -50,7 +50,7 @@ public class OperatingMenuController implements Initializable{
     }
 
     public void addTagButton(){
-        File selectedFile = MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().getValue();
+        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
         ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
 
         ArrayList<String> tagEditorTagList = new ArrayList<>();
@@ -58,8 +58,8 @@ public class OperatingMenuController implements Initializable{
 
         ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
         File f= new File(newNode.getLocation());
-        MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().setValue(f);
-        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().getValue().toPath().toString());
+        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
+        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }
 

@@ -35,7 +35,7 @@ public class TreeViewController implements Initializable{
     public Button editButton;
     public ContextMenu contextMenu;
     @FXML
-    TreeView<File> treeView = new TreeView<>();
+    private TreeView<File> treeView = new TreeView<>();
     @FXML
     ListView<Tag> listView = new ListView<>();
     @FXML
@@ -43,6 +43,7 @@ public class TreeViewController implements Initializable{
     @FXML
     TextField addTagField = new TextField();
     public static File selectedImage;
+
     public boolean imageClicked;
 
     public void initialize(URL location, ResourceBundle r){
@@ -201,4 +202,8 @@ public class TreeViewController implements Initializable{
         }
     }
 
+    public TreeView<File> getTreeView() {
+        return treeView;
+    }
 }
+
