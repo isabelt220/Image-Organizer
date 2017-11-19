@@ -13,7 +13,12 @@ public class TagManager {
     private ArrayList<Tag> listOfTags = new ArrayList<>(0);
     private ObservableList<Tag> observableTagList = FXCollections.observableList(new ArrayList<>());
 
-
+    /**
+     * Constructor for this TagManager, reads the list of Tags from tagConfig.txt
+     * that the user created from an earlier use of the program or creates the
+     * file tagConfig.txt for the serialization and saving of Tags for future
+     * uses.
+     */
     public TagManager() {
         Path currentRelativePath = Paths.get("");
         String filePath = currentRelativePath.toAbsolutePath().toString();
@@ -36,6 +41,14 @@ public class TagManager {
      */
     public ArrayList<Tag> getListOfTags() {
         return listOfTags;
+    }
+
+    /**
+     * @return ObservableList of Tags for displaying the currently existing
+     * list of tags to the users.
+     */
+    public ObservableList getObservableTagList() {
+        return observableTagList;
     }
 
     /**
@@ -125,6 +138,11 @@ public class TagManager {
         return listOfTagsToAttachToImage;
     }
 
+    /**
+     *
+     * @param tagName
+     * @return
+     */
     public ArrayList<ImageData> removeTag(String tagName) {
         if (tagExists(tagName)) {
             Tag tag = getTag(tagName);
@@ -135,10 +153,6 @@ public class TagManager {
             return listOfImagesWithTag;
         }
         return null;
-    }
-
-    public ObservableList getObservableTagList() {
-        return observableTagList;
     }
 
     /**
@@ -156,12 +170,21 @@ public class TagManager {
         return null;
     }
 
+    /**
+     *
+     * @param tagList
+     * @param image
+     */
     void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
         for (Tag tag : tagList) {
             tag.removeImage(image);
         }
     }
 
+    /**
+     *
+     * @param filePath
+     */
     void readTagsFromFile(String filePath) {
         try {
             FileInputStream is = new FileInputStream(filePath);
@@ -184,6 +207,10 @@ public class TagManager {
         }
     }
 
+    /**
+     *
+     * @param filePath
+     */
     public void saveTagsToFile(String filePath) {
         try {
             FileOutputStream fs = new FileOutputStream(filePath);
