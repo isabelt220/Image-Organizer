@@ -129,6 +129,9 @@ public class ImageData implements Serializable{
         StringBuilder compressedTags = new StringBuilder(coreName);
 
         for (Tag tag : tags) {
+            if (!(tagList.contains(tag))) {
+                tagList.add(tag);
+            }
             compressedTags.append(" @" + tag.getTagName());
         }
 //        for (int i = 0; i < tags.size(); i++) {

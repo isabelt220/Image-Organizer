@@ -14,10 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class NameLogPopUpController {
 //    TableView<Map.Entry<String,String>> logTable = new TableView<>();
@@ -32,7 +29,7 @@ public class NameLogPopUpController {
 
     private ImageData curImage;
 
-    private HashMap<String,String> data = new HashMap<>();
+    private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
     @FXML
     public void initialize() {
@@ -50,7 +47,6 @@ public class NameLogPopUpController {
 
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
-        System.out.println(chosenTime);
         String stripList = logNameStrip(chosenTime);
         ArrayList<Tag> revertList = generateTagList(stripList);
         ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, revertList);
@@ -74,17 +70,14 @@ public class NameLogPopUpController {
 
     public String logNameStrip(String chosenTime){
         if(chosenTime.contains("Initially name : ")){
-            System.out.println("Into IN loop");
             int x = chosenTime.indexOf(" : ");System.out.println(x+"X");
-            String temp = chosenTime.substring(x+2);
-            System.out.println(temp+"Temp");
+            String temp = chosenTime.substring(x+2);;
             return temp;
 
         }
         else{
             int x = chosenTime.indexOf("--> ");
             String temp = chosenTime.substring(x+1);
-            System.out.println(temp+"tempelse");
             return temp;
 
         }
