@@ -24,30 +24,34 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FolderPanelController  implements Initializable {
+public class FolderPanelController implements Initializable {
     @FXML
-    private   TableView<ImageData> tableView = new TableView<>();
+    private TableView<ImageData> tableView = new TableView<>();
     @FXML
-    private TableColumn<ImageData, String > preViewColumn = new TableColumn<>();
+    private TableColumn<ImageData, String> preViewColumn = new TableColumn<>();
     @FXML
-    private TableColumn<ImageData, String > coreNameColumn = new TableColumn<>();
+    private TableColumn<ImageData, String> coreNameColumn = new TableColumn<>();
     @FXML
-    private TableColumn<ImageData, String > nameColumn = new TableColumn<>();
+    private TableColumn<ImageData, String> nameColumn = new TableColumn<>();
 
-    public void initialize(URL location, ResourceBundle r){
+    public void initialize(URL location, ResourceBundle r) {
         tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    String location= tableView.getSelectionModel().getSelectedItem().getLocation();
-                MainContainer.getMiddleWindowController().setPanel(location);
-                MainContainer.getMain().showCenterView();
-                MainContainer.getMain().showOperatingMenu();
-                ImageData image = ImageManager.getImage(location);
-                MainContainer.getOperatingMenuController().setOperatingMenu(image);
-                }catch(Exception e){
+
+                    if (tableView.getSelectionModel().getSelectedItem() != null) {
+                        String location = tableView.getSelectionModel().getSelectedItem().getLocation();
+                        MainContainer.getMiddleWindowController().setPanel(location);
+                        MainContainer.getMain().showCenterView();
+                        MainContainer.getMain().showOperatingMenu();
+                        ImageData image = ImageManager.getImage(location);
+                        MainContainer.getOperatingMenuController().setOperatingMenu(image);
+                    }
+
+                } catch (Exception e) {
                     e.printStackTrace();
-                };
+                }
             }
         });
         preViewColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -63,7 +67,7 @@ public class FolderPanelController  implements Initializable {
                         setStyle("");
                     } else {
                         File f = new File(image);
-                        Image i = new Image(f.toURI().toString(),120,120,true,true);
+                        Image i = new Image(f.toURI().toString(), 120, 120, true, true);
                         ImageView preView = new ImageView();
                         preView.setImage(i);
                         setGraphic(preView);
@@ -90,27 +94,30 @@ public class FolderPanelController  implements Initializable {
         return tableView;
     }
 
-    public void setPanel(String location){
+    public void setPanel(String location) {
         tableView.getColumns().clear();
         tableView.getItems().clear();
         File file = new File(location);
-        if(!file.isDirectory()){file = file.getParentFile();}
-        ArrayList<ImageData> imageTable =  new ArrayList<>();
-        for(File f: file.listFiles()){
-            if(!f.isDirectory()){
+        if (!file.isDirectory()) {
+            file = file.getParentFile();
+        }
+        ArrayList<ImageData> imageTable = new ArrayList<>();
+        for (File f : file.listFiles()) {
+            if (!f.isDirectory()) {
                 String mimeType = new MimetypesFileTypeMap().getContentType(f);
                 String type = mimeType.split("/")[0];
-                if(type.equals("image")){
-                String url = f.toPath().toString();
-                Image image2 = new Image(f.toURI().toString(),100,100,true,true);
-                ImageView tableImage = new ImageView();
-                tableImage.setImage(image2);
+                if (type.equals("image")) {
+                    String url = f.toPath().toString();
+                    Image image2 = new Image(f.toURI().toString(), 100, 100, true, true);
+                    ImageView tableImage = new ImageView();
+                    tableImage.setImage(image2);
 
-                ImageData imageData= ImageManager.getImage(url);
-                imageTable.add(imageData);
+                    ImageData imageData = ImageManager.getImage(url);
+                    imageTable.add(imageData);
+                }
             }
-        }}
-        tableView.getColumns().addAll(preViewColumn,coreNameColumn,nameColumn);
+        }
+        tableView.getColumns().addAll(preViewColumn, coreNameColumn, nameColumn);
         tableView.setItems(FXCollections.observableList(imageTable));
 
     }
