@@ -5,7 +5,7 @@ import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.MainGUI;
 import AppGUI.PopUpWindow.DialogBox;
-import AppGUI.PopUpWindow.NameLogPopUp;
+
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -197,7 +197,8 @@ public class TreeViewController implements Initializable{
         else if(currentFile != null){
             selectedImage = currentFile;
             NameLogPopUp nameLogPopUp = new NameLogPopUp();
-            nameLogPopUp.display();}
+            nameLogPopUp.display();
+        }
     }
 
 }

@@ -45,6 +45,8 @@ public class ImageData implements Serializable{
 //        idCounter++;
     }
 
+    public LinkedHashMap<String, String> getNameLog(){return nameLog;}
+
     public String getName(){return name;}
 
     public String getCoreName(){return coreName;}
