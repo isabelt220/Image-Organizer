@@ -3,7 +3,6 @@ package AppGUI.TreeView;
 import AppComponents.ImageData;
 import AppComponents.ImageManager;
 import AppComponents.Tag;
-import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 
@@ -219,7 +218,7 @@ public class TreeViewController implements Initializable{
     }
 
 
-    TreeView<File> getTreeView() {
+    public TreeView<File> getTreeView() {
         return treeView;
     }
 }

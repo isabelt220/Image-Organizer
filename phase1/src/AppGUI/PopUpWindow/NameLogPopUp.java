@@ -1,4 +1,4 @@
-package AppGUI.TreeView;
+package AppGUI.PopUpWindow;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +9,7 @@ public class NameLogPopUp {
 
     public void display() throws Exception{
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../TreeView/NameLogPopUp.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("NameLogPopUp.fxml"));
         stage.setScene(new Scene(root, 543, 458));
         stage.show();
     }

@@ -1,4 +1,4 @@
-package AppGUI.TreeView;
+package AppGUI.PopUpWindow;
 
 import AppComponents.ImageData;
 import AppComponents.Tag;
@@ -32,7 +32,7 @@ public class NameLogPopUpController {
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
     @FXML
-    public void initialize() {
+    public void initialize() throws NullPointerException{
         File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
         ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         curImage = currImage;
