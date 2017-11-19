@@ -4,29 +4,17 @@ import AppComponents.ImageData;
 import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
-import AppGUI.TreeView.TreeViewController;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import static AppComponents.TagManager.getImagesWithTag;
-import static AppComponents.TagManager.tagExists;
 
 public class MiddleWindowController extends FolderPanelController{
     @FXML
@@ -51,7 +39,8 @@ public class MiddleWindowController extends FolderPanelController{
                     try{searchTagClicked();
                     searchTextField.setText("");}
                     catch (Exception e){
-                        DialogBox dialogBox = new DialogBox("Sorry","Search Falied");
+                        DialogBox dialogBox = new DialogBox("Sorry","Search Failed");
+                        dialogBox.display();
                     }
                 }
             }
@@ -79,9 +68,9 @@ public class MiddleWindowController extends FolderPanelController{
 
     public void searchTagClicked() throws Exception{
         String inquired = searchTextField.getText();
-        boolean existence = tagExists(inquired);
+        boolean existence = MainContainer.getAppTagManager().tagExists(inquired);
         if (existence){
-            foundImages = getImagesWithTag(inquired);
+            foundImages = MainContainer.getAppTagManager().getImagesWithTag(inquired);
             if(MainContainer.getSearchResults() == null){
             SearchResults searchResults = new SearchResults();;
             searchResults.display(foundImages);

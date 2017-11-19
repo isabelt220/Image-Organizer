@@ -5,10 +5,9 @@ import AppComponents.ImageManager;
 import AppComponents.Tag;
 import AppComponents.TagManager;
 import AppGUI.MainContainer;
-import AppGUI.MainGUI;
 import AppGUI.PopUpWindow.DialogBox;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import AppGUI.PopUpWindow.NameLogPopUp;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,8 +32,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 
 public class TreeViewController implements Initializable{
-    @FXML
-    public Button editButton;
+
     public ContextMenu contextMenu;
     @FXML
     private TreeView<File> treeView = new TreeView<>();
@@ -44,12 +42,11 @@ public class TreeViewController implements Initializable{
     HBox hBox = new HBox();
     @FXML
     TextField addTagField = new TextField();
-    public static File selectedImage;
+    static File selectedImage;
 
-    public boolean imageClicked;
 
     public void initialize(URL location, ResourceBundle r){
-        listView.setItems(TagManager.getObservableTagList());
+        listView.setItems(MainContainer.getAppTagManager().getObservableTagList());
         listView.setCellFactory(new Callback<ListView<Tag>, ListCell<Tag>>(){
             @Override
             public ListCell<Tag> call(ListView<Tag> param) {
@@ -67,13 +64,13 @@ public class TreeViewController implements Initializable{
             @Override
             public void handle(KeyEvent keyEvent) {
                 String text = addTagField.getText();
-                if (keyEvent.getCode() == KeyCode.ENTER && !TagManager.tagExists(text))  {
+                if (keyEvent.getCode() == KeyCode.ENTER && !MainContainer.getAppTagManager().tagExists(text))  {
                     ArrayList<String > tag = new ArrayList<>();
                     tag.add(text);
-                    TagManager.tmAddTagWithoutImage(tag);
+                    MainContainer.getAppTagManager().tmAddTagWithoutImage(tag);
                     addTagField.setText("");
                 }
-                else if(keyEvent.getCode() == KeyCode.ENTER && TagManager.tagExists(text)){
+                else if(keyEvent.getCode() == KeyCode.ENTER && MainContainer.getAppTagManager().tagExists(text)){
                     DialogBox dialogBox = new DialogBox("Info","Tag already exist");
                     dialogBox.display();
                 }
@@ -183,19 +180,12 @@ public class TreeViewController implements Initializable{
                     reSetTree();
                 }}
             catch (IOException e){
-                DialogBox Warning = new DialogBox("Warning","Remove Failed");
+                DialogBox warning = new DialogBox("Warning","Remove Failed");
+                warning.display();
             }
        }
 
     }
-//    @FXML
-//    public void switchToEditPane(ActionEvent event) throws IOException{
-//        Parent otherPane = FXMLLoader.load(getClass().getResource("OperatingMenu.fxml"));
-//        Scene scene = new Scene(otherPane);
-//        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        appStage.setScene(scene);
-//        appStage.show();
-//    }
 
     public void openNameLogPopUp() throws Exception{
         File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
@@ -210,7 +200,7 @@ public class TreeViewController implements Initializable{
         }
     }
 
-    public void reSetTree(){
+    void reSetTree(){
         TreeViewItem listHelper = new TreeViewItem();
         treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
     }
@@ -229,7 +219,7 @@ public class TreeViewController implements Initializable{
     }
 
 
-    public TreeView<File> getTreeView() {
+    TreeView<File> getTreeView() {
         return treeView;
     }
 }

@@ -1,28 +1,34 @@
 package AppGUI.TreeView;
 
 
+import AppGUI.PopUpWindow.DialogBox;
+import com.sun.istack.internal.Nullable;
 import javafx.scene.control.*;
+
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 
-public class TreeViewItem {
+class TreeViewItem {
 
-    protected TreeItem<File> generateTreeItem(File dir){
-
+    TreeItem<File> generateTreeItem(File dir) {
+        try{
         TreeItem<File> directory = new TreeItem<>(dir);
-        for(File f: dir.listFiles()){
-            if(f.isDirectory()){
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
                 directory.getChildren().add(generateTreeItem(f));
-            } 
-            else{
+            } else {
                 String mimeType = new MimetypesFileTypeMap().getContentType(f);
                 String type = mimeType.split("/")[0];
-                if(type.equals("image")){
+                if (type.equals("image")) {
                     directory.getChildren().add(new TreeItem<>(f));
                 }
             }
         }
-        return directory;
+        return directory;}
+        catch (NullPointerException e){
+            DialogBox warning = new DialogBox("Warning","The folder you are choosing is empty!");
+        }
+        return null;
     }
 
 }

@@ -23,9 +23,9 @@ public class ImageManager {
         if (file.exists() && file.length() != 0) {
             readImagesFromFile(filePath);
         } else {
-            try{
+            try {
                 file.createNewFile();
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -38,7 +38,7 @@ public class ImageManager {
 
             int num = os.readInt();
 
-            for (int i=0; i < num; i++) {
+            for (int i = 0; i < num; i++) {
                 ImageData image = (ImageData) os.readObject();
                 imageList.add(image);
             }
@@ -46,9 +46,10 @@ public class ImageManager {
             os.close();
             is.close();
 
-        } catch (IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-    }}
+        }
+    }
 
     public void saveImagesToFile(String filePath) {
         try {
@@ -63,7 +64,7 @@ public class ImageManager {
 
             os.close();
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -81,7 +82,7 @@ public class ImageManager {
 
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
-                ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(currImage ,tagNameList);
+                ArrayList<Tag> newTags = MainContainer.getAppTagManager().tmAddTagWithImage(currImage, tagNameList);
                 i.addTags(newTags);
                 return i;
             }
@@ -90,23 +91,22 @@ public class ImageManager {
         return imAddTagNewImage(currImage, tagNameList);
     }
 
-    public ImageData imSetImageTags(ImageData currImage, ArrayList<Tag> tagList){
+
+    public ImageData imSetImageTags(ImageData currImage, ArrayList<Tag> tagList) {
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
-            i.setImageTags(tagList);
-            return i;}}
-            return imSetImageTags(currImage, tagList); }
-
-
-    public boolean ImageExist(String location){
-        ImageData temp = new ImageData(location);
-        return imageList.contains(temp);
-
+                i.setImageTags(tagList);
+                return i;
+            }
+        }
+        return imSetImageTags(currImage, tagList);
     }
-    public static ImageData getImage(String location){
+
+
+    public static ImageData getImage(String location) {
         ImageData temp = new ImageData(location);
-        for(ImageData i: imageList){
-            if(temp.equals(i)){
+        for (ImageData i : imageList) {
+            if (temp.equals(i)) {
                 return i;
             }
         }
@@ -115,26 +115,27 @@ public class ImageManager {
 
     private ImageData imAddTagNewImage(ImageData currImage, ArrayList<String> tagNameList) {
         imageList.add(currImage);
-        ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(currImage, tagNameList);
+        ArrayList<Tag> newTags = MainContainer.getAppTagManager().tmAddTagWithImage(currImage, tagNameList);
         currImage.addTags(newTags);
         return currImage;
     }
 
-    public void removeTagFromAppAndImages(String tagName){
+    public void removeTagFromAppAndImages(String tagName) {
         Tag tag = new Tag(tagName);
         ArrayList<Tag> tagList = new ArrayList<>();
         tagList.add(tag);
-        ArrayList<ImageData> associatedImages=TagManager.removeTag(tagName);
-        if(associatedImages!=null){
-        for(ImageData image:associatedImages){
-            image.deleteTags(tagList);
-        }}
+        ArrayList<ImageData> associatedImages = MainContainer.getAppTagManager().removeTag(tagName);
+        if (associatedImages != null) {
+            for (ImageData image : associatedImages) {
+                image.deleteTags(tagList);
+            }
+        }
     }
 
 
-    public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage){
-     targetImage.deleteTags(tags);
-     MainContainer.getAppTagManager().removeAssociatedImageFromTags(tags, targetImage);
+    public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage) {
+        targetImage.deleteTags(tags);
+        MainContainer.getAppTagManager().removeAssociatedImageFromTags(tags, targetImage);
     }
 
 
