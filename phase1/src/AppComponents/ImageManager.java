@@ -78,6 +78,7 @@ public class ImageManager {
     }
 
     public ImageData imAddTagWithImage(ImageData currImage, ArrayList<String> tagNameList) {
+
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
                 ArrayList<Tag> newTags = TagManager.tmAddTagWithImage(currImage ,tagNameList);

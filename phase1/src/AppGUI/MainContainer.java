@@ -7,6 +7,8 @@ import AppGUI.CenterPanel.MiddleWindowController;
 //import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.CenterPanel.SearchResults;
 import AppGUI.CenterPanel.SearchResultsController;
+import AppGUI.TreeView.ImageTagEditor;
+import AppGUI.TreeView.ImageTagEditorController;
 import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
 import javafx.scene.layout.Pane;
@@ -18,6 +20,25 @@ public class MainContainer {
     private static MiddleWindowController middleWindowController;
     private static SearchResultsController searchResultsController;
     private static SearchResults searchResults;
+    private static ImageTagEditor imageTagEditor;
+    private static ImageTagEditorController imageTagEditorController;
+
+    public static void setImageTagEditor(ImageTagEditor imageTagEditor) {
+        MainContainer.imageTagEditor = imageTagEditor;
+    }
+
+    public static void setImageTagEditorController(ImageTagEditorController imageTagEditorController) {
+        MainContainer.imageTagEditorController = imageTagEditorController;
+    }
+
+    public static ImageTagEditor getImageTagEditor() {
+
+        return imageTagEditor;
+    }
+
+    public static ImageTagEditorController getImageTagEditorController() {
+        return imageTagEditorController;
+    }
 
     public static void setSearchResults(SearchResults searchResults) {
         MainContainer.searchResults = searchResults;

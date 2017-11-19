@@ -2,6 +2,7 @@ package AppGUI.TreeView;
 
 import AppComponents.ImageData;
 import AppComponents.ImageManager;
+import AppComponents.Tag;
 import AppComponents.TagManager;
 import AppGUI.MainContainer;
 //import AppGUI.PaneNavigate;
@@ -30,20 +31,20 @@ import java.util.ResourceBundle;
 
 public class OperatingMenuController implements Initializable{
     @FXML
-    public Button closeButton;
+    private Button closeButton;
     @FXML
-    public Button addButton;
+    private Button addButton;
     @FXML
-    public TextField addTagTestField= new TextField();
+    private TextField addTagTextField= new TextField();
     @FXML
-    public TextField deleteTagTestField = new TextField();
+    private TextField deleteTagTextField = new TextField();
     @FXML
-    public Button deleteButton;
+    private Button deleteButton;
 
     private ImageData operatingImage;
 
     public void initialize(URL location, ResourceBundle r){
-        addTagTestField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        addTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.ENTER){
@@ -51,10 +52,10 @@ public class OperatingMenuController implements Initializable{
             }}
         });
 
-        deleteTagTestField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        deleteTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER){deleteTagButton();}
+                if (keyEvent.getCode() == KeyCode.ENTER){deleteTagButton(); }
             }
         });
     }
@@ -69,19 +70,49 @@ public class OperatingMenuController implements Initializable{
     }
 
     public void addTagButton(){
+        ArrayList<String> tagEditorTagList = new ArrayList<>();
+        tagEditorTagList.add(0, addTagTextField.getText());
 
-         ArrayList<String> tagEditorTagList = new ArrayList<>();
-        tagEditorTagList.add(0, addTagTestField.getText());
-        System.out.println(operatingImage);
         ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(operatingImage, tagEditorTagList);
-        File f= new File(newNode.getLocation());
+        operatingImage = newNode;
         MainContainer.getTreeViewController().reSetTree();
         MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
+        addTagTextField.setText("");
 
     }
 
     public void deleteTagButton(){
+        String targetTag = deleteTagTextField.getText();
+        if(operatingImage.hasTag(targetTag)){
+            Tag t = new Tag(targetTag);
+            ArrayList<Tag> tagList = new ArrayList<>();
+            tagList.add(t);
+            MainContainer.getAppImageManager().removeTagFromPic(tagList,operatingImage);
+            File newFile = new File(operatingImage.getLocation());
+            MainContainer.getTreeViewController().reSetTree();
+            MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
+        }else{
+            DialogBox warningBox = new DialogBox("Sorry","This Image does not have the tag you want to delete");
+            warningBox.display();
+        }
+        deleteTagTextField.setText("");
     }
 
 
+    TextField getAddTagTesxtField() {
+        return addTagTextField;
+    }
+
+    TextField getDeleteTagTextField() {
+        return deleteTagTextField;
+    }
+
+    public ImageData getOperatingImage() {
+        return operatingImage;
+    }
+
+    public void setOperatingImage(ImageData operatingImage) {
+
+        this.operatingImage = operatingImage;
+    }
 }

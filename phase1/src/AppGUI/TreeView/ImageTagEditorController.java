@@ -11,53 +11,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ImageTagEditorController {
+public class ImageTagEditorController extends OperatingMenuController{
     @FXML
     private ImageView myImageView = new ImageView();
-    @FXML
-    private TextField addTagFieldTagEditor = new TextField();
-    @FXML
-    private TextField deleteTagFieldTagEditor = new TextField();
 
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle r) {
+        super.initialize(location,r);
         Image image = new Image(TreeViewController.selectedImage.toURI().toString());
         myImageView.setImage(image);
+        ImageData i = ImageManager.getImage(TreeViewController.selectedImage.toPath().toString());
+        setOperatingImage(i);
 
     }
 
-
-    public void addTagToImage() {
-        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
-
-        ArrayList<String> tagEditorTagList = new ArrayList<>();
-        tagEditorTagList.add(0, addTagFieldTagEditor.getText());
-
-        ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
-        File f= new File(newNode.getLocation());
-        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
-        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
-
-    }
-
-    public void deleteTagFromImage(){
-        String targetTag = deleteTagFieldTagEditor.getText();
-        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        ImageData currentImage = ImageManager.getImage(selectedFile.toPath().toString());
-        if(currentImage.hasTag(targetTag)){
-            Tag t = new Tag(targetTag);
-            ArrayList<Tag> tagList = new ArrayList<>();
-            tagList.add(t);
-            MainContainer.getAppImageManager().removeTagFromPic(tagList, currentImage);
-            File newFile = new File(currentImage.getLocation());
-            MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(newFile);
-            MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
-        }else{
-            DialogBox warningBox = new DialogBox("Sorry","This Image does not have the tag you want to delete");
-            warningBox.display();
-        }
-        }
 
 }

@@ -123,6 +123,7 @@ public class TreeViewController implements Initializable{
     public void treeItemClick() throws IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!= null){
+            selectedImage =currentNode.getValue();
         try {
             MainContainer.getMain().showCenterView();
         } catch (IOException e) {
@@ -164,9 +165,9 @@ public class TreeViewController implements Initializable{
             alertBox.display();
         }
         else if(currentFile != null){
-            selectedImage = currentFile;
+            ImageData image = ImageManager.getImage(currentFile.toPath().toString());
             ImageTagEditor imageTagEditor = new ImageTagEditor();
-            imageTagEditor.display();}
+            imageTagEditor.display(image);}
     }
 
     public void moveFile(){

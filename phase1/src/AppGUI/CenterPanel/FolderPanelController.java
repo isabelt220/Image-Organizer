@@ -95,7 +95,6 @@ public class FolderPanelController  implements Initializable {
         tableView.getItems().clear();
         File file = new File(location);
         if(!file.isDirectory()){file = file.getParentFile();}
-
         ArrayList<ImageData> imageTable =  new ArrayList<>();
         for(File f: file.listFiles()){
             if(!f.isDirectory()){
