@@ -87,6 +87,14 @@ public class ImageManager {
         return imAddTagNewImage(currImage, tagNameList);
     }
 
+    public ImageData imSetImageTags(ImageData currImage, ArrayList<Tag> tagList){
+        for (ImageData i : imageList) {
+            if (i.equals(currImage)) {
+            i.setImageTags(tagList);
+            return i;}}
+            return imSetImageTags(currImage, tagList); }
+
+
     public boolean ImageExist(String location){
         ImageData temp = new ImageData(location);
         return imageList.contains(temp);

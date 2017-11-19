@@ -125,7 +125,7 @@ public class ImageData implements Serializable{
 //            location = imageLocation; }
 //    }
 
-    private void setImageTags(ArrayList<Tag> tags) {
+    public void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
 
         for (Tag tag : tags) {
@@ -147,7 +147,6 @@ public class ImageData implements Serializable{
             File oldName = new File(location);
             File addedName = new File(path+newName+"."+type);
             oldName.renameTo(addedName);
-            System.out.println(path+newName+"."+type+"FromImageData");
             name = newName;
             location = path+name+"."+type;
             lastChangeTime = time.toString();

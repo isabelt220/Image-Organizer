@@ -1,6 +1,7 @@
 package AppGUI.TreeView;
 
 import AppComponents.ImageData;
+import AppComponents.Tag;
 import AppGUI.MainContainer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -47,10 +49,27 @@ public class NameLogPopUpController {
     }
 
     public void revertName(){
+        String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
+        int x = chosenTime.indexOf("--> ");
+        String temp = chosenTime.substring(x+1);
+        System.out.println(temp+"temp");
+        int i = temp.indexOf("@");
+        String temp1 = temp.substring(i+1);
+        System.out.println(temp1+"temp1");
+        String[] parts = temp1.split(" @");
+        System.out.println(parts.toString()+"parts");
+        ArrayList<Tag> imageTags = new ArrayList<>();
+        for (String tag: parts) {
+            imageTags.add(new Tag(tag));
+        }
+        ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, imageTags);
+        File f= new File(newNode.getLocation());
+        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
+        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }
 
-    public void setCurImage(ImageData image){
-        curImage = image;
-    }
+
 }
+
+
