@@ -161,9 +161,8 @@ public class TreeViewController implements Initializable{
             alertBox.display();
         }
         else if(currentFile != null){
-            ImageData image = ImageManager.getImage(currentFile.toPath().toString());
             ImageTagEditor imageTagEditor = new ImageTagEditor();
-            imageTagEditor.display(image);}
+            imageTagEditor.display();}
     }
 
     public void moveFile(){

@@ -1,7 +1,6 @@
 package AppGUI.CenterPanel;
 
 import AppComponents.ImageData;
-import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 import javafx.event.EventHandler;
@@ -24,8 +23,6 @@ public class MiddleWindowController extends FolderPanelController{
 
     @FXML
     private  ImageView imageView = new ImageView();
-
-    public ArrayList<ImageData> foundImages;
 
     private String selectedItemLocation;
 
@@ -70,9 +67,9 @@ public class MiddleWindowController extends FolderPanelController{
         String inquired = searchTextField.getText();
         boolean existence = MainContainer.getAppTagManager().tagExists(inquired);
         if (existence){
-            foundImages = MainContainer.getAppTagManager().getImagesWithTag(inquired);
+            ArrayList<ImageData> foundImages = MainContainer.getAppTagManager().getImagesWithTag(inquired);
             if(MainContainer.getSearchResults() == null){
-            SearchResults searchResults = new SearchResults();;
+            SearchResults searchResults = new SearchResults();
             searchResults.display(foundImages);
             MainContainer.setSearchResults(searchResults);}
             else{

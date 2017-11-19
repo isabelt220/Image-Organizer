@@ -4,11 +4,8 @@ import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.FolderPanelController;
 import AppGUI.CenterPanel.MiddleWindowController;
-//import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.CenterPanel.SearchResults;
 import AppGUI.CenterPanel.SearchResultsController;
-import AppGUI.TreeView.ImageTagEditor;
-import AppGUI.TreeView.ImageTagEditorController;
 import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
 import javafx.scene.layout.Pane;
@@ -20,25 +17,12 @@ public class MainContainer {
     private static MiddleWindowController middleWindowController;
     private static SearchResultsController searchResultsController;
     private static SearchResults searchResults;
-    private static ImageTagEditor imageTagEditor;
-    private static ImageTagEditorController imageTagEditorController;
+    private static MainGUI main;
+    private static Pane treeViewPanel;
+    private static Pane operatingMenu;
+    private static OperatingMenuController operatingMenuController;
 
-    public static void setImageTagEditor(ImageTagEditor imageTagEditor) {
-        MainContainer.imageTagEditor = imageTagEditor;
-    }
 
-    public static void setImageTagEditorController(ImageTagEditorController imageTagEditorController) {
-        MainContainer.imageTagEditorController = imageTagEditorController;
-    }
-
-    public static ImageTagEditor getImageTagEditor() {
-
-        return imageTagEditor;
-    }
-
-    public static ImageTagEditorController getImageTagEditorController() {
-        return imageTagEditorController;
-    }
 
     public static void setSearchResults(SearchResults searchResults) {
         MainContainer.searchResults = searchResults;
@@ -57,11 +41,11 @@ public class MainContainer {
         MainContainer.searchResultsController = searchResultsController;
     }
 
-    public static void setFolderPanelController(FolderPanelController folderPanelController) {
+    static void setFolderPanelController(FolderPanelController folderPanelController) {
         MainContainer.folderPanelController = folderPanelController;
     }
 
-    public static void setFolderPanel(Pane folderPanel) {
+    static void setFolderPanel(Pane folderPanel) {
         MainContainer.folderPanel = folderPanel;
     }
 
@@ -70,62 +54,49 @@ public class MainContainer {
         return folderPanelController;
     }
 
-    public static Pane getFolderPanel() {
+    static Pane getFolderPanel() {
         return folderPanel;
     }
 
     private static FolderPanelController folderPanelController;
     private static Pane folderPanel;
 
-    public static void setOperatingMenu(Pane operatingMenu) {
+    static void setOperatingMenu(Pane operatingMenu) {
         MainContainer.operatingMenu = operatingMenu;
     }
-
-    private static MainGUI main;
-    private static Pane treeViewPanel;
-    private static Pane operatingMenu;
-    private static OperatingMenuController operatingMenuController;
 
     public static OperatingMenuController getOperatingMenuController() {
         return operatingMenuController;
     }
 
-    public static void setOperatingMenuController(OperatingMenuController operatingMenuController) {
+    static void setOperatingMenuController(OperatingMenuController operatingMenuController) {
         MainContainer.operatingMenuController = operatingMenuController;
     }
 
 
-
-    public static void setTreeViewPanel(Pane treeViewPanel) {
+    static void setTreeViewPanel(Pane treeViewPanel) {
         MainContainer.treeViewPanel = treeViewPanel;
     }
 
-    public static Pane getOperatingMenu() {
+    static Pane getOperatingMenu() {
         return operatingMenu;
     }
 
-    public static void setCenterPanel(Pane centerPanel) {
+    static void setCenterPanel(Pane centerPanel) {
         MainContainer.centerPanel = centerPanel;
     }
 
-    public static Pane getTreeViewPanel() {
+    static Pane getTreeViewPanel() {
 
         return treeViewPanel;
     }
 
-    public static Pane getCenterPanel() {
+    static Pane getCenterPanel() {
         return centerPanel;
     }
 
     private static Pane centerPanel;
 
-    public static void setAppTagManager(TagManager appTagManager) {
-        MainContainer.appTagManager = appTagManager;
-    }
-
-    public static void setAppImageManager(ImageManager appImageManager) {
-        MainContainer.appImageManager = appImageManager;
-    }
 
     public static TagManager getAppTagManager() {
 
@@ -136,15 +107,15 @@ public class MainContainer {
         return appImageManager;
     }
 
-    public static void setTreeViewController(TreeViewController treeViewController) {
+    static void setTreeViewController(TreeViewController treeViewController) {
         MainContainer.treeViewController = treeViewController;
     }
 
-    public static void setMiddleWindowController(MiddleWindowController middleWindowController) {
+    static void setMiddleWindowController(MiddleWindowController middleWindowController) {
         MainContainer.middleWindowController = middleWindowController;
     }
 
-    public static void setMain(MainGUI main) {
+    static void setMain(MainGUI main) {
         MainContainer.main = main;
     }
 
