@@ -141,11 +141,9 @@ public class ImageData implements Serializable{
     public void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
         ArrayList<String> stringVer= new ArrayList<>();
+        tagList = tags;
         for (Tag tag : tags) {
             stringVer.add(tag.getTagName());
-            if (!(tagList.contains(tag))) {
-                tagList.add(tag);
-            }
             compressedTags.append(" @" + tag.getTagName());
         }
         MainContainer.getAppTagManager().tmAddTagWithImage(this, stringVer);
