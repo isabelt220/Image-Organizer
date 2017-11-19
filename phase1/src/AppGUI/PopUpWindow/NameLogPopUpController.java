@@ -34,8 +34,7 @@ public class NameLogPopUpController {
     @FXML
     public void initialize() throws NullPointerException{
         File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
-        curImage = currImage;
+        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());;
         data.putAll(curImage.getNameLog());
 
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
