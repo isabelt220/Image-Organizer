@@ -1,5 +1,6 @@
 package AppComponents;
 
+import AppGUI.PopUpWindow.DialogBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,8 +10,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TagManager {
-    private static ArrayList<Tag> listOfTags = new ArrayList<>(0);
-    private static ObservableList<Tag> observableTagList= FXCollections.observableList(new ArrayList<>());
+    private ArrayList<Tag> listOfTags = new ArrayList<>(0);
+    private ObservableList<Tag> observableTagList = FXCollections.observableList(new ArrayList<>());
 
 
     public TagManager() {
@@ -22,19 +23,22 @@ public class TagManager {
         if (file.exists() && file.length() != 0) {
             readTagsFromFile(filePath);
         } else {
-            try{
+            try {
                 file.createNewFile();
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    /**
+     * @return current existing tags
+     */
     public ArrayList<Tag> getListOfTags() {
         return listOfTags;
     }
 
-    public static Tag getTag(String tagName) {
+    private Tag getTag(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty() && tagExists(name)) {
             for (Tag tag : listOfTags) {
@@ -52,7 +56,7 @@ public class TagManager {
      * @param tagName the tag to be determined whether it already exists in listOfTags.Sm
      * @return boolean
      */
-    public static boolean tagExists(String tagName) {
+    public boolean tagExists(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty()) {
             for (Tag tag : listOfTags) {
@@ -64,7 +68,7 @@ public class TagManager {
         return false;
     }
 
-    public static void tmAddTagWithoutImage(ArrayList<String> tagNameList) {
+    public void tmAddTagWithoutImage(ArrayList<String> tagNameList) {
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
             if (!tagExists(name) && !name.equals("")) {
@@ -79,7 +83,7 @@ public class TagManager {
         }
     }
 
-    public static ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
+    ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
@@ -98,7 +102,7 @@ public class TagManager {
         return listOfTagsToAttachToImage;
     }
 
-    public static ArrayList<ImageData> removeTag(String tagName) {
+    public ArrayList<ImageData> removeTag(String tagName) {
         if (tagExists(tagName)) {
             Tag tag = getTag(tagName);
             // getTag() may return null
@@ -110,7 +114,7 @@ public class TagManager {
         return null;
     }
 
-    public static ObservableList getObservableTagList(){
+    public ObservableList getObservableTagList() {
         return observableTagList;
     }
 
@@ -121,7 +125,7 @@ public class TagManager {
      * @return ArrayList<ImageInfo>
      */
     // May be redundant code as getAssociatedImages() exist in Tag class?
-    public static ArrayList<ImageData> getImagesWithTag(String tagName) {
+    public ArrayList<ImageData> getImagesWithTag(String tagName) {
         Tag tag = getTag(tagName);
         if (tag != null) {
             return tag.getAssociatedImages();
@@ -129,20 +133,20 @@ public class TagManager {
         return null;
     }
 
-    public void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
+    void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
         for (Tag tag : tagList) {
             tag.removeImage(image);
         }
     }
 
-    public void readTagsFromFile(String filePath) {
+    void readTagsFromFile(String filePath) {
         try {
             FileInputStream is = new FileInputStream(filePath);
             ObjectInputStream os = new ObjectInputStream(is);
 
             int num = os.readInt();
 
-            for (int i=0; i < num; i++) {
+            for (int i = 0; i < num; i++) {
                 Tag tag = (Tag) os.readObject();
                 listOfTags.add(tag);
                 observableTagList.add(tag);
@@ -151,12 +155,9 @@ public class TagManager {
             os.close();
             is.close();
 
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            DialogBox warning = new DialogBox("Warning", "Failed to read the save file.");
+            warning.display();
         }
     }
 
@@ -173,11 +174,10 @@ public class TagManager {
 
             os.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            DialogBox warning = new DialogBox("Warning", "Failed to save");
+            warning.display();
         }
-    }
 
+    }
 }
