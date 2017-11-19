@@ -8,7 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TopPanel">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TopPanel">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -23,14 +23,11 @@
           <Menu fx:id="editButton" mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#openImageTagEditor" text="Edit Image Tags..." />
-                  <MenuItem mnemonicParsing="false" text="Revert to Older Name..." />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem mnemonicParsing="false" text="View Original Image Name Only" />
-                  <MenuItem mnemonicParsing="false" text="View Original Image Name and Tags" />
-                  <MenuItem mnemonicParsing="false" onAction="#openNameLog" text="View Log of Name Changes" />
+                  <MenuItem mnemonicParsing="false" onAction="#openNameLog" text="View Log of Name Changes/Revert Name..." />
             </items>
           </Menu>
         </menus>

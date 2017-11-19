@@ -7,10 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TreeView.OperatingMenuController">
+<Pane prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TreeView.OperatingMenuController">
    <children>
-      <VBox prefHeight="370.0" prefWidth="137.0">
+      <VBox prefHeight="600.0" prefWidth="250.0">
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
@@ -21,12 +20,12 @@
                   </Button>
                </items>
             </ToolBar>
-            <Pane prefHeight="367.0" prefWidth="135.0">
+            <Pane prefHeight="562.0" prefWidth="250.0">
                <children>
-                  <Button fx:id="addButton" layoutX="93.0" layoutY="50.0" mnemonicParsing="false" onAction="#addTagButton" text="Add" />
-                  <TextField fx:id="addTagTextField" layoutX="2.0" layoutY="86.0" prefHeight="25.0" prefWidth="129.0" />
-                  <TextField fx:id="deleteTagTextField" layoutX="5.0" layoutY="171.0" prefHeight="25.0" prefWidth="128.0" />
-                  <Button fx:id="deleteButton" layoutX="5.0" layoutY="203.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
+                  <Button fx:id="addButton" layoutX="185.0" layoutY="135.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="27.0" prefWidth="58.0" text="Add" />
+                  <TextField fx:id="addTagTextField" layoutX="5.0" layoutY="100.0" prefHeight="27.0" prefWidth="238.0" />
+                  <TextField fx:id="deleteTagTextField" layoutX="6.0" layoutY="207.0" prefHeight="27.0" prefWidth="238.0" />
+                  <Button fx:id="deleteButton" layoutX="185.0" layoutY="242.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
                </children>
             </Pane>
          </children>
