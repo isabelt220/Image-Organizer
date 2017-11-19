@@ -1,7 +1,6 @@
 package AppGUI.TreeView;
 
 import AppComponents.ImageData;
-import AppComponents.ImageManager;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
@@ -134,7 +133,7 @@ public class TreeViewController implements Initializable{
                         } else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
                             try {
                                 MainContainer.getMain().showOperatingMenu();
-                                ImageData image = ImageManager.getImage(currentNode.getValue().toPath().toString());
+                                ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
                                 MainContainer.getOperatingMenuController().setOperatingMenu(image);
                             } catch (IOException e) {
                                 System.err.println("Caught IOException: " + e.getMessage());
@@ -205,7 +204,7 @@ public class TreeViewController implements Initializable{
         Tag t = listView.getSelectionModel().getSelectedItem();
         String location = MainContainer.getMiddleWindowController().getSelectedItemLocation();
         if(t!=null && MainContainer.getMiddleWindowController().getSelectedItemLocation()!= null){
-            ImageData currentImage = ImageManager.getImage(location);
+            ImageData currentImage = MainContainer.getAppImageManager().getImage(location);
             ArrayList<String> tagList = new ArrayList<>();
             tagList.add(t.getTagName());
             MainContainer.getAppImageManager().imAddTagWithImage(currentImage, tagList);

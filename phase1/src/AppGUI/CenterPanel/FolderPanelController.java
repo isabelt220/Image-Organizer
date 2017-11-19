@@ -45,7 +45,7 @@ public class FolderPanelController implements Initializable {
                         MainContainer.getMiddleWindowController().setPanel(location);
                         MainContainer.getMain().showCenterView();
                         MainContainer.getMain().showOperatingMenu();
-                        ImageData image = ImageManager.getImage(location);
+                        ImageData image = MainContainer.getAppImageManager().getImage(location);
                         MainContainer.getOperatingMenuController().setOperatingMenu(image);
                     }
 
@@ -90,7 +90,7 @@ public class FolderPanelController implements Initializable {
         });
     }
 
-    public TableView<ImageData> getTableView() {
+    TableView<ImageData> getTableView() {
         return tableView;
     }
 
@@ -112,7 +112,7 @@ public class FolderPanelController implements Initializable {
                     ImageView tableImage = new ImageView();
                     tableImage.setImage(image2);
 
-                    ImageData imageData = ImageManager.getImage(url);
+                    ImageData imageData = MainContainer.getAppImageManager().getImage(url);
                     imageTable.add(imageData);
                 }
             }

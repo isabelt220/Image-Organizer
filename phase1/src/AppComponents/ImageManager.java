@@ -13,7 +13,7 @@ Keeps track of all images and the info for each image
 public class ImageManager {
 
     // Initializes an empty ArrayList of ImageData object that this ImageManager contains
-    private static ArrayList<ImageData> imageList = new ArrayList<>();
+    private ArrayList<ImageData> imageList = new ArrayList<>();
 
     /**
      * Constructor for this ImageManager, initializes the serialization of ImageData by creating a imageConfig.txt
@@ -98,7 +98,7 @@ public class ImageManager {
      *
      * @return ArrayList<ImageData>
      */
-    static ArrayList<ImageData> getImageList() {
+    ArrayList<ImageData> getImageList() {
         return imageList;
     }
 
@@ -171,7 +171,7 @@ public class ImageManager {
      * @param location String
      * @return ImageData
      */
-    public static ImageData getImage(String location) {
+    public ImageData getImage(String location) {
         ImageData temp = new ImageData(location);
         for (ImageData i : imageList) {
             if (temp.equals(i)) {

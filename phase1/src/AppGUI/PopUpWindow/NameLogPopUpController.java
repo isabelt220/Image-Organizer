@@ -34,7 +34,7 @@ public class NameLogPopUpController {
     @FXML
     public void initialize() throws NullPointerException{
         File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());;
+        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         data.putAll(curImage.getNameLog());
 
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
@@ -56,7 +56,7 @@ public class NameLogPopUpController {
 
     }
 
-    public ArrayList<Tag> generateTagList (String chosen){
+    private ArrayList<Tag> generateTagList (String chosen){
         ArrayList<Tag> imageTags = new ArrayList<>();
         if (chosen.contains("@")){
         int i = chosen.indexOf("@");
@@ -68,18 +68,15 @@ public class NameLogPopUpController {
         return imageTags;
     }
 
-    public String logNameStrip(String chosenTime){
+    private String logNameStrip(String chosenTime){
         if(chosenTime.contains("Initially named : ")){
             int x = chosenTime.indexOf(" : ");
-            String temp = chosenTime.substring(x+2);
-            return temp;
+            return chosenTime.substring(x+2);
 
         }
         else{
             int x = chosenTime.indexOf("--> ");
-            String temp = chosenTime.substring(x+1);
-            return temp;
-
+            return chosenTime.substring(x+1);
         }
     }
 

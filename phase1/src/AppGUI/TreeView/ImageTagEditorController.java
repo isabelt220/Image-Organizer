@@ -2,6 +2,7 @@ package AppGUI.TreeView;
 
 import AppComponents.ImageData;
 import AppComponents.ImageManager;
+import AppGUI.MainContainer;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +18,7 @@ public class ImageTagEditorController extends OperatingMenuController {
         super.initialize(location, r);
         Image image = new Image(TreeViewController.selectedImage.toURI().toString());
         myImageView.setImage(image);
-        ImageData i = ImageManager.getImage(TreeViewController.selectedImage.toPath().toString());
+        ImageData i = MainContainer.getAppImageManager().getImage(TreeViewController.selectedImage.toPath().toString());
         setOperatingImage(i);
 
     }
