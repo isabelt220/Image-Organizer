@@ -6,3 +6,5 @@ src/AppComponents/AppComponents.iml
 .idea/*
 out/*
 phase1.iml
+phase1/imageConfig.txt
+phase1/tagConfig.txt
