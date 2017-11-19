@@ -58,7 +58,7 @@ public class TagManager {
      * @param tagName the name of the tag to search for in listOfTags.
      * @return the Tag with the tagName if one exists, otherwise returns null.
      */
-    private Tag getTag(String tagName) {
+    public Tag getTag(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty() && tagExists(name)) {
             for (Tag tag : listOfTags) {

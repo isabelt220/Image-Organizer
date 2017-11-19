@@ -37,6 +37,7 @@ public class NameLogPopUpController {
         ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         curImage = currImage;
         data.putAll(curImage.getNameLog());
+
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
         timeStampColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
@@ -70,8 +71,8 @@ public class NameLogPopUpController {
 
     public String logNameStrip(String chosenTime){
         if(chosenTime.contains("Initially named : ")){
-            int x = chosenTime.indexOf(" : ");System.out.println(x+"X");
-            String temp = chosenTime.substring(x+2);;
+            int x = chosenTime.indexOf(" : ");
+            String temp = chosenTime.substring(x+2);
             return temp;
 
         }

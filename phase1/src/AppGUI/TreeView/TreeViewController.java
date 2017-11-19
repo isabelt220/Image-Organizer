@@ -188,7 +188,7 @@ public class TreeViewController implements Initializable{
     public void openNameLogPopUp() throws Exception{
         File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
         if(currentFile!=null && currentFile.isDirectory()){
-            DialogBox alertBox = new DialogBox("Info","Cannot rename a folder");
+            DialogBox alertBox = new DialogBox("Warning","Please choose an image");
             alertBox.display();
         }
         else if(currentFile != null){

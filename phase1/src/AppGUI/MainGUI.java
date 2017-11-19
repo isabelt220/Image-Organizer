@@ -69,7 +69,6 @@ public class MainGUI extends Application{
             Pane centerPane = loader.load();
             mainLayout.setCenter(centerPane);
             MainContainer.setMiddleWindowController(loader.getController());
-            System.out.println(MainContainer.getMiddleWindowController());
             MainContainer.setCenterPanel(centerPane);
         } else {
             mainLayout.setCenter(MainContainer.getCenterPanel());

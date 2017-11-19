@@ -138,13 +138,28 @@ public class ImageManager {
      * @return ImageData
      */
     public ImageData imSetImageTags(ImageData currImage, ArrayList<Tag> tagList) {
+        for(Tag t: currImage.getImageTags()){
+            if(! tagList.contains(t)){
+                t.getAssociatedImages().remove(currImage);
+            }
+        }
+        ArrayList<Tag> finalList = new ArrayList<>();
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
-                i.setImageTags(tagList);
+                for(int j =0;j<tagList.size();j++){
+                    String tagName = tagList.get(j).getTagName();
+                    if(MainContainer.getAppTagManager().tagExists(tagName)){
+                        finalList.add(MainContainer.getAppTagManager().getTag(tagName));
+                    }else{
+                        finalList.add(tagList.get(j));
+                        MainContainer.getAppTagManager().getListOfTags().add(tagList.get(j));
+                    }
+                }
+                i.setImageTags(finalList);
                 return i;
             }
         }
-        return imSetImageTags(currImage, tagList);
+        return null;
     }
 
 

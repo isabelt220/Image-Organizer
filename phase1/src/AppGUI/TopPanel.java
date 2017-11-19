@@ -32,7 +32,6 @@ public class TopPanel {
     }
 
     public void openNameLog() throws Exception {
-
         MainContainer.getTreeViewController().openNameLogPopUp();
     }
 
