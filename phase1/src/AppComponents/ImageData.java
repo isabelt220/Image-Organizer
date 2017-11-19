@@ -166,6 +166,11 @@ public class ImageData implements Serializable{
         return tagList;
     }
 
+    public boolean hasTag(String Tagname){
+        Tag targetTag = new Tag(Tagname);
+        return tagList.contains(targetTag);
+    }
+
     private String getImageLocation() {
         return location;
     }

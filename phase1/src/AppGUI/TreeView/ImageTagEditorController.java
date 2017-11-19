@@ -1,7 +1,10 @@
 package AppGUI.TreeView;
 
 import AppComponents.ImageData;
+import AppComponents.ImageManager;
+import AppComponents.Tag;
 import AppGUI.MainContainer;
+import AppGUI.PopUpWindow.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,6 +18,8 @@ public class ImageTagEditorController {
     private ImageView myImageView = new ImageView();
     @FXML
     private TextField addTagFieldTagEditor = new TextField();
+    @FXML
+    private TextField deleteTagFieldTagEditor = new TextField();
 
     public void initialize() {
         Image image = new Image(TreeViewController.selectedImage.toURI().toString());
@@ -35,8 +40,17 @@ public class ImageTagEditorController {
         MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
         MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
-
-
     }
 
+    public void deleteTagFromImage(){
+        String targetTag = deleteTagFieldTagEditor.getText();
+        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
+        ImageData currentImage = ImageManager.getImage(selectedFile.toPath().toString());
+        if(currentImage.hasTag(targetTag)){
+            MainContainer.getAppImageManager().removeTagFromPic(targetTag);
+        }else{
+            DialogBox warningBox = new DialogBox("Sorry","This Image does not have the tag you want to delete");
+        }
+        }
+    
 }

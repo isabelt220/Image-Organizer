@@ -106,9 +106,7 @@ public class TreeViewController implements Initializable{
         ObservableList<Tag> selectedItems= listView.getSelectionModel().getSelectedItems();
         for(Tag t: selectedItems){
             MainContainer.getAppImageManager().removeTagFromPic(t.getTagName());
-            TreeViewItem listHelper = new TreeViewItem();
-            File newRoot = treeView.getRoot().getValue();
-            treeView.setRoot(listHelper.generateTreeItem(newRoot));
+            reSetTree();
             listView.getItems().remove(t);
         }
 
