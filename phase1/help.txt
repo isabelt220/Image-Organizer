@@ -25,5 +25,5 @@ Files can be moved by selecting a file in the Directory tab and right click -> M
 Current tags of an image are in the name section of the table view on the center panel. Although if the tags are recently modified, please select it again in tree view to refresh the table view!
 
 
-*****PLEASE DO NOT IMPORT OR RENAME ANY IMAGE FILES WITH THE SYMBOL '@', '/', OR '\' IN THE NAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*****PLEASE DO NOT IMPORT ANY IMAGE FILES WITH THE SYMBOL '@', '/', OR '\' IN THE ORIGINAL NAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  

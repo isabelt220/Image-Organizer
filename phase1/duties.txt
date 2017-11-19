@@ -2,8 +2,28 @@
 Duties of each group member
 
 Piyush Datta:
-•	Create an ImageManager class that communicates to ImageData and TagManager classes when dealing with any images within our application
-•	Create an ImageTagEditor and ImageTagEditorController class to make sure that our GUI can communicate with ImageManager and make necessary updates to images on file
-•	Update MainGUI and MainController accordingly to make sure our appImageManager and appTagManager is updating the imageList and tagList
-•	Modify any other classes with the permission of the group member responsible of that class
-•	Creating components and parts of the GUI on Scene Builder, such as the rename pane when the user wants to add/delete tags
+-	Create an ImageManager class that communicates to ImageData and TagManager classes when dealing with any images within our application
+-	Create an ImageTagEditor and ImageTagEditorController class to make sure that our GUI can communicate with ImageManager and make necessary updates to images on file
+-	Update MainGUI and MainController accordingly to make sure our appImageManager and appTagManager is updating the imageList and tagList
+-	Modify any other classes with the permission of the group member responsible of that class
+-	Creating components and parts of the GUI on Scene Builder, such as the rename pane when the user wants to add/delete tags
+
+
+
+
+
+
+Ziying Zhou: Literally everything
+
+Siyi Wang:
+- Implemented ImageData and associated methods
+- Implemented Operating menu and associated methods
+- Implemented Search bar and search results pop up and associated methods
+- Implemented View log and Revert related methods
+- Added docstring for ImageData, Tag, ImageManager
+- Implemented right/left/double click
+- helped with code cleaning
+
+Isabel Tang:
+
+
