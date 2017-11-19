@@ -118,40 +118,35 @@ public class TreeViewController implements Initializable{
         hBox.setVisible(!hBox.isVisible());
     }
 
-    public void treeItemClick() throws  IOException{
+    public void treeItemClick() throws IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
+        MainContainer.getMiddleWindowController().setPanel(currentNode);
+        try {
+            MainContainer.getMain().showCenterView();
+        } catch (IOException e) {
+            System.err.println("Caught IOException: " + e.getMessage());
+        }
 
-            if(!currentNode.getValue().isDirectory()){
+        if(!currentNode.getValue().isDirectory()){
                 if(currentNode!=null && currentNode.getValue()!=null){
                     treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
-                        if(t.getButton() == MouseButton.SECONDARY)
-                        {
+                        if(t.getButton() == MouseButton.SECONDARY) {
                             contextMenu.show(treeView, t.getScreenX() , t.getScreenY());
-                        }else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2){
-                                try{
-                                    MainContainer.getMain().showOperatingMenu();
-                                MainContainer.getMiddleWindowController().setPanel(currentNode);
-                                MainContainer.getMain().showCenterView();}
-                            catch(IOException e){System.err.println("Caught IOException: " + e.getMessage());}}
-                        else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 1){
-                            try{
-//                                MainContainer.getMain().showOperatingMenu();
-//                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
-//                MainContainer.getMain().showOperatingMenu();
-                                MainContainer.getMiddleWindowController().setPanel(currentNode);
-                                MainContainer.getMain().showCenterView();}
-                            catch(IOException e){System.err.println("Caught IOException: " + e.getMessage());}}
+                        } else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
+                            try {
+                                MainContainer.getMain().showOperatingMenu();
+                            } catch (IOException e) {
+                                System.err.println("Caught IOException: " + e.getMessage());
+                            }
+                        }
 
-//                    MainContainer.getMain().showOperatingMenu();
-////                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
-////                MainContainer.getMain().showOperatingMenu();
-//                    MainContainer.getMiddleWindowController().setPanel(currentNode);
-//                    MainContainer.getMain().showCenterView();
-            });}}else{
-                MainContainer.getMain().showFolderPanel();
-                MainContainer.getFolderPanelController().setPanel(currentNode);
-            }
+                    });
+                }
+        } else {
+            MainContainer.getMain().showFolderPanel();
+            MainContainer.getFolderPanelController().setPanel(currentNode);
         }
+    }
 
 
 
