@@ -47,7 +47,6 @@ public class NameLogPopUpController {
 
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
-        System.out.println(chosenTime);
         String stripList = logNameStrip(chosenTime);
         ArrayList<Tag> revertList = generateTagList(stripList);
         ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, revertList);
