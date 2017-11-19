@@ -48,9 +48,12 @@ public class ImageTagEditorController {
         ImageData currentImage = ImageManager.getImage(selectedFile.toPath().toString());
         if(currentImage.hasTag(targetTag)){
             MainContainer.getAppImageManager().removeTagFromPic(targetTag);
+            MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(selectedFile);
+            MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
         }else{
             DialogBox warningBox = new DialogBox("Sorry","This Image does not have the tag you want to delete");
+            warningBox.display();
         }
         }
-    
+
 }
