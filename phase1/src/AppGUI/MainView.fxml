@@ -30,7 +30,7 @@
             <items>
               <MenuItem mnemonicParsing="false" text="View Original Image Name Only" />
                   <MenuItem mnemonicParsing="false" text="View Original Image Name and Tags" />
-                  <MenuItem mnemonicParsing="false" text="View Log of Name Changes" />
+                  <MenuItem mnemonicParsing="false" onAction="#openNameLog" text="View Log of Name Changes" />
             </items>
           </Menu>
         </menus>
