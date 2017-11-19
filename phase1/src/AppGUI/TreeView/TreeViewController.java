@@ -113,6 +113,8 @@ public class TreeViewController implements Initializable{
         hBox.setVisible(!hBox.isVisible());
     }
 
+
+
     public void treeItemClick() throws  IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!=null && currentNode.getValue()!=null){
@@ -120,11 +122,11 @@ public class TreeViewController implements Initializable{
                 MainContainer.getMain().showOperatingMenu();
 //                MainContainer.getOperatingMenuController().setOperatingMenu(selectedImage);
 //                MainContainer.getMain().showOperatingMenu();
-                MainContainer.getMiddleWindowController().setPanel(currentNode);
+                MainContainer.getMiddleWindowController().setPanel(currentNode.getValue().toPath().toString());
                 MainContainer.getMain().showCenterView();
             }else{
                 MainContainer.getMain().showFolderPanel();
-                MainContainer.getFolderPanelController().setPanel(currentNode);
+                MainContainer.getFolderPanelController().setPanel(currentNode.getValue().toPath().toString());
             }
         }
     }
