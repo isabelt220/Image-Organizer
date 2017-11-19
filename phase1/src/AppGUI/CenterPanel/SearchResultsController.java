@@ -23,7 +23,6 @@ public class SearchResultsController extends FolderPanelController{
 
     public void setResults(ArrayList<ImageData> result){
         getTableView().setItems(FXCollections.observableList(result));
-        System.out.println(result);
     }
 }
 

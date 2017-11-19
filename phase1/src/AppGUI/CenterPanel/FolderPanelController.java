@@ -28,11 +28,11 @@ public class FolderPanelController  implements Initializable {
     @FXML
     private   TableView<ImageData> tableView = new TableView<>();
     @FXML
-    TableColumn<ImageData, String > tableColumn1 = new TableColumn<>();
+    private TableColumn<ImageData, String > preViewColumn = new TableColumn<>();
     @FXML
-    TableColumn<ImageData, String > tableColumn2 = new TableColumn<>();
+    private TableColumn<ImageData, String > coreNameColumn = new TableColumn<>();
     @FXML
-    TableColumn<ImageData, String > tableColumn3 = new TableColumn<>();
+    private TableColumn<ImageData, String > nameColumn = new TableColumn<>();
 
     public void initialize(URL location, ResourceBundle r){
         tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -46,8 +46,8 @@ public class FolderPanelController  implements Initializable {
                 };
             }
         });
-        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("location"));
-        tableColumn1.setCellFactory(column -> {
+        preViewColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        preViewColumn.setCellFactory(column -> {
             return new TableCell<ImageData, String>() {
                 @Override
                 protected void updateItem(String image, boolean empty) {
@@ -67,14 +67,14 @@ public class FolderPanelController  implements Initializable {
                 }
             };
         });
-        tableColumn2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ImageData, String>,
+        coreNameColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ImageData, String>,
                 ObservableValue<String>>() {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ImageData, String> t) {
                 return new SimpleStringProperty(t.getValue().getCoreName());
             }
         });
 
-        tableColumn3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ImageData, String>,
+        nameColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ImageData, String>,
                 ObservableValue<String>>() {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ImageData, String> t) {
                 return new SimpleStringProperty(t.getValue().getName());
@@ -107,7 +107,7 @@ public class FolderPanelController  implements Initializable {
                 imageTable.add(imageData);
             }
         }}
-        tableView.getColumns().addAll(tableColumn1,tableColumn3,tableColumn2);
+        tableView.getColumns().addAll(preViewColumn,coreNameColumn,nameColumn);
         tableView.setItems(FXCollections.observableList(imageTable));
 
     }

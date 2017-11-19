@@ -25,9 +25,9 @@
             </VBox>
             <TableView fx:id="tableView" prefHeight="200.0" prefWidth="520.0">
                <columns>
-                  <TableColumn fx:id="tableColumn1" prefWidth="193.3333740234375" text="image" />
-                  <TableColumn fx:id="tableColumn3" prefWidth="102.0" text="Core Name" />
-                  <TableColumn fx:id="tableColumn2" minWidth="30.0" prefWidth="300.0" text="Name" />
+                  <TableColumn fx:id="preViewColumn" prefWidth="193.3333740234375" text="image" />
+                  <TableColumn fx:id="coreNameColumn" prefWidth="102.0" text="Core Name" />
+                  <TableColumn fx:id="nameColumn" minWidth="30.0" prefWidth="300.0" text="Name" />
                </columns>
             </TableView>
          </children>
