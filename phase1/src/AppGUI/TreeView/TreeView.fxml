@@ -46,7 +46,7 @@
                                  </padding>
                               </TreeView>
                               <Circle fill="#e0e0e0" layoutX="14.0" layoutY="11.0" onMouseClicked="#openFolder" radius="8.0" stroke="#e9e3e3" strokeType="INSIDE" AnchorPane.bottomAnchor="353.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="3.0" />
-                              <Text layoutX="10.0" layoutY="16.0" onMouseClicked="#openFolder" strokeType="OUTSIDE" strokeWidth="0.0" text="+" AnchorPane.bottomAnchor="353.1" AnchorPane.rightAnchor="177.2" />
+                              <Text layoutX="10.534375000000011" layoutY="14.763281249999977" onMouseClicked="#openFolder" strokeType="OUTSIDE" strokeWidth="0.0" text="+" AnchorPane.bottomAnchor="349.23671875" AnchorPane.rightAnchor="177.0359375" />
                               <!--<Button fx:id="editButton" layoutX="159.0" layoutY="2.0" mnemonicParsing="false" onAction="#switchToEditPane" text="Edit" />-->
                            </children>
                         </AnchorPane>
@@ -60,7 +60,7 @@
                                  <contextMenu>
                                     <ContextMenu>
                                        <items>
-                                          <MenuItem mnemonicParsing="false" onAction="#deleteTagClick" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" text="Add Tag to Image" />
                                        </items>
                                     </ContextMenu>
                                  </contextMenu>
