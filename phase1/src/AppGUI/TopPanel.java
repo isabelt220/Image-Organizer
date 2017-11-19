@@ -1,6 +1,8 @@
 package AppGUI;
 
 
+import AppGUI.PopUpWindow.DialogBox;
+
 public class TopPanel {
 
     public void addNewTag() {
@@ -12,7 +14,12 @@ public class TopPanel {
     }
 
     public void openImageTagEditor() throws Exception {
-       MainContainer.getTreeViewController().openImageTagEditor();
+        try{
+       MainContainer.getTreeViewController().openImageTagEditor();}
+       catch (NullPointerException e){
+            DialogBox warning = new DialogBox("Warning","Please choose an image");
+            warning.display();
+       }
     }
 
     public void openChooseDirectory() {
