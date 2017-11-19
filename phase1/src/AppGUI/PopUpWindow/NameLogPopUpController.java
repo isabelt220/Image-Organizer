@@ -69,7 +69,7 @@ public class NameLogPopUpController {
     }
 
     public String logNameStrip(String chosenTime){
-        if(chosenTime.contains("Initially name : ")){
+        if(chosenTime.contains("Initially named : ")){
             int x = chosenTime.indexOf(" : ");System.out.println(x+"X");
             String temp = chosenTime.substring(x+2);;
             return temp;

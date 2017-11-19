@@ -196,9 +196,14 @@ public class ImageData implements Serializable{
      * @param tagName String
      * @return boolean
      */
-    public boolean hasTag(String tagName){
+    public boolean hasTag(String tagName) {
         Tag targetTag = new Tag(tagName);
-        return tagList.contains(targetTag)&& targetTag.getAssociatedImages().contains(this);
+        for (Tag target : MainContainer.getAppTagManager().getListOfTags()) {
+            if (target.equals(targetTag)) {
+                return tagList.contains(targetTag) && target.getAssociatedImages().contains(this);
+            }
+        }
+        return false;
     }
 
 

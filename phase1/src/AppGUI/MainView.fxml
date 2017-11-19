@@ -25,9 +25,9 @@
               <MenuItem mnemonicParsing="false" onAction="#openImageTagEditor" text="Edit Image Tags..." />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="View">
+          <Menu mnemonicParsing="false" text="View/Revert">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#openNameLog" text="View Log of Name Changes/Revert Name..." />
+                  <MenuItem mnemonicParsing="false" onAction="#openNameLog" text="View Log of Name Changes and Revert Name..." />
             </items>
           </Menu>
         </menus>

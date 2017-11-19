@@ -139,6 +139,9 @@ public class TagManager {
     }
 
     /**
+     * Removes the Tag with the given String tagName from listOfTags if the
+     * Tag exists and removes the tag from all images that has the tag
+     * attached to it.
      *
      * @param tagName
      * @return
@@ -171,6 +174,7 @@ public class TagManager {
     }
 
     /**
+     *
      *
      * @param tagList
      * @param image
