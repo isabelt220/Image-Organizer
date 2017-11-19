@@ -50,23 +50,44 @@ public class NameLogPopUpController {
 
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
-        int x = chosenTime.indexOf("--> ");
-        String temp = chosenTime.substring(x+1);
-        System.out.println(temp+"temp");
-        int i = temp.indexOf("@");
-        String temp1 = temp.substring(i+1);
-        System.out.println(temp1+"temp1");
-        String[] parts = temp1.split(" @");
-        System.out.println(parts.toString()+"parts");
-        ArrayList<Tag> imageTags = new ArrayList<>();
-        for (String tag: parts) {
-            imageTags.add(new Tag(tag));
-        }
-        ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, imageTags);
+        System.out.println(chosenTime);
+        String stripList = logNameStrip(chosenTime);
+        ArrayList<Tag> revertList = generateTagList(stripList);
+        ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, revertList);
         File f= new File(newNode.getLocation());
         MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
-        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
+//        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
+    }
+
+    public ArrayList<Tag> generateTagList (String chosen){
+        ArrayList<Tag> imageTags = new ArrayList<>();
+        if (chosen.contains("@")){
+        int i = chosen.indexOf("@");
+        String temp1 = chosen.substring(i+1);
+        String[] parts = temp1.split(" @");
+            for (String tag: parts) {
+                imageTags.add(new Tag(tag));
+            }}
+        return imageTags;
+    }
+
+    public String logNameStrip(String chosenTime){
+        if(chosenTime.contains("Initially name : ")){
+            System.out.println("Into IN loop");
+            int x = chosenTime.indexOf(" : ");System.out.println(x+"X");
+            String temp = chosenTime.substring(x+2);
+            System.out.println(temp+"Temp");
+            return temp;
+
+        }
+        else{
+            int x = chosenTime.indexOf("--> ");
+            String temp = chosenTime.substring(x+1);
+            System.out.println(temp+"tempelse");
+            return temp;
+
+        }
     }
 
 
