@@ -1,5 +1,7 @@
 package AppComponents;
 
+import AppGUI.MainContainer;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -117,7 +119,7 @@ public class ImageManager {
         return currImage;
     }
 
-    public void removeTagFromPic(String tagName){
+    public void removeTagFromAppAndImages(String tagName){
         Tag tag = new Tag(tagName);
         ArrayList<Tag> tagList = new ArrayList<>();
         tagList.add(tag);
@@ -126,6 +128,12 @@ public class ImageManager {
         for(ImageData image:associatedImages){
             image.deleteTags(tagList);
         }}
+    }
+
+
+    public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage){
+     targetImage.deleteTags(tags);
+     MainContainer.getAppTagManager().removeAssociatedImageFromTags(tags, targetImage);
     }
 
 

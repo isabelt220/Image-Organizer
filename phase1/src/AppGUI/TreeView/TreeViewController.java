@@ -105,7 +105,7 @@ public class TreeViewController implements Initializable{
     public void deleteTagClick(){
         ObservableList<Tag> selectedItems= listView.getSelectionModel().getSelectedItems();
         for(Tag t: selectedItems){
-            MainContainer.getAppImageManager().removeTagFromPic(t.getTagName());
+            MainContainer.getAppImageManager().removeTagFromAppAndImages(t.getTagName());
             reSetTree();
             listView.getItems().remove(t);
         }

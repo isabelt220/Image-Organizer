@@ -76,7 +76,7 @@ public class ImageData implements Serializable{
 //        return id;
 //    }
 
-   void deleteTags(ArrayList<Tag> dTags){
+   public void deleteTags(ArrayList<Tag> dTags){
 //        for (int i = 0; i < dTags.size(); i++) {
 //            if((tagList.contains(dTags.get(i)))){
 //                tagList.remove(dTags.get(i));}

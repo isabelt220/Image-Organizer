@@ -47,9 +47,11 @@ public class ImageTagEditorController {
         File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
         ImageData currentImage = ImageManager.getImage(selectedFile.toPath().toString());
         if(currentImage.hasTag(targetTag)){
-            MainContainer.getAppImageManager().removeTagFromPic(targetTag);
+            Tag t = new Tag(targetTag);
+            ArrayList<Tag> tagList = new ArrayList<>();
+            tagList.add(t);
+            MainContainer.getAppImageManager().removeTagFromPic(tagList, currentImage);
             File newFile = new File(currentImage.getLocation());
-            System.out.println(currentImage.getLocation());
             MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(newFile);
             MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
         }else{
