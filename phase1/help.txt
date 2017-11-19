@@ -1,6 +1,6 @@
 TO RUN PROGRAM TYPE INTO CMD:
 One liner: 
-mkdir group_0466_classes_compiled_2017 && javac -d group_0466_classes_compiled_2017 src/AppGUI/*.java src/AppComponents/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java && java -cp src AppGUI.MainGUI
+mkdir -p group_0466_classes_compiled_2017 & javac -d group_0466_classes_compiled_2017 src/AppGUI/*.java src/AppComponents/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java & java -cp src AppGUI.MainGUI
 
 TO OPEN A DIRECTORY: Click on the round button with a "+" sign, and choose a local directory
 
