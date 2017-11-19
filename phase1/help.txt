@@ -1,0 +1,26 @@
+TO RUN PROGRAM TYPE INTO CMD:
+
+TO OPEN A DIRECTORY: Click on the round button with a "+" sign, and choose a local directory
+
+Navigate the directory as so wished through the tree view pane on the left hand side. If a folder is selected, a preview 
+of all image files in that folder will be displayed on the right (center pane). If a image file is selected, the image will appear on the right (center pane) 
+along with a table view of all image files in the same folder of the selected image.
+
+In the table view, images can be previewed, the core name is the original name of the image, and the name is the current name of the file after an edit on the tags.
+
+Double click on the image file to summon the operating menu, or right click -> Rename to summon the ImageEditor pop up window, both can add and delete tags to the image.
+Click the left arrow on the top left corner of the operating menu to exit back to the treeview.
+
+NOTE:If a change is made to the tags, single click on the image in tree view again to refresh the information on the table view.
+
+TO VIEW HISTORY OR REVERT TO PREVIOUS STATE: MAKE SURE a image file is selected in directory treeview, and navigate to the menu bar at the top of the program. Select view -> view history.
+A pop up window should appear with records of all changes made to the image file. Right click on an entry and select Revert to image status back to selected time point.
+
+Select the Tags tab next Directory on the tree view. The round button with "+" sign allows one to add tags, or select a tag from the list of tags and click on the button with "-"
+sign to delete the Tag from all images. Select an image in the table view on the right (center pane) and right click a tag from the list of tags to add tag to the image.
+
+
+Files can be moved by selecting a file in the Directory tab and right click -> Move...
+
+Current tags of an image are in the name section of the table view on the center panel. Although if the tags are recently modified, please select it again in tree view to refresh the table view!
+ 
