@@ -1,6 +1,7 @@
 package AppGUI.CenterPanel;
 
 import AppComponents.ImageData;
+import AppComponents.TagManager;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 import AppGUI.TreeView.TreeViewController;
@@ -15,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import java.io.File;
@@ -38,6 +41,23 @@ public class MiddleWindowController extends FolderPanelController{
 
     private String selectedItemLocation;
 
+    @Override
+    public void initialize(URL location, ResourceBundle r){
+        super.initialize(location,r);
+        searchTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER)  {
+                    try{searchTagClicked();
+                    searchTextField.setText("");}
+                    catch (Exception e){
+                        DialogBox dialogBox = new DialogBox("Sorry","Search Falied");
+                    }
+                }
+            }
+        });
+    }
+
 
     @Override
     public void setPanel(String location){
@@ -45,7 +65,6 @@ public class MiddleWindowController extends FolderPanelController{
         super.setPanel(location);
         File file = new File(location);
         Image image = new Image(file.toURI().toString());
-        System.out.println(file.toURI().toString());
         this.imageView.setImage(image);
 
     }
@@ -63,7 +82,6 @@ public class MiddleWindowController extends FolderPanelController{
         boolean existence = tagExists(inquired);
         if (existence){
             foundImages = getImagesWithTag(inquired);
-
             if(MainContainer.getSearchResults() == null){
             SearchResults searchResults = new SearchResults();;
             searchResults.display(foundImages);

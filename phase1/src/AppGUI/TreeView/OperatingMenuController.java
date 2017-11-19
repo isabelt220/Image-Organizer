@@ -2,9 +2,12 @@ package AppGUI.TreeView;
 
 import AppComponents.ImageData;
 import AppComponents.ImageManager;
+import AppComponents.TagManager;
 import AppGUI.MainContainer;
 //import AppGUI.PaneNavigate;
+import AppGUI.PopUpWindow.DialogBox;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -31,14 +36,28 @@ public class OperatingMenuController implements Initializable{
     @FXML
     public TextField addTagTestField= new TextField();
     @FXML
-    public TextField deleteTagTestField;
+    public TextField deleteTagTestField = new TextField();
     @FXML
     public Button deleteButton;
 
+    private ImageData operatingImage;
 
-    ImageData operatingImage;
+    public void initialize(URL location, ResourceBundle r){
+        addTagTestField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER){
+                addTagButton();
+            }}
+        });
 
-    public void initialize(URL location, ResourceBundle r){}
+        deleteTagTestField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER){deleteTagButton();}
+            }
+        });
+    }
 
 @FXML
     public void returnToOtherPane() throws IOException{
@@ -50,16 +69,14 @@ public class OperatingMenuController implements Initializable{
     }
 
     public void addTagButton(){
-        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        ImageData currImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
 
-        ArrayList<String> tagEditorTagList = new ArrayList<>();
+         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagTestField.getText());
-
-        ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
+        System.out.println(operatingImage);
+        ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(operatingImage, tagEditorTagList);
         File f= new File(newNode.getLocation());
-        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
-        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
+        MainContainer.getTreeViewController().reSetTree();
+        MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
 
     }
 

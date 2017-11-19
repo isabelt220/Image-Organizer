@@ -38,9 +38,13 @@ public class FolderPanelController  implements Initializable {
         tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {String location= tableView.getSelectionModel().getSelectedItem().getLocation();
+                try {
+                    String location= tableView.getSelectionModel().getSelectedItem().getLocation();
                 MainContainer.getMiddleWindowController().setPanel(location);
                 MainContainer.getMain().showCenterView();
+                MainContainer.getMain().showOperatingMenu();
+                ImageData image = ImageManager.getImage(location);
+                MainContainer.getOperatingMenuController().setOperatingMenu(image);
                 }catch(Exception e){
                     e.printStackTrace();
                 };
@@ -59,7 +63,7 @@ public class FolderPanelController  implements Initializable {
                         setStyle("");
                     } else {
                         File f = new File(image);
-                        Image i = new Image(f.toURI().toString());
+                        Image i = new Image(f.toURI().toString(),120,120,true,true);
                         ImageView preView = new ImageView();
                         preView.setImage(i);
                         setGraphic(preView);

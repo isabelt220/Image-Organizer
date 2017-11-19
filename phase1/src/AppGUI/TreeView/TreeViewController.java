@@ -29,8 +29,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static AppComponents.ImageManager.getImage;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 
 public class TreeViewController implements Initializable{
     @FXML
@@ -137,6 +137,8 @@ public class TreeViewController implements Initializable{
                         } else if(t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
                             try {
                                 MainContainer.getMain().showOperatingMenu();
+                                ImageData image = ImageManager.getImage(currentNode.getValue().toPath().toString());
+                                MainContainer.getOperatingMenuController().setOperatingMenu(image);
                             } catch (IOException e) {
                                 System.err.println("Caught IOException: " + e.getMessage());
                             }
@@ -207,7 +209,7 @@ public class TreeViewController implements Initializable{
         }
     }
 
-    private void reSetTree(){
+    public void reSetTree(){
         TreeViewItem listHelper = new TreeViewItem();
         treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
     }
@@ -221,6 +223,7 @@ public class TreeViewController implements Initializable{
             tagList.add(t.getTagName());
             MainContainer.getAppImageManager().imAddTagWithImage(currentImage, tagList);
             MainContainer.getMiddleWindowController().setPanel(currentImage.getLocation());
+            reSetTree();
         }
     }
 
