@@ -122,6 +122,7 @@ public class TreeViewController implements Initializable{
 
     public void treeItemClick() throws IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
+        if(currentNode!= null){
         try {
             MainContainer.getMain().showCenterView();
         } catch (IOException e) {
@@ -147,7 +148,7 @@ public class TreeViewController implements Initializable{
             MainContainer.getMain().showFolderPanel();
             MainContainer.getFolderPanelController().setPanel(currentNode.getValue().toPath().toString());
         }
-    }
+    }}
 
 
 
@@ -165,7 +166,7 @@ public class TreeViewController implements Initializable{
             imageTagEditor.display();}
     }
 
-    public void removeFile(){
+    public void moveFile(){
         File selectedFile = treeView.getSelectionModel().getSelectedItem().getValue();
         DirectoryChooser dc = new DirectoryChooser();
         File choice = dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
@@ -173,7 +174,10 @@ public class TreeViewController implements Initializable{
             try{
                 String name = selectedFile.getName();
                 Path targetPath = Paths.get(choice.toPath().toString()+File.separator+name);
-            Files.move(selectedFile.toPath(),targetPath , REPLACE_EXISTING);}
+            Files.move(selectedFile.toPath(),targetPath , REPLACE_EXISTING);
+                if(! selectedFile.getParentFile().toPath().toString().equals(choice.toPath().toString())){
+                    reSetTree();
+                }}
             catch (IOException e){
                 DialogBox Warning = new DialogBox("Warning","Remove Failed");
             }
@@ -200,6 +204,11 @@ public class TreeViewController implements Initializable{
             NameLogPopUp nameLogPopUp = new NameLogPopUp();
             nameLogPopUp.display();
         }
+    }
+
+    private void reSetTree(){
+        TreeViewItem listHelper = new TreeViewItem();
+        treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
     }
 
     public TreeView<File> getTreeView() {

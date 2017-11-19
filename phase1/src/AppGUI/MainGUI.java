@@ -64,12 +64,13 @@ public class MainGUI extends Application{
     }
 
     public void showCenterView() throws IOException {
-        if (MainContainer.getCenterPanel() == null) {
+        if (MainContainer.getMiddleWindowController() == null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
             Pane centerPane = loader.load();
             mainLayout.setCenter(centerPane);
             MainContainer.setMiddleWindowController(loader.getController());
+            System.out.println(MainContainer.getMiddleWindowController());
             MainContainer.setCenterPanel(centerPane);
         } else {
             mainLayout.setCenter(MainContainer.getCenterPanel());
