@@ -1,6 +1,7 @@
 package AppComponents;
 
 
+import AppGUI.MainContainer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -127,13 +128,15 @@ public class ImageData implements Serializable{
 
     public void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
-
+        ArrayList<String> stringVer= new ArrayList<>();
         for (Tag tag : tags) {
+            stringVer.add(tag.getTagName());
             if (!(tagList.contains(tag))) {
                 tagList.add(tag);
             }
             compressedTags.append(" @" + tag.getTagName());
         }
+        ArrayList<Tag> temp = MainContainer.getAppTagManager().tmAddTagWithImage(this, stringVer);
 //        for (int i = 0; i < tags.size(); i++) {
 //            compressedTags.append(" @" + tags.get(i).getTagName());
 //        }
