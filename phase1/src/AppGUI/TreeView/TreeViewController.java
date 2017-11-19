@@ -121,13 +121,12 @@ public class TreeViewController implements Initializable{
 
     public void treeItemClick() throws IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
-        MainContainer.getMiddleWindowController().setPanel(currentNode.getValue().toPath().toString());
         try {
             MainContainer.getMain().showCenterView();
         } catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
         }
-
+        MainContainer.getMiddleWindowController().setPanel(currentNode.getValue().toPath().toString());
         if(!currentNode.getValue().isDirectory()){
                 if(currentNode!=null && currentNode.getValue()!=null){
                     treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
