@@ -13,7 +13,18 @@ Piyush Datta:
 
 
 
-Ziying Zhou: Literally everything
+Ziying Zhou: 
+- Implemented Tag class, add and delete methods in ImageManager, fixed, modified and improved methods in ImageData and Tag Manager
+- Created and Implemented methods and fxml in 
+ 		-TreeView
+			-import file, treeview item selection, communication between panes, tag add and deletion
+		-CenterPanel
+			-imageview and table view, pane switching, item selection
+		-MainContainer
+			-Implemented as the cardinal of all other classes
+- Serialization of ImageManager
+- Oversaw, cleaned and debugged add/delete/search functions of GUI 
+
 
 Siyi Wang:
 - Implemented ImageData and associated methods
@@ -22,8 +33,13 @@ Siyi Wang:
 - Implemented View log and Revert related methods
 - Added docstring for ImageData, Tag, ImageManager
 - Implemented right/left/double click
-- helped with code cleaning
+- helped with code review, debugging(mostly done by Isabel) and cleaning
 
 Isabel Tang:
+- Implemented TagManager and its class methods
+- Implemented TopPanel (menu bar) and menu items
+- Implemented Serializable for TagManager
+- Testing and identifying issues that arise when running and using the program
+- Debugged and fixed problematic code causing errors
 
 
