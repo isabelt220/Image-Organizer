@@ -13,10 +13,11 @@ class TreeViewItem {
         DialogBox warning = new DialogBox("Warning", "The folder you are choosing is empty!");
         try {
             TreeItem<File> directory = new TreeItem<>(dir);
-            if (dir.listFiles() == null) {
+            File[] files = dir.listFiles();
+            if (files == null) {
                 warning.display();
             } else {
-                for (File f : dir.listFiles()) {
+                for (File f : files) {
                     if (f.isDirectory()) {
                         directory.getChildren().add(generateTreeItem(f));
                     } else {
