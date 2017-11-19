@@ -8,12 +8,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import java.io.File;
 import java.net.URL;
@@ -34,14 +36,26 @@ public class MiddleWindowController extends FolderPanelController{
 
     public ArrayList<ImageData> foundImages;
 
+    private String selectedItemLocation;
+
 
     @Override
     public void setPanel(String location){
+        selectedItemLocation = location;
         super.setPanel(location);
         File file = new File(location);
         Image image = new Image(file.toURI().toString());
         System.out.println(file.toURI().toString());
         this.imageView.setImage(image);
+
+    }
+
+    public void setSelectedItemLocation(String selectedItemLocation) {
+        this.selectedItemLocation = selectedItemLocation;
+    }
+
+    public String getSelectedItemLocation() {
+        return selectedItemLocation;
     }
 
     public void searchTagClicked() throws Exception{

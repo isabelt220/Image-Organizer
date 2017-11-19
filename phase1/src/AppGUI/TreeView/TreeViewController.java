@@ -1,5 +1,7 @@
 package AppGUI.TreeView;
 
+import AppComponents.ImageData;
+import AppComponents.ImageManager;
 import AppComponents.Tag;
 import AppComponents.TagManager;
 import AppGUI.MainContainer;
@@ -24,10 +26,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static AppComponents.ImageManager.getImage;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class TreeViewController implements Initializable{
@@ -128,7 +130,7 @@ public class TreeViewController implements Initializable{
         }
         MainContainer.getMiddleWindowController().setPanel(currentNode.getValue().toPath().toString());
         if(!currentNode.getValue().isDirectory()){
-                if(currentNode!=null && currentNode.getValue()!=null){
+                if(currentNode.getValue()!=null){
                     treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
                         if(t.getButton() == MouseButton.SECONDARY) {
                             contextMenu.show(treeView, t.getScreenX() , t.getScreenY());
@@ -143,6 +145,7 @@ public class TreeViewController implements Initializable{
                     });
                 }
         } else {
+            MainContainer.getMiddleWindowController().setSelectedItemLocation(null);
             MainContainer.getMain().showFolderPanel();
             MainContainer.getFolderPanelController().setPanel(currentNode.getValue().toPath().toString());
         }
@@ -208,6 +211,19 @@ public class TreeViewController implements Initializable{
         TreeViewItem listHelper = new TreeViewItem();
         treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
     }
+
+    public void addTagToImage(){
+        Tag t = listView.getSelectionModel().getSelectedItem();
+        String location = MainContainer.getMiddleWindowController().getSelectedItemLocation();
+        if(t!=null && MainContainer.getMiddleWindowController().getSelectedItemLocation()!= null){
+            ImageData currentImage = ImageManager.getImage(location);
+            ArrayList<String> tagList = new ArrayList<>();
+            tagList.add(t.getTagName());
+            MainContainer.getAppImageManager().imAddTagWithImage(currentImage, tagList);
+            MainContainer.getMiddleWindowController().setPanel(currentImage.getLocation());
+        }
+    }
+
 
     public TreeView<File> getTreeView() {
         return treeView;
