@@ -26,7 +26,7 @@ public class Tag implements Serializable {
      */
     void addImage(ImageData image) {
         if(!(associatedImages.contains(image))){
-        this.associatedImages.add(image);
+            this.associatedImages.add(image);
         }
     }
 
@@ -35,7 +35,6 @@ public class Tag implements Serializable {
      * @param image ImageData
      */
     void removeImage(ImageData image) {
-
         if(associatedImages.contains(image)){
             this.associatedImages.remove(image);
         }

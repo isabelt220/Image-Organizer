@@ -218,7 +218,6 @@ public class ImageManager {
      */
     public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage) {
         targetImage.deleteTags(tags);
-        MainContainer.getAppTagManager().removeAssociatedImageFromTags(tags, targetImage);
     }
 
 
