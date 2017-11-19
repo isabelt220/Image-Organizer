@@ -67,7 +67,7 @@ public class TagManager {
     public static void tmAddTagWithoutImage(ArrayList<String> tagNameList) {
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
-            if (!tagExists(name)) {
+            if (!tagExists(name) && !name.equals("")) {
                 Tag tag = new Tag(name);
                 // Tag name string already converted to lower case here to
                 // figure out if a tag already exists, Tag constructor also
@@ -83,13 +83,13 @@ public class TagManager {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
-            if (!tagExists(name)) {
+            if (!tagExists(name) && !name.equals("")) {
                 Tag tag = new Tag(name);
                 tag.getAssociatedImages().add(image);
                 listOfTags.add(tag);
                 observableTagList.add(tag);
                 listOfTagsToAttachToImage.add(tag);
-            } else {
+            } else if (tagExists(name)) {
                 Tag tag = getTag(name);
                 tag.getAssociatedImages().add(image);
                 listOfTagsToAttachToImage.add(getTag(name));
