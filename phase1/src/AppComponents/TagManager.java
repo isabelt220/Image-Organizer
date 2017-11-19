@@ -38,6 +38,13 @@ public class TagManager {
         return listOfTags;
     }
 
+    /**
+     * Takes a String tagName and returns the Tag with the tagName in listOfTags
+     * if a Tag with that tagName exists.
+     *
+     * @param tagName the name of the tag to search for in listOfTags.
+     * @return the Tag with the tagName if one exists, otherwise returns null.
+     */
     private Tag getTag(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty() && tagExists(name)) {
@@ -68,6 +75,13 @@ public class TagManager {
         return false;
     }
 
+    /**
+     * Creates and adds Tag(s) to the listOfTags if there is no Tag(s) with
+     * the tag name in the listOfTags.
+     *
+     * @param tagNameList an ArrayList of Strings of tag names that users
+     *                    would like to add to the listOfTags
+     */
     public void tmAddTagWithoutImage(ArrayList<String> tagNameList) {
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
@@ -83,19 +97,28 @@ public class TagManager {
         }
     }
 
+    /**
+     * Creates new Tag(s) if tag does not exist in listOfTags, gets Tag(s) and
+     * adds the Tag(s) to listOfTags if it already exists in listOfTags.
+     * Returns ArrayList of Tags listOfTagsToAttachToImage.
+     *
+     * @param image the image to create tags for and associate the tags to.
+     * @param tagNameList the list of string of tag names to add or create.
+     * @return
+     */
     ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
             if (!tagExists(name) && !name.equals("")) {
                 Tag tag = new Tag(name);
-                tag.getAssociatedImages().add(image);
+                tag.addImage(image);
                 listOfTags.add(tag);
                 observableTagList.add(tag);
                 listOfTagsToAttachToImage.add(tag);
             } else if (tagExists(name)) {
                 Tag tag = getTag(name);
-                tag.getAssociatedImages().add(image);
+                tag.addImage(image);
                 listOfTagsToAttachToImage.add(getTag(name));
             }
         }

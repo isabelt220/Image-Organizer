@@ -39,6 +39,7 @@ public class ImageManager {
     /**
      * Takes a String filePath and iterates through all the image files under the directory of filePath, creating an
      * ImageData object for each file and adding th ImageData to this imageList.
+     *
      * @param filePath String
      */
     private void readImagesFromFile(String filePath) {
@@ -63,6 +64,7 @@ public class ImageManager {
 
     /**
      * Contrast to readImagesFromFile, takes ImageData from imaeList and writes it in the filePath.
+     *
      * @param filePath String
      */
     public void saveImagesToFile(String filePath) {
@@ -81,6 +83,7 @@ public class ImageManager {
 
     /**
      * Takes a newImage ImageData, checks for existence and adds it to this imageList.
+     *
      * @param newImage ImageData
      */
     void addImage(ImageData newImage) {
@@ -92,6 +95,7 @@ public class ImageManager {
     /**
      * Getter for imageList, both the method and the instances are static so that it can be called before object initialization
      * to avoid Exceptions, this method can be used to iterate through all ImageData objects created.
+     *
      * @return ArrayList<ImageData>
      */
     static ArrayList<ImageData> getImageList() {
@@ -105,6 +109,7 @@ public class ImageManager {
      * tag with the ImageData if it hasn't already been associated.
      * The currImage in the imageList is finally returned.
      * This method is core to all tag adding activities in the GUI.
+     *
      * @param currImage ImageData
      * @param tagNameList ArrayList<String></>
      * @return ImageData
@@ -127,6 +132,7 @@ public class ImageManager {
      * associated already.
      * The currImage in the imageList is finally returned.
      * This method is core to all tag changing activities in the GUI.
+     *
      * @param currImage ImageData
      * @param tagList ArrayList<String></>
      * @return ImageData
@@ -146,6 +152,7 @@ public class ImageManager {
      * Obtains an ImageData by creating a ImageData with location as its location, then iterates through the
      * imageList to see if there is an already existing ImageData, returning it if true, else returns the newly initialized
      * ImageData.
+     *
      * @param location String
      * @return ImageData
      */
@@ -164,6 +171,7 @@ public class ImageManager {
      * adds currImage to imageList and calls tmAddTagWithImage in TagManager to associate currImage with the tags
      * in tagList if they hadn't been associated already.
      * Then the addTags method in ImageData is called to populate the tagList of the ImageData currImage.
+     *
      * @param currImage ImageData
      * @param tagNameList ArrayList<String></>
      * @return ImageData
@@ -184,6 +192,7 @@ public class ImageManager {
      * Calls the removeTag in TagManager which removes the tag from the list of tags and returns the associated images of that tag.
      * which is taken and iterated through for each ImageData to call upon its deleteTags method to delete the tagList from itself.
      * This method can be used to compeletely delete a tag from all records and images.
+     *
      * @param tagName String
      */
     public void removeTagFromAppAndImages(String tagName) {
@@ -203,6 +212,7 @@ public class ImageManager {
      * Calls the deleteTags method in ImageData to remove the tag from the tagList of targetImage,
      * then calls the removeAssociatedImagesFromTags in TagManager which in turn calls the removeImage method
      * in Tag to remove association of the ImageData object from the Tag.
+     *
      * @param tags ArrayList<Tag></>
      * @param targetImage ImageData
      */
