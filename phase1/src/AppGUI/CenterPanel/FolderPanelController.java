@@ -1,5 +1,7 @@
 package AppGUI.CenterPanel;
 
+import AppComponents.ImageData;
+import AppComponents.ImageManager;
 import AppGUI.MainContainer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -10,13 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
+import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,19 +26,19 @@ import java.util.ResourceBundle;
 
 public class FolderPanelController  implements Initializable {
     @FXML
-    private   TableView<TableListElement> tableView = new TableView<>();
+    private   TableView<ImageData> tableView = new TableView<>();
     @FXML
-    TableColumn<TableListElement, ImageView> tableColumn1 = new TableColumn<>();
+    TableColumn<ImageData, String > tableColumn1 = new TableColumn<>();
     @FXML
-    TableColumn<TableListElement, String > tableColumn2 = new TableColumn<>();
+    TableColumn<ImageData, String > tableColumn2 = new TableColumn<>();
     @FXML
-    TableColumn<TableListElement, String > tableColumn3 = new TableColumn<>();
+    TableColumn<ImageData, String > tableColumn3 = new TableColumn<>();
 
     public void initialize(URL location, ResourceBundle r){
         tableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {TreeItem<File> location= tableView.getSelectionModel().getSelectedItem().getDir();
+                try {String location= tableView.getSelectionModel().getSelectedItem().getLocation();
                 MainContainer.getMiddleWindowController().setPanel(location);
                 MainContainer.getMain().showCenterView();
                 }catch(Exception e){
@@ -44,68 +46,70 @@ public class FolderPanelController  implements Initializable {
                 };
             }
         });
-        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("picture"));
+        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("location"));
         tableColumn1.setCellFactory(column -> {
-            return new TableCell<TableListElement, ImageView>() {
+            return new TableCell<ImageData, String>() {
                 @Override
-                protected void updateItem(ImageView image, boolean empty) {
+                protected void updateItem(String image, boolean empty) {
                     super.updateItem(image, empty);
 
                     if (image == null || empty) {
                         setText(null);
                         setGraphic(null);
                         setStyle("");
-                    } else {setGraphic(image);
+                    } else {
+                        File f = new File(image);
+                        Image i = new Image(f.toURI().toString());
+                        ImageView preView = new ImageView();
+                        preView.setImage(i);
+                        setGraphic(preView);
                     }
                 }
             };
         });
-        tableColumn2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TableListElement, String>,
+        tableColumn2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ImageData, String>,
                 ObservableValue<String>>() {
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<TableListElement, String> t) {
-                return new SimpleStringProperty(t.getValue().getName());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ImageData, String> t) {
+                return new SimpleStringProperty(t.getValue().getCoreName());
             }
         });
 
-        tableColumn3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TableListElement, String>,
+        tableColumn3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ImageData, String>,
                 ObservableValue<String>>() {
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<TableListElement, String> t) {
-                return new SimpleStringProperty(t.getValue().getCoreName());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ImageData, String> t) {
+                return new SimpleStringProperty(t.getValue().getName());
             }
         });
     }
 
-    public void setPanel(TreeItem<File> pic){
+    public TableView<ImageData> getTableView() {
+        return tableView;
+    }
+
+    public void setPanel(String location){
         tableView.getColumns().clear();
         tableView.getItems().clear();
-        TreeItem<File> dir;
-        if(pic.getValue().isDirectory()){
-            dir=pic;
-        }
-        else{dir = pic.getParent();}
+        File file = new File(location);
+        if(!file.isDirectory()){file = file.getParentFile();}
 
-        ArrayList<TableListElement> imageTable =  new ArrayList<>();
-        for(TreeItem<File> f: dir.getChildren()){
-            if(!f.getValue().isDirectory()){
-                String url = f.getValue().toPath().toString();
-                Image image2 = new Image(f.getValue().toURI().toString(),100,100,true,true);
+        ArrayList<ImageData> imageTable =  new ArrayList<>();
+        for(File f: file.listFiles()){
+            if(!f.isDirectory()){
+                String mimeType = new MimetypesFileTypeMap().getContentType(f);
+                String type = mimeType.split("/")[0];
+                if(type.equals("image")){
+                String url = f.toPath().toString();
+                Image image2 = new Image(f.toURI().toString(),100,100,true,true);
                 ImageView tableImage = new ImageView();
                 tableImage.setImage(image2);
 
-                String temp = f.getValue().getName();
-                TableListElement newElement = new TableListElement(temp.substring(0,temp.lastIndexOf(".")));
-                newElement.setPicture(tableImage);
-                newElement.setDir(f);
-                imageTable.add(newElement);
-                if(MainContainer.getAppImageManager().ImageExist(url)){
-                    newElement.setCoreName(MainContainer.getAppImageManager().getImage(url).getCoreName());
-                }
+                ImageData imageData= ImageManager.getImage(url);
+                imageTable.add(imageData);
             }
-        }
+        }}
         tableView.getColumns().addAll(tableColumn1,tableColumn3,tableColumn2);
         tableView.setItems(FXCollections.observableList(imageTable));
 
     }
-
 
 }

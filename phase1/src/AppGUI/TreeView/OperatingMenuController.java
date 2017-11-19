@@ -59,7 +59,7 @@ public class OperatingMenuController implements Initializable{
         ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(currImage, tagEditorTagList);
         File f= new File(newNode.getLocation());
         MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().setValue(f);
-        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem());
+        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().treeView.getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }
 

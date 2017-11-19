@@ -29,7 +29,7 @@ public class ImageManager {
         }
     }
 
-    public void readImagesFromFile(String filePath) {
+    private void readImagesFromFile(String filePath) {
         try {
             FileInputStream is = new FileInputStream(filePath);
             ObjectInputStream os = new ObjectInputStream(is);
@@ -44,14 +44,9 @@ public class ImageManager {
             os.close();
             is.close();
 
-        } catch (FileNotFoundException e){
+        } catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    }}
 
     public void saveImagesToFile(String filePath) {
         try {
@@ -66,21 +61,17 @@ public class ImageManager {
 
             os.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-
-
-    public void addImage(ImageData newImage) {
+    void addImage(ImageData newImage) {
         imageList.add(newImage);
     }
 
-    public static ArrayList<ImageData> getImageList() {
+    static ArrayList<ImageData> getImageList() {
         return imageList;
     }
 

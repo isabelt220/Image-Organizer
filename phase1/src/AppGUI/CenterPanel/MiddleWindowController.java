@@ -1,6 +1,7 @@
 package AppGUI.CenterPanel;
 
 import AppComponents.ImageData;
+import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 import AppGUI.TreeView.TreeViewController;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,12 +33,14 @@ public class MiddleWindowController extends FolderPanelController{
     private  ImageView imageView = new ImageView();
 
     public ArrayList<ImageData> foundImages;
-    public ObservableList<ImageData> obserImages;
+
 
     @Override
-    public void setPanel(TreeItem<File> pic){
-        super.setPanel(pic);
-        Image image = new Image(pic.getValue().toURI().toString());
+    public void setPanel(String location){
+        super.setPanel(location);
+        File file = new File(location);
+        Image image = new Image(file.toURI().toString());
+        System.out.println(file.toURI().toString());
         this.imageView.setImage(image);
     }
 
@@ -46,11 +49,14 @@ public class MiddleWindowController extends FolderPanelController{
         boolean existence = tagExists(inquired);
         if (existence){
             foundImages = getImagesWithTag(inquired);
-            SearchResults searchResults = new SearchResults();
-            searchResults.setImages(foundImages);
-            obserImages = FXCollections.observableArrayList(foundImages);
-            SearchResultsController.setImages(obserImages);
-            searchResults.display();}
+
+            if(MainContainer.getSearchResults() == null){
+            SearchResults searchResults = new SearchResults();;
+            searchResults.display(foundImages);
+            MainContainer.setSearchResults(searchResults);}
+            else{
+            MainContainer.getSearchResults().display(foundImages);}
+        }
         else{DialogBox alertBox = new DialogBox("Warning","Tag Not Found!");
             alertBox.display();
 

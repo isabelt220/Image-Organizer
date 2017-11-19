@@ -5,6 +5,8 @@ import AppComponents.TagManager;
 import AppGUI.CenterPanel.FolderPanelController;
 import AppGUI.CenterPanel.MiddleWindowController;
 //import AppGUI.TreeView.OperatingMenuController;
+import AppGUI.CenterPanel.SearchResults;
+import AppGUI.CenterPanel.SearchResultsController;
 import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
 import javafx.scene.layout.Pane;
@@ -14,6 +16,25 @@ public class MainContainer {
     private static ImageManager appImageManager = new ImageManager();
     private static TreeViewController treeViewController;
     private static MiddleWindowController middleWindowController;
+    private static SearchResultsController searchResultsController;
+    private static SearchResults searchResults;
+
+    public static void setSearchResults(SearchResults searchResults) {
+        MainContainer.searchResults = searchResults;
+    }
+
+    public static SearchResults getSearchResults() {
+
+        return searchResults;
+    }
+
+    public static SearchResultsController getSearchResultsController() {
+        return searchResultsController;
+    }
+
+    public static void setSearchResultsController(SearchResultsController searchResultsController) {
+        MainContainer.searchResultsController = searchResultsController;
+    }
 
     public static void setFolderPanelController(FolderPanelController folderPanelController) {
         MainContainer.folderPanelController = folderPanelController;

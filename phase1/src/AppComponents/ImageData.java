@@ -23,14 +23,12 @@ public class ImageData implements Serializable{
 //    private static int idCounter;
 //    private int id;
     //For testing purposes
-    private ImageView view;
     private String lastChangeTime;
     private String path;
     private String type;
 
     public ImageData(String location) {
         this.location = location;
-        setView();
         File imageFile = new File(location);
         String temp = imageFile.getName();
         name = temp.substring(0,temp.lastIndexOf("."));
@@ -157,20 +155,11 @@ public class ImageData implements Serializable{
 //                //image rename fails
 }
 
-    private void setView(){
-        File imageFile = new File(location);
-        Image image = new Image(imageFile.toURI().toString());
-        this.view = new ImageView(image);
-
-    }
 
     public String getLocation() {
         return location;
     }
 
-    public ImageView getView() {
-        return view;
-    }
 
     public ArrayList<Tag> getImageTags(){
         return tagList;
