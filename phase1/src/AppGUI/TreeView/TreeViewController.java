@@ -196,8 +196,9 @@ public class TreeViewController implements Initializable{
     }
 
     void reSetTree(){
+        if(MainContainer.getTreeViewController().getTreeView().getRoot()!=null){
         TreeViewItem listHelper = new TreeViewItem();
-        treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
+        treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));}
     }
 
     public void addTagToImage(){
