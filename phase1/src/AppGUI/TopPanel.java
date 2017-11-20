@@ -3,6 +3,8 @@ package AppGUI;
 
 import AppGUI.PopUpWindow.DialogBox;
 
+import java.io.IOException;
+
 public class TopPanel {
 
     public void addNewTag() {
@@ -22,7 +24,7 @@ public class TopPanel {
        }
     }
 
-    public void openChooseDirectory() {
+    public void openChooseDirectory() throws IOException{
         MainContainer.getTreeViewController().openFolder();
     }
 

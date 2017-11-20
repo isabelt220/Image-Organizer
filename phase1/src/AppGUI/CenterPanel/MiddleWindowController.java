@@ -26,6 +26,8 @@ public class MiddleWindowController extends FolderPanelController{
 
     private String selectedItemLocation;
 
+    public String currentImageLocation;
+
     @Override
     public void initialize(URL location, ResourceBundle r){
         super.initialize(location,r);
@@ -43,6 +45,12 @@ public class MiddleWindowController extends FolderPanelController{
             }
         });
     }
+    public void refreshTable(){
+        String location = selectedItemLocation;
+        if (location != null){
+            MainContainer.getFolderPanelController().setPanel(location);
+    }
+}
 
 
     @Override

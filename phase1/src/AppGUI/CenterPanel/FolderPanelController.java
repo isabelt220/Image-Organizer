@@ -94,6 +94,9 @@ public class FolderPanelController implements Initializable {
         return tableView;
     }
 
+
+
+
     public void setPanel(String location) {
         tableView.getColumns().clear();
         tableView.getItems().clear();

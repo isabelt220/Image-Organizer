@@ -77,7 +77,7 @@ public class TreeViewController implements Initializable{
 
     }
 
-    public void openFolder() {
+    public void openFolder() throws IOException{
         DirectoryChooser dc = new DirectoryChooser();
         File choice =  dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
         if (choice != null) {
@@ -97,15 +97,19 @@ public class TreeViewController implements Initializable{
                     };
                 }
             });
+            MainContainer.getMain().showFolderPanel();
         }
     }
     public void deleteTagClick(){
         ObservableList<Tag> selectedItems= listView.getSelectionModel().getSelectedItems();
+        Tag temp = null;
         for(Tag t: selectedItems){
             MainContainer.getAppImageManager().removeTagFromAppAndImages(t.getTagName());
             reSetTree();
             listView.getItems().remove(t);
+            MainContainer.getMiddleWindowController().refreshTable();
         }
+
 
     }
 
@@ -198,8 +202,8 @@ public class TreeViewController implements Initializable{
     void reSetTree(){
         if(MainContainer.getTreeViewController().getTreeView().getRoot()!=null){
         TreeViewItem listHelper = new TreeViewItem();
-        treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));}
-    }
+        treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
+    }}
 
     public void addTagToImage(){
         Tag t = listView.getSelectionModel().getSelectedItem();
