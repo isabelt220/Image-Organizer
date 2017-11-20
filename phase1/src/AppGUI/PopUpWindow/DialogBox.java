@@ -11,15 +11,26 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class DialogBox{
+public class DialogBox {
+    /**
+     * The main stage
+     */
     private Stage window = new Stage();
 
-    public DialogBox(String title, String message){
+    /**
+     * Constructor for this DialogBox. Initializes the title and the message.
+     *
+     * @param title   String
+     * @param message String
+     */
+    public DialogBox(String title, String message) {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setWidth(250);
+
         Label label = new Label();
         label.setText(message);
+
         Button button = new Button("close");
         button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -27,14 +38,18 @@ public class DialogBox{
                 window.close();
             }
         });
+
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label,button);
+        layout.getChildren().addAll(label, button);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         window.setScene(scene);
     }
 
-    public void display(){
+    /**
+     * Display this DialogBox.
+     */
+    public void display() {
         window.showAndWait();
     }
 }

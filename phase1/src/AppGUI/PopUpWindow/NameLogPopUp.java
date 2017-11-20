@@ -6,8 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class NameLogPopUp {
-
-    public void display() throws Exception{
+    /**
+     * Set up the NameLogPopUp window and display it .
+     *
+     * @throws Exception IOException
+     */
+    public void display() throws Exception {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("NameLogPopUp.fxml"));
         stage.setScene(new Scene(root, 543, 458));
