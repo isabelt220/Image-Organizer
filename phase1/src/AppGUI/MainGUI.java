@@ -12,13 +12,13 @@ import java.io.IOException;
 public class MainGUI extends Application {
     private Stage mainStage;
     private BorderPane mainLayout;
-    public Pane operatingMenu;
-    public Pane treeView;
 
-    public Stage getMainStage() {
-        return mainStage;
-    }
-
+    /**
+     * Start the App
+     *
+     * @param primaryStage Stage
+     * @throws Exception Is thrown when the FXMLLoader fails to read the source file
+     */
     public void start(Stage primaryStage) throws Exception {
         MainContainer.setMain(this);
         this.mainStage = primaryStage;
@@ -28,6 +28,12 @@ public class MainGUI extends Application {
         showCenterView();
     }
 
+    /**
+     * Display the background scene
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
+
     private void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
@@ -36,6 +42,12 @@ public class MainGUI extends Application {
         mainStage.setScene(scene);
         mainStage.show();
     }
+
+    /**
+     * Display images under a folder
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
 
     public void showFolderPanel() throws IOException {
         if (MainContainer.getFolderPanel() == null) {
@@ -52,6 +64,8 @@ public class MainGUI extends Application {
 
     /**
      * Display the OperatingMenu
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
     public void showOperatingMenu() throws IOException {
         if (MainContainer.getOperatingMenu() == null) {
@@ -68,6 +82,8 @@ public class MainGUI extends Application {
 
     /**
      * Display the MiddleWindow
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
     public void showCenterView() throws IOException {
         if (MainContainer.getMiddleWindowController() == null) {
@@ -84,6 +100,8 @@ public class MainGUI extends Application {
 
     /**
      * Display the left Panel
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
     public void showTreeView() throws IOException {
         if (MainContainer.getTreeViewPanel() == null) {
@@ -98,13 +116,29 @@ public class MainGUI extends Application {
         }
     }
 
+    /**
+     * Serialize imageList and ListOfTags
+     */
     public void stop() {
         MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
     }
 
+    /**
+     * Close the App and
+     */
     void closeApplication() {
         mainStage.close();
     }
+
+    /**
+     * Return App's main stage
+     *
+     * @return Stage
+     */
+    public Stage getMainStage() {
+        return mainStage;
+    }
+
 
     public static void main(String[] args) {
         launch(args);
