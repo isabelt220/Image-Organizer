@@ -31,6 +31,10 @@ public class NameLogPopUpController {
 
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
+    /**
+     * Initializes the NameLogPopUp according to nameLog extracted from curImage.
+     * @throws NullPointerException Exception
+     */
     @FXML
     public void initialize() throws NullPointerException{
         File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
@@ -45,6 +49,10 @@ public class NameLogPopUpController {
 
     }
 
+    /**
+     * Takes a selection on the tableView of the nameLog and processes the curImage to the name, and tags it had
+     * at the chosen timestamp.
+     */
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
         String stripList = logNameStrip(chosenTime);
@@ -56,6 +64,12 @@ public class NameLogPopUpController {
 
     }
 
+    /**
+     * Helper method for revertName, takes a String file name and strips it with designated markers, creating finding
+     * the tags with the name of the striped strings, and associates it with the image, changing its name along the way.
+     * @param chosen String
+     * @return ArrayList<Tag>
+     */
     private ArrayList<Tag> generateTagList (String chosen){
         ArrayList<Tag> imageTags = new ArrayList<>();
         if (chosen.contains("@")){
@@ -68,6 +82,13 @@ public class NameLogPopUpController {
         return imageTags;
     }
 
+    /**
+     * Helper method for revertName,
+     * takes a entry in the nameLog and splits it according to a designated format and returns the solely the
+     * name of the ImageData.
+     * @param chosenTime
+     * @return
+     */
     private String logNameStrip(String chosenTime){
         if(chosenTime.contains("Initially named : ")){
             int x = chosenTime.indexOf(" : ");

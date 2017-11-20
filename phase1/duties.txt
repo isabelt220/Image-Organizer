@@ -31,7 +31,7 @@ Siyi Wang:
 - Implemented Operating menu and associated methods
 - Implemented Search bar and search results pop up and associated methods
 - Implemented View log and Revert related methods
-- Added docstring for ImageData, Tag, ImageManager
+- Added docstring for ImageData, Tag, ImageManager, NameLogPopUpController, all classes in TreeView
 - Implemented right/left/double click
 - helped with code review, debugging(mostly done by Isabel) and cleaning
 
