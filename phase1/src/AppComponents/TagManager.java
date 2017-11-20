@@ -1,45 +1,34 @@
 package AppComponents;
 
-import AppGUI.PopUpWindow.DialogBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class TagManager {
+public class TagManager implements Serializable {
+
+    // An empty ArrayList of Tags to keep a list of all Tags added by the user.
     private ArrayList<Tag> listOfTags = new ArrayList<>(0);
+    // A list that visually displays TagManager's listOfTags to the user.
     private ObservableList<Tag> observableTagList = FXCollections.observableList(new ArrayList<>());
 
     /**
-     * Constructor for this TagManager, reads the list of Tags from tagConfig.txt
-     * that the user created from an earlier use of the program or creates the
-     * file tagConfig.txt for the serialization and saving of Tags for future
-     * uses.
+     * Sets the listOfTags and observableTagList.
+     *
+     * @param list ArrayList of Tags to be set as.
      */
-    public TagManager() {
-        Path currentRelativePath = Paths.get("");
-        String filePath = currentRelativePath.toAbsolutePath().toString();
-        filePath += "/tagConfig.txt";
-
-        File file = new File(filePath);
-        if (file.exists() && file.length() != 0) {
-            readTagsFromFile(filePath);
-        } else {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    void setListOfTags(ArrayList<Tag> list) {
+        listOfTags = list;
+        observableTagList = FXCollections.observableList(listOfTags);
     }
 
     /**
+     * Returns the listOfTags.
+     *
      * @return current existing tags
      */
-    public ArrayList<Tag> getListOfTags() {
+    ArrayList<Tag> getListOfTags() {
         return listOfTags;
     }
 
@@ -58,7 +47,7 @@ public class TagManager {
      * @param tagName the name of the tag to search for in listOfTags.
      * @return the Tag with the tagName if one exists, otherwise returns null.
      */
-    public Tag getTag(String tagName) {
+    Tag getTag(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty() && tagExists(name)) {
             for (Tag tag : listOfTags) {
@@ -115,9 +104,9 @@ public class TagManager {
      * adds the Tag(s) to listOfTags if it already exists in listOfTags.
      * Returns ArrayList of Tags listOfTagsToAttachToImage.
      *
-     * @param image the image to create tags for and associate the tags to.
+     * @param image       the image to create tags for and associate the tags to.
      * @param tagNameList the list of string of tag names to add or create.
-     * @return
+     * @return ArrayList<Tag></Tag>
      */
     ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
@@ -143,10 +132,10 @@ public class TagManager {
      * Tag exists and removes the tag from all images that has the tag
      * attached to it.
      *
-     * @param tagName
-     * @return
+     * @param tagName the String of the Tag to be removed from listOfTags.
+     * @return ArrayList<ImageData></ImageData>
      */
-    public ArrayList<ImageData> removeTag(String tagName) {
+    ArrayList<ImageData> removeTag(String tagName) {
         if (tagExists(tagName)) {
             Tag tag = getTag(tagName);
             // getTag() may return null
@@ -162,7 +151,7 @@ public class TagManager {
      * Returns a list of image information that is labelled with tag.
      *
      * @param tagName the tag name to be searched for in images.
-     * @return ArrayList<ImageInfo>
+     * @return ArrayList<ImageInfo></ImageInfo>
      */
     // May be redundant code as getAssociatedImages() exist in Tag class?
     public ArrayList<ImageData> getImagesWithTag(String tagName) {
@@ -174,64 +163,15 @@ public class TagManager {
     }
 
     /**
+     * Removes the ImageData image from the list of associatedImages of each
+     * tag that the image was tagged with.
      *
-     *
-     * @param tagList
-     * @param image
+     * @param tagList ArrayList of Tags that are attached to the ImageData image.
+     * @param image   the image to be removed from each tag's list of associatedImages.
      */
     void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
         for (Tag tag : tagList) {
             tag.removeImage(image);
         }
-    }
-
-    /**
-     *
-     * @param filePath
-     */
-    void readTagsFromFile(String filePath) {
-        try {
-            FileInputStream is = new FileInputStream(filePath);
-            ObjectInputStream os = new ObjectInputStream(is);
-
-            int num = os.readInt();
-
-            for (int i = 0; i < num; i++) {
-                Tag tag = (Tag) os.readObject();
-                listOfTags.add(tag);
-                observableTagList.add(tag);
-            }
-
-            os.close();
-            is.close();
-
-        } catch (Exception e) {
-            DialogBox warning = new DialogBox("Warning", "Failed to read the save file.");
-            warning.display();
-        }
-    }
-
-    /**
-     *
-     * @param filePath
-     */
-    public void saveTagsToFile(String filePath) {
-        try {
-            FileOutputStream fs = new FileOutputStream(filePath);
-            ObjectOutputStream os = new ObjectOutputStream(fs);
-
-            os.writeInt(listOfTags.size());
-
-            for (Tag tag : listOfTags) {
-                os.writeObject(tag);
-            }
-
-            os.close();
-
-        } catch (IOException e) {
-            DialogBox warning = new DialogBox("Warning", "Failed to save");
-            warning.display();
-        }
-
     }
 }

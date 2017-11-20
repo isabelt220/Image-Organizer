@@ -99,8 +99,7 @@ public class MainGUI extends Application {
     }
 
     public void stop() {
-        MainContainer.getAppTagManager().saveTagsToFile("tagConfig.txt");
-        MainContainer.getAppImageManager().saveImagesToFile("imageConfig.txt");
+        MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
     }
 
     void closeApplication() {

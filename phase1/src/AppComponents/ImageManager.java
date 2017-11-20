@@ -3,85 +3,16 @@ package AppComponents;
 import AppGUI.MainContainer;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /*
 Keeps track of all images and the info for each image
 */
-public class ImageManager {
+public class ImageManager implements Serializable {
 
     // Initializes an empty ArrayList of ImageData object that this ImageManager contains
     private ArrayList<ImageData> imageList = new ArrayList<>();
-
-    /**
-     * Constructor for this ImageManager, initializes the serialization of ImageData by creating a imageConfig.txt
-     * Used to save changes to tags of ImageData objects that it contains.
-     */
-    public ImageManager() {
-        Path currentRelativePath = Paths.get("");
-        String filePath = currentRelativePath.toAbsolutePath().toString();
-        filePath += "/imageConfig.txt";
-
-        File file = new File(filePath);
-        if (file.exists() && file.length() != 0) {
-            readImagesFromFile(filePath);
-        } else {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Takes a String filePath and iterates through all the image files under the directory of filePath, creating an
-     * ImageData object for each file and adding th ImageData to this imageList.
-     *
-     * @param filePath String
-     */
-    private void readImagesFromFile(String filePath) {
-        try {
-            FileInputStream is = new FileInputStream(filePath);
-            ObjectInputStream os = new ObjectInputStream(is);
-
-            int num = os.readInt();
-
-            for (int i = 0; i < num; i++) {
-                ImageData image = (ImageData) os.readObject();
-                imageList.add(image);
-            }
-
-            os.close();
-            is.close();
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Contrast to readImagesFromFile, takes ImageData from imaeList and writes it in the filePath.
-     *
-     * @param filePath String
-     */
-    public void saveImagesToFile(String filePath) {
-        try {
-            FileOutputStream fs = new FileOutputStream(filePath);
-            ObjectOutputStream os = new ObjectOutputStream(fs);
-            os.writeInt(imageList.size());
-            for (ImageData image : imageList) {
-                os.writeObject(image);
-            }
-            os.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Takes a newImage ImageData, checks for existence and adds it to this imageList.
@@ -92,6 +23,10 @@ public class ImageManager {
 
         if (!(imageList.contains(newImage))){
             imageList.add(newImage);}
+    }
+
+    void setImageList(ArrayList<ImageData> list) {
+        imageList = list;
     }
 
     /**
@@ -164,7 +99,6 @@ public class ImageManager {
         return null;
     }
 
-
     /**
      * Obtains an ImageData by creating a ImageData with location as its location, then iterates through the
      * imageList to see if there is an already existing ImageData, returning it if true, else returns the newly initialized
@@ -228,7 +162,6 @@ public class ImageManager {
         }
     }
 
-
     /**
      * Calls the deleteTags method in ImageData to remove the tag from the tagList of targetImage,
      * then calls the removeAssociatedImagesFromTags in TagManager which in turn calls the removeImage method
@@ -240,6 +173,5 @@ public class ImageManager {
     public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage) {
         targetImage.deleteTags(tags);
     }
-
 
 }
