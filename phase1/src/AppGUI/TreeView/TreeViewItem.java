@@ -9,6 +9,11 @@ import java.io.File;
 
 class TreeViewItem {
 
+    /**
+     * Takes the dir directory as the TreeView Item and displays its children file in the treeView.
+     * @param dir Directory
+     * @return
+     */
     TreeItem<File> generateTreeItem(File dir) {
         DialogBox warning = new DialogBox("Warning", "The folder you are choosing is empty!");
         try {
