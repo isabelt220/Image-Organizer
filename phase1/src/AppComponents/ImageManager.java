@@ -6,6 +6,8 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /*
 Keeps track of all images and the info for each image
@@ -216,8 +218,12 @@ public class ImageManager {
         tagList.add(tag);
         ArrayList<ImageData> associatedImages = MainContainer.getAppTagManager().removeTag(tagName);
         if (associatedImages != null) {
+            CopyOnWriteArrayList<ImageData> newList = new CopyOnWriteArrayList<>();
             for (ImageData image : associatedImages) {
-                image.deleteTags(tagList);
+                newList.add(image);
+            }
+            for(ImageData im: newList){
+                im.deleteTags(tagList);
             }
         }
     }
