@@ -11,6 +11,12 @@ import java.util.ArrayList;
 
 public class AppDataSerializer {
 
+    /**
+     * Creates AppDataConfig.txt file for reading and writing ArrayLists of
+     * Tags and Images from TagManager and ImageManager when the program is
+     * ran for the first time or if a previously existing file has been
+     * deleted. Reads AppDataConfig.txt if the file exists and contains data.
+     */
     public AppDataSerializer() {
             Path currentRelativePath = Paths.get("");
             String filePath = currentRelativePath.toAbsolutePath().toString();
@@ -28,7 +34,14 @@ public class AppDataSerializer {
             }
         }
 
-    void readDataFromFile(String filePath) {
+    /**
+     * Reads ArrayList of Tags and ArrayList of Images from AppDataConfig.txt
+     * and sets the lists as listOfTags in TagManager and imageList in ImageManager
+     * respectively.
+     *
+     * @param filePath the file path of AppDataConfig.txt
+     */
+    private void readDataFromFile(String filePath) {
         try {
             FileInputStream is = new FileInputStream(filePath);
             ObjectInputStream os = new ObjectInputStream(is);
@@ -48,6 +61,12 @@ public class AppDataSerializer {
         }
     }
 
+    /**
+     * Saves listOfTags from TagManager and imageList from ImageManager to
+     * the file AppDataConfig.txt.
+     *
+     * @param filePath the file path of AppDataConfig.txt
+     */
     public void saveDataToFile(String filePath) {
         try {
             FileOutputStream fs = new FileOutputStream(filePath);
