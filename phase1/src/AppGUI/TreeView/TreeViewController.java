@@ -43,6 +43,11 @@ public class TreeViewController implements Initializable{
     static File selectedImage;
 
 
+    /**
+     * Initializes the treeView Controller, setting up the listview and add/delete tag buttons.
+     * @param location
+     * @param r
+     */
     public void initialize(URL location, ResourceBundle r){
         listView.setItems(MainContainer.getAppTagManager().getObservableTagList());
         listView.setCellFactory(new Callback<ListView<Tag>, ListCell<Tag>>(){
@@ -77,6 +82,10 @@ public class TreeViewController implements Initializable{
 
     }
 
+    /**
+     * Used to open and display a folder, or show operating menu for an image file depending on the type of item selected.
+     * @throws IOException Exception
+     */
     public void openFolder() throws IOException{
         DirectoryChooser dc = new DirectoryChooser();
         File choice =  dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
@@ -100,6 +109,10 @@ public class TreeViewController implements Initializable{
             MainContainer.getMain().showFolderPanel();
         }
     }
+
+    /**
+     * Gets the tag selected when deleteTag button is clicked and removes the tag from TagManager and all images it is associated with.
+     */
     public void deleteTagClick(){
         ObservableList<Tag> selectedItems= listView.getSelectionModel().getSelectedItems();
         Tag temp = null;
@@ -114,11 +127,19 @@ public class TreeViewController implements Initializable{
     }
 
 
+    /**
+     * Makes a text field pop up where the user can enter the tag they wish to add to TagManager
+     */
     public void addTagClick(){
         hBox.setVisible(!hBox.isVisible());
     }
 
 
+    /**
+     * Handles a click on the treeview, determines the type of folder clicked on, whether the click is a
+     * normal left click, right click, or double click and handles it in different ways.
+     * @throws IOException Exception
+     */
     public void treeItemClick() throws IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if(currentNode!= null){
@@ -154,9 +175,10 @@ public class TreeViewController implements Initializable{
     }}
 
 
-
-
-
+    /**
+     * Takes the current selected image from the treeView, and initializes a ImageEditor that modifies selected image
+     * @throws Exception
+     */
     public void openImageTagEditor() throws Exception{
         File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
         if(currentFile!=null && currentFile.isDirectory()){
@@ -168,6 +190,9 @@ public class TreeViewController implements Initializable{
             imageTagEditor.display();}
     }
 
+    /**
+     * Takes the selected file from treeView and moves it to a different directory.
+     */
     public void moveFile(){
         File selectedFile = treeView.getSelectionModel().getSelectedItem().getValue();
         DirectoryChooser dc = new DirectoryChooser();
@@ -188,6 +213,10 @@ public class TreeViewController implements Initializable{
 
     }
 
+    /**
+     * Takes the current selected image in treeView and initializes a nameLog extracted from the ImageData that the image file is attached to.
+     * @throws Exception
+     */
     public void openNameLogPopUp() throws Exception{
         try{
             selectedImage = treeView.getSelectionModel().getSelectedItem().getValue();
@@ -199,12 +228,18 @@ public class TreeViewController implements Initializable{
         }
     }
 
+    /**
+     * Reloads the treeView to updates any tag changes.
+     */
     void reSetTree(){
         if(MainContainer.getTreeViewController().getTreeView().getRoot()!=null){
         TreeViewItem listHelper = new TreeViewItem();
         treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
     }}
 
+    /**
+     * Calls AppComponent classes accordingly to add the selected tag in listView  to the selected image in treeView
+     */
     public void addTagToImage(){
         Tag t = listView.getSelectionModel().getSelectedItem();
         String location = MainContainer.getMiddleWindowController().getSelectedItemLocation();
@@ -219,6 +254,10 @@ public class TreeViewController implements Initializable{
     }
 
 
+    /**
+     * Getter for this treeView.
+     * @return TreeView<File></File>
+     */
     public TreeView<File> getTreeView() {
         return treeView;
     }

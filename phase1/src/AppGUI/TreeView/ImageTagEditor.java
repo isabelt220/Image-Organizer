@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 class ImageTagEditor{
 
 
+    /**
+     * Initializes a new stage (window for popup) and loads the scene ImageTagEditor onto it.
+     * @throws Exception
+     */
     void display() throws Exception{
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();

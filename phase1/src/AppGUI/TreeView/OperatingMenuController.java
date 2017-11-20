@@ -26,6 +26,11 @@ public class OperatingMenuController implements Initializable {
 
     private ImageData operatingImage;
 
+    /**
+     * Initializes the two textFields for addTag and deleteTag.
+     * @param location URL
+     * @param r ResourceBundle
+     */
     public void initialize(URL location, ResourceBundle r) {
         addTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -46,15 +51,28 @@ public class OperatingMenuController implements Initializable {
         });
     }
 
+    /**
+     * Exits the current OperatingMenu and reverts back to the original treeView.
+     * @throws IOException
+     */
     @FXML
     public void returnToOtherPane() throws IOException {
         MainContainer.getMain().showTreeView();
     }
 
+    /**
+     * Sets the operating menu to chosenImage, add and delete tag textfields are attched to chosenImage.
+     * @param chosenImage ImageData
+     */
     public void setOperatingMenu(ImageData chosenImage) {
+
         operatingImage = chosenImage;
     }
 
+    /**
+     * Gets the tag entered into addTag textField and calls classes in AppComponents to add tag to operating image
+     * accordingly.
+     */
     public void addTagButton() {
         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagTextField.getText());
@@ -66,6 +84,10 @@ public class OperatingMenuController implements Initializable {
 
     }
 
+    /**
+     * Gets the tag entered into deleteTag textField and calls classes in AppComponents to delete tag to operating image
+     * accordingly.
+     */
     public void deleteTagButton() {
         String targetTag = deleteTagTextField.getText();
         if (operatingImage.hasTag(targetTag)) {
@@ -83,6 +105,10 @@ public class OperatingMenuController implements Initializable {
     }
 
 
+    /**
+     * Setter for Operating image
+     * @param operatingImage ImageData
+     */
     void setOperatingImage(ImageData operatingImage) {
 
         this.operatingImage = operatingImage;
