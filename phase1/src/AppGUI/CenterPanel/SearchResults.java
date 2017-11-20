@@ -10,8 +10,11 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class SearchResults {
+    // Main stage used to display the search results
     private Stage mainStage;
 
+    /* Display the results of the images associated with the tag put
+    * in the search bar.*/
     public void display(ArrayList<ImageData> imageList) throws Exception {
         if (MainContainer.getSearchResultsController() == null) {
             mainStage = new Stage();
