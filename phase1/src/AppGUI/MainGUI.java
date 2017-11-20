@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainGUI extends Application{
+public class MainGUI extends Application {
     private Stage mainStage;
     private BorderPane mainLayout;
     public Pane operatingMenu;
@@ -28,7 +28,7 @@ public class MainGUI extends Application{
         showCenterView();
     }
 
-    private void showMainView() throws IOException{
+    private void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
         mainLayout = loader.load();
@@ -36,32 +36,39 @@ public class MainGUI extends Application{
         mainStage.setScene(scene);
         mainStage.show();
     }
-    public void showFolderPanel()throws IOException{
-        if(MainContainer.getFolderPanel()==null){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
-        Pane folderPanel = loader.load();
-        mainLayout.setCenter(folderPanel);
-        MainContainer.setFolderPanelController(loader.getController());
-        MainContainer.setFolderPanel(folderPanel);}
-        else {
+
+    public void showFolderPanel() throws IOException {
+        if (MainContainer.getFolderPanel() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
+            Pane folderPanel = loader.load();
+            mainLayout.setCenter(folderPanel);
+            MainContainer.setFolderPanelController(loader.getController());
+            MainContainer.setFolderPanel(folderPanel);
+        } else {
             mainLayout.setCenter(MainContainer.getFolderPanel());
         }
     }
 
-    public void showOperatingMenu()throws IOException{
-        if(MainContainer.getOperatingMenu()==null){
+    /**
+     * Display the OperatingMenu
+     */
+    public void showOperatingMenu() throws IOException {
+        if (MainContainer.getOperatingMenu() == null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
             Pane OMenuPanel = loader.load();
             mainLayout.setLeft(OMenuPanel);
             MainContainer.setOperatingMenuController(loader.getController());
-            MainContainer.setOperatingMenu(OMenuPanel);}
-        else {
+            MainContainer.setOperatingMenu(OMenuPanel);
+        } else {
             mainLayout.setLeft(MainContainer.getOperatingMenu());
         }
     }
 
+    /**
+     * Display the MiddleWindow
+     */
     public void showCenterView() throws IOException {
         if (MainContainer.getMiddleWindowController() == null) {
             FXMLLoader loader = new FXMLLoader();
@@ -75,14 +82,17 @@ public class MainGUI extends Application{
         }
     }
 
-    public void showTreeView() throws IOException{
+    /**
+     * Display the left Panel
+     */
+    public void showTreeView() throws IOException {
         if (MainContainer.getTreeViewPanel() == null) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
-        Pane treeView = loader.load();
-        mainLayout.setLeft(treeView);
-        MainContainer.setTreeViewController(loader.getController());
-        MainContainer.setTreeViewPanel(treeView );
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
+            Pane treeView = loader.load();
+            mainLayout.setLeft(treeView);
+            MainContainer.setTreeViewController(loader.getController());
+            MainContainer.setTreeViewPanel(treeView);
         } else {
             mainLayout.setLeft(MainContainer.getTreeViewPanel());
         }
@@ -97,7 +107,7 @@ public class MainGUI extends Application{
         mainStage.close();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 }
