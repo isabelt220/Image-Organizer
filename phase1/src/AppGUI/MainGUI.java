@@ -9,16 +9,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainGUI extends Application{
+public class MainGUI extends Application {
     private Stage mainStage;
     private BorderPane mainLayout;
-    public Pane operatingMenu;
-    public Pane treeView;
 
-    public Stage getMainStage() {
-        return mainStage;
-    }
-
+    /**
+     * Start the App
+     *
+     * @param primaryStage Stage
+     * @throws Exception Is thrown when the FXMLLoader fails to read the source file
+     */
     public void start(Stage primaryStage) throws Exception {
         MainContainer.setMain(this);
         this.mainStage = primaryStage;
@@ -28,7 +28,13 @@ public class MainGUI extends Application{
         showCenterView();
     }
 
-    private void showMainView() throws IOException{
+    /**
+     * Display the background scene
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
+
+    private void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
         mainLayout = loader.load();
@@ -36,32 +42,49 @@ public class MainGUI extends Application{
         mainStage.setScene(scene);
         mainStage.show();
     }
-    public void showFolderPanel()throws IOException{
-        if(MainContainer.getFolderPanel()==null){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
-        Pane folderPanel = loader.load();
-        mainLayout.setCenter(folderPanel);
-        MainContainer.setFolderPanelController(loader.getController());
-        MainContainer.setFolderPanel(folderPanel);}
-        else {
+
+    /**
+     * Display images under a folder
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
+
+    public void showFolderPanel() throws IOException {
+        if (MainContainer.getFolderPanel() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
+            Pane folderPanel = loader.load();
+            mainLayout.setCenter(folderPanel);
+            MainContainer.setFolderPanelController(loader.getController());
+            MainContainer.setFolderPanel(folderPanel);
+        } else {
             mainLayout.setCenter(MainContainer.getFolderPanel());
         }
     }
 
-    public void showOperatingMenu()throws IOException{
-        if(MainContainer.getOperatingMenu()==null){
+    /**
+     * Display the OperatingMenu
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
+    public void showOperatingMenu() throws IOException {
+        if (MainContainer.getOperatingMenu() == null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
             Pane OMenuPanel = loader.load();
             mainLayout.setLeft(OMenuPanel);
             MainContainer.setOperatingMenuController(loader.getController());
-            MainContainer.setOperatingMenu(OMenuPanel);}
-        else {
+            MainContainer.setOperatingMenu(OMenuPanel);
+        } else {
             mainLayout.setLeft(MainContainer.getOperatingMenu());
         }
     }
 
+    /**
+     * Display the MiddleWindow
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
     public void showCenterView() throws IOException {
         if (MainContainer.getMiddleWindowController() == null) {
             FXMLLoader loader = new FXMLLoader();
@@ -75,28 +98,49 @@ public class MainGUI extends Application{
         }
     }
 
-    public void showTreeView() throws IOException{
+    /**
+     * Display the left Panel
+     *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
+     */
+    public void showTreeView() throws IOException {
         if (MainContainer.getTreeViewPanel() == null) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
-        Pane treeView = loader.load();
-        mainLayout.setLeft(treeView);
-        MainContainer.setTreeViewController(loader.getController());
-        MainContainer.setTreeViewPanel(treeView );
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
+            Pane treeView = loader.load();
+            mainLayout.setLeft(treeView);
+            MainContainer.setTreeViewController(loader.getController());
+            MainContainer.setTreeViewPanel(treeView);
         } else {
             mainLayout.setLeft(MainContainer.getTreeViewPanel());
         }
     }
 
+    /**
+     * Serialize imageList and ListOfTags
+     */
     public void stop() {
         MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
     }
 
+    /**
+     * Close the App and
+     */
     void closeApplication() {
         mainStage.close();
     }
 
-    public static void main(String[] args){
+    /**
+     * Return App's main stage
+     *
+     * @return Stage
+     */
+    public Stage getMainStage() {
+        return mainStage;
+    }
+
+
+    public static void main(String[] args) {
         launch(args);
     }
 }

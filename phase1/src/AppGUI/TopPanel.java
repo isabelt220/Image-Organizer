@@ -29,7 +29,7 @@ public class TopPanel {
     }
 
     public void saveTagsAndExitApp() {
-        MainContainer.getAppTagManager().saveTagsToFile("tagConfig.txt");
+        MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
         MainContainer.getMain().closeApplication();
     }
 

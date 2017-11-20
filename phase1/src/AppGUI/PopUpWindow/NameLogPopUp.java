@@ -9,7 +9,7 @@ public class NameLogPopUp {
     /**
      * Set up the NameLogPopUp window and display it .
      *
-     * @throws Exception IOException
+     * @throws Exception Is thrown when the FXMLLoader fails to read the source file
      */
     public void display() throws Exception {
         Stage stage = new Stage();

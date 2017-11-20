@@ -14,8 +14,6 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#addNewTag" text="New Tag" />
-                  <MenuItem mnemonicParsing="false" onAction="#deleteExistingTag" text="Delete Tag" />
                   <MenuItem mnemonicParsing="false" onAction="#openChooseDirectory" text="Import Image Directory..." />
                   <MenuItem mnemonicParsing="false" onAction="#saveTagsAndExitApp" text="Save and Exit" />
             </items>
