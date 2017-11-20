@@ -1,5 +1,6 @@
 package AppGUI;
 
+import AppComponents.AppDataSerializer;
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.FolderPanelController;
@@ -21,7 +22,7 @@ public class MainContainer {
     private static Pane treeViewPanel;
     private static Pane operatingMenu;
     private static OperatingMenuController operatingMenuController;
-
+    private static AppDataSerializer appDataSerializer = new AppDataSerializer();
 
 
     public static void setSearchResults(SearchResults searchResults) {
@@ -130,5 +131,9 @@ public class MainContainer {
 
     public static MainGUI getMain() {
         return main;
+    }
+
+    static AppDataSerializer getAppDataSerializer() {
+        return appDataSerializer;
     }
 }
