@@ -92,7 +92,6 @@ public class TagManager implements Serializable {
                 // Tag name string already converted to lower case here to
                 // figure out if a tag already exists, Tag constructor also
                 // changes tag name to lower case, may be redundant code?
-                listOfTags.add(tag);
                 observableTagList.add(tag);
             }
             // should anything be done to inform user if a tag already exists?
@@ -115,7 +114,6 @@ public class TagManager implements Serializable {
             if (!tagExists(name) && !name.equals("")) {
                 Tag tag = new Tag(name);
                 tag.addImage(image);
-                listOfTags.add(tag);
                 observableTagList.add(tag);
                 listOfTagsToAttachToImage.add(tag);
             } else if (tagExists(name)) {
@@ -140,7 +138,6 @@ public class TagManager implements Serializable {
             Tag tag = getTag(tagName);
             // getTag() may return null
             ArrayList<ImageData> listOfImagesWithTag = tag.getAssociatedImages();
-            listOfTags.remove(tag);
             observableTagList.remove(tag);
             return listOfImagesWithTag;
         }
