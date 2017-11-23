@@ -20,7 +20,7 @@ public class TagManager implements Serializable {
      */
     void setListOfTags(ArrayList<Tag> list) {
         listOfTags = list;
-//        observableTagList = FXCollections.observableList(listOfTags);
+        observableTagList = FXCollections.observableList(listOfTags);
     }
 
     /**
