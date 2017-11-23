@@ -7,14 +7,14 @@ import javafx.scene.control.TreeItem;
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
 
-class TreeViewItem {
+public class TreeViewItem {
 
     /**
      * Takes the dir directory as the TreeView Item and displays its children file in the treeView.
      * @param dir Directory
      * @return
      */
-    TreeItem<File> generateTreeItem(File dir) {
+    public TreeItem<File> generateTreeItem(File dir) {
         DialogBox warning = new DialogBox("Warning", "The folder you are choosing is empty!");
         try {
             TreeItem<File> directory = new TreeItem<>(dir);

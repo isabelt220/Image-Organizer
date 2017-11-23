@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -62,6 +63,7 @@ public class TreeViewController implements Initializable{
                 };
             }
         });
+
 
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -243,13 +245,17 @@ public class TreeViewController implements Initializable{
      * Calls AppComponent classes accordingly to add the selected tag in listView  to the selected image in treeView
      */
     public void addTagToImage(){
-        Tag t = listView.getSelectionModel().getSelectedItem();
+        ObservableList<Tag> tagList = listView.getSelectionModel().getSelectedItems();
+        System.out.println(tagList);
         String location = MainContainer.getMiddleWindowController().getSelectedItemLocation();
-        if(t!=null && MainContainer.getMiddleWindowController().getSelectedItemLocation()!= null){
+
+        if(tagList!=null && MainContainer.getMiddleWindowController().getSelectedItemLocation()!= null){
             ImageData currentImage = MainContainer.getAppImageManager().getImage(location);
-            ArrayList<String> tagList = new ArrayList<>();
-            tagList.add(t.getTagName());
-            MainContainer.getAppImageManager().imAddTagWithImage(currentImage, tagList);
+            ArrayList<String> addList = new ArrayList<>();
+            for(Tag t: tagList){
+                addList.add(t.getTagName());
+            }
+            MainContainer.getAppImageManager().imAddTagWithImage(currentImage, addList);
             MainContainer.getMiddleWindowController().setPanel(currentImage.getLocation());
             reSetTree();
         }
