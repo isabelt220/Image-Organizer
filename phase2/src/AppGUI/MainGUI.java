@@ -73,14 +73,14 @@ public class MainGUI extends Application {
         OpMenuObserver opMenuObserver = new OpMenuObserver();
         opMenuObserver.setTarget(OpController);
 
-        treeController.addObserver(mainObserver);
-        treeController.addObserver(opMenuObserver);
-        treeController.addObserver(centerObserver);
-        treeController.addObserver(folderObserver);
-
         OpController.setMainObserver(mainObserver);
         OpController.setTreeViewObserver(treeViewObserver);
         OpController.setCenterObserver(centerObserver);
+
+        treeController.setMainObserver(mainObserver);
+        treeController.setOpMenuObserver(opMenuObserver);
+        treeController.setCenterObserver(centerObserver);
+        treeController.setFolderObserver(folderObserver);
 
 
     }
