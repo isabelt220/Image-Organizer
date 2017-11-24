@@ -44,9 +44,12 @@ public class TreeViewController implements Initializable {
     @FXML
     TextField addTagField = new TextField();
 
-    private ArrayList<Observer> observerList = new ArrayList<>();
-
     static File selectedImage;
+
+    private CenterObserver centerObserver;
+    private FolderObserver folderObserver;
+    private OpMenuObserver opMenuObserver;
+    private MainObserver mainObserver;
 
 
     /**
@@ -97,7 +100,6 @@ public class TreeViewController implements Initializable {
      * @throws IOException Exception
      */
     public void openFolder() throws IOException {
-        MainObserver o = (MainObserver)observerList.get(0);
         DirectoryChooser dc = new DirectoryChooser();
         File choice = dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
         if (choice != null) {
@@ -117,7 +119,7 @@ public class TreeViewController implements Initializable {
                     };
                 }
             });
-           o.setPanel("folder");
+           mainObserver.setPanel("folder");
         }
     }
 
@@ -155,13 +157,10 @@ public class TreeViewController implements Initializable {
      */
     public void treeItemClick() throws IOException {
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
-        MainObserver o = (MainObserver)observerList.get(0);
-        CenterObserver co = (CenterObserver)observerList.get(2);
-        FolderObserver fo = (FolderObserver)observerList.get(3);
         if (currentNode != null) {
             selectedImage = currentNode.getValue();
-            o.setPanel("center");
-            co.update(currentNode.getValue().toPath().toString());
+            mainObserver.setPanel("center");
+            centerObserver.update(currentNode.getValue().toPath().toString());
             if (!currentNode.getValue().isDirectory()) {
                 if (currentNode.getValue() != null) {
                     treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
@@ -169,18 +168,17 @@ public class TreeViewController implements Initializable {
                             contextMenu.show(treeView, t.getScreenX(), t.getScreenY());
                         } else if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
 
-                                o.setPanel("OpMenu");
+                                mainObserver.setPanel("OpMenu");
                                 ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
-                                OpMenuObserver op = ( OpMenuObserver)observerList.get(1);
-                                op.update(image);
+                                opMenuObserver.update(image);
 
                         }
 
                     });
                 }
             } else {
-                o.setPanel("folder");
-               fo.update(currentNode.getValue().toPath().toString());
+                mainObserver.setPanel("folder");
+                folderObserver.update(currentNode.getValue().toPath().toString());
             }
         }
     }
@@ -281,9 +279,20 @@ public class TreeViewController implements Initializable {
         return treeView;
     }
 
-    public void addObserver(Observer o){
-        observerList.add(o);
+    public void setCenterObserver(CenterObserver centerObserver) {
+        this.centerObserver = centerObserver;
     }
 
+    public void setFolderObserver(FolderObserver folderObserver) {
+        this.folderObserver = folderObserver;
+    }
+
+    public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
+        this.opMenuObserver = opMenuObserver;
+    }
+
+    public void setMainObserver(MainObserver mainObserver) {
+        this.mainObserver = mainObserver;
+    }
 }
 
