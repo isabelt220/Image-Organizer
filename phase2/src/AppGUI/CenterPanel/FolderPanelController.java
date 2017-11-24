@@ -52,6 +52,7 @@ public class FolderPanelController implements Initializable {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("You fucked up");
             }
         });
         preViewColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -106,6 +107,9 @@ public class FolderPanelController implements Initializable {
                         tableImage.setImage(image2);
 
                         ImageData imageData = MainContainer.getAppImageManager().getImage(url);
+                        if (imageData == null) {
+                            imageData = new ImageData(url);
+                        }
                         imageTable.add(imageData);
                     }
                 }

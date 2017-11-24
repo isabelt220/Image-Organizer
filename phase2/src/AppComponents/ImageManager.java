@@ -108,13 +108,32 @@ public class ImageManager implements Serializable {
      * @return ImageData
      */
     public ImageData getImage(String location) {
-        ImageData temp = new ImageData(location);
-        for (ImageData i : imageList) {
-            if (temp.equals(i)) {
-                return i;
+        if (!imageList.isEmpty() && imageExists(location)) {
+            for (ImageData i : imageList) {
+                if (location.equals(i.getLocation())) {
+                    return i;
+                }
             }
         }
-        return temp;
+        return null;
+//        ImageData temp = new ImageData(location);
+//        for (ImageData i : imageList) {
+//            if (temp.equals(i)) {
+//                return i;
+//            }
+//        }
+//        return temp;
+    }
+
+    public boolean imageExists(String location) {
+        if (!imageList.isEmpty()) {
+            for (ImageData image : imageList) {
+                if (location.equals(image.getLocation())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
