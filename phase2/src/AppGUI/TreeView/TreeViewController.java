@@ -206,7 +206,7 @@ public class TreeViewController implements Initializable {
     public void moveFile() {
         File selectedFile = treeView.getSelectionModel().getSelectedItem().getValue();
         DirectoryChooser dc = new DirectoryChooser();
-        File choice = dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
+        File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
         if (choice != null) {
             try {
                 String name = selectedFile.getName();
@@ -242,8 +242,8 @@ public class TreeViewController implements Initializable {
     /**
      * Reloads the treeView to updates any tag changes.
      */
-    void reSetTree() {
-        if (MainContainer.getTreeViewController().getTreeView().getRoot() != null) {
+    public void reSetTree() {
+        if (treeView.getRoot() != null) {
             TreeViewItem listHelper = new TreeViewItem();
             treeView.setRoot(listHelper.generateTreeItem(treeView.getRoot().getValue()));
         }
@@ -254,17 +254,15 @@ public class TreeViewController implements Initializable {
      */
     public void addTagToImage() {
         ObservableList<Tag> tagList = listView.getSelectionModel().getSelectedItems();
-        System.out.println(tagList);
-        String location = MainContainer.getMiddleWindowController().getSelectedItemLocation();
-
-        if (tagList != null && MainContainer.getMiddleWindowController().getSelectedItemLocation() != null) {
+        String location = centerObserver.getTarget().getSelectedItemLocation();
+        if (tagList != null && location != null) {
             ImageData currentImage = MainContainer.getAppImageManager().getImage(location);
             ArrayList<String> addList = new ArrayList<>();
             for (Tag t : tagList) {
                 addList.add(t.getTagName());
             }
             MainContainer.getAppImageManager().imAddTagWithImage(currentImage, addList);
-            MainContainer.getMiddleWindowController().setPanel(currentImage.getLocation());
+            centerObserver.update(currentImage.getLocation());
             reSetTree();
         }
     }

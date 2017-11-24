@@ -9,6 +9,10 @@ public class MainObserver extends Observer{
         this.main = main;
     }
 
+    public MainGUI getMain() {
+        return main;
+    }
+
     public void setPanel(String panel){
       if(panel.equals("center")){
           main.showCenterView();

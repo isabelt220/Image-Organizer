@@ -12,9 +12,6 @@ public class TreeViewObserver extends Observer{
     }
 
     public void update(){
-        if (target!=null&&target.getTreeView().getRoot() != null) {
-            TreeViewItem listHelper = new TreeViewItem();
-            target.getTreeView().setRoot(listHelper.generateTreeItem(target.getTreeView().getRoot().getValue()));
-        }
+        target.reSetTree();
     }
 }
