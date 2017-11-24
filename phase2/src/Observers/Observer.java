@@ -1,4 +1,4 @@
-package AppComponents.Observers;
+package Observers;
 
 public abstract class Observer {
     public abstract void update();

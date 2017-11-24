@@ -2,7 +2,9 @@ package AppGUI.TreeView;
 
 import AppComponents.ImageData;
 import AppComponents.Tag;
+import AppGUI.AppFile;
 import AppGUI.MainContainer;
+import AppGUI.MainGUI;
 import AppGUI.PopUpWindow.DialogBox;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,8 +27,9 @@ public class OperatingMenuController implements Initializable {
     @FXML
     private TextField deleteTagTextField = new TextField();
 
+    private AppFile operatingImage;
 
-    private ImageData operatingImage;
+    private MainGUI main;
 
     /**
      * Initializes the two textFields for addTag and deleteTag.
@@ -56,18 +61,10 @@ public class OperatingMenuController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void returnToOtherPane() throws IOException {
-        MainContainer.getMain().showTreeView();
+    public void returnToOtherPane() {
+        main.showTreeView();
     }
 
-    /**
-     * Sets the operating menu to chosenImage, add and delete tag textfields are attched to chosenImage.
-     * @param chosenImage ImageData
-     */
-    public void setOperatingMenu(ImageData chosenImage) {
-
-        operatingImage = chosenImage;
-    }
 
     /**
      * Gets the tag entered into addTag textField and calls classes in AppComponents to add tag to operating image
@@ -76,10 +73,13 @@ public class OperatingMenuController implements Initializable {
     public void addTagButton() {
         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagTextField.getText());
-
-        operatingImage = MainContainer.getAppImageManager().imAddTagWithImage(operatingImage, tagEditorTagList);
-        MainContainer.getTreeViewController().reSetTree();
-        MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
+        ImageData image = MainContainer.getAppImageManager().getImage(operatingImage.getLocation());
+        if(image==null){
+            image = new ImageData(operatingImage.getLocation());
+        }
+        MainContainer.getAppImageManager().imAddTagWithImage(image, tagEditorTagList);
+        File f = new File(image.getLocation());
+        operatingImage.setCurrentFile(f);
         addTagTextField.setText("");
 
     }
@@ -90,13 +90,14 @@ public class OperatingMenuController implements Initializable {
      */
     public void deleteTagButton() {
         String targetTag = deleteTagTextField.getText();
-        if (operatingImage.hasTag(targetTag)) {
+        ImageData image = MainContainer.getAppImageManager().getImage(operatingImage.getLocation());
+        if (image != null) {
             Tag t = new Tag(targetTag);
             ArrayList<Tag> tagList = new ArrayList<>();
             tagList.add(t);
-            MainContainer.getAppImageManager().removeTagFromPic(tagList, operatingImage);
-            MainContainer.getTreeViewController().reSetTree();
-            MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
+            MainContainer.getAppImageManager().removeTagFromPic(tagList, image);
+            File f = new File(image.getLocation());
+            operatingImage.setCurrentFile(f);
         } else {
             DialogBox warningBox = new DialogBox("Sorry", "This Image does not have the tag you want to delete");
             warningBox.display();
@@ -109,8 +110,15 @@ public class OperatingMenuController implements Initializable {
      * Setter for Operating image
      * @param operatingImage ImageData
      */
-    void setOperatingImage(ImageData operatingImage) {
-
+    public void setOperatingImage(AppFile operatingImage) {
         this.operatingImage = operatingImage;
+    }
+
+    public AppFile getOperatingImage() {
+        return operatingImage;
+    }
+
+    public void setMain(MainGUI main) {
+        this.main = main;
     }
 }

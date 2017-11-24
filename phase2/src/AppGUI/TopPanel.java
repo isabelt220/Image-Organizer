@@ -2,39 +2,53 @@ package AppGUI;
 
 
 import AppGUI.PopUpWindow.DialogBox;
+import AppGUI.TreeView.TreeViewController;
+import Observers.TreeViewObserver;
+import sun.applet.Main;
 
 import java.io.IOException;
 
 public class TopPanel {
 
+    private TreeViewController treeViewController;
+
+    private MainGUI main;
+
+    public void setTreeViewController(TreeViewController treeViewController) {
+        this.treeViewController = treeViewController;
+    }
+
     public void addNewTag() {
-        MainContainer.getTreeViewController().addTagClick();
+        treeViewController.addTagClick();
     }
 
     public void deleteExistingTag() {
-        MainContainer.getTreeViewController().deleteTagClick();
+        treeViewController.deleteTagClick();
     }
 
     public void openImageTagEditor() throws Exception {
         try{
-       MainContainer.getTreeViewController().openImageTagEditor();}
-       catch (NullPointerException e){
+            treeViewController.openImageTagEditor();}
+        catch (NullPointerException e){
             DialogBox warning = new DialogBox("Warning","Please choose an image");
             warning.display();
-       }
+        }
     }
 
     public void openChooseDirectory() throws IOException{
-        MainContainer.getTreeViewController().openFolder();
+        treeViewController.openFolder();
     }
 
     public void saveTagsAndExitApp() {
         MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
-        MainContainer.getMain().closeApplication();
+        main.closeApplication();
     }
 
     public void openNameLog() throws Exception {
-        MainContainer.getTreeViewController().openNameLogPopUp();
+        treeViewController.openNameLogPopUp();
     }
 
+    public void setMain(MainGUI main) {
+        this.main = main;
+    }
 }

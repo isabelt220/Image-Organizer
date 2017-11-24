@@ -2,6 +2,7 @@ package AppGUI.PopUpWindow;
 
 import AppComponents.ImageData;
 import AppComponents.Tag;
+import AppGUI.AppFile;
 import AppGUI.MainContainer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -17,7 +18,7 @@ import java.io.File;
 import java.util.*;
 
 public class NameLogPopUpController {
-//    TableView<Map.Entry<String,String>> logTable = new TableView<>();
+    //    TableView<Map.Entry<String,String>> logTable = new TableView<>();
     @FXML
     public TableColumn<Map.Entry<String,String>, String> nameColumn;
     @FXML
@@ -31,16 +32,20 @@ public class NameLogPopUpController {
 
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
+    private AppFile target;
+
+    public void setTarget(AppFile t){
+        target = t;
+        curImage = MainContainer.getAppImageManager().getImage(t.getLocation());
+        data.putAll(curImage.getNameLog());
+    }
+
     /**
      * Initializes the NameLogPopUp according to nameLog extracted from curImage.
      * @throws NullPointerException Exception
      */
     @FXML
     public void initialize() throws NullPointerException{
-        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
-        data.putAll(curImage.getNameLog());
-
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
         timeStampColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
@@ -59,7 +64,7 @@ public class NameLogPopUpController {
         ArrayList<Tag> revertList = generateTagList(stripList);
         ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, revertList);
         File f= new File(newNode.getLocation());
-        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
+        target.setCurrentFile(f);
 //        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }
@@ -73,9 +78,9 @@ public class NameLogPopUpController {
     private ArrayList<Tag> generateTagList (String chosen){
         ArrayList<Tag> imageTags = new ArrayList<>();
         if (chosen.contains("@")){
-        int i = chosen.indexOf("@");
-        String temp1 = chosen.substring(i+1);
-        String[] parts = temp1.split(" @");
+            int i = chosen.indexOf("@");
+            String temp1 = chosen.substring(i+1);
+            String[] parts = temp1.split(" @");
             for (String tag: parts) {
                 imageTags.add(new Tag(tag));
             }}
@@ -103,5 +108,3 @@ public class NameLogPopUpController {
 
 
 }
-
-
