@@ -1,12 +1,5 @@
 package AppGUI;
 
-import AppGUI.CenterPanel.FolderPanelController;
-import AppGUI.CenterPanel.MiddleWindowController;
-import AppGUI.TreeView.OperatingMenuController;
-import AppGUI.TreeView.TreeViewController;
-import Observers.CenterObserver;
-import Observers.FolderObserver;
-import Observers.TreeViewObserver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,10 +12,6 @@ import java.io.IOException;
 public class MainGUI extends Application {
     private Stage mainStage;
     private BorderPane mainLayout;
-    private Pane folderPane;
-    private Pane middlePane;
-    private Pane OMenu;
-    private Pane treePane;
 
     /**
      * Start the App
@@ -31,66 +20,12 @@ public class MainGUI extends Application {
      * @throws Exception Is thrown when the FXMLLoader fails to read the source file
      */
     public void start(Stage primaryStage) throws Exception {
+        MainContainer.setMain(this);
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
-        mainLayout = loader.load();
-        TopPanel topPanel = loader.getController();
-        topPanel.setMain(this);
-        Scene scene = new Scene(mainLayout);
-        mainStage.setScene(scene);
-        mainStage.show();
-
-
-        FXMLLoader OLoader = new FXMLLoader();
-        OLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-        OMenu = OLoader.load();
-        mainLayout.setLeft(OMenu);
-        OperatingMenuController OController = OLoader.getController();
-        OController.setOperatingImage(new AppFile());
-        OController.setMain(this);
-
-
-        FXMLLoader centerLoader = new FXMLLoader();
-        centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
-        middlePane = centerLoader.load();
-        mainLayout.setCenter(middlePane);
-        MiddleWindowController middleController = centerLoader.getController();
-        middleController.setTargetFile(OController.getOperatingImage());
-        middleController.setMain(this);
-
-        FXMLLoader folderLoader = new FXMLLoader();
-        folderLoader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
-        folderPane =  folderLoader.load();
-        mainLayout.setCenter(folderPane);
-        FolderPanelController folderController = folderLoader.getController();
-        folderController.setTargetFile(OController.getOperatingImage());
-        folderController.setMain(this);
-
-        FXMLLoader treeLoader = new FXMLLoader();
-        treeLoader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
-        treePane = treeLoader.load();
-        mainLayout.setLeft(treePane);
-        TreeViewController treeController = treeLoader.getController();
-        treeController.setTargetFile(OController.getOperatingImage());
-
-        CenterObserver centerObserver = new CenterObserver();
-        centerObserver.setTarget(middleController);
-
-        FolderObserver folderObserver = new FolderObserver();
-        folderObserver.setTarget(folderController);
-
-        TreeViewObserver treeObserver = new TreeViewObserver();
-        treeObserver.setTarget(treeController);
-
-        OController.getOperatingImage().addObserver(folderObserver);
-        OController.getOperatingImage().addObserver(centerObserver);
-        treeController.setMain(this);
-
-        topPanel.setTreeViewController(treeController);
-
+        showMainView();
+        showTreeView();
+        showCenterView();
     }
 
     /**
@@ -111,34 +46,74 @@ public class MainGUI extends Application {
     /**
      * Display images under a folder
      *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
 
-    public void showFolderPanel(){
-        mainLayout.setCenter(folderPane);
+    public void showFolderPanel() throws IOException {
+        if (MainContainer.getFolderPanel() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
+            Pane folderPanel = loader.load();
+            mainLayout.setCenter(folderPanel);
+            MainContainer.setFolderPanelController(loader.getController());
+            MainContainer.setFolderPanel(folderPanel);
+        } else {
+            mainLayout.setCenter(MainContainer.getFolderPanel());
+        }
     }
 
     /**
      * Display the OperatingMenu
      *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
-    public void showOperatingMenu() {
-        mainLayout.setLeft(OMenu);
+    public void showOperatingMenu() throws IOException {
+        if (MainContainer.getOperatingMenu() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+            Pane OMenuPanel = loader.load();
+            mainLayout.setLeft(OMenuPanel);
+            MainContainer.setOperatingMenuController(loader.getController());
+            MainContainer.setOperatingMenu(OMenuPanel);
+        } else {
+            mainLayout.setLeft(MainContainer.getOperatingMenu());
+        }
     }
 
     /**
      * Display the MiddleWindow
      *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
-    public void showMiddlePanel(){
-        mainLayout.setCenter(middlePane);
+    public void showCenterView() throws IOException {
+        if (MainContainer.getMiddleWindowController() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
+            Pane centerPane = loader.load();
+            mainLayout.setCenter(centerPane);
+            MainContainer.setMiddleWindowController(loader.getController());
+            MainContainer.setCenterPanel(centerPane);
+        } else {
+            mainLayout.setCenter(MainContainer.getCenterPanel());
+        }
     }
 
     /**
      * Display the left Panel
      *
+     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
-    public void showTreeView() {
-        mainLayout.setLeft(treePane);
+    public void showTreeView() throws IOException {
+        if (MainContainer.getTreeViewPanel() == null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
+            Pane treeView = loader.load();
+            mainLayout.setLeft(treeView);
+            MainContainer.setTreeViewController(loader.getController());
+            MainContainer.setTreeViewPanel(treeView);
+        } else {
+            mainLayout.setLeft(MainContainer.getTreeViewPanel());
+        }
     }
 
     /**

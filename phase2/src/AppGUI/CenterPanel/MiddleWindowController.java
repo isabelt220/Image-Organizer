@@ -26,6 +26,7 @@ public class MiddleWindowController extends FolderPanelController {
     @FXML
     private ImageView imageView = new ImageView();
 
+    private String selectedItemLocation;
 
     /* Initialize the search field when search is clicked. Return
     * a error message through a dialog box if the search failed.*/
@@ -47,21 +48,32 @@ public class MiddleWindowController extends FolderPanelController {
 
     /* Refresh the table that opens up when the search button is pressed.*/
     public void refreshTable() {
-        if (getTargetFile() != null) {
-            MainContainer.getFolderPanelController().setPanel();
+        String location = selectedItemLocation;
+        if (location != null) {
+            MainContainer.getFolderPanelController().setPanel(location);
         }
     }
 
     /* Setter for panel*/
     @Override
-    public void setPanel() {
-        super.setPanel();
-        File file = getTargetFile().getCurrentFile();
+    public void setPanel(String location) {
+        selectedItemLocation = location;
+        super.setPanel(location);
+        File file = new File(location);
         Image image = new Image(file.toURI().toString());
         this.imageView.setImage(image);
 
     }
 
+    /* Setter for item's location*/
+    public void setSelectedItemLocation(String selectedItemLocation) {
+        this.selectedItemLocation = selectedItemLocation;
+    }
+
+    /* Getter for item's location*/
+    public String getSelectedItemLocation() {
+        return selectedItemLocation;
+    }
 
     /* When the search button is clicked, search and display the results for
     * the images with the corresponding tags. Otherwise give a dialog box with

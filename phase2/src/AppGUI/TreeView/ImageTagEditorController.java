@@ -14,7 +14,6 @@ public class ImageTagEditorController extends OperatingMenuController {
     //Placement of image that the ImageTagEditor is currently editing.
     private ImageView myImageView = new ImageView();
 
-
     /**
      * Initializes the image view by taking the selected image File and sets it in the myImageView of the fxml.
      * @param location URL
@@ -23,9 +22,10 @@ public class ImageTagEditorController extends OperatingMenuController {
     @Override
     public void initialize(URL location, ResourceBundle r) {
         super.initialize(location, r);
-        Image image = new Image(getOperatingImage().getUrl());
+        Image image = new Image(TreeViewController.selectedImage.toURI().toString());
         myImageView.setImage(image);
-
+        ImageData i = MainContainer.getAppImageManager().getImage(TreeViewController.selectedImage.toPath().toString());
+        setOperatingImage(i);
 
     }
 

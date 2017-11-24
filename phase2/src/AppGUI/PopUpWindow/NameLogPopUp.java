@@ -1,15 +1,9 @@
 package AppGUI.PopUpWindow;
 
-import AppGUI.AppFile;
-import AppGUI.CenterPanel.MiddleWindowController;
-import AppGUI.MainGUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class NameLogPopUp {
     /**
@@ -17,16 +11,11 @@ public class NameLogPopUp {
      *
      * @throws Exception Is thrown when the FXMLLoader fails to read the source file
      */
-    public void display(AppFile t) throws IOException {
+    public void display() throws Exception {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("PopUpWindow/NameLogPopUp.fxml"));
-        Pane panel = loader.load();
-        NameLogPopUpController n = loader.getController();
-        n.setTarget(t);
-        stage.setScene(new Scene(panel));
+        Parent root = FXMLLoader.load(getClass().getResource("NameLogPopUp.fxml"));
+        stage.setScene(new Scene(root, 543, 458));
         stage.show();
-
     }
 
 }

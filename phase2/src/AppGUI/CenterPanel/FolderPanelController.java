@@ -1,9 +1,7 @@
 package AppGUI.CenterPanel;
 
 import AppComponents.ImageData;
-import AppGUI.AppFile;
 import AppGUI.MainContainer;
-import AppGUI.MainGUI;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -35,9 +33,6 @@ public class FolderPanelController implements Initializable {
     @FXML
     private TableColumn<ImageData, String> nameColumn = new TableColumn<>();
 
-    private MainGUI main;
-    private AppFile targetFile;
-
     /* Initiate the table on mouse click
     * */
     public void initialize(URL location, ResourceBundle r) {
@@ -47,15 +42,16 @@ public class FolderPanelController implements Initializable {
                 of that item and get all the static variables of that item.
                 */
                 if (tableView.getSelectionModel().getSelectedItem() != null) {
-                    File f = new File(tableView.getSelectionModel().getSelectedItem().getLocation());
-                    targetFile.setCurrentFile(f);
-                    main.showOperatingMenu();
-                    main.showMiddlePanel();
+                    String location1 = tableView.getSelectionModel().getSelectedItem().getLocation();
+                    MainContainer.getMiddleWindowController().setPanel(location1);
+                    MainContainer.getMain().showCenterView();
+                    MainContainer.getMain().showOperatingMenu();
+                    ImageData image = MainContainer.getAppImageManager().getImage(location1);
+                    MainContainer.getOperatingMenuController().setOperatingMenu(image);
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("You fucked up");
             }
         });
         preViewColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -89,8 +85,7 @@ public class FolderPanelController implements Initializable {
     }
 
     /* Setter for the panel*/
-    public void setPanel() {
-        String location = targetFile.getLocation();
+    public void setPanel(String location) {
         tableView.getColumns().clear();
         tableView.getItems().clear();
         File file = new File(location);
@@ -111,11 +106,6 @@ public class FolderPanelController implements Initializable {
                         tableImage.setImage(image2);
 
                         ImageData imageData = MainContainer.getAppImageManager().getImage(url);
-
-
-                        if (imageData == null) {
-                            imageData = new ImageData(url);
-                        }
                         imageTable.add(imageData);
                     }
                 }
@@ -125,15 +115,4 @@ public class FolderPanelController implements Initializable {
         tableView.setItems(FXCollections.observableList(imageTable));
     }
 
-    public AppFile getTargetFile() {
-        return targetFile;
-    }
-
-    public void setTargetFile(AppFile targetFile) {
-        this.targetFile = targetFile;
-    }
-
-    public void setMain(MainGUI m) {
-        this.main = m;
-    }
 }
