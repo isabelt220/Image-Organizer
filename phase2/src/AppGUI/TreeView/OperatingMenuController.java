@@ -4,6 +4,7 @@ import AppComponents.ImageData;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
+import Observers.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +25,10 @@ public class OperatingMenuController implements Initializable {
     private TextField deleteTagTextField = new TextField();
 
     private ImageData operatingImage;
+
+    private TreeViewObserver treeViewObserver;
+    private MainObserver mainObserver;
+    private CenterObserver centerObserver;
 
     /**
      * Initializes the two textFields for addTag and deleteTag.
@@ -50,13 +55,25 @@ public class OperatingMenuController implements Initializable {
         });
     }
 
+    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
+        this.treeViewObserver = treeViewObserver;
+    }
+
+    public void setMainObserver(MainObserver mainObserver) {
+        this.mainObserver = mainObserver;
+    }
+
+    public void setCenterObserver(CenterObserver centerObserver) {
+        this.centerObserver = centerObserver;
+    }
+
     /**
      * Exits the current OperatingMenu and reverts back to the original treeView.
      * @throws IOException
      */
     @FXML
     public void returnToOtherPane() throws IOException {
-        MainContainer.getMain().showTreeView();
+        mainObserver.setPanel("Tree");
     }
 
     /**
@@ -64,7 +81,6 @@ public class OperatingMenuController implements Initializable {
      * @param chosenImage ImageData
      */
     public void setOperatingMenu(ImageData chosenImage) {
-
         operatingImage = chosenImage;
     }
 
@@ -75,10 +91,10 @@ public class OperatingMenuController implements Initializable {
     public void addTagButton() {
         ArrayList<String> tagEditorTagList = new ArrayList<>();
         tagEditorTagList.add(0, addTagTextField.getText());
-
+        //Special care
         operatingImage = MainContainer.getAppImageManager().imAddTagWithImage(operatingImage, tagEditorTagList);
-        MainContainer.getTreeViewController().reSetTree();
-        MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
+        treeViewObserver.update();
+        centerObserver.update(operatingImage.getLocation());
         addTagTextField.setText("");
 
     }
@@ -94,10 +110,10 @@ public class OperatingMenuController implements Initializable {
             ArrayList<Tag> tagList = new ArrayList<>();
             tagList.add(t);
             MainContainer.getAppImageManager().removeTagFromPic(tagList, operatingImage);
-            MainContainer.getTreeViewController().reSetTree();
-            MainContainer.getMiddleWindowController().setPanel(operatingImage.getLocation());
+            treeViewObserver.update();
+            centerObserver.update(operatingImage.getLocation());
         } else {
-            DialogBox warningBox = new DialogBox("Sorry", "This Image does not have the tag you want to delete");
+            DialogBox warningBox = new DialogBox("Sorry", "This image does not have the tag you want to delete");
             warningBox.display();
         }
         deleteTagTextField.setText("");
