@@ -106,6 +106,10 @@ public class FolderPanelController implements Initializable {
                         tableImage.setImage(image2);
 
                         ImageData imageData = MainContainer.getAppImageManager().getImage(url);
+
+                        if (imageData == null) {
+                            imageData = new ImageData(url);
+                        }
                         imageTable.add(imageData);
                     }
                 }

@@ -9,9 +9,9 @@ public class CenterObserver extends Observer{
         this.target =t;
     }
 
-    public void update(){
-        if(target != null && target.getTargetFile() != null){
-            target.setPanel();
+    public void update(String location){
+        if(target != null && target.getSelectedItemLocation() != null){
+            target.setPanel(location);
         }
     }
 }

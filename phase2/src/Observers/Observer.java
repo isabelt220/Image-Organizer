@@ -1,5 +1,12 @@
 package Observers;
 
-public abstract class Observer {
-    public abstract void update();
+public class Observer<T> {
+
+    private T target;
+
+    public void setTarget(T target) {
+        this.target = target;
+    }
+
+
 }

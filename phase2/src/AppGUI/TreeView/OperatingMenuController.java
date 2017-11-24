@@ -23,7 +23,6 @@ public class OperatingMenuController implements Initializable {
     @FXML
     private TextField deleteTagTextField = new TextField();
 
-
     private ImageData operatingImage;
 
     /**
@@ -109,7 +108,7 @@ public class OperatingMenuController implements Initializable {
      * Setter for Operating image
      * @param operatingImage ImageData
      */
-    void setOperatingImage(ImageData operatingImage) {
+    public void setOperatingImage(ImageData operatingImage) {
 
         this.operatingImage = operatingImage;
     }

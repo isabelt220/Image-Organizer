@@ -6,6 +6,10 @@ import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 
 import AppGUI.PopUpWindow.NameLogPopUp;
+import Observers.CenterObserver;
+import Observers.MainObserver;
+import Observers.Observer;
+import Observers.OpMenuObserver;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,6 +46,9 @@ public class TreeViewController implements Initializable {
     HBox hBox = new HBox();
     @FXML
     TextField addTagField = new TextField();
+
+    private ArrayList<Observer> observerList = new ArrayList<>();
+
     static File selectedImage;
 
 
@@ -152,25 +159,22 @@ public class TreeViewController implements Initializable {
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if (currentNode != null) {
             selectedImage = currentNode.getValue();
-            try {
-                MainContainer.getMain().showCenterView();
-            } catch (IOException e) {
-                System.err.println("Caught IOException: " + e.getMessage());
-            }
-            MainContainer.getMiddleWindowController().setPanel(currentNode.getValue().toPath().toString());
+            MainObserver o = (MainObserver)observerList.get(0);
+            o.setPanel("center");
+            CenterObserver co = (CenterObserver)observerList.get(2);
+            co.update(currentNode.getValue().toPath().toString());
             if (!currentNode.getValue().isDirectory()) {
                 if (currentNode.getValue() != null) {
                     treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, t -> {
                         if (t.getButton() == MouseButton.SECONDARY) {
                             contextMenu.show(treeView, t.getScreenX(), t.getScreenY());
                         } else if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
-                            try {
-                                MainContainer.getMain().showOperatingMenu();
+
+                                o.setPanel("OpMenu");
                                 ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
-                                MainContainer.getOperatingMenuController().setOperatingMenu(image);
-                            } catch (IOException e) {
-                                System.err.println("Caught IOException: " + e.getMessage());
-                            }
+                                OpMenuObserver op = ( OpMenuObserver)observerList.get(1);
+                                op.update(image);
+
                         }
 
                     });
@@ -277,6 +281,10 @@ public class TreeViewController implements Initializable {
      */
     public TreeView<File> getTreeView() {
         return treeView;
+    }
+
+    public void addObserver(Observer o){
+        observerList.add(o);
     }
 }
 

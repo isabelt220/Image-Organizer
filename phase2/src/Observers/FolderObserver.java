@@ -9,10 +9,9 @@ public class FolderObserver extends Observer{
         this.target =t;
     }
 
-    @Override
-    public void update() {
+    public void update(String location) {
         if(target !=null){
-            target.setPanel();
+            target.setPanel(location);
         }
     }
 }
