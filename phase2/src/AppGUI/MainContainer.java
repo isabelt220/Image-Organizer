@@ -4,17 +4,24 @@ import AppComponents.AppDataSerializer;
 import AppComponents.ImageManager;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.FolderPanelController;
+import AppGUI.CenterPanel.MiddleWindowController;
 import AppGUI.CenterPanel.SearchResults;
 import AppGUI.CenterPanel.SearchResultsController;
+import AppGUI.TreeView.OperatingMenuController;
+import AppGUI.TreeView.TreeViewController;
 import javafx.scene.layout.Pane;
 
 public class MainContainer {
     private static TagManager appTagManager = new TagManager();
     private static ImageManager appImageManager = new ImageManager();
+    private static TreeViewController treeViewController;
+    private static MiddleWindowController middleWindowController;
     private static SearchResultsController searchResultsController;
     private static SearchResults searchResults;
+    private static MainGUI main;
     private static Pane treeViewPanel;
     private static Pane operatingMenu;
+    private static OperatingMenuController operatingMenuController;
     private static AppDataSerializer appDataSerializer = new AppDataSerializer();
 
 
@@ -90,6 +97,21 @@ public class MainContainer {
     }
 
     /**
+     * Static getter for OperatingMenuController Object
+     */
+    public static OperatingMenuController getOperatingMenuController() {
+        return operatingMenuController;
+    }
+
+    /**
+     * Static setter for OperatingMenuController Object
+     */
+    static void setOperatingMenuController(OperatingMenuController operatingMenuController) {
+        MainContainer.operatingMenuController = operatingMenuController;
+    }
+
+
+    /**
      * Static setter for treeViewPanel
      * @param treeViewPanel Pane
      */
@@ -146,7 +168,48 @@ public class MainContainer {
         return appImageManager;
     }
 
+    /**
+     * Static setter for TreeViewController Object
+     */
+    static void setTreeViewController(TreeViewController treeViewController) {
+        MainContainer.treeViewController = treeViewController;
+    }
 
+    /**
+     * Static setter for MiddleWindowController Object
+     */
+    static void setMiddleWindowController(MiddleWindowController middleWindowController) {
+        MainContainer.middleWindowController = middleWindowController;
+    }
+
+    /**
+     * Static setter for MainGUI Object
+     */
+    static void setMain(MainGUI main) {
+        MainContainer.main = main;
+    }
+
+    /**
+     * Static getter for TreeViewController Object
+     */
+    public static TreeViewController getTreeViewController() {
+
+        return treeViewController;
+    }
+
+    /**
+     * Static getter for MiddleWindow Object
+     */
+    public static MiddleWindowController getMiddleWindowController() {
+        return middleWindowController;
+    }
+
+    /**
+     * Static getter for MainGUI Object
+     */
+    public static MainGUI getMain() {
+        return main;
+    }
 
     /**
      * Static getter for AppDataSerializer Object
