@@ -6,10 +6,7 @@ import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 
 import AppGUI.PopUpWindow.NameLogPopUp;
-import Observers.CenterObserver;
-import Observers.MainObserver;
-import Observers.Observer;
-import Observers.OpMenuObserver;
+import Observers.*;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -100,6 +97,7 @@ public class TreeViewController implements Initializable {
      * @throws IOException Exception
      */
     public void openFolder() throws IOException {
+        MainObserver o = (MainObserver)observerList.get(0);
         DirectoryChooser dc = new DirectoryChooser();
         File choice = dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
         if (choice != null) {
@@ -119,7 +117,7 @@ public class TreeViewController implements Initializable {
                     };
                 }
             });
-            MainContainer.getMain().showFolderPanel();
+           o.setPanel("folder");
         }
     }
 
@@ -157,11 +155,12 @@ public class TreeViewController implements Initializable {
      */
     public void treeItemClick() throws IOException {
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
+        MainObserver o = (MainObserver)observerList.get(0);
+        CenterObserver co = (CenterObserver)observerList.get(2);
+        FolderObserver fo = (FolderObserver)observerList.get(3);
         if (currentNode != null) {
             selectedImage = currentNode.getValue();
-            MainObserver o = (MainObserver)observerList.get(0);
             o.setPanel("center");
-            CenterObserver co = (CenterObserver)observerList.get(2);
             co.update(currentNode.getValue().toPath().toString());
             if (!currentNode.getValue().isDirectory()) {
                 if (currentNode.getValue() != null) {
@@ -180,9 +179,8 @@ public class TreeViewController implements Initializable {
                     });
                 }
             } else {
-                MainContainer.getMiddleWindowController().setSelectedItemLocation(null);
-                MainContainer.getMain().showFolderPanel();
-                MainContainer.getFolderPanelController().setPanel(currentNode.getValue().toPath().toString());
+                o.setPanel("folder");
+               fo.update(currentNode.getValue().toPath().toString());
             }
         }
     }
@@ -286,5 +284,6 @@ public class TreeViewController implements Initializable {
     public void addObserver(Observer o){
         observerList.add(o);
     }
+
 }
 

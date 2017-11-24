@@ -76,10 +76,13 @@ public class MainGUI extends Application {
         treeController.addObserver(mainObserver);
         treeController.addObserver(opMenuObserver);
         treeController.addObserver(centerObserver);
+        treeController.addObserver(folderObserver);
 
         OpController.addObserver(mainObserver);
         OpController.addObserver(treeViewObserver);
         OpController.addObserver(centerObserver);
+
+
 
     }
 
