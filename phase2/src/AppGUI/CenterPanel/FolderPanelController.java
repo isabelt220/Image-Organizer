@@ -2,6 +2,9 @@ package AppGUI.CenterPanel;
 
 import AppComponents.ImageData;
 import AppGUI.MainContainer;
+import Observers.CenterObserver;
+import Observers.MainObserver;
+import Observers.OpMenuObserver;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -33,6 +36,12 @@ public class FolderPanelController implements Initializable {
     @FXML
     private TableColumn<ImageData, String> nameColumn = new TableColumn<>();
 
+    private CenterObserver centerObserver;
+
+    private MainObserver mainObserver;
+
+    private OpMenuObserver opMenuObserver;
+
     /* Initiate the table on mouse click
     * */
     public void initialize(URL location, ResourceBundle r) {
@@ -43,11 +52,11 @@ public class FolderPanelController implements Initializable {
                 */
                 if (tableView.getSelectionModel().getSelectedItem() != null) {
                     String location1 = tableView.getSelectionModel().getSelectedItem().getLocation();
-                    MainContainer.getMiddleWindowController().setPanel(location1);
-                    MainContainer.getMain().showCenterView();
-                    MainContainer.getMain().showOperatingMenu();
+                    centerObserver.update(location1);
+                    mainObserver.setPanel("center");
+                    mainObserver.setPanel("OpMenu");
                     ImageData image = MainContainer.getAppImageManager().getImage(location1);
-                    MainContainer.getOperatingMenuController().setOperatingMenu(image);
+                    opMenuObserver.update(image);
                 }
 
             } catch (Exception e) {
@@ -104,9 +113,7 @@ public class FolderPanelController implements Initializable {
                         Image image2 = new Image(f.toURI().toString(), 100, 100, true, true);
                         ImageView tableImage = new ImageView();
                         tableImage.setImage(image2);
-
                         ImageData imageData = MainContainer.getAppImageManager().getImage(url);
-
                         if (imageData == null) {
                             imageData = new ImageData(url);
                         }
@@ -119,4 +126,15 @@ public class FolderPanelController implements Initializable {
         tableView.setItems(FXCollections.observableList(imageTable));
     }
 
+    public void setCenterObserver(CenterObserver centerObserver) {
+        this.centerObserver = centerObserver;
+    }
+
+    public void setMainObserver(MainObserver mainObserver) {
+        this.mainObserver = mainObserver;
+    }
+
+    public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
+        this.opMenuObserver = opMenuObserver;
+    }
 }

@@ -77,14 +77,6 @@ public class OperatingMenuController implements Initializable {
     }
 
     /**
-     * Sets the operating menu to chosenImage, add and delete tag textfields are attched to chosenImage.
-     * @param chosenImage ImageData
-     */
-    public void setOperatingMenu(ImageData chosenImage) {
-        operatingImage = chosenImage;
-    }
-
-    /**
      * Gets the tag entered into addTag textField and calls classes in AppComponents to add tag to operating image
      * accordingly.
      */

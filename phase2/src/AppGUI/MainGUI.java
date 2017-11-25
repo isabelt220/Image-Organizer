@@ -19,7 +19,7 @@ public class MainGUI extends Application {
     private BorderPane mainLayout;
     private Pane treePanel;
     private Pane centerPanel;
-    private Pane OpMenu;
+    private Pane opMenu;
     private Pane folderPanel;
 
     /**
@@ -36,8 +36,8 @@ public class MainGUI extends Application {
 
         FXMLLoader OpLoader = new FXMLLoader();
         OpLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-        Pane OMenuPanel = OpLoader.load();
-        mainLayout.setLeft(OMenuPanel);
+        opMenu = OpLoader.load();
+        mainLayout.setLeft(opMenu);
         OperatingMenuController OpController = OpLoader.getController();
 
         FXMLLoader treeLoader = new FXMLLoader();
@@ -82,6 +82,14 @@ public class MainGUI extends Application {
         treeController.setCenterObserver(centerObserver);
         treeController.setFolderObserver(folderObserver);
 
+        folderController.setCenterObserver(centerObserver);
+        folderController.setMainObserver(mainObserver);
+        folderController.setOpMenuObserver(opMenuObserver);
+
+        middleController.setCenterObserver(centerObserver);
+        middleController.setMainObserver(mainObserver);
+        middleController.setOpMenuObserver(opMenuObserver);
+
 
     }
 
@@ -114,7 +122,7 @@ public class MainGUI extends Application {
      *
      */
     public void showOperatingMenu()  {
-       mainLayout.setLeft(OpMenu);
+       mainLayout.setLeft(opMenu);
     }
 
     /**

@@ -11,6 +11,6 @@ public class OpMenuObserver extends Observer{
     }
 
     public void update(ImageData image){
-        target.setOperatingMenu(image);
+        target.setOperatingImage(image);
     }
 }
