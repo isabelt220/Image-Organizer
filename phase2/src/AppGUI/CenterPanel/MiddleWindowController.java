@@ -46,13 +46,6 @@ public class MiddleWindowController extends FolderPanelController {
         });
     }
 
-    /* Refresh the table that opens up when the search button is pressed.*/
-    public void refreshTable() {
-        String location = selectedItemLocation;
-        if (location != null) {
-            MainContainer.getFolderPanelController().setPanel(location);
-        }
-    }
 
     /* Setter for panel*/
     @Override

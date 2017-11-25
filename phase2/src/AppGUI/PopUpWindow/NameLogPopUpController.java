@@ -3,6 +3,7 @@ package AppGUI.PopUpWindow;
 import AppComponents.ImageData;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
+import Observers.TreeViewObserver;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,6 +30,8 @@ public class NameLogPopUpController {
 
     private ImageData curImage;
 
+    private TreeViewObserver treeViewObserver;
+
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
     /**
@@ -36,17 +39,21 @@ public class NameLogPopUpController {
      * @throws NullPointerException Exception
      */
     @FXML
-    public void initialize() throws NullPointerException{
-        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
-        data.putAll(curImage.getNameLog());
-
-        nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
+    public void initialize(){
+         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
         timeStampColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
         logTable.setItems(items);
         logTable.getColumns().setAll(nameColumn, timeStampColumn);
 
+    }
+
+    public void setSetting(TreeViewObserver t){
+        treeViewObserver = t;
+        File selectedFile = t.getSelectedFile();
+        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
+        if(curImage!=null){
+        data.putAll(curImage.getNameLog());}
     }
 
     /**
@@ -59,7 +66,7 @@ public class NameLogPopUpController {
         ArrayList<Tag> revertList = generateTagList(stripList);
         ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, revertList);
         File f= new File(newNode.getLocation());
-        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
+        treeViewObserver.update();
 //        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }

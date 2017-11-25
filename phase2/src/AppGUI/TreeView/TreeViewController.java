@@ -6,6 +6,7 @@ import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 
 import AppGUI.PopUpWindow.NameLogPopUp;
+import AppGUI.PopUpWindow.OpenPopUp;
 import Observers.*;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -25,8 +26,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -43,8 +42,6 @@ public class TreeViewController implements Initializable {
     HBox hBox = new HBox();
     @FXML
     TextField addTagField = new TextField();
-
-    static File selectedImage;
 
     private CenterObserver centerObserver;
     private FolderObserver folderObserver;
@@ -101,7 +98,7 @@ public class TreeViewController implements Initializable {
      */
     public void openFolder() throws IOException {
         DirectoryChooser dc = new DirectoryChooser();
-        File choice = dc.showDialog(MainContainer.getMain().getMainStage().getOwner());
+        File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
         if (choice != null) {
             TreeViewItem listHelper = new TreeViewItem();
             treeView.setRoot(listHelper.generateTreeItem(choice));
@@ -134,7 +131,7 @@ public class TreeViewController implements Initializable {
         for (Tag t : selectedCopies) {
             MainContainer.getAppImageManager().removeTagFromAppAndImages(t.getTagName());
             reSetTree();
-            MainContainer.getMiddleWindowController().refreshTable();
+            centerObserver.refresh();
         }
 
 
@@ -158,7 +155,6 @@ public class TreeViewController implements Initializable {
     public void treeItemClick() throws IOException {
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if (currentNode != null) {
-            selectedImage = currentNode.getValue();
             mainObserver.setPanel("center");
             centerObserver.update(currentNode.getValue().toPath().toString());
             if (!currentNode.getValue().isDirectory()) {
@@ -170,6 +166,9 @@ public class TreeViewController implements Initializable {
 
                                 mainObserver.setPanel("OpMenu");
                                 ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
+                                if(image == null){
+                                    image = new ImageData(currentNode.getValue().toPath().toString());
+                                }
                                 opMenuObserver.update(image);
 
                         }
@@ -190,14 +189,8 @@ public class TreeViewController implements Initializable {
      * @throws Exception
      */
     public void openImageTagEditor() throws Exception {
-        File currentFile = treeView.getSelectionModel().getSelectedItem().getValue();
-        if (currentFile != null && currentFile.isDirectory()) {
-            DialogBox alertBox = new DialogBox("Info", "Cannot rename a folder");
-            alertBox.display();
-        } else if (currentFile != null) {
-            ImageTagEditor imageTagEditor = new ImageTagEditor();
-            imageTagEditor.display();
-        }
+        OpenPopUp openPopUp = new OpenPopUp(this);
+        openPopUp.openImageTagEditor();
     }
 
     /**
@@ -226,17 +219,17 @@ public class TreeViewController implements Initializable {
     /**
      * Takes the current selected image in treeView and initializes a nameLog extracted from the ImageData that the image file is attached to.
      *
-     * @throws Exception
      */
-    public void openNameLogPopUp() throws Exception {
-        try {
-            selectedImage = treeView.getSelectionModel().getSelectedItem().getValue();
-            NameLogPopUp nameLogPopUp = new NameLogPopUp();
-            nameLogPopUp.display();
-        } catch (Exception e) {
-            DialogBox alertBox = new DialogBox("Warning", "Please choose an Image");
-            alertBox.display();
-        }
+    public void openNameLogPopUp(){
+        OpenPopUp openPopUp = new OpenPopUp(this);
+        openPopUp.openNameLog();
+//        try {
+//            NameLogPopUp nameLogPopUp = new NameLogPopUp();
+//            nameLogPopUp.display();
+//        } catch (Exception e) {
+//            DialogBox alertBox = new DialogBox("Warning", "Please choose an Image");
+//            alertBox.display();
+//        }
     }
 
     /**

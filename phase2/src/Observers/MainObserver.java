@@ -25,4 +25,8 @@ public class MainObserver extends Observer{
       }
 
     }
+
+    public void closeApplication(){
+        this.main.closeApplication();
+    }
 }

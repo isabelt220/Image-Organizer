@@ -4,6 +4,8 @@ import AppGUI.MainContainer;
 import AppGUI.TreeView.TreeViewController;
 import AppGUI.TreeView.TreeViewItem;
 
+import java.io.File;
+
 public class TreeViewObserver extends Observer{
     private TreeViewController target;
 
@@ -13,5 +15,9 @@ public class TreeViewObserver extends Observer{
 
     public void update(){
         target.reSetTree();
+    }
+
+    public File getSelectedFile(){
+        return target.getTreeView().getSelectionModel().getSelectedItem().getValue();
     }
 }
