@@ -16,4 +16,8 @@ public class CenterObserver extends Observer{
     public void update(String location){
         target.setPanel(location);
     }
+    public void refresh(){
+        if(target.getSelectedItemLocation()!=null){
+        target.setPanel(target.getSelectedItemLocation());}
+    }
 }

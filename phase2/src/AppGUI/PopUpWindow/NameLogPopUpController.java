@@ -31,6 +31,7 @@ public class NameLogPopUpController {
 
     private ImageData curImage;
 
+
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
     private TreeViewObserver treeViewObserver;
@@ -41,9 +42,7 @@ public class NameLogPopUpController {
         this.centerObserver = centerObserver;
     }
 
-    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
-        this.treeViewObserver = treeViewObserver;
-    }
+
 
     /**
      * Initializes the NameLogPopUp according to nameLog extracted from curImage.
@@ -53,7 +52,7 @@ public class NameLogPopUpController {
     @FXML
     public void initialize() throws NullPointerException{
 //        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        File selectedFile =treeViewObserver.selectedItem();
+        File selectedFile =treeViewObserver.getSelectedFile();
         curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         data.putAll(curImage.getNameLog());
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
@@ -62,6 +61,14 @@ public class NameLogPopUpController {
         logTable.setItems(items);
         logTable.getColumns().setAll(nameColumn, timeStampColumn);
 
+    }
+
+    public void setSetting(TreeViewObserver t){
+        treeViewObserver = t;
+        File selectedFile = t.getSelectedFile();
+        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
+        if(curImage!=null){
+        data.putAll(curImage.getNameLog());}
     }
 
     /**
@@ -74,8 +81,9 @@ public class NameLogPopUpController {
         ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(curImage, revertList);
         File f= new File(newNode.getLocation());
         treeViewObserver.setItem(f);
-        centerObserver.update(treeViewObserver.selectedItem().toPath().toString());
+        centerObserver.update(treeViewObserver.getSelectedFile().toPath().toString());
 //        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
+        treeViewObserver.update();
 //        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }

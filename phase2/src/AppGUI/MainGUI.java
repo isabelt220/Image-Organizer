@@ -29,10 +29,17 @@ public class MainGUI extends Application {
      * @throws Exception Is thrown when the FXMLLoader fails to read the source file
      */
     public void start(Stage primaryStage) throws Exception {
-        MainContainer.setMain(this);
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
-        showMainView();
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
+        mainLayout = loader.load();
+        Scene scene = new Scene(mainLayout);
+        TopPanel topPanel = loader.getController();
+        mainStage.setScene(scene);
+        mainStage.show();
 
         FXMLLoader OpLoader = new FXMLLoader();
         OpLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
@@ -90,6 +97,8 @@ public class MainGUI extends Application {
         middleController.setMainObserver(mainObserver);
         middleController.setOpMenuObserver(opMenuObserver);
 
+        topPanel.setTreeViewController(treeController);
+        topPanel.setMainObserver(mainObserver);
 
 
 
@@ -101,14 +110,7 @@ public class MainGUI extends Application {
      * @throws IOException Is thrown when the FXMLLoader fails to read the source file
      */
 
-    private void showMainView() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
-        mainLayout = loader.load();
-        Scene scene = new Scene(mainLayout);
-        mainStage.setScene(scene);
-        mainStage.show();
-    }
+
 
     /**
      * Display images under a folder
@@ -152,7 +154,7 @@ public class MainGUI extends Application {
     /**
      * Close the App and
      */
-    void closeApplication() {
+    public void closeApplication() {
         mainStage.close();
     }
 

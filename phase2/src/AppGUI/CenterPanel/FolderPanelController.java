@@ -56,6 +56,9 @@ public class FolderPanelController implements Initializable {
                     mainObserver.setPanel("center");
                     mainObserver.setPanel("OpMenu");
                     ImageData image = MainContainer.getAppImageManager().getImage(location1);
+                    if(image == null){
+                        image = new ImageData(location1);
+                    }
                     opMenuObserver.update(image);
                 }
 

@@ -17,18 +17,18 @@ public class TreeViewObserver extends Observer{
         target.reSetTree();
     }
 
-    public File selectedItem(){
-        if(target != null){
-            return target.getTreeView().getSelectionModel().getSelectedItem().getValue();
-        }
-        else{
-            return null;
-        }
-    }
+
 
     public void setItem(File f){
         if (target != null){
             target.getTreeView().getSelectionModel().getSelectedItem().setValue(f);
-        }
-    }
+        }}
+
+    public File getSelectedFile(){
+            if(target != null){
+                return target.getTreeView().getSelectionModel().getSelectedItem().getValue();
+            }
+            else{
+                return null;
+            }}
 }
