@@ -14,21 +14,13 @@ import java.util.Map;
 public class ImageData implements Serializable{
 
     // String Location is the complete path of the file. eg. C://User/phase1/Christmas.png
-    private String location = "";
-    // String path is a substring of location and is the path of the image file that this ImageData is attached to. eg. C://User/phase1/
-    private String path;
-    // String path is a substring of location and is the type of the image file that this ImageData is attached to. eg. .png, .img, .jpg
-    private String type;
-    //String name is the substring of location after path and before extension, it can be changed with the editing of tags. eg. Christmas @2017 @Mistletoe
-    private String name = "";
+    private ImageLocation imageLocation;
     //String coreName is the substring of location after path and before extension,it is set in the constructor and does not change. eg. Christmas
-    private String coreName = "";
+    private String coreName;
     //tagList is the ArrayList of tags that are associated with the image
-    private ArrayList<Tag> tagList;
+    private ArrayList<Tag> tagList = new ArrayList<>();
     //nameLog is a ordered hashmap with a timestamp of each tag modification paired to the image name at that timestamp.
-    private LinkedHashMap<String, String> nameLog = new LinkedHashMap<>();
-    //for testing purposes only
-    private String lastChangeTime;
+    private ImageLog imageLog= new ImageLog();
 
     /**
      * Sets up an ImageData Object, initializes the value name, coreName, type, tagList, and adds the initial entry to
@@ -36,54 +28,29 @@ public class ImageData implements Serializable{
      * @param location String
      */
     public ImageData(String location) {
-        this.location = location;
-        File imageFile = new File(location);
-        String temp = imageFile.getName();
-        name = temp.substring(0,temp.lastIndexOf("."));
-        coreName = analyzeNameForTags(name);
-        int x = location.lastIndexOf(File.separator)+1;
-        path = location.substring(0,x);
-        int i = imageFile.getName().lastIndexOf('.');
-        type = imageFile.getName().substring(i+1);
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        nameLog.put(time.toString(), "Initially named : "+ name);
-        tagList = new ArrayList<>();
-    }
-
-    /**
-     * Used when a ImageData is first created, reads through the name of the image, checking for "@"
-     * symbols to find tags, then records these tags.
-     * @param nameOfImage String name of the initial image
-     * @return the coreName of the Image
-     */
-    public String analyzeNameForTags(String nameOfImage){
-        if (!(nameOfImage.contains("@"))){
-            return nameOfImage;
-        }
-        else{
-            int x = nameOfImage.indexOf(" @");
-            String core = nameOfImage.substring(0, x);
-            String unsortedTags = nameOfImage.substring(x);
-            String[] tags = unsortedTags.split(" @");
-            ArrayList<String> tagNames= new ArrayList<String>(Arrays.asList(tags));
-            MainContainer.getAppTagManager().tmAddTagWithImage(this, tagNames);
-            return core;
-        }
+        this.imageLocation = new ImageLocation(location);
+        coreName = this.imageLocation.analyzeNameForCore();
+        ArrayList<String> temp = this.imageLocation.analyzeNameForTags();
+        MainContainer.getAppImageManager().imAddTagWithImage(this, temp);
+        imageLog.innit(coreName, temp);
 
     }
+
 
     /**
      * Getter for nameLog, returns it in the form of a LinkedHashMap, is generally called upon by classes that implements
      * the display of a history of changes made to an ImageData.
      * @return LinkedHashMap<String,String>
      */
-    public LinkedHashMap<String, String> getNameLog(){return nameLog;}
+    public LinkedHashMap<String, String> getNameLog(){
+        return imageLog.getNameLog();
+    }
 
     /**
      * Getter for name, returns it in the form of String, is used to obtain the current name of the ImageData.
      * @return String
      */
-    public String getName(){return name;}
+    public String getName(){return imageLocation.getName();}
 
     /**
      * Getter for coreName, returns it in the form of String, is used to obtain the non-changing coreName of the ImageData.
@@ -92,20 +59,20 @@ public class ImageData implements Serializable{
      */
     public String getCoreName(){return coreName;}
 
-    /**
-     *Solely for Testing Purposes
-     */
-    public String printLog(){
-        String log = "";
-        for (Map.Entry<String, String> entry : nameLog.entrySet()){
-            String key = entry.getKey();
-            String value = entry.getValue();
-            log += key + "---" + value;
-            log += System.getProperty("line.separator");
-        }
-        return log;
-
-    }
+//    /**
+//     *Solely for Testing Purposes
+//     */
+//    public String printLog(){
+//        String log = "";
+//        for (Map.Entry<String, String> entry : nameLog.entrySet()){
+//            String key = entry.getKey();
+//            String value = entry.getValue();
+//            log += key + "---" + value;
+//            log += System.getProperty("line.separator");
+//        }
+//        return log;
+//
+//    }
 
 
     /**
@@ -166,6 +133,7 @@ public class ImageData implements Serializable{
     public void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
         ArrayList<String> stringVer= new ArrayList<>();
+        imageLog.addEntry(coreName, tags, tagList);
         tagList = tags;
         for (Tag tag : tags) {
             stringVer.add(tag.getTagName());
@@ -185,14 +153,11 @@ public class ImageData implements Serializable{
      * @param newName String
      */
     private void setImageName(String newName) {
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-         nameLog.put(time.toString(), "tag change: " + name + " --> " + newName);
-            File oldName = new File(location);
-            File addedName = new File(path+newName+"."+type);
+            File oldName = new File(imageLocation.getLocation());
+            File addedName = new File(imageLocation.getPath()+newName+"."+imageLocation.getType());
             oldName.renameTo(addedName);
-            name = newName;
-            location = path+name+"."+type;
-            lastChangeTime = time.toString();
+            imageLocation.setName(newName);
+
 }
 
     /**
@@ -201,7 +166,7 @@ public class ImageData implements Serializable{
      * @return String
      */
     public String getLocation() {
-        return location;
+        return imageLocation.getLocation();
     }
 
 
@@ -232,15 +197,23 @@ public class ImageData implements Serializable{
     }
 
 
-    /**
-     * Getter for the lastChangeTime of the ImageData name.
-     * FOR TESTING PURPOSES PLEASE DO NOT DELETE
-     * @return String
-     */
-    public String getLastChangeTime() {
-        return lastChangeTime;
+//    /**
+//     * Getter for the lastChangeTime of the ImageData name.
+//     * FOR TESTING PURPOSES PLEASE DO NOT DELETE
+//     * @return String
+//     */
+//    public String getLastChangeTime() {
+//        return lastChangeTime;
+//    }
+
+
+    public ImageLocation getImageLocation() {
+        return imageLocation;
     }
 
+    public ImageLog getImageLog() {
+        return imageLog;
+    }
 
     /**
      * Overrides equals method in Object, check if other Object is an ImageData and if it has the same location
@@ -250,6 +223,7 @@ public class ImageData implements Serializable{
      */
     @Override
     public boolean equals(Object other){
-        return other instanceof ImageData && location.equals(((ImageData) other).getLocation());
+        return other instanceof ImageData && imageLocation.equals(((ImageData) other).getImageLocation()) &&
+                imageLog.equals(((ImageData) other).getImageLog());
     }
 }

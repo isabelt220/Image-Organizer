@@ -2,6 +2,7 @@ package AppGUI.CenterPanel;
 
 import AppComponents.ImageData;
 import AppGUI.MainContainer;
+import Observers.SearchResultObserver;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -12,21 +13,29 @@ import java.util.ArrayList;
 public class SearchResults {
     // Main stage used to display the search results
     private Stage mainStage;
+    private SearchResultObserver searchResultObserver;
+
+    public void setSearchResultObserver(SearchResultObserver searchResultObserver) {
+        this.searchResultObserver = searchResultObserver;
+    }
 
     /* Display the results of the images associated with the tag put
-    * in the search bar.*/
+        * in the search bar.*/
     public void display(ArrayList<ImageData> imageList) throws Exception {
-        if (MainContainer.getSearchResultsController() == null) {
+        if (searchResultObserver == null) {
             mainStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SearchResults.class.getResource("SearchResults.fxml"));
             AnchorPane mainLayout = loader.load();
             mainStage.setScene(new Scene(mainLayout));
-            MainContainer.setSearchResultsController((loader.getController()));
-            MainContainer.getSearchResultsController().setResults(imageList);
+            searchResultObserver.setTarget((loader.getController()));
+            searchResultObserver.displayResults(imageList);
+//            MainContainer.setSearchResultsController((loader.getController()));
+//            MainContainer.getSearchResultsController().setResults(imageList);
             mainStage.show();
         } else {
-            MainContainer.getSearchResultsController().setResults(imageList);
+            searchResultObserver.displayResults(imageList);
+//            MainContainer.getSearchResultsController().setResults(imageList);
             mainStage.show();
         }
     }

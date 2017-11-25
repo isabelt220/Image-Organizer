@@ -3,6 +3,8 @@ package AppGUI.PopUpWindow;
 import AppComponents.ImageData;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
+import Observers.CenterObserver;
+import Observers.TreeViewObserver;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,16 +33,29 @@ public class NameLogPopUpController {
 
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
+    private TreeViewObserver treeViewObserver;
+
+    private CenterObserver centerObserver;
+
+    public void setCenterObserver(CenterObserver centerObserver) {
+        this.centerObserver = centerObserver;
+    }
+
+    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
+        this.treeViewObserver = treeViewObserver;
+    }
+
     /**
      * Initializes the NameLogPopUp according to nameLog extracted from curImage.
      * @throws NullPointerException Exception
+
      */
     @FXML
     public void initialize() throws NullPointerException{
-        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
+//        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
+        File selectedFile =treeViewObserver.selectedItem();
         curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         data.putAll(curImage.getNameLog());
-
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
         timeStampColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
@@ -55,51 +70,52 @@ public class NameLogPopUpController {
      */
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
-        String stripList = logNameStrip(chosenTime);
-        ArrayList<Tag> revertList = generateTagList(stripList);
-        ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, revertList);
+        ArrayList<String> revertList = curImage.getImageLog().getTagLog().get(chosenTime);
+        ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(curImage, revertList);
         File f= new File(newNode.getLocation());
-        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
+        treeViewObserver.setItem(f);
+        centerObserver.update(treeViewObserver.selectedItem().toPath().toString());
+//        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
 //        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
 
     }
 
-    /**
-     * Helper method for revertName, takes a String file name and strips it with designated markers, creating finding
-     * the tags with the name of the striped strings, and associates it with the image, changing its name along the way.
-     * @param chosen String
-     * @return ArrayList<Tag>
-     */
-    private ArrayList<Tag> generateTagList (String chosen){
-        ArrayList<Tag> imageTags = new ArrayList<>();
-        if (chosen.contains("@")){
-        int i = chosen.indexOf("@");
-        String temp1 = chosen.substring(i+1);
-        String[] parts = temp1.split(" @");
-            for (String tag: parts) {
-                imageTags.add(new Tag(tag));
-            }}
-        return imageTags;
-    }
-
-    /**
-     * Helper method for revertName,
-     * takes a entry in the nameLog and splits it according to a designated format and returns the solely the
-     * name of the ImageData.
-     * @param chosenTime
-     * @return
-     */
-    private String logNameStrip(String chosenTime){
-        if(chosenTime.contains("Initially named : ")){
-            int x = chosenTime.indexOf(" : ");
-            return chosenTime.substring(x+2);
-
-        }
-        else{
-            int x = chosenTime.indexOf("--> ");
-            return chosenTime.substring(x+1);
-        }
-    }
+//    /**
+//     * Helper method for revertName, takes a String file name and strips it with designated markers, creating finding
+//     * the tags with the name of the striped strings, and associates it with the image, changing its name along the way.
+//     * @param chosen String
+//     * @return ArrayList<Tag>
+//     */
+//    private ArrayList<Tag> generateTagList (String chosen){
+//        ArrayList<Tag> imageTags = new ArrayList<>();
+//        if (chosen.contains("@")){
+//        int i = chosen.indexOf("@");
+//        String temp1 = chosen.substring(i+1);
+//        String[] parts = temp1.split(" @");
+//            for (String tag: parts) {
+//                imageTags.add(new Tag(tag));
+//            }}
+//        return imageTags;
+//    }
+//
+//    /**
+//     * Helper method for revertName,
+//     * takes a entry in the nameLog and splits it according to a designated format and returns the solely the
+//     * name of the ImageData.
+//     * @param chosenTime
+//     * @return
+//     */
+//    private String logNameStrip(String chosenTime){
+//        if(chosenTime.contains("Initially named : ")){
+//            int x = chosenTime.indexOf(" : ");
+//            return chosenTime.substring(x+2);
+//
+//        }
+//        else{
+//            int x = chosenTime.indexOf("--> ");
+//            return chosenTime.substring(x+1);
+//        }
+//    }
 
 
 }

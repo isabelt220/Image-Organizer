@@ -107,7 +107,7 @@ public class TagManager implements Serializable {
      * @param tagNameList the list of string of tag names to add or create.
      * @return ArrayList<Tag></Tag>
      */
-    ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
+    public ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
