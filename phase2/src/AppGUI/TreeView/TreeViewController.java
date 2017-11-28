@@ -152,10 +152,11 @@ public class TreeViewController implements Initializable {
      *
      * @throws IOException Exception
      */
-    public void treeItemClick() throws IOException {
+    public void treeItemClick() throws IOException{
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if (currentNode != null) {
             mainObserver.setPanel("center");
+            System.out.println(currentNode.getValue().toPath().toString());
             centerObserver.update(currentNode.getValue().toPath().toString());
             if (!currentNode.getValue().isDirectory()) {
                 if (currentNode.getValue() != null) {

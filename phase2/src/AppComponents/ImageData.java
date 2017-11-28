@@ -226,4 +226,16 @@ public class ImageData implements Serializable{
         return other instanceof ImageData && imageLocation.equals(((ImageData) other).getImageLocation()) &&
                 imageLog.equals(((ImageData) other).getImageLog());
     }
+
+    public boolean containsTags(ArrayList<String> tags){
+        if (tags.size() == 0){
+            return false;
+        }
+        for (String tag: tags){
+            if (!this.hasTag(tag)){
+                return false;
+            }
+        }
+        return true;
+    }
 }

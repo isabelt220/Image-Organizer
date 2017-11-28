@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class SearchResults {
     // Main stage used to display the search results
     private Stage mainStage;
-    private SearchResultObserver searchResultObserver = new SearchResultObserver();
+    private SearchResultObserver searchResultObserver;
 
     public void setSearchResultObserver(SearchResultObserver searchResultObserver) {
         this.searchResultObserver = searchResultObserver;

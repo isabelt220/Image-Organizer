@@ -3,6 +3,10 @@ package AppGUI.CenterPanel;
 import AppComponents.ImageData;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
+import Observers.CenterObserver;
+import Observers.MainObserver;
+import Observers.OpMenuObserver;
+import Observers.SearchResultObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -13,7 +17,9 @@ import javafx.scene.input.KeyCode;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MiddleWindowController extends FolderPanelController {
     /* Search button and text field when searching for tags*/
@@ -25,8 +31,23 @@ public class MiddleWindowController extends FolderPanelController {
     /* View of the image and it's current location*/
     @FXML
     private ImageView imageView = new ImageView();
+    private CenterObserver centerObserver;
 
+    private MainObserver mainObserver;
+
+    private OpMenuObserver opMenuObserver;
     private String selectedItemLocation;
+
+    public void setCenterObserver(CenterObserver centerObserver) {
+        this.centerObserver = centerObserver;
+    }
+    public void setMainObserver(MainObserver mainObserver) {
+        this.mainObserver = mainObserver;
+    }
+
+    public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
+        this.opMenuObserver = opMenuObserver;
+    }
 
     /* Initialize the search field when search is clicked. Return
     * a error message through a dialog box if the search failed.*/
@@ -73,22 +94,43 @@ public class MiddleWindowController extends FolderPanelController {
     * a error message to the user.*/
     public void searchTagClicked() throws Exception {
         String inquired = searchTextField.getText();
-        boolean existence = MainContainer.getAppTagManager().tagExists(inquired);
-        if (existence) {
-            ArrayList<ImageData> foundImages = MainContainer.getAppTagManager().getImagesWithTag(inquired);
+        ArrayList<ImageData> inquiredResults = filterSearchedTags(inquired);
+        if (!(inquiredResults.size() == 0)) {
             if (MainContainer.getSearchResults() == null) {
+                SearchResultObserver searchResultObserver = new SearchResultObserver();
                 SearchResults searchResults = new SearchResults();
-                searchResults.display(foundImages);
+                searchResults.setSearchResultObserver(searchResultObserver);
+                searchResults.display(inquiredResults);
                 MainContainer.setSearchResults(searchResults);
             } else {
-                MainContainer.getSearchResults().display(foundImages);
+                MainContainer.getSearchResults().display(inquiredResults);
             }
         } else {
             DialogBox alertBox = new DialogBox("Warning", "Tag Not Found!");
             alertBox.display();
-
         }
+//        boolean existence = MainContainer.getAppTagManager().tagExists(inquired);
+//        if (existence) {
+//            ArrayList<ImageData> foundImages = MainContainer.getAppTagManager().getImagesWithTag(inquired);
+//            if (MainContainer.getSearchResults() == null) {
+//                SearchResults searchResults = new SearchResults();
+//                searchResults.display(foundImages);
+//                MainContainer.setSearchResults(searchResults);
+//            } else {
+//                MainContainer.getSearchResults().display(foundImages);
+//            }
+//        } else {
+//            DialogBox alertBox = new DialogBox("Warning", "Tag Not Found!");
+//            alertBox.display();
+//
+//        }
+    }
 
+    public ArrayList<ImageData> filterSearchedTags(String tags) {
+        String[] tagList = tags.split(", ");
+        ArrayList<String> tagArray = new ArrayList<>(Arrays.asList(tagList));
+        ArrayList<ImageData> imageList = new ArrayList<>(MainContainer.getAppImageManager().getImageList().stream().filter(i -> i.containsTags(tagArray)).collect(Collectors.toList()));
+        return imageList;
     }
 
 }

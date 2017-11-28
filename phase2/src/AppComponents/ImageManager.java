@@ -35,7 +35,7 @@ public class ImageManager implements Serializable {
      *
      * @return ArrayList<ImageData>
      */
-    ArrayList<ImageData> getImageList() {
+    public ArrayList<ImageData> getImageList() {
         return imageList;
     }
 
