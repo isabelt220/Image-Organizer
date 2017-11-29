@@ -25,7 +25,6 @@ public class OperatingMenuController implements Initializable {
     private TextField deleteTagTextField = new TextField();
 
     private ImageData operatingImage;
-
     private TreeViewObserver treeViewObserver;
     private MainObserver mainObserver;
     private CenterObserver centerObserver;

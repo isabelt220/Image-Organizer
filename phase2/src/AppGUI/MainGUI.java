@@ -47,6 +47,7 @@ public class MainGUI extends Application {
         mainLayout.setLeft(opMenu);
         OperatingMenuController OpController = OpLoader.getController();
 
+
         FXMLLoader treeLoader = new FXMLLoader();
         treeLoader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
         treePanel = treeLoader.load();
