@@ -19,7 +19,7 @@ public class NameLogPopUp {
         loader.setLocation(MainGUI.class.getResource("PopUpWindow/NameLogPopUp.fxml"));
         Pane panel = loader.load();
         NameLogPopUpController controller = loader.getController();
-        controller.setSetting(t);
+        controller.setTreeViewObserver(t);
         stage.setScene(new Scene(panel));
         stage.show();
     }
