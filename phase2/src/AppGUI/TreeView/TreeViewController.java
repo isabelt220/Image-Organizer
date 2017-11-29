@@ -5,10 +5,8 @@ import AppComponents.Tag;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
 
-import AppGUI.PopUpWindow.NameLogPopUp;
 import AppGUI.PopUpWindow.OpenPopUp;
 import Observers.*;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,7 +63,7 @@ public class TreeViewController implements Initializable {
                     protected void updateItem(Tag item, boolean empty) {
                         super.updateItem(item, empty);
                         setText((empty || item == null) ? "" : item.getTagName());
-                        if(item!= null && item.getAssociatedImages().size() == 0){
+                        if (item != null && item.getAssociatedImages().size() == 0) {
                             setStyle("-fx-background-color: wheat");
                         }
                     }
@@ -95,50 +93,39 @@ public class TreeViewController implements Initializable {
 
     }
 
+
+    /**
+     * Takes the selected file from treeView and moves it to a different directory.
+     */
+    public void moveFile() {
+        FolderOperation folderEditor = new FolderOperation();
+        TreeViewObserver t = new TreeViewObserver();
+        t.setTarget(this);
+        folderEditor.moveFile(t,mainObserver);
+    }
+
+
     /**
      * Used to open and display a folder, or show operating menu for an image file depending on the type of item selected.
      *
-     * @throws IOException Exception
      */
-    public void openFolder() throws IOException {
-        DirectoryChooser dc = new DirectoryChooser();
-        File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
-        if (choice != null) {
-            TreeViewItem listHelper = new TreeViewItem();
-            treeView.setRoot(listHelper.generateTreeItem(choice));
-            treeView.setCellFactory(new Callback<TreeView<File>, TreeCell<File>>() {
-
-                public TreeCell<File> call(TreeView<File> file) {
-                    return new TreeCell<File>() {
-
-                        @Override
-                        protected void updateItem(File item, boolean empty) {
-                            super.updateItem(item, empty);
-                            setText((empty || item == null) ? "" : item.getName());
-                        }
-
-                    };
-                }
-            });
-           mainObserver.setPanel("folder");
-        }
+    public void openFolder(){
+        FolderOperation folderEditor = new FolderOperation();
+        folderEditor.openFolder(mainObserver,treeView);
     }
 
     /**
      * Gets the tag selected when deleteTag button is clicked and removes the tag from TagManager and all images it is associated with.
      */
     public void deleteTagClick() {
-        ObservableList<Tag> selectedItems = listView.getSelectionModel().getSelectedItems();
-        ArrayList<Tag> selectedCopies = new ArrayList<Tag>(selectedItems.subList(0, selectedItems.size()));
-        Tag temp = null;
+        TagOperation tagEditor = new TagOperation();
+        tagEditor.deleteTagClick(listView);
+        reSetTree();
+    }
 
-        for (Tag t : selectedCopies) {
-            MainContainer.getAppImageManager().removeTagFromAppAndImages(t.getTagName());
-            reSetTree();
-            centerObserver.refresh();
-        }
-
-
+    public void CleanTagClick(){
+        TagOperation tagEditor = new TagOperation();
+        tagEditor.CleanTagClick();
     }
 
 
@@ -156,11 +143,10 @@ public class TreeViewController implements Initializable {
      *
      * @throws IOException Exception
      */
-    public void treeItemClick() throws IOException{
+    public void treeItemClick() throws IOException {
         TreeItem<File> currentNode = treeView.getSelectionModel().getSelectedItem();
         if (currentNode != null) {
             mainObserver.setPanel("center");
-            System.out.println(currentNode.getValue().toPath().toString());
             centerObserver.update(currentNode.getValue().toPath().toString());
             if (!currentNode.getValue().isDirectory()) {
                 if (currentNode.getValue() != null) {
@@ -169,12 +155,12 @@ public class TreeViewController implements Initializable {
                             contextMenu.show(treeView, t.getScreenX(), t.getScreenY());
                         } else if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
 
-                                mainObserver.setPanel("OpMenu");
-                                ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
-                                if(image == null){
-                                    image = new ImageData(currentNode.getValue().toPath().toString());
-                                }
-                                opMenuObserver.update(image);
+                            mainObserver.setPanel("OpMenu");
+                            ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
+                            if (image == null) {
+                                image = new ImageData(currentNode.getValue().toPath().toString());
+                            }
+                            opMenuObserver.update(image);
 
                         }
 
@@ -200,33 +186,9 @@ public class TreeViewController implements Initializable {
     }
 
     /**
-     * Takes the selected file from treeView and moves it to a different directory.
-     */
-    public void moveFile() {
-        File selectedFile = treeView.getSelectionModel().getSelectedItem().getValue();
-        DirectoryChooser dc = new DirectoryChooser();
-        File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
-        if (choice != null) {
-            try {
-                String name = selectedFile.getName();
-                Path targetPath = Paths.get(choice.toPath().toString() + File.separator + name);
-                Files.move(selectedFile.toPath(), targetPath, REPLACE_EXISTING);
-                if (!selectedFile.getParentFile().toPath().toString().equals(choice.toPath().toString())) {
-                    reSetTree();
-                }
-            } catch (IOException e) {
-                DialogBox warning = new DialogBox("Warning", "Remove Failed");
-                warning.display();
-            }
-        }
-
-    }
-
-    /**
      * Takes the current selected image in treeView and initializes a nameLog extracted from the ImageData that the image file is attached to.
-     *
      */
-    public void openNameLogPopUp() throws Exception{
+    public void openNameLogPopUp() throws Exception {
         OpenPopUp openPopUp = new OpenPopUp(this);
         openPopUp.openNameLog();
 //        try {
@@ -252,18 +214,10 @@ public class TreeViewController implements Initializable {
      * Calls AppComponent classes accordingly to add the selected tag in listView  to the selected image in treeView
      */
     public void addTagToImage() {
-        ObservableList<Tag> tagList = listView.getSelectionModel().getSelectedItems();
-        String location = centerObserver.getTarget().getSelectedItemLocation();
-        if (tagList != null && location != null) {
-            ImageData currentImage = MainContainer.getAppImageManager().getImage(location);
-            ArrayList<String> addList = new ArrayList<>();
-            for (Tag t : tagList) {
-                addList.add(t.getTagName());
-            }
-            MainContainer.getAppImageManager().imAddTagWithImage(currentImage, addList);
-            centerObserver.update(currentImage.getLocation());
-            reSetTree();
-        }
+        TagOperation tagEditor = new TagOperation();
+        TreeViewObserver treeViewObserver = new TreeViewObserver();
+        treeViewObserver.setTarget(this);
+        tagEditor.addTagToImage(listView, centerObserver, treeViewObserver);
     }
 
 

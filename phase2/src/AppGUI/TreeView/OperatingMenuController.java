@@ -56,7 +56,6 @@ public class OperatingMenuController implements Initializable {
 
     public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
         this.treeViewObserver = treeViewObserver;
-        System.out.println(this.treeViewObserver);
     }
 
     public void setMainObserver(MainObserver mainObserver) {
