@@ -31,23 +31,8 @@ public class MiddleWindowController extends FolderPanelController {
     /* View of the image and it's current location*/
     @FXML
     private ImageView imageView = new ImageView();
-    private CenterObserver centerObserver;
 
-    private MainObserver mainObserver;
-
-    private OpMenuObserver opMenuObserver;
     private String selectedItemLocation;
-
-    public void setCenterObserver(CenterObserver centerObserver) {
-        this.centerObserver = centerObserver;
-    }
-    public void setMainObserver(MainObserver mainObserver) {
-        this.mainObserver = mainObserver;
-    }
-
-    public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
-        this.opMenuObserver = opMenuObserver;
-    }
 
     /* Initialize the search field when search is clicked. Return
     * a error message through a dialog box if the search failed.*/
