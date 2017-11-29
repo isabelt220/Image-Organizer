@@ -222,7 +222,7 @@ public class TreeViewController implements Initializable {
      * Takes the current selected image in treeView and initializes a nameLog extracted from the ImageData that the image file is attached to.
      *
      */
-    public void openNameLogPopUp(){
+    public void openNameLogPopUp() throws Exception{
         OpenPopUp openPopUp = new OpenPopUp(this);
         openPopUp.openNameLog();
 //        try {

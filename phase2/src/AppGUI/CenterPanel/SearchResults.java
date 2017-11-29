@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class SearchResults {
     // Main stage used to display the search results
-    private Stage mainStage;
+//    private Stage mainStage;
     private SearchResultObserver searchResultObserver;
 
     public void setSearchResultObserver(SearchResultObserver searchResultObserver) {
@@ -22,23 +22,23 @@ public class SearchResults {
     /* Display the results of the images associated with the tag put
         * in the search bar.*/
     public void display(ArrayList<ImageData> imageList) throws Exception {
-        if (searchResultObserver == null) {
-            mainStage = new Stage();
+//        if (searchResultObserver == null) {
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SearchResults.class.getResource("SearchResults.fxml"));
             AnchorPane mainLayout = loader.load();
-            mainStage.setScene(new Scene(mainLayout));
             searchResultObserver.setTarget((loader.getController()));
             searchResultObserver.displayResults(imageList);
 //            MainContainer.setSearchResultsController((loader.getController()));
 //            MainContainer.getSearchResultsController().setResults(imageList);
-            mainStage.show();
-        } else {
+            stage.setScene(new Scene(mainLayout));
+            stage.show();
+//        } else {
             searchResultObserver.displayResults(imageList);
 //            MainContainer.getSearchResultsController().setResults(imageList);
-            mainStage.show();
+            stage.show();
         }
     }
 
 
-}
+//}
