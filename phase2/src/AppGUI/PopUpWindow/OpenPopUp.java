@@ -8,7 +8,7 @@ import java.io.File;
 
 /**
  * Although not a parent class, but acts as a manager for all pop up windows in this application.
- * Initialized by MiddleWindowController and TopPanel, initialises new ImageEditors, NameLogPopUps and MasterLogPopUps.
+ * Initialized by MiddleWindowController and TopPanel, and in turn initialises new ImageEditors, NameLogPopUps and MasterLogPopUps.
  */
 public class OpenPopUp {
 
@@ -20,7 +20,7 @@ public class OpenPopUp {
 
     /**
      * Constructor for this OpenPopUp, set the target of the this treeViewObserver.
-     * 
+     *
      * @param t TreeViewController of the current treeView panel
      */
     public OpenPopUp(TreeViewController t){

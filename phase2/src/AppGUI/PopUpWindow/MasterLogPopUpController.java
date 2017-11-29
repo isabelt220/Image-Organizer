@@ -1,4 +1,4 @@
-package AppGUI.PopUpWindow;
-
-public class MasterLogPopUpController {
-}
+//package AppGUI.PopUpWindow;
+//
+//public class MasterLogPopUpController {
+//}

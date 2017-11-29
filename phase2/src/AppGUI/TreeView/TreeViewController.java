@@ -28,30 +28,49 @@ import java.util.ResourceBundle;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-
+/**
+ * Initialized by MainGUI and is observed by TreeViewObserver.
+ * Controls the treeView pane where the user can navigate through imported directories and image files.
+ * Also consists of a listView of all tags in TagManager.
+ * Contains all other observers in order to communicate information of the selected files in treeView, and to be updated when
+ * there is a name/tag modification in the corresponding panel of the observers.
+ */
 public class TreeViewController implements Initializable {
 
+    /** Basic platform that the tree view and list view will be displayed in*/
     public ContextMenu contextMenu;
+
+    /** Initializes a new empty tree view that can be filled with TreeItems of imported files*/
     @FXML
     private TreeView<File> treeView = new TreeView<>();
+
+    /** Initializes a new empty tree view that can be filled with Items of added tags*/
     @FXML
     ListView<Tag> listView = new ListView<>();
+
+    /** Initializes a new HBox to aid switch between context menus */
     @FXML
     HBox hBox = new HBox();
+
+    /** Initializes an text field that the user can use to add individual tags to the TagManager*/
     @FXML
     TextField addTagField = new TextField();
 
+    /** CenterObserver initialized in MainGUI and used to communicate information between this TreeViewController and the observer's corresponding panel*/
     private CenterObserver centerObserver;
+
+    /** FolderObserver initialized in MainGUI and used to communicate information between this TreeViewController and the observer's corresponding panel*/
     private FolderObserver folderObserver;
+
+    /** OpMenuObserver initialized in MainGUI and used to communicate information between this TreeViewController and the observer's corresponding panel*/
     private OpMenuObserver opMenuObserver;
+
+    /** MainObserver initialized in MainGUI and used to communicate information between this TreeViewController and the observer's corresponding panel*/
     private MainObserver mainObserver;
 
 
     /**
-     * Initializes the treeView Controller, setting up the listview and add/delete tag buttons.
-     *
-     * @param location
-     * @param r
+     * Initializes the treeView Controller, setting up the listView and add/delete tag buttons that modifies TagManager.
      */
     public void initialize(URL location, ResourceBundle r) {
         listView.setItems(MainContainer.getAppTagManager().getObservableTagList());
@@ -70,10 +89,7 @@ public class TreeViewController implements Initializable {
                 };
             }
         });
-
-
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         addTagField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -106,12 +122,20 @@ public class TreeViewController implements Initializable {
 
 
     /**
-     * Used to open and display a folder, or show operating menu for an image file depending on the type of item selected.
-     *
+     * Initializes a FolderOperation used to open and display a folder, or
+     * show operating menu for an image file depending on the type of item selected.
      */
     public void openFolder(){
         FolderOperation folderEditor = new FolderOperation();
         folderEditor.openFolder(mainObserver,treeView);
+    }
+
+    /**
+     * Initializes a TagOperation used to clear all tags from TagManager and associated ImageData.
+     */
+    public void CleanTagClick(){
+        TagOperation tagEditor = new TagOperation();
+        tagEditor.CleanTagClick();
     }
 
     /**
@@ -123,23 +147,18 @@ public class TreeViewController implements Initializable {
         reSetTree();
     }
 
-    public void CleanTagClick(){
-        TagOperation tagEditor = new TagOperation();
-        tagEditor.CleanTagClick();
-    }
-
-
     /**
      * Makes a text field pop up where the user can enter the tag they wish to add to TagManager
      */
     public void addTagClick() {
+
         hBox.setVisible(!hBox.isVisible());
     }
 
 
     /**
      * Handles a click on the treeview, determines the type of folder clicked on, whether the click is a
-     * normal left click, right click, or double click and handles it in different ways.
+     * normal left click, right click, or double click and offers the user different utilities in the application.
      *
      * @throws IOException Exception
      */
@@ -175,9 +194,10 @@ public class TreeViewController implements Initializable {
 
 
     /**
-     * Takes the current selected image from the treeView, and initializes a ImageEditor that modifies selected image
+     * Takes the current selected image from the treeView, and initializes a OpenPopUp that in turn initializes a
+     * ImageEditor that modifies selected image
      *
-     * @throws Exception
+     * @throws Exception IOException
      */
     public void openImageTagEditor() throws Exception {
         OpenPopUp openPopUp = new OpenPopUp(this);
@@ -186,22 +206,19 @@ public class TreeViewController implements Initializable {
     }
 
     /**
-     * Takes the current selected image in treeView and initializes a nameLog extracted from the ImageData that the image file is attached to.
+     * Takes the current selected image in treeView and initializes a OpenPopUp that in turn initializes a nameLog
+     * extracted from the ImageData that the selected image file is attached to.
+     *
+     * @throws Exception IOException
      */
     public void openNameLogPopUp() throws Exception {
         OpenPopUp openPopUp = new OpenPopUp(this);
+        openPopUp.setCenterObserver(centerObserver);
         openPopUp.openNameLog();
-//        try {
-//            NameLogPopUp nameLogPopUp = new NameLogPopUp();
-//            nameLogPopUp.display();
-//        } catch (Exception e) {
-//            DialogBox alertBox = new DialogBox("Warning", "Please choose an Image");
-//            alertBox.display();
-//        }
     }
 
     /**
-     * Reloads the treeView to updates any tag changes.
+     * Reloads the treeView to updates any name and tag changes.
      */
     public void reSetTree() {
         if (treeView.getRoot() != null) {
@@ -220,29 +237,56 @@ public class TreeViewController implements Initializable {
         tagEditor.addTagToImage(listView, centerObserver, treeViewObserver);
     }
 
-
     /**
      * Getter for this treeView.
      *
-     * @return TreeView<File></File>
-     */
+     * @return TreeView<File></File> tree view of its children files*/
     public TreeView<File> getTreeView() {
+
         return treeView;
     }
 
+    /**
+     * Setter for this center observer, used to communicate information between selections and updates in tree view to center panel observed by this
+     * center observer
+     *
+     * @param centerObserver observer of the current center panel of the application.
+     */
     public void setCenterObserver(CenterObserver centerObserver) {
+
         this.centerObserver = centerObserver;
     }
 
+    /**
+     * Setter for this folder observer, used to communicate information between selections and updates in tree view to folder panel observed by this
+     * folder observer
+     *
+     * @param folderObserver observer of the current folder panel of the application.
+     */
     public void setFolderObserver(FolderObserver folderObserver) {
+
         this.folderObserver = folderObserver;
     }
 
+    /**
+     * Setter for this operating menu observer, used to communicate information between selections and updates in tree view to operating menu panel observed by this
+     * operating menu observer
+     *
+     * @param opMenuObserver observer of the current operating menu panel of the application.
+     */
     public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
+
         this.opMenuObserver = opMenuObserver;
     }
 
+    /**
+     * Setter for this main observer, used to communicate information between selections and updates in tree view to main panel observed by this
+     * main observer
+     *
+     * @param mainObserver observer of the current main panel of the application.
+     */
     public void setMainObserver(MainObserver mainObserver) {
+
         this.mainObserver = mainObserver;
     }
 }

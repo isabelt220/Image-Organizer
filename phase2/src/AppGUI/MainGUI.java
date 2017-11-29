@@ -56,7 +56,7 @@ public class MainGUI extends Application {
 
         FXMLLoader centerLoader = new FXMLLoader();
         centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
-        centerPanel= centerLoader .load();
+        centerPanel= centerLoader.load();
         mainLayout.setCenter(centerPanel);
         MiddleWindowController middleController = centerLoader.getController();
 

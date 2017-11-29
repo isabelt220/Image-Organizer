@@ -31,7 +31,8 @@ public class FolderOperation {
                 if (!selectedFile.getParentFile().toPath().toString().equals(choice.toPath().toString())) {
                     treeViewObserver.update();
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 DialogBox warning = new DialogBox("Warning", "Remove Failed");
                 warning.display();
             }

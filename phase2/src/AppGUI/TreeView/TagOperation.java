@@ -10,6 +10,9 @@ import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * Helper class to TreeViewController and contains all tag operations directly
+ */
 public class TagOperation {
 
     public void addTagToImage(ListView listView, CenterObserver centerObserver, TreeViewObserver treeViewObserver) {
