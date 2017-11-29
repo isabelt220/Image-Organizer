@@ -14,16 +14,33 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The master class for front end GUI, the application will be initialized when running MainGUI, and all components necessary for image view and tag  manipulation
+ * will either be initialized in the start method or be initialized in an object initialized in the start method.
+ */
 public class MainGUI extends Application {
+    /** Stage window for the main application */
     private Stage mainStage;
+
+    /** Master border pane that holds all other panes (such as tree, center, etc.) */
     private BorderPane mainLayout;
+
+    /** TreeView pane controlled by TreeViewController, observed by TreeViewObserver*/
     private Pane treePanel;
+
+    /** Center pane controlled by MiddleWindowController, observed by CenterObserver*/
     private Pane centerPanel;
+
+    /** Operating Menu pane controlled by OperatingMenuController, observed by OpMenuObserver*/
     private Pane opMenu;
+
+    /** Folder pane controlled by FolderPanelController, observed by FolderObserver*/
     private Pane folderPanel;
 
+
     /**
-     * Start the App
+     * Start the App, initiates main, center, treeView, OpMenu, folder, middle window panels and corresponding controllers
+     * and observers. Loads the panels into designated location on the mainLayout.
      *
      * @param primaryStage Stage
      * @throws Exception Is thrown when the FXMLLoader fails to read the source file
@@ -106,19 +123,12 @@ public class MainGUI extends Application {
     }
 
     /**
-     * Display the background scene
-     *
-     * @throws IOException Is thrown when the FXMLLoader fails to read the source file
-     */
-
-
-
-    /**
      * Display images under a folder
      *
      */
 
     public void showFolderPanel(){
+
         mainLayout.setCenter(folderPanel);
     }
 
@@ -127,7 +137,8 @@ public class MainGUI extends Application {
      *
      */
     public void showOperatingMenu()  {
-       mainLayout.setLeft(opMenu);
+
+        mainLayout.setLeft(opMenu);
     }
 
     /**
@@ -135,6 +146,7 @@ public class MainGUI extends Application {
      *
      */
     public void showCenterView()  {
+
         mainLayout.setCenter(centerPanel);
     }
 
@@ -142,6 +154,7 @@ public class MainGUI extends Application {
      * Display the left Panel
      */
     public void showTreeView(){
+
         mainLayout.setLeft(treePanel);
     }
 
@@ -149,11 +162,12 @@ public class MainGUI extends Application {
      * Serialize imageList and ListOfTags
      */
     public void stop() {
+
         MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
     }
 
     /**
-     * Close the App and
+     * Close the App and saves
      */
     public void closeApplication() {
         mainStage.close();
@@ -165,11 +179,17 @@ public class MainGUI extends Application {
      * @return Stage
      */
     public Stage getMainStage() {
+
         return mainStage;
     }
 
-
+    /**
+     * Launches application.
+     *
+     * @param args String[]
+     */
     public static void main(String[] args) {
+
         launch(args);
     }
 }
