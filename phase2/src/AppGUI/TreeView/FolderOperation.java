@@ -16,9 +16,19 @@ import java.nio.file.Paths;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-public class FolderOperation {
+/**
+ * Helper class for TreeViewController, contains methods for file manipulations
+ */
+ class FolderOperation {
 
-    public void moveFile(TreeViewObserver treeViewObserver, MainObserver mainObserver) {
+    /**
+     * Takes the selected file in treeView and moves the file to the location selected in mainObserver, altering
+     * the ImageData if the specified file has one.
+     *
+     * @param treeViewObserver observer of the current treeView
+     * @param mainObserver observer of the current mainView
+     */
+     void moveFile(TreeViewObserver treeViewObserver, MainObserver mainObserver) {
 
         File selectedFile = treeViewObserver.getSelectedFile();
         DirectoryChooser dc = new DirectoryChooser();
@@ -40,7 +50,14 @@ public class FolderOperation {
 
     }
 
-    public void openFolder(MainObserver mainObserver, TreeView<File> treeView){
+    /**
+     * Takes the chosen file in directory selector and generates a treeView of the file and the sub files.
+     * Sets the tree view in center panel
+     *
+     * @param mainObserver observer of the current mainView
+     * @param treeView File
+     */
+     void openFolder(MainObserver mainObserver, TreeView<File> treeView){
         DirectoryChooser dc = new DirectoryChooser();
         File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
         if (choice != null) {

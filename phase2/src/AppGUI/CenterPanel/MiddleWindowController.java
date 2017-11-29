@@ -36,7 +36,7 @@ public class MiddleWindowController extends FolderPanelController {
     @FXML
     public TextField searchTextField = new TextField();
 
-    /**Return button that makes the center panel display the parent directory of the selected item*/
+    /**Return button that makes the center panel display the parent directory of the selected item */
     @FXML
     public Button returnToParent;
 

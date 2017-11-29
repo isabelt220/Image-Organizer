@@ -11,10 +11,18 @@ import javafx.scene.control.ListView;
 import java.util.ArrayList;
 
 /**
- * Helper class to TreeViewController and contains all tag operations directly
+ * Helper class to TreeViewController and contains all tag operations that directly modifies Tags in TagManager.
  */
 public class TagOperation {
 
+    /**
+     *Takes the location of the target of centerObserver and the selected Tag(s) in list view and uses ImageManager to
+     * associate the tags with the target ImageData.
+     *
+     * @param listView List of all tags in TagManager (all tags that was instantiated through any way and was not deleted by the user)
+     * @param centerObserver the observer of the current middle window
+     * @param treeViewObserver the observer of the current Tree
+     */
     public void addTagToImage(ListView listView, CenterObserver centerObserver, TreeViewObserver treeViewObserver) {
         ObservableList<Tag> tagList = listView.getSelectionModel().getSelectedItems();
         String location = centerObserver.getTarget().getSelectedItemLocation();
@@ -30,6 +38,11 @@ public class TagOperation {
         }
     }
 
+    /**
+     * Takes the selected Tags in list view and deletes it from all all associated images.
+     *
+     * @param listView List of all tags in TagManager (all tags that was instantiated through any way and was not deleted by the user)
+     */
     public void deleteTagClick(ListView<Tag> listView) {
         ObservableList<Tag> selectedItems = listView.getSelectionModel().getSelectedItems();
         ArrayList<Tag> selectedCopies = new ArrayList<>(selectedItems.subList(0, selectedItems.size()));
@@ -41,7 +54,11 @@ public class TagOperation {
 
     }
 
+    /**
+     * Deletes tags that is not associated with any images from TagManager
+     */
     public void CleanTagClick(){
+
         MainContainer.getAppTagManager().cleanUnusedTag();
     }
 }
