@@ -1,6 +1,7 @@
 package AppGUI.PopUpWindow;
 
 import AppGUI.TreeView.TreeViewController;
+import Observers.CenterObserver;
 import Observers.TreeViewObserver;
 
 import java.io.File;
@@ -9,9 +10,12 @@ public class OpenPopUp {
 
     private TreeViewObserver treeViewObserver = new TreeViewObserver();
 
+    private CenterObserver centerObserver = new CenterObserver();
+
     public OpenPopUp(TreeViewController t){
-        this.treeViewObserver.setTarget(t);
+        treeViewObserver.setTarget(t);
     }
+
     /**
      * Takes the current selected image from the treeView, and initializes a ImageEditor that modifies selected image
      *
@@ -24,7 +28,7 @@ public class OpenPopUp {
             alertBox.display();
         } else if (currentFile != null) {
             ImageTagEditor imageTagEditor = new ImageTagEditor();
-            imageTagEditor.display(treeViewObserver);
+            imageTagEditor.display(treeViewObserver, centerObserver);
         }
     }
 
@@ -37,4 +41,10 @@ public class OpenPopUp {
             alertBox.display();
         }
     }
+
+    public void setCenterObserver(CenterObserver centerObserver) {
+        this.centerObserver = centerObserver;
+    }
+
+
 }
