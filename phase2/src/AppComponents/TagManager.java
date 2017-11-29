@@ -159,6 +159,15 @@ public class TagManager implements Serializable {
         return null;
     }
 
+    public void cleanUnusedTag(){
+        ArrayList<Tag> temp = new ArrayList<>(observableTagList.subList(0, observableTagList.size()));
+        for(Tag t: temp){
+            if(t.getAssociatedImages().size() == 0){
+                observableTagList.remove(t);
+            }
+        }
+    }
+
     /**
      * Removes the ImageData image from the list of associatedImages of each
      * tag that the image was tagged with.
