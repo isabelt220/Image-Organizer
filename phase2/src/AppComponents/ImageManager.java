@@ -6,13 +6,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/*
-Keeps track of all images and the info for each image
+/**
+Keeps track of and manipulates all ImageData and associated information for this application.
+Interacts with ImageData (initializes and manages), TagManager, and MainContainer(is initialized and manipulated by).
+ Implements Serializable so information can be saved after ending a session of the application.
 */
 public class ImageManager implements Serializable {
 
-    // Initializes an empty ArrayList of ImageData object that this ImageManager contains
+    // Initializes an empty ArrayList of ImageData objects that this ImageManager contains
     private ArrayList<ImageData> imageList = new ArrayList<>();
+
 
     /**
      * Takes a newImage ImageData, checks for existence and adds it to this imageList.
@@ -116,15 +119,15 @@ public class ImageManager implements Serializable {
             }
         }
         return null;
-//        ImageData temp = new ImageData(location);
-//        for (ImageData i : imageList) {
-//            if (temp.equals(i)) {
-//                return i;
-//            }
-//        }
-//        return temp;
     }
 
+    /**
+     * Checks for existence of an ImageData with specified location within imageList.
+     * NOTE: uses for-loop instead of contains method for direct comparison of location of image file.
+     *
+     * @param location String of the absolute path of a image file
+     * @return boolean whether this image file has an ImageData attached to it.
+     */
     public boolean imageExists(String location) {
         if (!imageList.isEmpty()) {
             for (ImageData image : imageList) {
@@ -154,7 +157,8 @@ public class ImageManager implements Serializable {
             imageList.add(currImage);
             ArrayList<Tag> newTags = MainContainer.getAppTagManager().tmAddTagWithImage(currImage, tagNameList);
             currImage.addTags(newTags);
-            return currImage;}
+            return currImage;
+        }
     }
 
     /**

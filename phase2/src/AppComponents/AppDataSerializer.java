@@ -9,6 +9,10 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 
+/**
+ * Provides serialization for creation and manipulation of tags and images, is called upon when the application is
+ * opened and closed.
+ */
 public class AppDataSerializer {
 
     /**
@@ -83,4 +87,4 @@ public class AppDataSerializer {
         }
     }
 
-    }
+}

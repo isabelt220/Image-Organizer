@@ -5,59 +5,19 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
-
+/**
+ Keeps track of and manipulates all Tags and associated information for this application.
+ Interacts with Tag (initializes and manages), ImageManager, and MainContainer(is initialized and manipulated by).
+ Implements Serializable so information can be saved after ending a session of the application.
+ */
 public class TagManager implements Serializable {
 
     // An empty ArrayList of Tags to keep a list of all Tags added by the user.
     private ArrayList<Tag> listOfTags = new ArrayList<>(0);
+
     // A list that visually displays TagManager's listOfTags to the user.
     private ObservableList<Tag> observableTagList = FXCollections.observableList(new ArrayList<>());
 
-    /**
-     * Sets the listOfTags and observableTagList.
-     *
-     * @param list ArrayList of Tags to be set as.
-     */
-    void setListOfTags(ArrayList<Tag> list) {
-        listOfTags = list;
-        observableTagList = FXCollections.observableList(listOfTags);
-    }
-
-    /**
-     * Returns the listOfTags.
-     *
-     * @return current existing tags
-     */
-    ArrayList<Tag> getListOfTags() {
-        return listOfTags;
-    }
-
-    /**
-     * @return ObservableList of Tags for displaying the currently existing
-     * list of tags to the users.
-     */
-    public ObservableList getObservableTagList() {
-        return observableTagList;
-    }
-
-    /**
-     * Takes a String tagName and returns the Tag with the tagName in listOfTags
-     * if a Tag with that tagName exists.
-     *
-     * @param tagName the name of the tag to search for in listOfTags.
-     * @return the Tag with the tagName if one exists, otherwise returns null.
-     */
-    Tag getTag(String tagName) {
-        String name = tagName.toLowerCase();
-        if (!listOfTags.isEmpty() && tagExists(name)) {
-            for (Tag tag : listOfTags) {
-                if (name.equals(tag.getTagName())) {
-                    return tag;
-                }
-            }
-        }
-        return null;
-    }
 
     /**
      * Checks and returns whether a tag already exists in listOfTags
@@ -180,4 +140,52 @@ public class TagManager implements Serializable {
             tag.removeImage(image);
         }
     }
+
+    /**
+     * Sets the listOfTags and observableTagList.
+     *
+     * @param list ArrayList of Tags to be set as.
+     */
+    void setListOfTags(ArrayList<Tag> list) {
+        listOfTags = list;
+        observableTagList = FXCollections.observableList(listOfTags);
+    }
+
+    /**
+     * Returns the listOfTags.
+     *
+     * @return current existing tags
+     */
+    ArrayList<Tag> getListOfTags() {
+        return listOfTags;
+    }
+
+    /**
+     * @return ObservableList of Tags for displaying the currently existing
+     * list of tags to the users.
+     */
+    public ObservableList getObservableTagList() {
+        return observableTagList;
+    }
+
+    /**
+     * Takes a String tagName and returns the Tag with the tagName in listOfTags
+     * if a Tag with that tagName exists.
+     *
+     * @param tagName the name of the tag to search for in listOfTags.
+     * @return the Tag with the tagName if one exists, otherwise returns null.
+     */
+    Tag getTag(String tagName) {
+        String name = tagName.toLowerCase();
+        if (!listOfTags.isEmpty() && tagExists(name)) {
+            for (Tag tag : listOfTags) {
+                if (name.equals(tag.getTagName())) {
+                    return tag;
+                }
+            }
+        }
+        return null;
+    }
+
+
 }
