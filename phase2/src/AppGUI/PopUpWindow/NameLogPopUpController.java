@@ -82,9 +82,8 @@ public class NameLogPopUpController {
         File f= new File(newNode.getLocation());
         treeViewObserver.setItem(f);
         centerObserver.update(treeViewObserver.getSelectedFile().toPath().toString());
-//        MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().setValue(f);
         treeViewObserver.update();
-//        MainContainer.getMiddleWindowController().setPanel(MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue().toPath().toString());
+
 
     }
 

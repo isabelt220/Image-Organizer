@@ -17,9 +17,19 @@ public class ImageLog {
         return tagLog;
     }
 
-    public ImageLog(){
+    public ImageLog(String name, ArrayList<String> tags){
         nameLog = new LinkedHashMap<>();
         tagLog = new LinkedHashMap<>();
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        if(tags.size() == 0){
+            nameLog.put(time.toString(), "Initially named : "+ name);
+            tagLog.put(time.toString(), new ArrayList<String>());
+        }
+        else{
+            String temp = convertTagNameListToString(tags);
+            nameLog.put(time.toString(), "Initially named : " + name + ". Tags: " + temp);
+            tagLog.put(time.toString(), tags);
+        }
     }
 
 
@@ -38,18 +48,18 @@ public class ImageLog {
         return nameLog;
     }
 
-    public void innit(String name, ArrayList<String> tags){
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        if(tags.size() == 0){
-            nameLog.put(time.toString(), "Initially named : "+ name);
-            tagLog.put(time.toString(), new ArrayList<String>());
-        }
-        else{
-            String temp = convertTagNameListToString(tags);
-            nameLog.put(time.toString(), "Initially named : " + name + ". Tags: " + temp);
-            tagLog.put(time.toString(), tags);
-        }
-    }
+//    public void innit(String name, ArrayList<String> tags){
+//        Timestamp time = new Timestamp(System.currentTimeMillis());
+//        if(tags.size() == 0){
+//            nameLog.put(time.toString(), "Initially named : "+ name);
+//            tagLog.put(time.toString(), new ArrayList<String>());
+//        }
+//        else{
+//            String temp = convertTagNameListToString(tags);
+//            nameLog.put(time.toString(), "Initially named : " + name + ". Tags: " + temp);
+//            tagLog.put(time.toString(), tags);
+//        }
+//    }
 
     public ArrayList<String> convertTagListToStringList(ArrayList<Tag> tagArrayList){
         ArrayList<String> result = new ArrayList<>();
@@ -64,6 +74,9 @@ public class ImageLog {
         for(Tag tag : tagArrayList){
             result += (", " +tag.getTagName());
         }
+        if (result.length() == 0){
+            return result;
+        }
         return result.substring(2);
 
     }
@@ -72,6 +85,9 @@ public class ImageLog {
         String result = "";
         for(String tagName : tagNameArrayList){
             result += (", " +tagName);
+        }
+        if (result.length() == 0){
+            return result;
         }
         return result.substring(2);
 

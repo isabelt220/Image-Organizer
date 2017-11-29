@@ -53,7 +53,7 @@ public class ImageLocation {
      */
     public ArrayList<String> analyzeNameForTags(){
         if (!(name.contains("@"))){
-            return null;
+            return new ArrayList<String>();
         }
         else{
             int x = name.indexOf(" @");
