@@ -65,6 +65,9 @@ public class TreeViewController implements Initializable {
                     protected void updateItem(Tag item, boolean empty) {
                         super.updateItem(item, empty);
                         setText((empty || item == null) ? "" : item.getTagName());
+                        if(item!= null && item.getAssociatedImages().size() == 0){
+                            setStyle("-fx-background-color: wheat");
+                        }
                     }
                 };
             }
@@ -81,6 +84,7 @@ public class TreeViewController implements Initializable {
                     ArrayList<String> tag = new ArrayList<>();
                     tag.add(text);
                     MainContainer.getAppTagManager().tmAddTagWithoutImage(tag);
+                    System.out.println(MainContainer.getAppTagManager().getObservableTagList().size());
                     addTagField.setText("");
                 } else if (keyEvent.getCode() == KeyCode.ENTER && MainContainer.getAppTagManager().tagExists(text)) {
                     DialogBox dialogBox = new DialogBox("Info", "Tag already exist");
