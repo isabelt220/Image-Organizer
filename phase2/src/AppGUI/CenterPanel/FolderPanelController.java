@@ -23,31 +23,45 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Pane that takes up the center of the application when a directory file is selected from the treeView.
+ * Consists of a table view that displays a preview of all images within the folder and their names and tags.
+ * Is observed by a FolderObserver object initialized in MainGUI and associated with CenterObserver, MainObserver, and OpMenuObserver.
+ */
 public class FolderPanelController implements Initializable {
 
-    /* The below are components of a table that we created for
-    * our application.*/
+    /** Main table view of images to be displayed, any images within the selected directory will be listed.*/
     @FXML
     private TableView<ImageData> tableView = new TableView<>();
+
+    /** First column of the tableView, image view of the image file of the ImageData will be displayed here*/
     @FXML
     private TableColumn<ImageData, String> preViewColumn = new TableColumn<>();
+
+    /** Second column of the tableView, the core name of the ImageData of the image file will be displayed here.*/
     @FXML
     private TableColumn<ImageData, String> coreNameColumn = new TableColumn<>();
+
+    /** Third column of the tableView, the full name of the ImageData, including all tags of the image file will be displayed here.*/
     @FXML
     private TableColumn<ImageData, String> nameColumn = new TableColumn<>();
 
+    /** CenterObserver initialized by MainGUI to communicate between this folder panel and the center panel*/
     private CenterObserver centerObserver;
 
+    /** MainObserver initialized by MainGUI to communicate between this folder panel and the Middle Window panel*/
     private MainObserver mainObserver;
 
+    /** OprObserver initialized by MainGUI to communicate between this folder panel and the operating menu panel*/
     private OpMenuObserver opMenuObserver;
 
-    /** Initiate the table on mouse click on a treeView item.
+    /** Initiate the table on mouse click on a treeView directory, communicates with other panels and automatically updates itself after
+     * selected item change, or tag change.
     */
     public void initialize(URL location, ResourceBundle r) {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             try {
-                /*Check if the table has an item, if so get the properties
+                /**Check if the table has an item, if so get the properties
                 of that item and get all the static variables of that item.
                 */
                 if (tableView.getSelectionModel().getSelectedItem() != null) {
@@ -62,7 +76,8 @@ public class FolderPanelController implements Initializable {
                     opMenuObserver.update(image);
                 }
 
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -72,12 +87,12 @@ public class FolderPanelController implements Initializable {
             @Override
             protected void updateItem(String image, boolean empty) {
                 super.updateItem(image, empty);
-
                 if (image == null || empty) {
                     setText(null);
                     setGraphic(null);
                     setStyle("");
-                } else {
+                }
+                else {
                     File f = new File(image);
                     Image i = new Image(f.toURI().toString(), 120, 120, true, true);
                     ImageView preView = new ImageView();
@@ -87,16 +102,21 @@ public class FolderPanelController implements Initializable {
             }
         });
         coreNameColumn.setCellValueFactory(t -> new SimpleStringProperty(t.getValue().getCoreName()));
-
         nameColumn.setCellValueFactory(t -> new SimpleStringProperty(t.getValue().getName()));
     }
 
-    /* Get the table ArrayList of ImageData*/
+    /**
+     * Getter the table view of ImageData*
+     * @return TableView<ImageData></> this table view
+     */
     TableView<ImageData> getTableView() {
         return tableView;
     }
 
-    /* Setter for the panel*/
+    /**
+     * Clears and initializes a new panel with table view of the file with the absolute path of String location
+     * @param location String absolute path of the folder desired to display.
+     */
     public void setPanel(String location) {
         tableView.getColumns().clear();
         tableView.getItems().clear();
@@ -129,14 +149,29 @@ public class FolderPanelController implements Initializable {
         tableView.setItems(FXCollections.observableList(imageTable));
     }
 
+    /**
+     * Setter for center observer for data communication between panels.
+     *
+     * @param centerObserver initialized by MainGUI and observes the center panel.
+     */
     public void setCenterObserver(CenterObserver centerObserver) {
         this.centerObserver = centerObserver;
     }
 
+    /**
+     * Setter for middle winddle observer for data communication between panels.
+     *
+     * @param mainObserver initialized by MainGUI and observes the middle window panel.
+     */
     public void setMainObserver(MainObserver mainObserver) {
         this.mainObserver = mainObserver;
     }
 
+    /**
+     * Setter for operating menu observer for data communication between panels.
+     *
+     * @param opMenuObserver initialized by MainGUI and observes the operating menu panel.
+     */
     public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
         this.opMenuObserver = opMenuObserver;
     }

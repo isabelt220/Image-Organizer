@@ -22,22 +22,39 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for CenterPanel.fxml, contains and implements the search bar, the imageView of the selected item in treeView,
+ * as well as a tableView of the parent directory of the selected item.
+ * Is initialized by MainGUI when the application first starts, and is observed by a CenterObserver.
+ */
 public class MiddleWindowController extends FolderPanelController {
-    /* Search button and text field when searching for tags*/
+    /** Search button when searching for tags*/
     @FXML
     public Button searchButton = new Button();
+
+    /** User manipulable text field when searching for tags*/
     @FXML
     public TextField searchTextField = new TextField();
-    public Text locationText;
 
-    /* View of the image and it's current location*/
+    /**Return button that makes the center panel display the parent directory of the selected item*/
+    @FXML
+    public Button returnToParent;
+
+    /** ImageView of the selected item*/
     @FXML
     private ImageView imageView = new ImageView();
 
+    /**String absolute path of the selected item in treeView*/
     private String selectedItemLocation;
 
-    /* Initialize the search field when search is clicked. Return
-    * a error message through a dialog box if the search failed.*/
+    /** Text of the absolute path of the selected item, not manipulable by the user*/
+    @FXML
+    public Text locationText;
+
+
+    /** Initialize the search field when search is clicked and clears the text after user hits enter.
+     * Returns error message through a dialog box if the search failed.
+     * */
     @Override
     public void initialize(URL location, ResourceBundle r) {
         super.initialize(location, r);
@@ -54,8 +71,11 @@ public class MiddleWindowController extends FolderPanelController {
         });
     }
 
-
-    /* Setter for panel*/
+    /**
+     *  * Setter for this center panel.
+     * Takes the location of the selected item, and initializes a ImageView and corresponding absolute path of locationText.
+     * @param location String absolute path of the folder desired to display.
+     */
     @Override
     public void setPanel(String location) {
         selectedItemLocation = location;
@@ -67,19 +87,29 @@ public class MiddleWindowController extends FolderPanelController {
 
     }
 
-    /* Setter for item's location*/
+    /**
+     * Setter for the location of the selected item
+     *
+     * @param selectedItemLocation String absolute path of the file of the selected item
+     */
     public void setSelectedItemLocation(String selectedItemLocation) {
         this.selectedItemLocation = selectedItemLocation;
     }
 
-    /* Getter for item's location*/
+    /**
+     * Getter for the location of this selected item used in center panel.
+     *
+     * @return String absolute path of the file of the selected item
+     */
     public String getSelectedItemLocation() {
         return selectedItemLocation;
     }
 
-    /* When the search button is clicked, search and display the results for
-    * the images with the corresponding tags. Otherwise give a dialog box with
-    * a error message to the user.*/
+    /**
+     * When the search button is clicked, search and display the results for the images with the corresponding tags.
+     * Otherwise displays a dialog box with corresponding error message to the user.
+     * @throws Exception IOException
+     */
     public void searchTagClicked() throws Exception {
         String inquired = searchTextField.getText();
         ArrayList<ImageData> inquiredResults = filterSearchedTags(inquired);
@@ -97,24 +127,16 @@ public class MiddleWindowController extends FolderPanelController {
             DialogBox alertBox = new DialogBox("Warning", "Tag Not Found!");
             alertBox.display();
         }
-//        boolean existence = MainContainer.getAppTagManager().tagExists(inquired);
-//        if (existence) {
-//            ArrayList<ImageData> foundImages = MainContainer.getAppTagManager().getImagesWithTag(inquired);
-//            if (MainContainer.getSearchResults() == null) {
-//                SearchResults searchResults = new SearchResults();
-//                searchResults.display(foundImages);
-//                MainContainer.setSearchResults(searchResults);
-//            } else {
-//                MainContainer.getSearchResults().display(foundImages);
-//            }
-//        } else {
-//            DialogBox alertBox = new DialogBox("Warning", "Tag Not Found!");
-//            alertBox.display();
-//
-//        }
     }
 
-    public ArrayList<ImageData> filterSearchedTags(String tags) {
+    /**
+     * Helper method for the search bar, takes a string user input of one or multiple tags, splices it for individual tags
+     * and searches and return a list of ImageData that is associated with all tag(s) inputted
+     *
+     * @param tags user inputted String tags to searc, may be single tag or multiple tags seperated by ", "
+     * @return ArrayList<ImageData> ImageData associated with all tags searched
+     */
+    private ArrayList<ImageData> filterSearchedTags(String tags) {
         String[] tagList = tags.split(", ");
         ArrayList<String> tagArray = new ArrayList<>(Arrays.asList(tagList));
         ArrayList<ImageData> imageList = new ArrayList<>(MainContainer.getAppImageManager().getImageList().stream().filter(i -> i.containsTags(tagArray)).collect(Collectors.toList()));

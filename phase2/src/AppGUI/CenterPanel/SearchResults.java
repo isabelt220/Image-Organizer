@@ -10,35 +10,42 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * Initialized by MiddleWindow controller when the Search Tag button is clicked and the result of the search is not null.
+ */
 public class SearchResults {
-    // Main stage used to display the search results
-//    private Stage mainStage;
+
+    /** SearchObserver object initialized by the MiddleWindowController for this search, observers the SearchResultController
+     * initialized in the display method.
+     * */
     private SearchResultObserver searchResultObserver;
 
-    public void setSearchResultObserver(SearchResultObserver searchResultObserver) {
+    /**
+     * Setter for this searchResultObserver, called upon by MiddleWindowController.
+     *
+     * @param searchResultObserver Observer for the controller of this SearchResult object.
+     */
+     void setSearchResultObserver(SearchResultObserver searchResultObserver) {
         this.searchResultObserver = searchResultObserver;
     }
 
-    /* Display the results of the images associated with the tag put
-        * in the search bar.*/
+    /**
+     * Initializes a new window and displays the results of the images associated with the tag put in the search bar.
+     *
+     * @param imageList the results of the search
+     * @throws Exception mostly IOException
+     */
     public void display(ArrayList<ImageData> imageList) throws Exception {
-//        if (searchResultObserver == null) {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SearchResults.class.getResource("SearchResults.fxml"));
             AnchorPane mainLayout = loader.load();
             searchResultObserver.setTarget((loader.getController()));
             searchResultObserver.displayResults(imageList);
-//            MainContainer.setSearchResultsController((loader.getController()));
-//            MainContainer.getSearchResultsController().setResults(imageList);
             stage.setScene(new Scene(mainLayout));
             stage.show();
-//        } else {
             searchResultObserver.displayResults(imageList);
-//            MainContainer.getSearchResultsController().setResults(imageList);
             stage.show();
-        }
     }
+}
 
-
-//}

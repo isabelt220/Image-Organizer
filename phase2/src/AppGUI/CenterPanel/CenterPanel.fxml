@@ -21,7 +21,8 @@
                <children>
                   <TextField fx:id="searchTextField" layoutX="341.0" layoutY="11.0" promptText="Enter Single Tag Here" />
                   <Button fx:id="searchButton" layoutX="498.0" layoutY="11.0" mnemonicParsing="false" onAction="#searchTagClicked" text="Search Tag" />
-                  <Text fx:id="locationText" layoutX="23.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="225.13671875" />
+                  <Text fx:id="locationText" layoutX="43.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="289.13671875" />
+                  <Button fx:id="returnToParent" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#returnToParentClicked" text="↑" />
                </children>
             </Pane>
             <VBox alignment="CENTER" prefHeight="260.0" prefWidth="519.0">
