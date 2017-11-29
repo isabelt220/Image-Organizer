@@ -3,10 +3,11 @@ package AppComponents;
 import AppGUI.MainContainer;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ImageLocation {
+public class ImageLocation implements Serializable{
 
     // String Location is the complete path of the file. eg. C://User/phase1/Christmas.png
     private String location = "";
