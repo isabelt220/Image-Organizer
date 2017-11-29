@@ -152,27 +152,31 @@ public class FolderPanelController implements Initializable {
     /**
      * Setter for center observer for data communication between panels.
      *
-     * @param centerObserver initialized by MainGUI and observes the center panel.
+     * @param centerObserver initialized by MainGUI and observes the center panel that this folder panel is communicating with.
      */
     public void setCenterObserver(CenterObserver centerObserver) {
+
         this.centerObserver = centerObserver;
     }
 
     /**
      * Setter for middle winddle observer for data communication between panels.
      *
-     * @param mainObserver initialized by MainGUI and observes the middle window panel.
+     * @param mainObserver initialized by MainGUI and observes the middle window panel that this folder panel is communicating with.
      */
     public void setMainObserver(MainObserver mainObserver) {
+
         this.mainObserver = mainObserver;
     }
 
     /**
      * Setter for operating menu observer for data communication between panels.
      *
-     * @param opMenuObserver initialized by MainGUI and observes the operating menu panel.
+     * @param opMenuObserver initialized by MainGUI and observes the operating menu panel that this folder panel is communicating with.
      */
     public void setOpMenuObserver(OpMenuObserver opMenuObserver) {
+
         this.opMenuObserver = opMenuObserver;
     }
+
 }

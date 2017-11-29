@@ -117,6 +117,7 @@ public class ImageLocation implements Serializable{
      * eg.C:/Foods/
      */
     public String getPath() {
+
         return path;
     }
 
@@ -126,6 +127,7 @@ public class ImageLocation implements Serializable{
      * eg. .png, .jpg
      */
     public String getType() {
+
         return type;
     }
 
@@ -135,6 +137,7 @@ public class ImageLocation implements Serializable{
      * eg. SoHungry @OverSlept @needsBrunch
      */
     public String getName() {
+
         return name;
     }
 
@@ -144,6 +147,7 @@ public class ImageLocation implements Serializable{
      * eg. C:/Photos/SummerVacation/NotLeavingTheHouseForThreeMonthsStraight.jpg
      */
     public String getLocation() {
+
         return location;
     }
 

@@ -189,6 +189,7 @@ public class ImageData implements Serializable{
      * @return LinkedHashMap<String,String>  String timestamp to String description of manipulation.
      */
     public LinkedHashMap<String, String> getNameLog(){
+
         return imageLog.getNameLog();
     }
 
@@ -201,6 +202,7 @@ public class ImageData implements Serializable{
      * @return LinkedHashMap<String, ArrayList<String>> String timestamp mapped to tag name list.
      */
     public LinkedHashMap<String, ArrayList<String>> getTagLog() {
+
         return imageLog.getTagLog();
     }
 
@@ -210,6 +212,7 @@ public class ImageData implements Serializable{
      * @return String current name, including coreName and all tags it is attached to.
      */
     public String getName(){
+
         return imageLocation.getName();
     }
 
@@ -220,6 +223,7 @@ public class ImageData implements Serializable{
      * @return String coreName
      */
     public String getCoreName(){
+
         return coreName;
     }
 
@@ -229,6 +233,7 @@ public class ImageData implements Serializable{
      * @return String location of the image file that this ImageData manipulates
      */
     public String getLocation() {
+
         return imageLocation.getLocation();
     }
 
@@ -239,6 +244,7 @@ public class ImageData implements Serializable{
      * @return ArrayList<Tag> current associated tags.
      */
     public ArrayList<Tag> getImageTags(){
+
         return tagList;
     }
 
@@ -249,6 +255,7 @@ public class ImageData implements Serializable{
      * @return ImageLocation helper class that stores location, name, path, type related data of this ImageData.
      */
     public ImageLocation getImageLocation() {
+
         return imageLocation;
     }
 

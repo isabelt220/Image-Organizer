@@ -157,6 +157,7 @@ public class TagManager implements Serializable {
      * @return current existing tags
      */
     ArrayList<Tag> getListOfTags() {
+
         return listOfTags;
     }
 
@@ -165,6 +166,7 @@ public class TagManager implements Serializable {
      * list of tags to the users.
      */
     public ObservableList getObservableTagList() {
+
         return observableTagList;
     }
 

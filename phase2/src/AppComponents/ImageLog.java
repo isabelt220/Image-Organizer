@@ -113,7 +113,8 @@ public class ImageLog implements Serializable{
      * Getter for tagLog, used to revert back to a certain time point of tags for this ImageData.
      * @return LinkedHashMap<String, ArrayList<String>> tagLog of this ImageLog
      */
-    public LinkedHashMap<String, ArrayList<String>> getTagLog() {
+    LinkedHashMap<String, ArrayList<String>> getTagLog() {
+
         return tagLog;
     }
 
@@ -121,7 +122,8 @@ public class ImageLog implements Serializable{
      * Getter for nameLog, used to view the history of tag modification of this ImageData.
      * @return LinkedHashMap<String, String> nmeLog of this ImageLog
      */
-    public LinkedHashMap<String, String> getNameLog() {
+    LinkedHashMap<String, String> getNameLog() {
+
         return nameLog;
     }
 

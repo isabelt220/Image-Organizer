@@ -18,42 +18,48 @@ import javafx.util.Callback;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Initialized ny NameLogPopUp, takes the selected item in the treeView observed by this treeViewObserver
+ * and loads the nameLog of the ImageData that is attached to the selected image file.
+ * Provides method for reverting by to a previous set of tags of the image file.
+ */
 public class NameLogPopUpController {
-//    TableView<Map.Entry<String,String>> logTable = new TableView<>();
-    @FXML
-    public TableColumn<Map.Entry<String,String>, String> nameColumn;
-    @FXML
-    public TableColumn<HashMap.Entry<String, String>, String> timeStampColumn;
-    @FXML
-    public MenuItem revertButton;
+
+    /** Main table view of the pop up window, displays the entries in name log in separate columns*/
     @FXML
     public TableView<Map.Entry<String,String>> logTable = new TableView<>();
 
+    /** First column in table view, displays the key of the nameLog: the timestamp of tag change of the ImageData*/
+    @FXML
+    public TableColumn<HashMap.Entry<String, String>, String> timeStampColumn;
+
+    /** Second column in table view, displays the value of the nameLog: the name and tag change of the ImageData*/
+    @FXML
+    public TableColumn<Map.Entry<String,String>, String> nameColumn;
+
+    /** Revert option when an entry is right clicked, may choose to revert back to tags selected time point. */
+    @FXML
+    public MenuItem revertButton;
+
+    /** ImageData whose nameLog to display and revert, obtained by communicating with treeViewObserver. */
     private ImageData curImage;
 
-
+    /** Initializes a LinkedHashMap tht will become a copy of nameLog to be converted to an observable list. */
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
-    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
-        this.treeViewObserver = treeViewObserver;
-    }
-
+    /** Observer of the treeView that this nameLogPopUpController obtains information from. */
     private TreeViewObserver treeViewObserver;
 
+    /** Observer of the centerView that this nameLogPopUpController updates after name and tag change. */
     private CenterObserver centerObserver;
-
-    public void setCenterObserver(CenterObserver centerObserver) {
-        this.centerObserver = centerObserver;
-    }
-
 
 
     /**
-     * Initializes the NameLogPopUp according to nameLog extracted from curImage.
+     * Initializes the NameLogPopUp according to nameLog extracted from curImage in the format of
+     * timestamp | name of image
+     *
      * @throws NullPointerException Exception
-
      */
-    @FXML
     public void initialize() throws NullPointerException{
 //        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
         File selectedFile =treeViewObserver.getSelectedFile();
@@ -67,17 +73,9 @@ public class NameLogPopUpController {
 
     }
 
-    public void setSetting(TreeViewObserver t){
-        treeViewObserver = t;
-        File selectedFile = t.getSelectedFile();
-        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
-        if(curImage!=null){
-        data.putAll(curImage.getNameLog());}
-    }
-
     /**
      * Takes a selection on the tableView of the nameLog and processes the curImage to the name, and tags it had
-     * at the chosen timestamp.
+     * at the chosen timestamp using the corresponding timestamp entry in the tagLog of the selected image.
      */
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
@@ -91,40 +89,37 @@ public class NameLogPopUpController {
 
     }
 
+    /**
+     * Setter for the tree view observer of the tree view panel to obtain selected image information with
+     *
+     * @param treeViewObserver Initialized by MainGUI and observer for treeView panel that this nameLog communicates information with.
+     */
+    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
+
+        this.treeViewObserver = treeViewObserver;
+    }
+
+    /**
+     * Setter for the center observer of the center panel to update when there has been a change in name and tags
+     *
+     * @param centerObserver Initialized by MainGUI and observer for center panel that this nameLog updates.
+     */
+    public void setCenterObserver(CenterObserver centerObserver) {
+
+        this.centerObserver = centerObserver;
+    }
+
 //    /**
-//     * Helper method for revertName, takes a String file name and strips it with designated markers, creating finding
-//     * the tags with the name of the striped strings, and associates it with the image, changing its name along the way.
-//     * @param chosen String
-//     * @return ArrayList<Tag>
+//     * Helper method for initialize, unused.
+//     *
+//     * @param t this tree view observer to obtain selected image
 //     */
-//    private ArrayList<Tag> generateTagList (String chosen){
-//        ArrayList<Tag> imageTags = new ArrayList<>();
-//        if (chosen.contains("@")){
-//        int i = chosen.indexOf("@");
-//        String temp1 = chosen.substring(i+1);
-//        String[] parts = temp1.split(" @");
-//            for (String tag: parts) {
-//                imageTags.add(new Tag(tag));
-//            }}
-//        return imageTags;
-//    }
-//
-//    /**
-//     * Helper method for revertName,
-//     * takes a entry in the nameLog and splits it according to a designated format and returns the solely the
-//     * name of the ImageData.
-//     * @param chosenTime
-//     * @return
-//     */
-//    private String logNameStrip(String chosenTime){
-//        if(chosenTime.contains("Initially named : ")){
-//            int x = chosenTime.indexOf(" : ");
-//            return chosenTime.substring(x+2);
-//
-//        }
-//        else{
-//            int x = chosenTime.indexOf("--> ");
-//            return chosenTime.substring(x+1);
+//    public void setSetting(TreeViewObserver t){
+//        treeViewObserver = t;
+//        File selectedFile = t.getSelectedFile();
+//        curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
+//        if(curImage!=null){
+//            data.putAll(curImage.getNameLog());
 //        }
 //    }
 
