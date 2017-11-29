@@ -65,7 +65,7 @@ public class Tag implements Serializable {
      * used to search images with a certain tag.
      * @return ArrayList<ImageData>
      */
-    ArrayList<ImageData> getAssociatedImages() {
+    public ArrayList<ImageData> getAssociatedImages() {
 
         return associatedImages;
     }
