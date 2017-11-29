@@ -34,6 +34,10 @@ public class NameLogPopUpController {
 
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
+    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
+        this.treeViewObserver = treeViewObserver;
+    }
+
     private TreeViewObserver treeViewObserver;
 
     private CenterObserver centerObserver;

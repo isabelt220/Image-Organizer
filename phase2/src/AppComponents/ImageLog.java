@@ -1,10 +1,11 @@
 package AppComponents;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class ImageLog {
+public class ImageLog implements Serializable{
 
     //nameLog is a ordered hashmap with a timestamp of each tag modification paired to the image name at that timestamp.
     private LinkedHashMap<String, String> nameLog;

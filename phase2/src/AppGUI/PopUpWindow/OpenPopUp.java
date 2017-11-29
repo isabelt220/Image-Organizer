@@ -32,14 +32,17 @@ public class OpenPopUp {
         }
     }
 
-    public void openNameLog(){
-        try {
+    public void setTreeViewObserver(TreeViewObserver treeViewObserver) {
+        this.treeViewObserver = treeViewObserver;
+    }
+
+    public void openNameLog() throws Exception{
             NameLogPopUp nameLogPopUp = new NameLogPopUp();
             nameLogPopUp.display(treeViewObserver);
-        } catch (Exception e) {
-            DialogBox alertBox = new DialogBox("Warning", "Please choose an Image");
-            alertBox.display();
-        }
+
+//            DialogBox alertBox = new DialogBox("Warning", "Please choose an Image");
+//            alertBox.display();
+//        }
     }
 
     public void setCenterObserver(CenterObserver centerObserver) {
