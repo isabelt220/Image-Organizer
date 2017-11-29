@@ -42,8 +42,8 @@ public class FolderPanelController implements Initializable {
 
     private OpMenuObserver opMenuObserver;
 
-    /* Initiate the table on mouse click
-    * */
+    /** Initiate the table on mouse click on a treeView item.
+    */
     public void initialize(URL location, ResourceBundle r) {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             try {

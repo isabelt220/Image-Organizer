@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.net.URL;
@@ -27,6 +28,7 @@ public class MiddleWindowController extends FolderPanelController {
     public Button searchButton = new Button();
     @FXML
     public TextField searchTextField = new TextField();
+    public Text locationText;
 
     /* View of the image and it's current location*/
     @FXML
@@ -61,6 +63,7 @@ public class MiddleWindowController extends FolderPanelController {
         File file = new File(location);
         Image image = new Image(file.toURI().toString());
         this.imageView.setImage(image);
+        this.locationText.setText(location);
 
     }
 

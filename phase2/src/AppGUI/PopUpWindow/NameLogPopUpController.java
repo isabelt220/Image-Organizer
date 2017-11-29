@@ -81,7 +81,7 @@ public class NameLogPopUpController {
      */
     public void revertName(){
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
-        ArrayList<String> revertList = curImage.getImageLog().getTagLog().get(chosenTime);
+        ArrayList<String> revertList = curImage.getTagLog().get(chosenTime);
         ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(curImage, revertList);
         File f= new File(newNode.getLocation());
         treeViewObserver.setItem(f);
