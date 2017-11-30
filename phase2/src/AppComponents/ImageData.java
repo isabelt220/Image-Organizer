@@ -114,7 +114,7 @@ public class ImageData implements Serializable{
      *
      * @param tags ArrayList<Tag> which will become the new tagList of this ImageData
      */
-    public void setImageTags(ArrayList<Tag> tags) {
+     void setImageTags(ArrayList<Tag> tags) {
         if (!(tagList.size() ==tags.size())){
             if (this.imageLog == null){
                 this.imageLog = new ImageLog(imageLocation.getLocation(), coreName, this.imageLocation.analyzeNameForTags());

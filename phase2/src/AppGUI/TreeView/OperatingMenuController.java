@@ -62,7 +62,7 @@ public class OperatingMenuController implements Initializable {
 
     /**
      * Exits the current OperatingMenu and reverts back to the original treeView.
-     * @throws IOException
+     * @throws IOException to Main
      */
     @FXML
     public void returnToOtherPane() throws IOException {
