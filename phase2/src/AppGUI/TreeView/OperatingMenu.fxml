@@ -22,10 +22,11 @@
             </ToolBar>
             <Pane prefHeight="562.0" prefWidth="250.0">
                <children>
-                  <Button fx:id="addButton" layoutX="185.0" layoutY="135.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="27.0" prefWidth="58.0" text="Add" />
-                  <TextField fx:id="addTagTextField" layoutX="5.0" layoutY="100.0" prefHeight="27.0" prefWidth="238.0" />
-                  <TextField fx:id="deleteTagTextField" layoutX="6.0" layoutY="207.0" prefHeight="27.0" prefWidth="238.0" />
-                  <Button fx:id="deleteButton" layoutX="185.0" layoutY="242.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
+                  <Button fx:id="addButton" layoutX="189.0" layoutY="104.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="23.0" prefWidth="50.0" text="Add" />
+                  <TextField fx:id="addTagTextField" layoutX="6.0" layoutY="69.0" prefHeight="27.0" prefWidth="238.0" />
+                  <TextField fx:id="deleteTagTextField" layoutX="6.0" layoutY="155.0" prefHeight="27.0" prefWidth="238.0" />
+                  <Button fx:id="deleteButton" layoutX="185.0" layoutY="190.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
+                  <ListView fx:id="currentTagListView" layoutX="14.0" layoutY="245.0" onMouseClicked="#tagListClick" prefHeight="309.0" prefWidth="223.0" />
                </children>
             </Pane>
          </children>

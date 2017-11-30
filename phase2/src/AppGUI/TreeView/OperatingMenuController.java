@@ -8,6 +8,7 @@ import Observers.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,6 +23,10 @@ import java.util.ResourceBundle;
  * Used to initialize a panel that takes an image and can add and delete tags.
  */
 public class OperatingMenuController implements Initializable {
+
+    /** Initializes an empty list view, used to display tags of current image */
+    @FXML
+    public ListView currentTagListView = new ListView();
 
     /** Initializes an empty text field for user input, used to add tags to image */
     @FXML
@@ -70,6 +75,8 @@ public class OperatingMenuController implements Initializable {
     public void returnToOtherPane() throws IOException {
         mainObserver.setPanel("Tree");
     }
+
+    public void tagListClick(){}
 
     /**
      * Gets the tag entered into addTag textField and calls classes in AppComponents to add tag to operating image
