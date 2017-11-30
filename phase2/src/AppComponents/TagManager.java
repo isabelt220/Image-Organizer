@@ -76,7 +76,6 @@ public class TagManager implements Serializable {
                 Tag tag = new Tag(name);
                 tag.addImage(image);
                 observableTagList.add(tag);
-                listOfTags.add(tag);
                 listOfTagsToAttachToImage.add(tag);
             } else if (tagExists(name)) {
                 Tag tag = getTag(name);
@@ -101,7 +100,6 @@ public class TagManager implements Serializable {
             // getTag() may return null
             ArrayList<ImageData> listOfImagesWithTag = tag.getAssociatedImages();
             observableTagList.remove(tag);
-            listOfTags.remove(tag);
             return listOfImagesWithTag;
         }
         return null;
@@ -127,7 +125,6 @@ public class TagManager implements Serializable {
         for (Tag t : temp) {
             if (t.getAssociatedImages().size() == 0) {
                 observableTagList.remove(t);
-                listOfTags.remove(t);
             }
         }
     }
