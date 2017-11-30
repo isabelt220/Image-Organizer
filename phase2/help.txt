@@ -31,8 +31,10 @@ NOTE: TREEVIEW WILL REFRESH AFTER TAG EDIT, SO PLEASE MAKE SURE TO SELECT/RESELE
 
 TO VIEW Master Log of all tag edits: Navigate to the menu bar at the top of the program. Select view -> view master log
 
-Select the Tags tab next Directory on the tree view. The round button with "+" sign allows one to add tags, or select a tag from the list of tags and click on the button with "-"
+SELECT the Tags tab next Directory on the tree view. The round button with "+" sign allows one to add tags, or select a tag from the list of tags and click on the button with "-"
 sign to delete the Tag from all images. Select an image in the table view on the right (center pane) and right click a tag from the list of tags to add tag to the image.
+***Highlighted tags in the Tag List means that the tag has no associated images***
+TO CLEAR tags that don't have associated images(as in, no image contains this tag), navigate to tag list tab in the tree view, then select the "C" button on the top right corner.
 
 
 Files can be moved by selecting a file in the Directory tab and right click -> Move...
