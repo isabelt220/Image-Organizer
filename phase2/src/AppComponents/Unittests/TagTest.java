@@ -1,5 +1,7 @@
-package AppComponents;
+package AppComponents.Unittests;
 
+import AppComponents.ImageData;
+import AppComponents.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
