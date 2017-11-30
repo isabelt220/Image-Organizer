@@ -1,5 +1,7 @@
 package AppComponents;
 
+import AppGUI.MainContainer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class Tag implements Serializable {
     public Tag(String names) {
         this.name = names.toLowerCase();
         this.associatedImages = new ArrayList<>();
+        MainContainer.getMasterLog().innitTag(this.name);
     }
 
     /**
@@ -33,6 +36,7 @@ public class Tag implements Serializable {
      */
     void addImage(ImageData image) {
         if(!(associatedImages.contains(image))){
+            MainContainer.getMasterLog().addedImageToTag(name, image.getLocation());
             this.associatedImages.add(image);
         }
     }
@@ -44,7 +48,9 @@ public class Tag implements Serializable {
      */
     void removeImage(ImageData image) {
         if(associatedImages.contains(image)){
+            MainContainer.getMasterLog().deletedImageFromTag(name, image.getLocation());
             this.associatedImages.remove(image);
+
         }
     }
 

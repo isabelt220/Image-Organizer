@@ -64,7 +64,9 @@ public class OpenPopUp {
         }
     }
 
-    public void openTagLog() throws Exception{
+    public void openMasterLog() throws Exception{
+        MasterLogPopUp masterLogPopUp = new MasterLogPopUp();
+        masterLogPopUp.display();
 
     }
 

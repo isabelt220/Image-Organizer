@@ -38,7 +38,7 @@ public class ImageData implements Serializable{
         coreName = this.imageLocation.analyzeNameForCore();
         ArrayList<String> temp = this.imageLocation.analyzeNameForTags();
         MainContainer.getAppImageManager().imAddTagWithImage(this, temp);
-        imageLog = new ImageLog(coreName, temp);
+        imageLog = new ImageLog(imageLocation.getLocation(), coreName, temp);
 
     }
 
@@ -50,11 +50,13 @@ public class ImageData implements Serializable{
      * @param dTags ArrayList<Tag></> to delete from the tagList
      */
     public void deleteTags(ArrayList<Tag> dTags){
+        ArrayList<Tag> modList = new ArrayList<>(tagList);
+        modList.removeAll(dTags);
         if (this.imageLog == null){
-            this.imageLog = new ImageLog(coreName, this.imageLocation.analyzeNameForTags());
-            this.imageLog.addEntry(coreName, dTags, tagList);
+            this.imageLog = new ImageLog(imageLocation.getLocation(), coreName, this.imageLocation.analyzeNameForTags());
+            this.imageLog.addEntry(imageLocation.getLocation(),coreName, modList, tagList);
         }
-        this.imageLog.addEntry(coreName, dTags, tagList);
+        this.imageLog.addEntry(imageLocation.getLocation(), coreName, modList, tagList);
         for (Tag dTag : dTags) {
             if ((tagList.contains(dTag))) {
                 int i = tagList.indexOf(dTag);
@@ -87,11 +89,14 @@ public class ImageData implements Serializable{
      * @param newTags ArrayList<Tag> to add to tagList
      */
     void addTags(ArrayList<Tag> newTags){
+
+        ArrayList<Tag> modList = new ArrayList<>(tagList);
+        modList.addAll(newTags);
         if (this.imageLog == null){
-            this.imageLog = new ImageLog(coreName, this.imageLocation.analyzeNameForTags());
-            this.imageLog.addEntry(coreName, newTags, tagList);
+            this.imageLog = new ImageLog(imageLocation.getLocation(), coreName, this.imageLocation.analyzeNameForTags());
+            this.imageLog.addEntry(imageLocation.getLocation(), coreName, modList, tagList);
         }
-        this.imageLog.addEntry(coreName, newTags, tagList);
+        this.imageLog.addEntry(imageLocation.getLocation(), coreName, modList, tagList);
         for (Tag newTag : newTags) {
             if (!(tagList.contains(newTag))) {
                 tagList.add(newTag);
@@ -110,6 +115,13 @@ public class ImageData implements Serializable{
      * @param tags ArrayList<Tag> which will become the new tagList of this ImageData
      */
     public void setImageTags(ArrayList<Tag> tags) {
+        if (!(tagList.size() ==tags.size())){
+            if (this.imageLog == null){
+                this.imageLog = new ImageLog(imageLocation.getLocation(), coreName, this.imageLocation.analyzeNameForTags());
+                this.imageLog.addEntry(imageLocation.getLocation(), coreName, tags, tagList);
+            }
+            this.imageLog.addEntry(imageLocation.getLocation(), coreName, tags, tagList);
+        }
         StringBuilder compressedTags = new StringBuilder(coreName);
         ArrayList<String> stringVer= new ArrayList<>();
         tagList = tags;

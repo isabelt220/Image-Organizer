@@ -252,6 +252,7 @@ public class TreeViewController implements Initializable {
      *
      * @return TreeView<File></File> tree view of its children files*/
     public TreeView<File> getTreeView() {
+
         return treeView;
     }
 

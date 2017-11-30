@@ -63,8 +63,10 @@ public class TopPanel{
         treeViewController.openNameLogPopUp();
     }
 
-    public void openTagLog(){
+    public void openMasterLog() throws Exception{
+
         OpenPopUp openPopUp = new OpenPopUp();
+        openPopUp.openMasterLog();
     }
 
     /**
