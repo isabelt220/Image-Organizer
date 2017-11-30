@@ -58,5 +58,9 @@ public class MainObserver extends Observer{
         return main;
     }
 
+    public boolean isMiddleWindow(){
+        return main.isMiddleWindow();
+    }
+
 
 }

@@ -151,6 +151,10 @@ public class MainGUI extends Application {
         mainLayout.setCenter(folderPanel);
     }
 
+    public boolean isMiddleWindow(){
+        return mainLayout.getCenter() == centerPanel;
+    }
+
     /**
      * Display the OperatingMenu
      */
