@@ -22,7 +22,7 @@
          <contextMenu>
             <ContextMenu fx:id="listContextMenu">
               <items>
-                <MenuItem fx:id="deleteCMItem" mnemonicParsing="false" onAction="#deleteSelected" text="Unspecified Action" />
+                <MenuItem fx:id="deleteCMItem" mnemonicParsing="false" onAction="#deleteSelected" text="Delete Tag ..." />
               </items>
             </ContextMenu>
          </contextMenu></ListView>
