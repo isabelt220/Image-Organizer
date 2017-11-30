@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -19,22 +21,34 @@ import java.io.IOException;
  * will either be initialized in the start method or be initialized in an object initialized in the start method.
  */
 public class MainGUI extends Application {
-    /** Stage window for the main application */
+    /**
+     * Stage window for the main application
+     */
     private Stage mainStage;
 
-    /** Master border pane that holds all other panes (such as tree, center, etc.) */
+    /**
+     * Master border pane that holds all other panes (such as tree, center, etc.)
+     */
     private BorderPane mainLayout;
 
-    /** TreeView pane controlled by TreeViewController, observed by TreeViewObserver*/
+    /**
+     * TreeView pane controlled by TreeViewController, observed by TreeViewObserver
+     */
     private Pane treePanel;
 
-    /** Center pane controlled by MiddleWindowController, observed by CenterObserver*/
+    /**
+     * Center pane controlled by MiddleWindowController, observed by CenterObserver
+     */
     private Pane centerPanel;
 
-    /** Operating Menu pane controlled by OperatingMenuController, observed by OpMenuObserver*/
+    /**
+     * Operating Menu pane controlled by OperatingMenuController, observed by OpMenuObserver
+     */
     private Pane opMenu;
 
-    /** Folder pane controlled by FolderPanelController, observed by FolderObserver*/
+    /**
+     * Folder pane controlled by FolderPanelController, observed by FolderObserver
+     */
     private Pane folderPanel;
 
 
@@ -49,6 +63,13 @@ public class MainGUI extends Application {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
 
+        /*
+        Check whether our serializable file exists, if it does then read
+        from it.
+        */
+        if (new File("AppDataConfig.txt").exists()) {
+            MainContainer.getAppDataSerializer().readDataFromFile("AppDataConfig.txt");
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
@@ -73,7 +94,7 @@ public class MainGUI extends Application {
 
         FXMLLoader centerLoader = new FXMLLoader();
         centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
-        centerPanel= centerLoader.load();
+        centerPanel = centerLoader.load();
         mainLayout.setCenter(centerPanel);
         MiddleWindowController middleController = centerLoader.getController();
 
@@ -119,33 +140,29 @@ public class MainGUI extends Application {
         topPanel.setMainObserver(mainObserver);
 
 
-
     }
 
     /**
      * Display images under a folder
-     *
      */
 
-    public void showFolderPanel(){
+    public void showFolderPanel() {
 
         mainLayout.setCenter(folderPanel);
     }
 
     /**
      * Display the OperatingMenu
-     *
      */
-    public void showOperatingMenu()  {
+    public void showOperatingMenu() {
 
         mainLayout.setLeft(opMenu);
     }
 
     /**
      * Display the MiddleWindow
-     *
      */
-    public void showCenterView()  {
+    public void showCenterView() {
 
         mainLayout.setCenter(centerPanel);
     }
@@ -153,7 +170,7 @@ public class MainGUI extends Application {
     /**
      * Display the left Panel
      */
-    public void showTreeView(){
+    public void showTreeView() {
 
         mainLayout.setLeft(treePanel);
     }
@@ -161,8 +178,7 @@ public class MainGUI extends Application {
     /**
      * Serialize imageList and ListOfTags
      */
-    public void stop() {
-
+    public void stop() throws IOException {
         MainContainer.getAppDataSerializer().saveDataToFile("AppDataConfig.txt");
     }
 

@@ -38,7 +38,8 @@ public class OpenPopUp {
         if (currentFile != null && currentFile.isDirectory()) {
             DialogBox alertBox = new DialogBox("Info", "Cannot rename a folder");
             alertBox.display();
-        } else if (currentFile != null) {
+        }
+        else if (currentFile != null) {
             ImageTagEditor imageTagEditor = new ImageTagEditor();
             imageTagEditor.display(treeViewObserver, centerObserver);
         }
@@ -51,8 +52,15 @@ public class OpenPopUp {
      * @throws Exception IOException
      */
     public void openNameLog() throws Exception{
+        File currentFile = treeViewObserver.getSelectedFile();
+        if (currentFile != null && currentFile.isDirectory()) {
+            DialogBox alertBox = new DialogBox("Info", "Cannot choose a folder!");
+            alertBox.display();
+        }
+        else if (currentFile != null) {
             NameLogPopUp nameLogPopUp = new NameLogPopUp();
-            nameLogPopUp.display(treeViewObserver);
+            nameLogPopUp.display(treeViewObserver, centerObserver);
+        }
     }
 
     /**

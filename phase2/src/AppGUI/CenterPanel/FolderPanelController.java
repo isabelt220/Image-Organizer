@@ -110,7 +110,8 @@ public class FolderPanelController implements Initializable {
      * Getter the table view of ImageData*
      * @return TableView<ImageData></> this table view
      */
-    TableView<ImageData> getTableView() {
+    public TableView<ImageData> getTableView() {
+
         return tableView;
     }
 

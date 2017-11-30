@@ -34,7 +34,7 @@ public class ImageLog implements Serializable{
         }
         else{
             String temp = convertTagNameListToString(tags);
-            nameLog.put(time.toString(), "Initially named : " + name + ". Tags: " + temp);
+            nameLog.put(time.toString(), "Initially named : " + name + " Tags: " + temp);
             tagLog.put(time.toString(), tags);
         }
     }
@@ -53,7 +53,7 @@ public class ImageLog implements Serializable{
         tagLog.put(time.toString(), revertTargetList);
         String newName = convertTagListToString(newTagArrayList);
         String oldName = convertTagListToString(oldTagArrayList);
-        nameLog.put(time.toString(), "Name: "+coreName+". Tags: ["+oldName+"] --> ["+newName+"]");
+        nameLog.put(time.toString(), "Name: "+coreName+" Tags: ["+oldName+"] --> ["+newName+"]");
     }
 
     /**
@@ -68,6 +68,7 @@ public class ImageLog implements Serializable{
             }
         return result;
     }
+
     /**
      * Helper method that converts an ArrayList of tags to a corresponding String concatenation its tagNames.
      * @param tagArrayList ArrayList of tags to be converted
@@ -83,6 +84,7 @@ public class ImageLog implements Serializable{
         }
         return result.substring(2);
     }
+
     /**
      * Helper method that converts an ArrayList of String tagNameArrayList to a corresponding String concatenation its tagNames.
      * @param tagNameArrayList ArrayList of tags to be converted

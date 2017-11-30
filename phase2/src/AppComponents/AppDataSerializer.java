@@ -22,21 +22,21 @@ public class AppDataSerializer {
      * deleted. Reads AppDataConfig.txt if the file exists and contains data.
      */
     public AppDataSerializer() {
-            Path currentRelativePath = Paths.get("");
-            String filePath = currentRelativePath.toAbsolutePath().toString();
-            filePath += "/AppDataConfig.txt";
+        Path currentRelativePath = Paths.get("");
+        String filePath = currentRelativePath.toAbsolutePath().toString();
+        filePath += "/AppDataConfig.txt";
 
-            File file = new File(filePath);
-            if (file.exists() && file.length() != 0) {
-                readDataFromFile(filePath);
-            } else {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        File file = new File(filePath);
+        if (file.exists() && file.length() != 0) {
+            readDataFromFile(filePath);
+        } else {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+    }
 
     /**
      * Reads ArrayList of Tags and ArrayList of Images from AppDataConfig.txt
@@ -45,7 +45,7 @@ public class AppDataSerializer {
      *
      * @param filePath the file path of AppDataConfig.txt
      */
-    private void readDataFromFile(String filePath) {
+    public void readDataFromFile(String filePath) {
         try {
             FileInputStream is = new FileInputStream(filePath);
             ObjectInputStream os = new ObjectInputStream(is);
@@ -55,6 +55,7 @@ public class AppDataSerializer {
 
             ArrayList<ImageData> imageManagerListOfImages = (ArrayList<ImageData>) os.readObject();
             MainContainer.getAppImageManager().setImageList(imageManagerListOfImages);
+
 
             os.close();
             is.close();

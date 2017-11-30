@@ -5,10 +5,11 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
+
 /**
- Keeps track of and manipulates all Tags and associated information for this application.
- Interacts with Tag (initializes and manages), ImageManager, and MainContainer(is initialized and manipulated by).
- Implements Serializable so information can be saved after ending a session of the application.
+ * Keeps track of and manipulates all Tags and associated information for this application.
+ * Interacts with Tag (initializes and manages), ImageManager, and MainContainer(is initialized and manipulated by).
+ * Implements Serializable so information can be saved after ending a session of the application.
  */
 public class TagManager implements Serializable {
 
@@ -16,7 +17,7 @@ public class TagManager implements Serializable {
     private ArrayList<Tag> listOfTags = new ArrayList<>(0);
 
     // A list that visually displays TagManager's listOfTags to the user.
-    private ObservableList<Tag> observableTagList = FXCollections.observableList(new ArrayList<>());
+    private ObservableList<Tag> observableTagList = FXCollections.observableList(listOfTags);
 
 
     /**
@@ -75,7 +76,6 @@ public class TagManager implements Serializable {
                 Tag tag = new Tag(name);
                 tag.addImage(image);
                 observableTagList.add(tag);
-                listOfTags.add(tag);
                 listOfTagsToAttachToImage.add(tag);
             } else if (tagExists(name)) {
                 Tag tag = getTag(name);
@@ -100,7 +100,6 @@ public class TagManager implements Serializable {
             // getTag() may return null
             ArrayList<ImageData> listOfImagesWithTag = tag.getAssociatedImages();
             observableTagList.remove(tag);
-            listOfTags.remove(tag);
             return listOfImagesWithTag;
         }
         return null;
@@ -121,12 +120,11 @@ public class TagManager implements Serializable {
         return null;
     }
 
-    public void cleanUnusedTag(){
+    public void cleanUnusedTag() {
         ArrayList<Tag> temp = new ArrayList<>(observableTagList.subList(0, observableTagList.size()));
-        for(Tag t: temp){
-            if(t.getAssociatedImages().size() == 0){
+        for (Tag t : temp) {
+            if (t.getAssociatedImages().size() == 0) {
                 observableTagList.remove(t);
-                listOfTags.remove(t);
             }
         }
     }
@@ -159,7 +157,7 @@ public class TagManager implements Serializable {
      *
      * @return current existing tags
      */
-    ArrayList<Tag> getListOfTags() {
+    public ArrayList<Tag> getListOfTags() {
 
         return listOfTags;
     }
@@ -180,7 +178,7 @@ public class TagManager implements Serializable {
      * @param tagName the name of the tag to search for in listOfTags.
      * @return the Tag with the tagName if one exists, otherwise returns null.
      */
-    Tag getTag(String tagName) {
+    public Tag getTag(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty() && tagExists(name)) {
             for (Tag tag : listOfTags) {
