@@ -81,6 +81,7 @@
                                     <Font size="17.0" />
                                  </font>
                               </Text>
+                              <Button layoutX="230.0" layoutY="-3.0" mnemonicParsing="false" onAction="#CleanTagClick" prefHeight="20.0" prefWidth="20.0" text="C" />
                            </children>
                         </AnchorPane>
                      </content>
