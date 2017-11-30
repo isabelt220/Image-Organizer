@@ -28,7 +28,13 @@ public class ImageManager implements Serializable {
             imageList.add(newImage);}
     }
 
+    /**
+     * Setter for this image list
+     * @param list new imageList
+     */
     void setImageList(ArrayList<ImageData> list) {
+
+
         imageList = list;
     }
 
@@ -39,6 +45,8 @@ public class ImageManager implements Serializable {
      * @return ArrayList<ImageData>
      */
     public ArrayList<ImageData> getImageList() {
+
+
         return imageList;
     }
 
@@ -80,6 +88,7 @@ public class ImageManager implements Serializable {
     public ImageData imSetImageTags(ImageData currImage, ArrayList<Tag> tagList) {
         for(Tag t: currImage.getImageTags()){
             if(! tagList.contains(t)){
+                MainContainer.getMasterLog().deletedImageFromTag(t.getTagName(), currImage.getLocation());
                 t.getAssociatedImages().remove(currImage);
             }
         }
@@ -170,15 +179,12 @@ public class ImageManager implements Serializable {
      * @param tagName String
      */
     public void removeTagFromAppAndImages(String tagName) {
-        Tag tag = new Tag(tagName);
         ArrayList<Tag> tagList = new ArrayList<>();
-        tagList.add(tag);
+        tagList.add(MainContainer.getAppTagManager().getTag(tagName));
         ArrayList<ImageData> associatedImages = MainContainer.getAppTagManager().removeTag(tagName);
         if (associatedImages != null) {
             CopyOnWriteArrayList<ImageData> newList = new CopyOnWriteArrayList<>();
-            for (ImageData image : associatedImages) {
-                newList.add(image);
-            }
+            newList.addAll(associatedImages);
             for(ImageData im: newList){
                 im.deleteTags(tagList);
             }
@@ -194,7 +200,9 @@ public class ImageManager implements Serializable {
      * @param targetImage ImageData
      */
     public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage) {
+
         targetImage.deleteTags(tags);
     }
+    // TODO: change docstring? removeAssociatedImagesFromTags is not used but deleteTag in Tag is
 
 }

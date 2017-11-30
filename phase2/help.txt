@@ -1,0 +1,46 @@
+TO RUN PROGRAM TYPE INTO CMD:
+
+1. Make sure you are in the phase2 folder for all the steps below, so cd into there.
+2. Then use the "One Liner" which is given below.
+3. If you want to close the program and run again through cmd, then use the "Run Main Only".
+
+One Liner: 
+javac src/AppGUI/*.java src/AppComponents/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java src/Observers/*.java && java -cp src AppGUI.MainGUI
+
+Run Main Only:
+java -cp src AppGUI.MainGUI
+
+
+TO OPEN A DIRECTORY: Click on the round button with a "+" sign, and choose a local directory
+
+Navigate the directory as so wished through the tree view pane on the left hand side. If a folder is selected, a preview 
+of all image files in that folder will be displayed on the right (center pane). If a image file is selected, the image will appear on the right (center pane) 
+along with a table view of all image files in the same folder of the selected image.
+
+In the table view, images can be previewed, the core name is the original name of the image, and the name is the current name of the file after an edit on the tags.
+
+DOUBLE CLICK on the image file IN TREE VIEW to summon the operating menu, or RIGHT CLICK -> Rename to summon the ImageEditor pop up window, both can add and delete tags to the image.
+Or SELECT the tag you wish to remove in the list view of the operating menu or image tag editor, and right click -> remove to delete it from the image.
+Click the left arrow on the top left corner of the operating menu to exit back to the treeview.
+
+NOTE:If a change is made to the tags, single click on the image in tree view again to refresh the information on the table view.
+
+TO VIEW HISTORY OR REVERT TO PREVIOUS STATE: MAKE SURE a image file is selected in directory treeview, and navigate to the menu bar at the top of the program. Select view -> view history.
+A pop up window should appear with records of all changes made to the image file. RIGHT CICK on an entry and select Revert to image status back to selected time point.
+NOTE: TREEVIEW WILL REFRESH AFTER TAG EDIT, SO PLEASE MAKE SURE TO SELECT/RESELECT THE IMAGE AFTER AN EDIT!
+
+TO VIEW Master Log of all tag edits: Navigate to the menu bar at the top of the program. Select view -> view master log
+
+SELECT the Tags tab next Directory on the tree view. The round button with "+" sign allows one to add tags, or select a tag from the list of tags and click on the button with "-"
+sign to delete the Tag from all images. Select an image in the table view on the right (center pane) and right click a tag from the list of tags to add tag to the image.
+***Highlighted tags in the Tag List means that the tag has no associated images***
+TO CLEAR tags that don't have associated images(as in, no image contains this tag), navigate to tag list tab in the tree view, then select the "C" button on the top right corner.
+
+
+Files can be moved by selecting a file in the Directory tab and right click -> Move...
+
+Current tags of an image are in the name section of the table view on the center panel. Although if the tags are recently modified, please select it again in tree view to refresh the table view!
+
+
+*****PLEASE DO NOT IMPORT ANY IMAGE FILES WITH THE SYMBOL '@', '/', OR '\' IN THE ORIGINAL NAME UNLESS IT IS A DESIGNATED TAG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 

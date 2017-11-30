@@ -1,5 +1,6 @@
 package AppComponents;
 
+import AppGUI.MainContainer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -99,6 +100,7 @@ public class TagManager implements Serializable {
             Tag tag = getTag(tagName);
             // getTag() may return null
             ArrayList<ImageData> listOfImagesWithTag = tag.getAssociatedImages();
+            MainContainer.getMasterLog().deleteTag(tag.getTagName());
             observableTagList.remove(tag);
             return listOfImagesWithTag;
         }
@@ -124,6 +126,7 @@ public class TagManager implements Serializable {
         ArrayList<Tag> temp = new ArrayList<>(observableTagList.subList(0, observableTagList.size()));
         for (Tag t : temp) {
             if (t.getAssociatedImages().size() == 0) {
+                MainContainer.getMasterLog().deleteTag(t.getTagName());
                 observableTagList.remove(t);
             }
         }

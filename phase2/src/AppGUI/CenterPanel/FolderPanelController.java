@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import sun.applet.Main;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
@@ -129,6 +130,7 @@ public class FolderPanelController implements Initializable {
         read(file.toPath().toString(), imageTable);
         tableView.getColumns().addAll(preViewColumn, coreNameColumn, nameColumn);
         tableView.setItems(FXCollections.observableList(imageTable));
+
     }
 
     public void read(String location,  ArrayList<ImageData> imageTable){
@@ -149,7 +151,6 @@ public class FolderPanelController implements Initializable {
                         ImageData imageData = MainContainer.getAppImageManager().getImage(url);
                         if (imageData == null) {
                             imageData = new ImageData(url);
-                            MainContainer.getAppImageManager().getImageList().add(imageData);
                         }
 
                         imageTable.add(imageData);
@@ -194,4 +195,15 @@ public class FolderPanelController implements Initializable {
         this.opMenuObserver = opMenuObserver;
     }
 
+    public CenterObserver getCenterObserver() {
+        return centerObserver;
+    }
+
+    public MainObserver getMainObserver() {
+        return mainObserver;
+    }
+
+    public OpMenuObserver getOpMenuObserver() {
+        return opMenuObserver;
+    }
 }

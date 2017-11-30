@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Provides serialization for creation and manipulation of tags and images, is called upon when the application is
@@ -56,13 +57,21 @@ public class AppDataSerializer {
             ArrayList<ImageData> imageManagerListOfImages = (ArrayList<ImageData>) os.readObject();
             MainContainer.getAppImageManager().setImageList(imageManagerListOfImages);
 
+            LinkedHashMap<String, String> masterLogOfChanges = (LinkedHashMap<String, String>) os.readObject();
+            MainContainer.getMasterLog().setLog(masterLogOfChanges);
 
             os.close();
             is.close();
 
-        } catch (Exception e) {
-            DialogBox warning = new DialogBox("Warning", "Failed to read the save file.");
-            warning.display();
+        } catch (FileNotFoundException e) {
+            DialogBox fileNotFound = new DialogBox("Error", "Cannot find file AppConfig.txt.");
+            fileNotFound.display();
+        } catch (IOException e) {
+            DialogBox failToRead = new DialogBox("Error", "Failed to read the save file.");
+            failToRead.display();
+        } catch (ClassNotFoundException e) {
+            DialogBox classNotFound = new DialogBox("Error", "Missing program class.");
+            classNotFound.display();
         }
     }
 
@@ -79,8 +88,10 @@ public class AppDataSerializer {
 
             os.writeObject(MainContainer.getAppTagManager().getListOfTags());
             os.writeObject(MainContainer.getAppImageManager().getImageList());
+            os.writeObject(MainContainer.getMasterLog().getLog());
 
             os.close();
+            fs.close();
 
         } catch (IOException e) {
             DialogBox warning = new DialogBox("Warning", "Failed to save");
