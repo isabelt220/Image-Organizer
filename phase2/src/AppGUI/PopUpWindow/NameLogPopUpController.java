@@ -27,7 +27,7 @@ import java.util.*;
  */
 public class NameLogPopUpController {
 
-    /** Main table view of the pop up window, displays the entries in name log in separate columns*/
+    /** Main table view of the pop up window, displays the entries in name log in separate rows*/
     @FXML
     public TableView<Map.Entry<String,String>> logTable = new TableView<>();
 
@@ -83,7 +83,7 @@ public class NameLogPopUpController {
         timeStampColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
         logTable.setItems(items);
-        logTable.getColumns().setAll(nameColumn, timeStampColumn);
+        logTable.getColumns().setAll(timeStampColumn, nameColumn);
     }
 
     /**
@@ -95,7 +95,7 @@ public class NameLogPopUpController {
         ArrayList<String> revertList = curImage.getTagLog().get(chosenTime);
         ArrayList<Tag> oldTags = curImage.getImageTags();
         ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, nameListToTagList(revertList));
-        curImage.getImageLog().addEntry(curImage.getCoreName(), curImage.getImageTags(), oldTags);
+        curImage.getImageLog().addEntry(curImage.getLocation(), curImage.getCoreName(), curImage.getImageTags(), oldTags);
         File f= new File(newNode.getLocation());
         treeViewObserver.setItem(f);
         centerObserver.update(newNode.getLocation());

@@ -26,6 +26,7 @@
           <Menu mnemonicParsing="false" text="View/Revert">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#openNameLog" text="View Log of Name Changes and Revert Name..." />
+                  <MenuItem mnemonicParsing="false" onAction="#openMasterLog" text="View Master Log" />
             </items>
           </Menu>
         </menus>

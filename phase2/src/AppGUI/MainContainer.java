@@ -2,6 +2,7 @@ package AppGUI;
 
 import AppComponents.AppDataSerializer;
 import AppComponents.ImageManager;
+import AppComponents.MasterLog;
 import AppComponents.TagManager;
 import AppGUI.CenterPanel.FolderPanelController;
 import AppGUI.CenterPanel.MiddleWindowController;
@@ -39,6 +40,9 @@ public class MainContainer {
     /** FolderPanelController which is initialized after user double clicks on an image file*/
     private static FolderPanelController folderPanelController;
 
+    /** Master Log of all the tag modifications of this application */
+    private static MasterLog masterLog = new MasterLog();
+
 
     /**
      * Static setter for searchResults Object
@@ -46,6 +50,12 @@ public class MainContainer {
     public static void setSearchResults(SearchResults searchResults) {
 
         MainContainer.searchResults = searchResults;
+    }
+
+    /** Static getter for MasterLog */
+    public static MasterLog getMasterLog(){
+
+        return masterLog;
     }
 
     /**

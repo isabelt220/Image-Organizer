@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import sun.applet.Main;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,28 +49,22 @@ public class OperatingMenuController implements Initializable {
      * @param r ResourceBundle
      */
     public void initialize(URL location, ResourceBundle r) {
-        addTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    addTagButton();
-                }
+        addTagTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                addTagButton();
             }
         });
 
-        deleteTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    deleteTagButton();
-                }
+        deleteTagTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                deleteTagButton();
             }
         });
     }
 
     /**
      * Exits the current OperatingMenu and reverts back to the original treeView.
-     * @throws IOException
+     * @throws IOException to Main
      */
     @FXML
     public void returnToOtherPane() throws IOException {
@@ -87,6 +83,8 @@ public class OperatingMenuController implements Initializable {
         treeViewObserver.update();
         centerObserver.update(operatingImage.getLocation());
         addTagTextField.setText("");
+        DialogBox confirmation = new DialogBox("Yay!", "Tag added successfully!");
+        confirmation.display();
 
     }
 
@@ -97,9 +95,8 @@ public class OperatingMenuController implements Initializable {
     public void deleteTagButton() {
         String targetTag = deleteTagTextField.getText();
         if (operatingImage.hasTag(targetTag)) {
-            Tag t = new Tag(targetTag);
             ArrayList<Tag> tagList = new ArrayList<>();
-            tagList.add(t);
+            tagList.add(MainContainer.getAppTagManager().getTag(targetTag));
             MainContainer.getAppImageManager().removeTagFromPic(tagList, operatingImage);
             treeViewObserver.update();
             centerObserver.update(operatingImage.getLocation());
@@ -108,6 +105,8 @@ public class OperatingMenuController implements Initializable {
             warningBox.display();
         }
         deleteTagTextField.setText("");
+        DialogBox confirmation = new DialogBox("Yay!", "Tag deleted successfully!");
+        confirmation.display();
     }
 
 

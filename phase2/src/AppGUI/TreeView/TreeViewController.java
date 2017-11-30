@@ -201,10 +201,17 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openImageTagEditor() throws Exception {
+<<<<<<< HEAD
         if(treeView.getRoot()!=null){
         OpenPopUp openPopUp = new OpenPopUp(this);
         openPopUp.setCenterObserver(centerObserver);
         openPopUp.openImageTagEditor();}
+=======
+        OpenPopUp openPopUp = new OpenPopUp();
+        openPopUp.setCenterObserver(centerObserver);
+        openPopUp.setTreeViewObserver(this);
+        openPopUp.openImageTagEditor();
+>>>>>>> facd33335ef7bdf418c916c06d3eab1905368ddd
     }
 
     /**
@@ -214,8 +221,9 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openNameLogPopUp() throws Exception {
-        OpenPopUp openPopUp = new OpenPopUp(this);
+        OpenPopUp openPopUp = new OpenPopUp();
         openPopUp.setCenterObserver(centerObserver);
+        openPopUp.setTreeViewObserver(this);
         openPopUp.openNameLog();
     }
 
@@ -251,6 +259,7 @@ public class TreeViewController implements Initializable {
      *
      * @return TreeView<File></File> tree view of its children files*/
     public TreeView<File> getTreeView() {
+
         return treeView;
     }
 

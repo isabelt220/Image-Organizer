@@ -2,6 +2,7 @@ package AppGUI;
 
 
 import AppGUI.PopUpWindow.DialogBox;
+import AppGUI.PopUpWindow.OpenPopUp;
 import AppGUI.TreeView.TreeViewController;
 import Observers.MainObserver;
 
@@ -60,6 +61,17 @@ public class TopPanel{
     public void openNameLog() throws Exception {
 
         treeViewController.openNameLogPopUp();
+    }
+
+    /**
+     * Initializes a new OpenPopUp and calls it to open a master log pop up.
+     *
+     * @throws Exception IOException
+     */
+    public void openMasterLog() throws Exception{
+
+        OpenPopUp openPopUp = new OpenPopUp();
+        openPopUp.openMasterLog();
     }
 
     /**
