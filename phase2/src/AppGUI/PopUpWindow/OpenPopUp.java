@@ -64,6 +64,12 @@ public class OpenPopUp {
         }
     }
 
+    /**
+     * Initializes a NameLogPopUp that displays a history of modification of
+     * the all images and tags.
+     *
+     * @throws Exception IOException
+     */
     public void openMasterLog() throws Exception{
         MasterLogPopUp masterLogPopUp = new MasterLogPopUp();
         masterLogPopUp.display();

@@ -83,7 +83,7 @@ public class NameLogPopUpController {
         timeStampColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
         logTable.setItems(items);
-        logTable.getColumns().setAll(nameColumn, timeStampColumn);
+        logTable.getColumns().setAll(timeStampColumn, nameColumn);
     }
 
     /**

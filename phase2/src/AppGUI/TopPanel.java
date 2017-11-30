@@ -63,6 +63,11 @@ public class TopPanel{
         treeViewController.openNameLogPopUp();
     }
 
+    /**
+     * Initializes a new OpenPopUp and calls it to open a master log pop up.
+     *
+     * @throws Exception IOException
+     */
     public void openMasterLog() throws Exception{
 
         OpenPopUp openPopUp = new OpenPopUp();

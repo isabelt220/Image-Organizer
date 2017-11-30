@@ -28,6 +28,10 @@ public class MasterLogPopUpController {
     /** Initializes a LinkedHashMap tht will become a copy of masterLog to be converted to an observable list. */
     private LinkedHashMap<String,String> data = new LinkedHashMap<>();
 
+    /**
+     * Displays the Table view according to master extracted from mainContainer in the format of
+     * timestamp | description of modification
+     */
     void showView(){
         data.putAll(MainContainer.getMasterLog().getLog());
         timeColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));

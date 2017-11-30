@@ -47,21 +47,15 @@ public class OperatingMenuController implements Initializable {
      * @param r ResourceBundle
      */
     public void initialize(URL location, ResourceBundle r) {
-        addTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    addTagButton();
-                }
+        addTagTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                addTagButton();
             }
         });
 
-        deleteTagTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    deleteTagButton();
-                }
+        deleteTagTextField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                deleteTagButton();
             }
         });
     }
@@ -87,6 +81,8 @@ public class OperatingMenuController implements Initializable {
         treeViewObserver.update();
         centerObserver.update(operatingImage.getLocation());
         addTagTextField.setText("");
+        DialogBox confirmation = new DialogBox("Yay!", "Tag added successfully!");
+        confirmation.display();
 
     }
 
@@ -108,6 +104,8 @@ public class OperatingMenuController implements Initializable {
             warningBox.display();
         }
         deleteTagTextField.setText("");
+        DialogBox confirmation = new DialogBox("Yay!", "Tag deleted successfully!");
+        confirmation.display();
     }
 
 
