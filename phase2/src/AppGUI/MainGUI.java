@@ -63,91 +63,177 @@ public class MainGUI extends Application {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
-        mainLayout = loader.load();
+        /*
+        Initialize all the loaders
+        */
+        FXMLLoader mainLoader = new FXMLLoader();
+        FXMLLoader opLoader = new FXMLLoader();
+        FXMLLoader treeLoader = new FXMLLoader();
+        FXMLLoader centerLoader = new FXMLLoader();
+        FXMLLoader folderLoader = new FXMLLoader();
+
+        /*
+        Show and set all the panels on the mainStage
+        */
+        this.showAndSetPanels(mainLoader, opLoader, treeLoader, centerLoader, folderLoader);
+
+        /*
+        Initialize all the controllers
+        */
+        OperatingMenuController opController = opLoader.getController();
+        TreeViewController treeController = treeLoader.getController();
+        MiddleWindowController middleController = centerLoader.getController();
+        FolderPanelController folderController = folderLoader.getController();
+
+        /*
+        Initialize all the observers.
+        */
+        CenterObserver centerObserver = new CenterObserver();
+        TreeViewObserver treeViewObserver = new TreeViewObserver();
+        FolderObserver folderObserver = new FolderObserver();
+        OpMenuObserver opMenuObserver = new OpMenuObserver();
+        MainObserver mainObserver = new MainObserver();
+
+        /*
+        Set each controller as a target to its affiliated observer. Note that the main
+        observer gets its target set to MainGUI.
+        */
+        this.setObserverTargets(centerObserver, treeViewObserver, folderObserver, opMenuObserver,
+                mainObserver, middleController, treeController, folderController, opController);
+
+        /*
+        Set the needed observers for the OpController, TreeController, FolderController,
+        and MiddleWindowController
+         */
+        this.setOpMenuControllerObservers(opController,
+                mainObserver, treeViewObserver, centerObserver);
+
+        this.setTreeControllerObservers(treeController,
+                mainObserver, opMenuObserver, centerObserver, folderObserver);
+
+        this.setFolderControllerObservers(folderController,
+                mainObserver, opMenuObserver, centerObserver);
+
+        this.setMiddleWindowControllerObservers(middleController,
+                mainObserver, opMenuObserver, centerObserver);
+
+        /*
+        Set the topPanel and set the controllers to the topPanel
+        */
+        TopPanel topPanel = mainLoader.getController();
+        topPanel.setTreeViewController(treeController);
+        topPanel.setMainObserver(mainObserver);
+    }
+
+    private void showAndSetPanels(FXMLLoader mainLoader, FXMLLoader opLoader,
+                                  FXMLLoader treeLoader, FXMLLoader centerLoader,
+                                  FXMLLoader folderLoader) throws IOException {
+        mainLoader.setLocation(MainGUI.class.getResource("MainView.fxml"));
+        mainLayout = mainLoader.load();
         Scene scene = new Scene(mainLayout);
-        TopPanel topPanel = loader.getController();
         mainStage.setScene(scene);
         mainStage.show();
 
-        FXMLLoader OpLoader = new FXMLLoader();
-        OpLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-        opMenu = OpLoader.load();
+        opLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+        opMenu = opLoader.load();
         mainLayout.setLeft(opMenu);
-        OperatingMenuController OpController = OpLoader.getController();
 
-
-        FXMLLoader treeLoader = new FXMLLoader();
         treeLoader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
         treePanel = treeLoader.load();
         mainLayout.setLeft(treePanel);
-        TreeViewController treeController = treeLoader.getController();
 
-        FXMLLoader centerLoader = new FXMLLoader();
         centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
         centerPanel = centerLoader.load();
         mainLayout.setCenter(centerPanel);
-        MiddleWindowController middleController = centerLoader.getController();
 
-        FXMLLoader folderLoader = new FXMLLoader();
         folderLoader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
         folderPanel = folderLoader.load();
         mainLayout.setCenter(folderPanel);
-        FolderPanelController folderController = folderLoader.getController();
+    }
 
-        CenterObserver centerObserver = new CenterObserver();
+    /*
+    * Set the necessary targets for each Observer.
+    */
+    private void setObserverTargets(CenterObserver centerObserver,
+                                    TreeViewObserver treeViewObserver,
+                                    FolderObserver folderObserver,
+                                    OpMenuObserver opObserver,
+                                    MainObserver mainObserver,
+                                    MiddleWindowController middleController,
+                                    TreeViewController treeController,
+                                    FolderPanelController folderController,
+                                    OperatingMenuController opController) {
+
         centerObserver.setTarget(middleController);
-
-        TreeViewObserver treeViewObserver = new TreeViewObserver();
         treeViewObserver.setTarget(treeController);
-
-        FolderObserver folderObserver = new FolderObserver();
         folderObserver.setTarget(folderController);
-
-        MainObserver mainObserver = new MainObserver();
+        opObserver.setTarget(opController);
         mainObserver.setMain(this);
+    }
 
-        OpMenuObserver opMenuObserver = new OpMenuObserver();
-        opMenuObserver.setTarget(OpController);
+    /*
+    * Set the necessary observers for OperatingMenuController
+    */
+    private void setOpMenuControllerObservers(OperatingMenuController opMenuController,
+                                              MainObserver mainObserver,
+                                              TreeViewObserver treeObserver,
+                                              CenterObserver centerObserver) {
+        opMenuController.setMainObserver(mainObserver);
+        opMenuController.setTreeViewObserver(treeObserver);
+        opMenuController.setCenterObserver(centerObserver);
+    }
 
-        OpController.setMainObserver(mainObserver);
-        OpController.setTreeViewObserver(treeViewObserver);
-        OpController.setCenterObserver(centerObserver);
-
+    /*
+    * Set the necessary observers for TreeViewController
+    */
+    private void setTreeControllerObservers(TreeViewController treeController,
+                                            MainObserver mainObserver,
+                                            OpMenuObserver opMenuObserver,
+                                            CenterObserver centerObserver,
+                                            FolderObserver folderObserver) {
         treeController.setMainObserver(mainObserver);
         treeController.setOpMenuObserver(opMenuObserver);
         treeController.setCenterObserver(centerObserver);
         treeController.setFolderObserver(folderObserver);
+    }
 
-        folderController.setCenterObserver(centerObserver);
-        folderController.setMainObserver(mainObserver);
-        folderController.setOpMenuObserver(opMenuObserver);
+    /*
+    * Set the necessary observers for FolderPanelController
+    */
+    private void setFolderControllerObservers(FolderPanelController folderPanelController,
+                                              MainObserver mainObserver,
+                                              OpMenuObserver opMenuObserver,
+                                              CenterObserver centerObserver) {
+        folderPanelController.setMainObserver(mainObserver);
+        folderPanelController.setOpMenuObserver(opMenuObserver);
+        folderPanelController.setCenterObserver(centerObserver);
+    }
 
-        middleController.setCenterObserver(centerObserver);
-        middleController.setMainObserver(mainObserver);
-        middleController.setOpMenuObserver(opMenuObserver);
-
-        topPanel.setTreeViewController(treeController);
-        topPanel.setMainObserver(mainObserver);
-
-
+    /*
+    * Set the necessary observers for MiddleWindowController
+    */
+    private void setMiddleWindowControllerObservers(MiddleWindowController middleWindowController,
+                                                    MainObserver mainObserver,
+                                                    OpMenuObserver opMenuObserver,
+                                                    CenterObserver centerObserver) {
+        middleWindowController.setMainObserver(mainObserver);
+        middleWindowController.setOpMenuObserver(opMenuObserver);
+        middleWindowController.setCenterObserver(centerObserver);
     }
 
     /**
      * Display images under a folder
      */
-
     public void showFolderPanel() {
-
         mainLayout.setCenter(folderPanel);
     }
 
     /**
      * Checks if the current center panel is the MiddleWindowPanel
+     *
      * @return true if the current center panel is the MiddleWindowPanel
      */
-    public boolean isMiddleWindow(){
+    public boolean isMiddleWindow() {
 
 
         return mainLayout.getCenter() == centerPanel;
@@ -157,7 +243,6 @@ public class MainGUI extends Application {
      * Display the OperatingMenu
      */
     public void showOperatingMenu() {
-
         mainLayout.setLeft(opMenu);
     }
 
@@ -165,7 +250,6 @@ public class MainGUI extends Application {
      * Display the MiddleWindow
      */
     public void showCenterView() {
-
         mainLayout.setCenter(centerPanel);
     }
 
@@ -173,7 +257,6 @@ public class MainGUI extends Application {
      * Display the left Panel
      */
     public void showTreeView() {
-
         mainLayout.setLeft(treePanel);
     }
 
@@ -197,7 +280,6 @@ public class MainGUI extends Application {
      * @return Stage
      */
     public Stage getMainStage() {
-
         return mainStage;
     }
 
@@ -207,7 +289,6 @@ public class MainGUI extends Application {
      * @param args String[]
      */
     public static void main(String[] args) {
-
         launch(args);
     }
 }
