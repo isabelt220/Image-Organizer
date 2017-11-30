@@ -44,27 +44,10 @@ public class MainContainer {
     private static MasterLog masterLog = new MasterLog();
 
 
-    /**
-     * Static setter for searchResults Object
-     */
-    public static void setSearchResults(SearchResults searchResults) {
-
-        MainContainer.searchResults = searchResults;
-    }
-
     /** Static getter for MasterLog */
     public static MasterLog getMasterLog(){
 
         return masterLog;
-    }
-
-    /**
-     * Static getter for OperatingMenu Object
-     * @return Searchresults
-     */
-    public static SearchResults getSearchResults() {
-
-        return searchResults;
     }
 
     /**
@@ -74,22 +57,6 @@ public class MainContainer {
     public static SearchResultsController getSearchResultsController() {
 
         return searchResultsController;
-    }
-
-    /**
-     * Static setter for SearchResultsController Object
-     */
-    public static void setSearchResultsController(SearchResultsController searchResultsController) {
-
-        MainContainer.searchResultsController = searchResultsController;
-    }
-
-    /**
-     * Static setter for FolderPanelController Object
-     */
-    static void setFolderPanelController(FolderPanelController folderPanelController) {
-
-        MainContainer.folderPanelController = folderPanelController;
     }
 
 
