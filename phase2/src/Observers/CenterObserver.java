@@ -2,8 +2,7 @@ package Observers;
 
 import AppGUI.CenterPanel.MiddleWindowController;
 
-/** SubClass of Observer, observes an MiddleWindow Controller
- */
+/** SubClass of Observer, observes an MiddleWindow Controller */
 public class CenterObserver extends Observer{
 
     /** The MiddleWindowController that this CenterObserver observes*/

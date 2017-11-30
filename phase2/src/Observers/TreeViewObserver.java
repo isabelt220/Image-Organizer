@@ -4,11 +4,10 @@ import AppGUI.TreeView.TreeViewController;
 
 import java.io.File;
 
-/** SubClass of Observer, observes an TreeView Controller
- */
+/** SubClass of Observer, observes an TreeView Controller */
 public class TreeViewObserver extends Observer{
 
-
+    /** The TreeViewController that this TreeViewResults observes*/
     private TreeViewController target;
 
     /**

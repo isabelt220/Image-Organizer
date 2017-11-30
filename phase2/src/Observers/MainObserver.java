@@ -2,8 +2,7 @@ package Observers;
 
 import AppGUI.MainGUI;
 
-/** SubClass of Observer, observes an Main GUI
- */
+/** SubClass of Observer, observes an Main GUI */
 public class MainObserver extends Observer{
 
     /** The MainGUI that this MainObserver observes*/

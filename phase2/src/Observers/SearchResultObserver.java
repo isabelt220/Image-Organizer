@@ -6,8 +6,7 @@ import AppGUI.CenterPanel.SearchResultsController;
 import javax.naming.directory.SearchResult;
 import java.util.ArrayList;
 
-/** SubClass of Observer, observes an SearchResults Controller
- */
+/** SubClass of Observer, observes an SearchResults Controller */
 public class SearchResultObserver extends Observer {
 
     /** The SearchResultsController that this SearchResults observes*/

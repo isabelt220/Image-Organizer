@@ -16,6 +16,7 @@ public class Observer<T> {
      * @param target Controller
      */
     public void setTarget(T target) {
+
         this.target = target;
     }
 

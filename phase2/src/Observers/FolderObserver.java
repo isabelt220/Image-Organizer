@@ -2,8 +2,7 @@ package Observers;
 
 import AppGUI.CenterPanel.FolderPanelController;
 
-/** SubClass of Observer, observes an FolderPanel Controller
- */
+/** SubClass of Observer, observes an FolderPanel Controller */
 public class FolderObserver extends Observer{
 
     /** The FolderPanelController that this FolderObserver observes*/
