@@ -106,6 +106,13 @@ public class MiddleWindowController extends FolderPanelController {
     }
 
     /**
+     * Returns the center panel back to the parent directory of the file
+     */
+    public void openParentFolder(){
+
+    }
+
+    /**
      * Helper method for the search bar, takes a string user input of one or multiple tags, splices it for individual tags
      * and searches and return a list of ImageData that is associated with all tag(s) inputted
      *
