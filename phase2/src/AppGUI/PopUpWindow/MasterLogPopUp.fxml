@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.PopUpWindow.MasterLogPopUpController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.PopUpWindow.MasterLogPopUpController">
    <children>
-      <TableView fx:id="mLogTable" prefHeight="400.0" prefWidth="600.0">
+      <TableView fx:id="mLogTable" prefHeight="600.0" prefWidth="800.0">
         <columns>
-          <TableColumn fx:id="timeColumn" prefWidth="160.0" text="Time" />
-          <TableColumn fx:id="logColumn" prefWidth="439.0" text="Log" />
+          <TableColumn fx:id="timeColumn" prefWidth="200.0" text="Time" />
+          <TableColumn fx:id="logColumn" prefWidth="600.0" text="Log" />
         </columns>
       </TableView>
    </children>
