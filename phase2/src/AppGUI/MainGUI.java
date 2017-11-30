@@ -61,6 +61,9 @@ public class MainGUI extends Application {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
 
+//        MainGUIActions mainActions = new MainGUIActions(mainStage, mainLayout, treePanel,
+//                centerPanel, opMenu, folderPanel);
+
         /*
         Initialize all the loaders
         */
