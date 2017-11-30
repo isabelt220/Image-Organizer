@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import sun.applet.Main;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -93,9 +95,8 @@ public class OperatingMenuController implements Initializable {
     public void deleteTagButton() {
         String targetTag = deleteTagTextField.getText();
         if (operatingImage.hasTag(targetTag)) {
-            Tag t = new Tag(targetTag);
             ArrayList<Tag> tagList = new ArrayList<>();
-            tagList.add(t);
+            tagList.add(MainContainer.getAppTagManager().getTag(targetTag));
             MainContainer.getAppImageManager().removeTagFromPic(tagList, operatingImage);
             treeViewObserver.update();
             centerObserver.update(operatingImage.getLocation());
