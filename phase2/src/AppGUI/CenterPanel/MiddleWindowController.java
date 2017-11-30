@@ -3,10 +3,6 @@ package AppGUI.CenterPanel;
 import AppComponents.ImageData;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
-import Observers.CenterObserver;
-import Observers.MainObserver;
-import Observers.OpMenuObserver;
-import Observers.SearchResultObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -114,15 +110,8 @@ public class MiddleWindowController extends FolderPanelController {
         String inquired = searchTextField.getText();
         ArrayList<ImageData> inquiredResults = filterSearchedTags(inquired);
         if (!(inquiredResults.size() == 0)) {
-            if (MainContainer.getSearchResults() == null) {
-                SearchResultObserver searchResultObserver = new SearchResultObserver();
                 SearchResults searchResults = new SearchResults();
-                searchResults.setSearchResultObserver(searchResultObserver);
-                searchResults.display(inquiredResults);
-                MainContainer.setSearchResults(searchResults);
-            } else {
-                MainContainer.getSearchResults().display(inquiredResults);
-            }
+                searchResults.display(inquiredResults,getCenterObserver(), getMainObserver(),getOpMenuObserver());
         } else {
             DialogBox alertBox = new DialogBox("Warning", "Tag Not Found!");
             alertBox.display();

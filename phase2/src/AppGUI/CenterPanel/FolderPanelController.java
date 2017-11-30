@@ -195,4 +195,15 @@ public class FolderPanelController implements Initializable {
         this.opMenuObserver = opMenuObserver;
     }
 
+    public CenterObserver getCenterObserver() {
+        return centerObserver;
+    }
+
+    public MainObserver getMainObserver() {
+        return mainObserver;
+    }
+
+    public OpMenuObserver getOpMenuObserver() {
+        return opMenuObserver;
+    }
 }
