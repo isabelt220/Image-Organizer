@@ -98,7 +98,6 @@ public class TreeViewController implements Initializable {
                     ArrayList<String> tag = new ArrayList<>();
                     tag.add(text);
                     MainContainer.getAppTagManager().tmAddTagWithoutImage(tag);
-                    System.out.println(MainContainer.getAppTagManager().getObservableTagList().size());
                     addTagField.setText("");
                 } else if (keyEvent.getCode() == KeyCode.ENTER && MainContainer.getAppTagManager().tagExists(text)) {
                     DialogBox dialogBox = new DialogBox("Info", "Tag already exist");
