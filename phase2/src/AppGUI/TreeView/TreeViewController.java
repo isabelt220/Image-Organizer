@@ -38,6 +38,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class TreeViewController implements Initializable {
 
     /** Basic platform that the tree view and list view will be displayed in*/
+    @FXML
     public ContextMenu contextMenu;
 
     /** Initializes a new empty tree view that can be filled with TreeItems of imported files*/

@@ -34,6 +34,7 @@ public class ImageTagEditorController extends OperatingMenuController {
             i = new ImageData(treeViewObserver.getSelectedFile().toPath().toString());
         }
         setOperatingImage(i);
+        displayList();
     }
 
 //    /**

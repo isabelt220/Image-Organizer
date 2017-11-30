@@ -1,0 +1,48 @@
+
+Duties of each group member
+
+Piyush Datta:
+-	Create an ImageManager class that communicates to ImageData and TagManager classes when dealing with any images within our application
+-	Create an ImageTagEditor and ImageTagEditorController class to make sure that our GUI can communicate with ImageManager and make necessary updates to images on file
+-	Update MainGUI and MainController accordingly to make sure our appImageManager and appTagManager is updating the imageList and tagList
+-	Modify any other classes with the permission of the group member responsible of that class
+-	Creating components and parts of the GUI on Scene Builder, such as the rename pane when the user wants to add/delete tags
+
+
+Ziying Zhou: 
+- Oversaw design of the program, especially AppGUI
+- Implemented Tag class, add and delete methods in ImageManager, fixed, modified and improved methods in ImageData and Tag Manager
+- Designed and implemented Observer classes to aid clarity in Program Design
+- Created and Implemented methods and fxml in 
+ 		-TreeView
+			-import file, treeview item selection, communication between panes, tag add and deletion
+		-CenterPanel
+			-imageview and table view, pane switching, item selection
+		-MainContainer
+			-Implemented as the cardinal of all other classes
+- Serialization of ImageManager and debugging of ImageManager
+- Oversaw, cleaned and debugged add/delete/search functions of GUI 
+
+
+Siyi Wang:
+- Implemented ImageData, ImageLocation, ImageLog and associated methods, 
+- Implemented Operating menu and associated methods
+- Implemented Search bar and search results pop up and associated methods
+   -Added multiple tag search option to search results
+- Implemented View log and Revert related methods, implemented name log pop up
+- Implemented Master log of all tag/image modifications
+- Implemented List view in Operating menu and Image Tag Editor
+- Helped implement observer class(mostly done by Ziying Zhou)
+- Added and revised docstring for all classes and methods in the program
+- Revised some style and formatting
+- Implemented right/left/double click
+- helped with code review, debugging(with Isabel) and cleaning
+
+Isabel Tang:
+- Implemented TagManager and its class methods
+- Implemented TopPanel (menu bar) and menu items
+- Implemented Serializable for TagManager
+- Testing and identifying issues that arise when running and using the program
+- Debugged and fixed problematic code causing errors
+
+
