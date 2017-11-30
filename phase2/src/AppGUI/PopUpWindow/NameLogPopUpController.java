@@ -3,6 +3,7 @@ package AppGUI.PopUpWindow;
 import AppComponents.ImageData;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
+import AppGUI.TreeView.TreeViewController;
 import Observers.CenterObserver;
 import Observers.TreeViewObserver;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
+import sun.applet.Main;
 
 import java.io.File;
 import java.util.*;
@@ -55,14 +57,26 @@ public class NameLogPopUpController {
 
 
     /**
-     * Initializes the NameLogPopUp according to nameLog extracted from curImage in the format of
-     * timestamp | name of image
+     * Initializes the NameLogPopUp
      *
      * @throws NullPointerException Exception
      */
     public void initialize() throws NullPointerException{
-//        File selectedFile = MainContainer.getTreeViewController().getTreeView().getSelectionModel().getSelectedItem().getValue();
-        File selectedFile =treeViewObserver.getSelectedFile();
+
+    }
+
+    /**
+     * Displays the Table view according to nameLog extracted from selected file in the format of
+     * timestamp | name of image
+     */
+     void showView(){
+         File selectedFile;
+        if (treeViewObserver.getSelectedFile() == null){
+            selectedFile = new File(centerObserver.getTarget().getTableView().getSelectionModel().getSelectedItem().getLocation());
+        }
+        else{
+            selectedFile =treeViewObserver.getSelectedFile();
+        }
         curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         data.putAll(curImage.getNameLog());
         nameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue()));
@@ -70,7 +84,6 @@ public class NameLogPopUpController {
         ObservableList<Map.Entry<String, String>> items = FXCollections.observableArrayList(data.entrySet());
         logTable.setItems(items);
         logTable.getColumns().setAll(nameColumn, timeStampColumn);
-
     }
 
     /**
@@ -78,15 +91,40 @@ public class NameLogPopUpController {
      * at the chosen timestamp using the corresponding timestamp entry in the tagLog of the selected image.
      */
     public void revertName(){
-        String chosenTime = logTable.getSelectionModel().getSelectedItem().getValue();
+        String chosenTime = logTable.getSelectionModel().getSelectedItem().getKey();
         ArrayList<String> revertList = curImage.getTagLog().get(chosenTime);
-        ImageData newNode = MainContainer.getAppImageManager().imAddTagWithImage(curImage, revertList);
+        ArrayList<Tag> oldTags = curImage.getImageTags();
+        ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, nameListToTagList(revertList));
+        curImage.getImageLog().addEntry(curImage.getCoreName(), curImage.getImageTags(), oldTags);
         File f= new File(newNode.getLocation());
         treeViewObserver.setItem(f);
-        centerObserver.update(treeViewObserver.getSelectedFile().toPath().toString());
+        centerObserver.update(newNode.getLocation());
         treeViewObserver.update();
+        DialogBox confirmation = new DialogBox("Reverted!", "The images has been reverted! Close this window to check changes.");
+        confirmation.display();
+    }
 
+    /**
+     * For each String tagName in  ArrayList<String> tagNames, existence of a Tag with the tagName is checked in
+     * the master tagList of the TagManager, if it exists, the Tag is added to the tagArrayList.
+     * If it doesn't exist, a new Tag is initiated and add to the tagArrayList.
+     * @param tagNames list of String tagNames to convert to list of tags
+     * @return ArrayList<Tag> of tags
+     */
+    private ArrayList<Tag> nameListToTagList(ArrayList<String> tagNames){
+        ArrayList<Tag> tagArrayList = new ArrayList<>();
+        for(String tagName: tagNames){
+            if(MainContainer.getAppTagManager().tagExists(tagName)){
+                tagArrayList.add(MainContainer.getAppTagManager().getTag(tagName));
+            }
+            else{
+                Tag newTag = new Tag(tagName);
+                MainContainer.getAppTagManager().getListOfTags().add(newTag);
+                tagArrayList.add(newTag);
+            }
+        }
 
+        return tagArrayList;
     }
 
     /**
