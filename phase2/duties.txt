@@ -31,10 +31,11 @@ Siyi Wang:
    -Added multiple tag search option to search results
 - Implemented View log and Revert related methods, implemented name log pop up
 - Implemented Master log of all tag/image modifications
-- Implemented List view in Operating menu and Image Tag Editor
+- Implemented List views in Operating menu and Image Tag Editor
+- Implemented multiple add and delete tag from image in operating menu and image tag editor
 - Helped implement observer class(mostly done by Ziying Zhou)
 - Added and revised docstring for all classes and methods in the program
-- Revised some style and formatting
+- Revised style and formatting
 - Implemented right/left/double click
 - helped with code review, debugging(with Isabel) and cleaning
 

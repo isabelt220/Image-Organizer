@@ -1,14 +1,9 @@
-package AppComponents.Unittests;
+package AppComponents;
 
-import AppComponents.ImageData;
-import AppComponents.ImageManager;
-import AppComponents.Tag;
-import AppComponents.TagManager;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
