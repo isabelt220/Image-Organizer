@@ -4,29 +4,22 @@ import AppComponents.ImageData;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
-
 import AppGUI.PopUpWindow.OpenPopUp;
 import Observers.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.DirectoryChooser;
 import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Initialized by MainGUI and is observed by TreeViewObserver. Controls the treeView pane where the

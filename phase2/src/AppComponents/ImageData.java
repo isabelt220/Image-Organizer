@@ -1,14 +1,11 @@
 package AppComponents;
 
 import AppGUI.MainContainer;
+
 import java.io.File;
 import java.io.Serializable;
-import java.sql.Array;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Although it is not a image file, ImageData stores the location of an image file, a list of

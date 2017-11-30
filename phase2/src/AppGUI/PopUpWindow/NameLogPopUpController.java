@@ -3,22 +3,21 @@ package AppGUI.PopUpWindow;
 import AppComponents.ImageData;
 import AppComponents.Tag;
 import AppGUI.MainContainer;
-import AppGUI.TreeView.TreeViewController;
 import Observers.CenterObserver;
 import Observers.TreeViewObserver;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.util.Callback;
-import sun.applet.Main;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Initialized ny NameLogPopUp, takes the selected item in the treeView observed by this treeViewObserver

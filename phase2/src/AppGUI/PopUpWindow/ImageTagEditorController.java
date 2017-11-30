@@ -5,12 +5,8 @@ import AppGUI.MainContainer;
 import AppGUI.TreeView.OperatingMenuController;
 import Observers.TreeViewObserver;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Initialized by ImageTagEditor for tag modification on a selected image in treeView.

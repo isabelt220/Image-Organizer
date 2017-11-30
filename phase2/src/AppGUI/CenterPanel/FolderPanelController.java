@@ -16,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import sun.applet.Main;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
