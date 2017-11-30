@@ -184,6 +184,7 @@ public class ImageManager implements Serializable {
             }
         }
     }
+    // TODO: not sure why removeTagFromAppAndImages() need to create a new tag
 
     /**
      * Calls the deleteTags method in ImageData to remove the tag from the tagList of targetImage,
@@ -196,5 +197,6 @@ public class ImageManager implements Serializable {
     public void removeTagFromPic(ArrayList<Tag> tags, ImageData targetImage) {
         targetImage.deleteTags(tags);
     }
+    // TODO: change docstring? removeAssociatedImagesFromTags is not used but deleteTag in Tag is
 
 }
