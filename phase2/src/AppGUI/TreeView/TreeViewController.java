@@ -247,7 +247,11 @@ public class TreeViewController implements Initializable {
     }
   }
 
-  /**
+    public ListView<Tag> getListView() {
+        return listView;
+    }
+
+    /**
    * Getter for this treeView.
    *
    * @return TreeView<File></File> tree view of its children files

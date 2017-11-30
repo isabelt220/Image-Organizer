@@ -1,5 +1,6 @@
 package Observers;
 
+import AppGUI.MainContainer;
 import AppGUI.TreeView.TreeViewController;
 
 import java.io.File;
@@ -24,10 +25,9 @@ public class TreeViewObserver extends Observer{
      * Calls TreeViewController to refresh and updates the treeView for the newest name and tags of the files.
      */
     public void update(){
-
+        target.getListView().refresh();
         target.reSetTree();
     }
-
 
     /**
      * Setter for the selected item in treeView.
