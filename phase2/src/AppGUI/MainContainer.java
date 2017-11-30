@@ -26,13 +26,14 @@ public class MainContainer {
      */
     private static ImageManager appImageManager = new ImageManager();
 
+    /** Master Log of all the tag modifications of this application */
+    private static MasterLog masterLog = new MasterLog();
+
     /** Initializes a new static AppDataSerializer to hold all Tag andImageData initiated (Static so that they can be accessed
      * through getters in other classes)
      */
     private static AppDataSerializer appDataSerializer = new AppDataSerializer();
 
-    /** Master Log of all the tag modifications of this application */
-    private static MasterLog masterLog = new MasterLog();
 
     /** Static getter for MasterLog */
     public static MasterLog getMasterLog(){

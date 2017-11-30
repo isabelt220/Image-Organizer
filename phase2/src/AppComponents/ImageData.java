@@ -141,7 +141,7 @@ public class ImageData implements Serializable{
      *
      * @param newName String
      */
-    private void setImageName(String newName) {
+    void setImageName(String newName) {
         File oldName = new File(imageLocation.getLocation());
         File addedName = new File(imageLocation.getPath()+newName+"."+imageLocation.getType());
         oldName.renameTo(addedName);

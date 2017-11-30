@@ -63,14 +63,6 @@ public class MainGUI extends Application {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
 
-        /*
-        Check whether our serializable file exists, if it does then read
-        from it.
-        */
-        if (new File("AppDataConfig.txt").exists()) {
-            MainContainer.getAppDataSerializer().readDataFromFile("AppDataConfig.txt");
-        }
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
         mainLayout = loader.load();

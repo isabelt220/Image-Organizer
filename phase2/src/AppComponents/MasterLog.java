@@ -21,7 +21,7 @@ public class MasterLog implements Serializable {
      * @param time String timestamp of tag and image modification
      * @param description String description of modification
      */
-     void addEntry(String time, String description){
+     void addEntry(String time, String description) {
         log.put(time, description);
     }
 
@@ -29,7 +29,7 @@ public class MasterLog implements Serializable {
      * Called to add log entry when a new tag is initialized
      * @param tagName String name of new Tag
      */
-     void innitTag(String tagName){
+     void innitTag(String tagName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         log.put(time.toString(), "New Tag: " + tagName);
     }
@@ -40,7 +40,7 @@ public class MasterLog implements Serializable {
      * @param currentTagNames String the tags the image contains (could be empty) when it is first imported
      * @param imagePath String path of the image file
      */
-     void innitImage(String imagePath, String currentTagNames){
+     void innitImage(String imagePath, String currentTagNames) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         log.put(time.toString(), "Found Image: " + imagePath + "  Tags: [" + currentTagNames + "]");
     }
@@ -51,7 +51,7 @@ public class MasterLog implements Serializable {
      * @param tagName String name of tag that was added to the image
      * @param imageName String path of the image file
      */
-     void addedImageToTag(String tagName, String imageName){
+     void addedImageToTag(String tagName, String imageName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         addEntry(time.toString(), "Tag "+tagName +" was added to "+imageName);
     }
@@ -62,7 +62,7 @@ public class MasterLog implements Serializable {
      * @param tagName String name of tag that was added to the image
      * @param imageName String path of the image file
      */
-     void deletedImageFromTag(String tagName, String imageName){
+     void deletedImageFromTag(String tagName, String imageName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         addEntry(time.toString(), "Tag "+ tagName + " was deleted from " +imageName);
     }
@@ -72,9 +72,13 @@ public class MasterLog implements Serializable {
      *
      * @param tagName String name of tag that was added to the image
      */
-    void deleteTag(String tagName){
+    void deleteTag(String tagName) {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         addEntry(time.toString(), "Tag " + tagName +" was deleted from all records.");
+    }
+
+    public void setLog(LinkedHashMap<String, String> masterLog) {
+        log = masterLog;
     }
 
     /**
@@ -83,8 +87,7 @@ public class MasterLog implements Serializable {
      *
      * @return this log
      */
-    public LinkedHashMap<String, String> getLog(){
-
+    public LinkedHashMap<String, String> getLog() {
         return log;
     }
 
