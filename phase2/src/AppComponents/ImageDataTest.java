@@ -1,8 +1,5 @@
-package AppComponents.Unittests;
+package AppComponents;
 
-import AppComponents.ImageData;
-import AppComponents.ImageLocation;
-import AppComponents.Tag;
 import AppGUI.MainContainer;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ImageDataTest {
+class ImageDataTest {
 
     @Test
-    public void testDeleteTags() {
+    void testDeleteTags() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         Tag cuteTag = new Tag("cute");
 
@@ -36,7 +33,7 @@ public class ImageDataTest {
     } // TODO: contains same code as testAddTags(); test addTags() before deleteTags()?
 
     @Test
-    public void testAddTags() {
+    void testAddTags() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         Tag cuteTag = new Tag("cute");
 
@@ -51,7 +48,7 @@ public class ImageDataTest {
     }
 
     @Test
-    public void setImageTags() {
+    void setImageTags() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         Tag cuteTag = new Tag("cute");
 
@@ -66,7 +63,7 @@ public class ImageDataTest {
     }
 
     @Test
-    public void testSetImageName() {
+    void testSetImageName() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
 
         dogeImage.setImageName("Doge @cute @dog");
@@ -75,7 +72,7 @@ public class ImageDataTest {
     }
 
     @Test
-    public void testContainsTags() {
+    void testContainsTags() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         Tag cuteTag = new Tag("cute");
 
@@ -93,7 +90,7 @@ public class ImageDataTest {
     }
 
     @Test
-    public void testHasTag() {
+    void testHasTag() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         Tag cuteTag = new Tag("cute");
 
@@ -106,7 +103,7 @@ public class ImageDataTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         ImageData dogeImage2 = new ImageData("C://Photos/Doge.jpg");
 
@@ -114,25 +111,25 @@ public class ImageDataTest {
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         assertEquals("Doge", dogeImage.getName());
     }
 
     @Test
-    public void testGetCoreName() {
+    void testGetCoreName() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         assertEquals("Doge", dogeImage.getCoreName());
     }
 
     @Test
-    public void testGetLocation() {
+    void testGetLocation() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         assertEquals("C://Photos/Doge.jpg", dogeImage.getLocation());
     }
 
     @Test
-    public void testGetImageTags() {
+    void testGetImageTags() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
         Tag cuteTag = new Tag("cute");
 
@@ -143,7 +140,8 @@ public class ImageDataTest {
         assertEquals(tagList, dogeImage.getImageTags());
     }
 
-    @Test void testGetImageLocation() {
+    @Test
+    void testGetImageLocation() {
         ImageData dogeImage = new ImageData("C://Photos/Doge.jpg");
 
         ImageLocation dogeLocation = new ImageLocation("C://Photos/Doge.jpg");

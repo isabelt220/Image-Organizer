@@ -5,7 +5,7 @@ TO RUN PROGRAM TYPE INTO CMD:
 3. If you want to close the program and run again through cmd, then use the "Run Main Only".
 
 One Liner: 
-javac src/AppGUI/*.java src/AppComponents/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java src/Observers/*.java && java -cp src AppGUI.MainGUI
+javac src/AppComponents/ImageData.java src/AppComponents/ImageLocation.java src/AppComponents/ImageLog.java src/AppComponents/ImageManager.java src/AppComponents/MasterLog.java src/AppComponents/Tag.java src/AppComponents/TagManager.java src/AppComponents/AppDataSerializer.java src/AppGUI/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java src/Observers/*.java && java -cp src AppGUI.MainGUI
 
 Run Main Only:
 java -cp src AppGUI.MainGUI
