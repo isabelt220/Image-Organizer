@@ -118,14 +118,23 @@ public class FolderPanelController implements Initializable {
      * @param location String absolute path of the folder desired to display.
      */
     public void setPanel(String location) {
+        ArrayList<ImageData> imageTable = new ArrayList<>();
         tableView.getColumns().clear();
         tableView.getItems().clear();
         File file = new File(location);
         if (!file.isDirectory()) {
             file = file.getParentFile();
         }
-        ArrayList<ImageData> imageTable = new ArrayList<>();
+        read(file.toPath().toString(), imageTable);
+        tableView.getColumns().addAll(preViewColumn, coreNameColumn, nameColumn);
+        tableView.setItems(FXCollections.observableList(imageTable));
+    }
+
+    public void read(String location,  ArrayList<ImageData> imageTable){
+
+        File file = new File(location);
         File[] files = file.listFiles();
+
         if (files != null) {
             for (File f : files) {
                 if (!f.isDirectory()) {
@@ -139,14 +148,19 @@ public class FolderPanelController implements Initializable {
                         ImageData imageData = MainContainer.getAppImageManager().getImage(url);
                         if (imageData == null) {
                             imageData = new ImageData(url);
+                            MainContainer.getAppImageManager().getImageList().add(imageData);
                         }
+
                         imageTable.add(imageData);
                     }
                 }
+                else{
+                    read(f.toPath().toString(), imageTable);
+                }
             }
         }
-        tableView.getColumns().addAll(preViewColumn, coreNameColumn, nameColumn);
-        tableView.setItems(FXCollections.observableList(imageTable));
+
+
     }
 
     /**
