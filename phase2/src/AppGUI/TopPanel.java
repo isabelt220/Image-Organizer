@@ -2,6 +2,7 @@ package AppGUI;
 
 
 import AppGUI.PopUpWindow.DialogBox;
+import AppGUI.PopUpWindow.OpenPopUp;
 import AppGUI.TreeView.TreeViewController;
 import Observers.MainObserver;
 
@@ -60,6 +61,10 @@ public class TopPanel{
     public void openNameLog() throws Exception {
 
         treeViewController.openNameLogPopUp();
+    }
+
+    public void openTagLog(){
+        OpenPopUp openPopUp = new OpenPopUp();
     }
 
     /**

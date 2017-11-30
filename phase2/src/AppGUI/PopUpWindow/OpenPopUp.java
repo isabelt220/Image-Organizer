@@ -18,15 +18,16 @@ public class OpenPopUp {
     /** Initializes new center observer to update*/
     private CenterObserver centerObserver = new CenterObserver();
 
+
     /**
-     * Constructor for this OpenPopUp, set the target of the this treeViewObserver.
+     * Set the target of the this treeViewObserver.
      *
      * @param t TreeViewController of the current treeView panel
      */
-    public OpenPopUp(TreeViewController t){
-
+    public void setTreeViewObserver(TreeViewController t){
         treeViewObserver.setTarget(t);
     }
+
 
     /**
      * Takes the current selected image from the treeView, and initializes a ImageEditor that modifies selected image
@@ -61,6 +62,10 @@ public class OpenPopUp {
             NameLogPopUp nameLogPopUp = new NameLogPopUp();
             nameLogPopUp.display(treeViewObserver, centerObserver);
         }
+    }
+
+    public void openTagLog() throws Exception{
+
     }
 
     /**

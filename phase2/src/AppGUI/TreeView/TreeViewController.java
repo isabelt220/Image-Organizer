@@ -199,8 +199,9 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openImageTagEditor() throws Exception {
-        OpenPopUp openPopUp = new OpenPopUp(this);
+        OpenPopUp openPopUp = new OpenPopUp();
         openPopUp.setCenterObserver(centerObserver);
+        openPopUp.setTreeViewObserver(this);
         openPopUp.openImageTagEditor();
     }
 
@@ -211,8 +212,9 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openNameLogPopUp() throws Exception {
-        OpenPopUp openPopUp = new OpenPopUp(this);
+        OpenPopUp openPopUp = new OpenPopUp();
         openPopUp.setCenterObserver(centerObserver);
+        openPopUp.setTreeViewObserver(this);
         openPopUp.openNameLog();
     }
 
