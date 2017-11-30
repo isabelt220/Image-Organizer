@@ -120,8 +120,9 @@ public class ImageLog implements Serializable {
   private String convertTagNameListToString(ArrayList<String> tagNameArrayList) {
     String result = "";
     for (String tagName : tagNameArrayList) {
-        if (!tagName.equals("")){
-            result += (", " + tagName);}
+      if (!tagName.equals("")) {
+        result += (", " + tagName);
+      }
     }
     if (result.equals("")) {
       return result;
