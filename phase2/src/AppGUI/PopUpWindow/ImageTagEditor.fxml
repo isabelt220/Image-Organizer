@@ -13,12 +13,12 @@
 <AnchorPane prefHeight="452.0" prefWidth="548.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.PopUpWindow.ImageTagEditorController">
     <children>
         <MenuBar prefHeight="25.0" prefWidth="548.0" />
-        <TextField fx:id="addTagTextField" layoutX="292.0" layoutY="61.0" prefHeight="25.0" prefWidth="143.0" AnchorPane.topAnchor="61.0" />
-        <TextField fx:id="deleteTagTextField" layoutX="292.0" layoutY="108.0" prefHeight="25.0" prefWidth="143.0" AnchorPane.bottomAnchor="319.0" />
-        <Button layoutX="446.0" layoutY="61.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="23.0" prefWidth="78.0" text="Add Tag" />
-        <Button layoutX="446.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#deleteTagButton" prefHeight="25.0" prefWidth="78.0" text="Delete Tag" />
-      <ImageView fx:id="myImageView" fitHeight="346.0" fitWidth="232.0" layoutX="42.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="274.0" AnchorPane.topAnchor="61.0" />
-      <ListView fx:id="currentTagListView" layoutX="292.0" layoutY="156.0" onMouseClicked="#tagListClick" prefHeight="252.0" prefWidth="232.0">
+        <TextField fx:id="addTagTextField" layoutX="292.0" layoutY="36.0" prefHeight="25.0" prefWidth="143.0" AnchorPane.topAnchor="36.0" />
+        <TextField fx:id="deleteTagTextField" layoutX="292.0" layoutY="70.0" prefHeight="25.0" prefWidth="143.0" AnchorPane.bottomAnchor="357.0" />
+        <Button layoutX="446.0" layoutY="36.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="23.0" prefWidth="78.0" text="Add Tag" />
+        <Button layoutX="446.0" layoutY="70.0" mnemonicParsing="false" onMouseClicked="#deleteTagButton" prefHeight="25.0" prefWidth="78.0" text="Delete Tag" />
+      <ImageView fx:id="myImageView" fitHeight="304.0" fitWidth="250.0" layoutX="42.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="274.0" AnchorPane.topAnchor="37.0" />
+      <ListView fx:id="currentTagListView" layoutX="292.0" layoutY="123.0" onMouseClicked="#tagListClick" prefHeight="117.0" prefWidth="232.0">
          <contextMenu>
             <ContextMenu fx:id="listContextMenu">
               <items>
@@ -26,5 +26,17 @@
               </items>
             </ContextMenu>
          </contextMenu></ListView>
+      <ListView fx:id="masterTagList" layoutX="292.0" layoutY="266.0" onMouseClicked="#masterTagListClicked" prefHeight="125.0" prefWidth="232.0">
+         <contextMenu>
+            <ContextMenu fx:id="masterTagListContextMenu">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#addTagsFromList" text="Add Tag(s) ..." />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </ListView>
+      <Label layoutX="292.0" layoutY="106.0" text="↓ Current Tags of Image (Select to delete) ↓" />
+      <Label layoutX="293.0" layoutY="240.0" prefHeight="25.0" prefWidth="227.0" text="↑↓ Hold down Cltr to select multiple tags↑↓" />
+      <Label layoutX="321.0" layoutY="399.0" text="↑ Select Tags To Add To Image ↑" />
     </children>
 </AnchorPane>

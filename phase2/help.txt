@@ -20,8 +20,17 @@ along with a table view of all image files in the same folder of the selected im
 In the table view, images can be previewed, the core name is the original name of the image, and the name is the current name of the file after an edit on the tags.
 
 DOUBLE CLICK on the image file IN TREE VIEW to summon the operating menu, or RIGHT CLICK -> Rename to summon the ImageEditor pop up window, both can add and delete tags to the image.
-Or SELECT the tag you wish to remove in the list view of the operating menu or image tag editor, and right click -> remove to delete it from the image.
 Click the left arrow on the top left corner of the operating menu to exit back to the treeview.
+
+ADDING OR DELETING TAGS:
+Can be done in both Operating Menu or Image Tag Editor; see above for instructions to open.
+To add a single tag: enter it in the text field above the Add Tag button, then hit enter or press the Add Tag Button to add the typed tag.
+To delete a single tag: enter it in the text field above the Delete Tag button, then hit enter or press the Delete Tag Button to delete the typed tag.
+THERE ARE two lists views in ImageTagEditor and Operating Menu:
+The upper one is a list of current tags of the image.
+TO DELETE MULTIPLE TAGS: Hold down ctrl and select the tags to delete from the upper list, then right click -> Delete Tags to delete it from the image.
+The lower one is a complete list of all tags of the application.
+TO ADD MULTIPLE TAGS: Hold down ctrl and select the tags to add from the lower list , then right click -> Add Tags to add it to the image.
 
 NOTE:If a change is made to the tags, single click on the image in tree view again to refresh the information on the table view.
 
@@ -36,6 +45,10 @@ sign to delete the Tag from all images. Select an image in the table view on the
 ***Highlighted tags in the Tag List means that the tag has no associated images***
 TO CLEAR tags that don't have associated images(as in, no image contains this tag), navigate to tag list tab in the tree view, then select the "C" button on the top right corner.
 
+SEARCH BAR:
+The user can search for images containing certain tags, enter the tags wished to search, seperated by commas and space in the search bar, then
+click the search tags button.
+input example: red, blue, orange
 
 Files can be moved by selecting a file in the Directory tab and right click -> Move...
 
