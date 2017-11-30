@@ -63,36 +63,26 @@ public class MainGUI extends Application {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainGUI.class.getResource("MainView.fxml"));
-        mainLayout = loader.load();
-        Scene scene = new Scene(mainLayout);
-        TopPanel topPanel = loader.getController();
-        mainStage.setScene(scene);
-        mainStage.show();
-
-        FXMLLoader OpLoader = new FXMLLoader();
-        OpLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-        opMenu = OpLoader.load();
-        mainLayout.setLeft(opMenu);
-        OperatingMenuController opController = OpLoader.getController();
-
+        /*
+        Initialize all the loaders
+        */
+        FXMLLoader mainLoader = new FXMLLoader();
+        FXMLLoader opLoader = new FXMLLoader();
         FXMLLoader treeLoader = new FXMLLoader();
-        treeLoader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
-        treePanel = treeLoader.load();
-        mainLayout.setLeft(treePanel);
-        TreeViewController treeController = treeLoader.getController();
-
         FXMLLoader centerLoader = new FXMLLoader();
-        centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
-        centerPanel = centerLoader.load();
-        mainLayout.setCenter(centerPanel);
-        MiddleWindowController middleController = centerLoader.getController();
-
         FXMLLoader folderLoader = new FXMLLoader();
-        folderLoader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
-        folderPanel = folderLoader.load();
-        mainLayout.setCenter(folderPanel);
+
+        /*
+        Show and set all the panels on the mainStage
+        */
+        this.showAndSetPanels(mainLoader, opLoader, treeLoader, centerLoader, folderLoader);
+
+        /*
+        Initialize all the controllers
+        */
+        OperatingMenuController opController = opLoader.getController();
+        TreeViewController treeController = treeLoader.getController();
+        MiddleWindowController middleController = centerLoader.getController();
         FolderPanelController folderController = folderLoader.getController();
 
         /*
@@ -127,8 +117,38 @@ public class MainGUI extends Application {
         this.setMiddleWindowControllerObservers(middleController,
                 mainObserver, opMenuObserver, centerObserver);
 
+        /*
+        Set the topPanel and set the controllers to the topPanel
+        */
+        TopPanel topPanel = mainLoader.getController();
         topPanel.setTreeViewController(treeController);
         topPanel.setMainObserver(mainObserver);
+    }
+
+    private void showAndSetPanels(FXMLLoader mainLoader, FXMLLoader opLoader,
+                                  FXMLLoader treeLoader, FXMLLoader centerLoader,
+                                  FXMLLoader folderLoader) throws IOException {
+        mainLoader.setLocation(MainGUI.class.getResource("MainView.fxml"));
+        mainLayout = mainLoader.load();
+        Scene scene = new Scene(mainLayout);
+        mainStage.setScene(scene);
+        mainStage.show();
+
+        opLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
+        opMenu = opLoader.load();
+        mainLayout.setLeft(opMenu);
+
+        treeLoader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
+        treePanel = treeLoader.load();
+        mainLayout.setLeft(treePanel);
+
+        centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
+        centerPanel = centerLoader.load();
+        mainLayout.setCenter(centerPanel);
+
+        folderLoader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
+        folderPanel = folderLoader.load();
+        mainLayout.setCenter(folderPanel);
     }
 
     /*
@@ -177,7 +197,6 @@ public class MainGUI extends Application {
         treeController.setFolderObserver(folderObserver);
     }
 
-
     /*
     * Set the necessary observers for FolderPanelController
     */
@@ -211,9 +230,10 @@ public class MainGUI extends Application {
 
     /**
      * Checks if the current center panel is the MiddleWindowPanel
+     *
      * @return true if the current center panel is the MiddleWindowPanel
      */
-    public boolean isMiddleWindow(){
+    public boolean isMiddleWindow() {
 
 
         return mainLayout.getCenter() == centerPanel;
