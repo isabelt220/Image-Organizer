@@ -3,6 +3,7 @@ package AppGUI.CenterPanel;
 import AppComponents.ImageData;
 import AppGUI.MainContainer;
 import AppGUI.PopUpWindow.DialogBox;
+import Observers.FolderObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -43,6 +44,7 @@ public class MiddleWindowController extends FolderPanelController {
     @FXML
     public Text locationText;
 
+    private FolderObserver folderObserver;
 
     /** Initialize the search field when search is clicked and clears the text after user hits enter.
      * Returns error message through a dialog box if the search failed.
@@ -109,7 +111,9 @@ public class MiddleWindowController extends FolderPanelController {
      * Returns the center panel back to the parent directory of the file
      */
     public void openParentFolder(){
-
+        getMainObserver().setPanel("Tree");
+        getMainObserver().setPanel("folder");
+        folderObserver.update(selectedItemLocation);
     }
 
     /**
@@ -122,8 +126,14 @@ public class MiddleWindowController extends FolderPanelController {
     private ArrayList<ImageData> filterSearchedTags(String tags) {
         String[] tagList = tags.split(", ");
         ArrayList<String> tagArray = new ArrayList<>(Arrays.asList(tagList));
-        ArrayList<ImageData> imageList = new ArrayList<>(MainContainer.getAppImageManager().getImageList().stream().filter(i -> i.containsTags(tagArray)).collect(Collectors.toList()));
-        return imageList;
+        return new ArrayList<>(MainContainer.getAppImageManager().getImageList().stream().filter(i -> i.containsTags(tagArray)).collect(Collectors.toList()));
     }
 
+    /**
+     * Setter for folderObserver
+     * @param folderObserver initialized by MainGUI and observes the folder panel that this MiddleWindowController is communicating with
+     */
+    public void setFolderObserver(FolderObserver folderObserver) {
+        this.folderObserver = folderObserver;
+    }
 }
