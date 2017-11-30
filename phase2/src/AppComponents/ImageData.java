@@ -50,6 +50,11 @@ public class ImageData implements Serializable{
      * @param dTags ArrayList<Tag></> to delete from the tagList
      */
     public void deleteTags(ArrayList<Tag> dTags){
+        if (this.imageLog == null){
+            this.imageLog = new ImageLog(coreName, this.imageLocation.analyzeNameForTags());
+            this.imageLog.addEntry(coreName, dTags, tagList);
+        }
+        this.imageLog.addEntry(coreName, dTags, tagList);
         for (Tag dTag : dTags) {
             if ((tagList.contains(dTag))) {
                 int i = tagList.indexOf(dTag);
@@ -82,6 +87,11 @@ public class ImageData implements Serializable{
      * @param newTags ArrayList<Tag> to add to tagList
      */
     void addTags(ArrayList<Tag> newTags){
+        if (this.imageLog == null){
+            this.imageLog = new ImageLog(coreName, this.imageLocation.analyzeNameForTags());
+            this.imageLog.addEntry(coreName, newTags, tagList);
+        }
+        this.imageLog.addEntry(coreName, newTags, tagList);
         for (Tag newTag : newTags) {
             if (!(tagList.contains(newTag))) {
                 tagList.add(newTag);
@@ -102,11 +112,6 @@ public class ImageData implements Serializable{
     public void setImageTags(ArrayList<Tag> tags) {
         StringBuilder compressedTags = new StringBuilder(coreName);
         ArrayList<String> stringVer= new ArrayList<>();
-        if (this.imageLog == null){
-            this.imageLog = new ImageLog(coreName, this.imageLocation.analyzeNameForTags());
-            this.imageLog.addEntry(coreName, tags, tagList);
-        }
-        this.imageLog.addEntry(coreName, tags, tagList);
         tagList = tags;
         for (Tag tag : tags) {
             stringVer.add(tag.getTagName());
@@ -191,6 +196,17 @@ public class ImageData implements Serializable{
     public LinkedHashMap<String, String> getNameLog(){
 
         return imageLog.getNameLog();
+    }
+
+    /**
+     * Getter for imageLog, the complete history of all tag modifications of this ImageData.
+     * Is generally called upon by classes that modifies the visual display of a history of changes made to an ImageData.
+     *
+     * @return ImageLog of this ImageData
+     */
+    public ImageLog getImageLog(){
+
+        return imageLog;
     }
 
     /**

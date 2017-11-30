@@ -156,7 +156,7 @@ public class TagManager implements Serializable {
      *
      * @return current existing tags
      */
-    ArrayList<Tag> getListOfTags() {
+    public ArrayList<Tag> getListOfTags() {
 
         return listOfTags;
     }
@@ -177,7 +177,7 @@ public class TagManager implements Serializable {
      * @param tagName the name of the tag to search for in listOfTags.
      * @return the Tag with the tagName if one exists, otherwise returns null.
      */
-    Tag getTag(String tagName) {
+    public Tag getTag(String tagName) {
         String name = tagName.toLowerCase();
         if (!listOfTags.isEmpty() && tagExists(name)) {
             for (Tag tag : listOfTags) {

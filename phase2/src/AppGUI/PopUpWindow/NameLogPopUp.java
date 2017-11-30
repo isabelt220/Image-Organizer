@@ -1,6 +1,8 @@
 package AppGUI.PopUpWindow;
 
 import AppGUI.MainGUI;
+import AppGUI.TreeView.TreeViewController;
+import Observers.CenterObserver;
 import Observers.TreeViewObserver;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,17 +22,21 @@ public class NameLogPopUp {
      * information of the selected image file to obtain tag modification history on.
      *
      * @param t the treeViewObserver of the treeView of the selected image file.
+     * @param c the centerObserver of the centerView of the selected image file.
      * @throws Exception Is thrown when the FXMLLoader fails to read the source file
      */
-    public void display(TreeViewObserver t) throws Exception {
+    public void display(TreeViewObserver t, CenterObserver c) throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("PopUpWindow/NameLogPopUp.fxml"));
         Pane panel = loader.load();
         NameLogPopUpController controller = loader.getController();
         controller.setTreeViewObserver(t);
+        controller.setCenterObserver(c);
+        controller.showView();
         stage.setScene(new Scene(panel));
         stage.show();
     }
+
 
 }
