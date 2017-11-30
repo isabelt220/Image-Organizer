@@ -17,7 +17,7 @@
         <TextField fx:id="deleteTagTextField" layoutX="292.0" layoutY="70.0" prefHeight="25.0" prefWidth="143.0" AnchorPane.bottomAnchor="357.0" />
         <Button layoutX="449.0" layoutY="36.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="23.0" prefWidth="78.0" text="Add Tag" />
         <Button layoutX="446.0" layoutY="68.0" mnemonicParsing="false" onMouseClicked="#deleteTagButton" prefHeight="27.0" prefWidth="85.0" text="Delete Tag" />
-      <ImageView fx:id="myImageView" fitHeight="304.0" fitWidth="250.0" layoutX="42.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="274.0" AnchorPane.topAnchor="37.0" />
+      <ImageView fx:id="myImageView" fitHeight="304.0" fitWidth="250.0" layoutX="14.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="112.0" AnchorPane.rightAnchor="285.0" AnchorPane.topAnchor="36.0" />
       <ListView fx:id="currentTagListView" layoutX="292.0" layoutY="123.0" onMouseClicked="#tagListClick" prefHeight="117.0" prefWidth="232.0">
          <contextMenu>
             <ContextMenu fx:id="listContextMenu">
