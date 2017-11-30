@@ -174,13 +174,13 @@ public class TreeViewController implements Initializable {
                         if (t.getButton() == MouseButton.SECONDARY) {
                             contextMenu.show(treeView, t.getScreenX(), t.getScreenY());
                         } else if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
-
+                            if(!treeView.getSelectionModel().getSelectedItem().getValue().isDirectory()){
                             mainObserver.setPanel("OpMenu");
                             ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
                             if (image == null) {
                                 image = new ImageData(currentNode.getValue().toPath().toString());
                             }
-                            opMenuObserver.update(image);
+                            opMenuObserver.update(image);}
 
                         }
 
@@ -201,9 +201,10 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openImageTagEditor() throws Exception {
+        if(treeView.getRoot()!=null){
         OpenPopUp openPopUp = new OpenPopUp(this);
         openPopUp.setCenterObserver(centerObserver);
-        openPopUp.openImageTagEditor();
+        openPopUp.openImageTagEditor();}
     }
 
     /**
@@ -233,7 +234,7 @@ public class TreeViewController implements Initializable {
      * Calls AppComponent classes accordingly to add the selected tag in listView  to the selected image in treeView
      */
     public void addTagToImage() {
-        if(!treeView.getSelectionModel().getSelectedItem().getValue().isDirectory()){
+       if(mainObserver.isMiddleWindow()){
         TagOperation tagEditor = new TagOperation();
         TreeViewObserver treeViewObserver = new TreeViewObserver();
         treeViewObserver.setTarget(this);
