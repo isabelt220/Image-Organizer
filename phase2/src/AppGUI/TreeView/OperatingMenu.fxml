@@ -34,7 +34,7 @@
                           </items>
                         </ContextMenu>
                      </contextMenu></ListView>
-                  <ListView fx:id="masterTagList" layoutX="6.0" layoutY="356.0" onMouseClicked="#masterTagListClicked" prefHeight="130.0" prefWidth="238.0">
+                  <ListView fx:id="masterTagList" layoutX="6.0" layoutY="370.0" onMouseClicked="#masterTagListClicked" prefHeight="130.0" prefWidth="238.0">
                      <contextMenu>
                         <ContextMenu fx:id="masterTagListContextMenu">
                           <items>
@@ -43,9 +43,11 @@
                         </ContextMenu>
                      </contextMenu>
                   </ListView>
-                  <Label layoutX="9.0" layoutY="172.0" prefHeight="23.0" prefWidth="231.0" text="↓ Current Tags of Image (Select to delete)↓" />
-                  <Label layoutX="39.0" layoutY="492.0" text="↑ Select Tags To Add To Image ↑" />
-                  <Label layoutX="11.0" layoutY="332.0" text="↑↓ Hold down Cltr to select multiple tags↑↓" />
+                  <Label layoutX="14.0" layoutY="155.0" prefHeight="23.0" prefWidth="140.0" text="↓ Current Tags of Image ↓" />
+                  <Label layoutX="39.0" layoutY="500.0" text="↑ Select Tags To Add To Image ↑" />
+                  <Label layoutX="31.0" layoutY="332.0" text="↑↓ Hold down ctrl and click ↑↓" />
+                  <Label layoutX="39.0" layoutY="178.0" text="↓(Select to delete)↓" />
+                  <Label layoutX="34.0" layoutY="349.0" text="↑↓ To select Multiple Tags ↑↓" />
                </children>
             </Pane>
          </children>

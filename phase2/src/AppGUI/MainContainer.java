@@ -4,13 +4,6 @@ import AppComponents.AppDataSerializer;
 import AppComponents.ImageManager;
 import AppComponents.MasterLog;
 import AppComponents.TagManager;
-import AppGUI.CenterPanel.FolderPanelController;
-import AppGUI.CenterPanel.MiddleWindowController;
-import AppGUI.CenterPanel.SearchResults;
-import AppGUI.CenterPanel.SearchResultsController;
-import AppGUI.TreeView.OperatingMenuController;
-import AppGUI.TreeView.TreeViewController;
-import javafx.scene.layout.Pane;
 
 /**
  * Master container for all back-end classes (or models, in the this application's MVC design)

@@ -1,7 +1,6 @@
 package AppGUI.PopUpWindow;
 
 import AppGUI.MainGUI;
-import AppGUI.TreeView.TreeViewController;
 import Observers.CenterObserver;
 import Observers.TreeViewObserver;
 import javafx.fxml.FXMLLoader;
