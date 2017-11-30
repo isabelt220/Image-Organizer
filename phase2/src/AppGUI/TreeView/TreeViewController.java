@@ -82,8 +82,9 @@ public class TreeViewController implements Initializable {
                     protected void updateItem(Tag item, boolean empty) {
                         super.updateItem(item, empty);
                         setText((empty || item == null) ? "" : item.getTagName());
+                        setStyle("-fx-background-color: #f5f5f5");
                         if (item != null && item.getAssociatedImages().size() == 0) {
-                            setStyle("-fx-background-color: wheat");
+                            setStyle("-fx-background-color: #dcdcdc");
                         }
                     }
                 };
@@ -135,6 +136,7 @@ public class TreeViewController implements Initializable {
     public void CleanTagClick(){
         TagOperation tagEditor = new TagOperation();
         tagEditor.CleanTagClick();
+        listView.refresh();
     }
 
     /**
@@ -144,13 +146,13 @@ public class TreeViewController implements Initializable {
         TagOperation tagEditor = new TagOperation();
         tagEditor.deleteTagClick(listView);
         reSetTree();
+        listView.refresh();
     }
 
     /**
      * Makes a text field pop up where the user can enter the tag they wish to add to TagManager
      */
     public void addTagClick() {
-
         hBox.setVisible(!hBox.isVisible());
     }
 
@@ -228,14 +230,21 @@ public class TreeViewController implements Initializable {
         }
     }
 
+
     /**
      * Calls AppComponent classes accordingly to add the selected tag in listView  to the selected image in treeView
      */
     public void addTagToImage() {
+        if(!treeView.getSelectionModel().getSelectedItem().getValue().isDirectory()){
         TagOperation tagEditor = new TagOperation();
         TreeViewObserver treeViewObserver = new TreeViewObserver();
         treeViewObserver.setTarget(this);
         tagEditor.addTagToImage(listView, centerObserver, treeViewObserver);
+        listView.refresh();}
+        else{
+            DialogBox warning = new DialogBox("Sorry!","Can't add tag to a folder!");
+            warning.display();
+        }
     }
 
     /**
@@ -243,7 +252,6 @@ public class TreeViewController implements Initializable {
      *
      * @return TreeView<File></File> tree view of its children files*/
     public TreeView<File> getTreeView() {
-
         return treeView;
     }
 
