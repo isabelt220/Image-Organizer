@@ -5,7 +5,7 @@ TO RUN PROGRAM TYPE INTO CMD:
 3. If you want to close the program and run again through cmd, then use the "Run Main Only".
 
 One Liner: 
-javac src/AppGUI/*.java src/AppComponents/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java && java -cp src AppGUI.MainGUI
+javac src/AppGUI/*.java src/AppComponents/*.java src/AppGUI/CenterPanel/*.java src/AppGUI/PopUpWindow/*.java src/AppGUI/TreeView/*.java src/Observers/*.java && java -cp src AppGUI.MainGUI
 
 Run Main Only:
 java -cp src AppGUI.MainGUI
@@ -42,5 +42,5 @@ Files can be moved by selecting a file in the Directory tab and right click -> M
 Current tags of an image are in the name section of the table view on the center panel. Although if the tags are recently modified, please select it again in tree view to refresh the table view!
 
 
-*****PLEASE DO NOT IMPORT ANY IMAGE FILES WITH THE SYMBOL '@', '/', OR '\' IN THE ORIGINAL NAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*****PLEASE DO NOT IMPORT ANY IMAGE FILES WITH THE SYMBOL '@', '/', OR '\' IN THE ORIGINAL NAME UNLESS IT IS A DESIGNATED TAG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  
