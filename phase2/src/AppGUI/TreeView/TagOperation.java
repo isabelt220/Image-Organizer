@@ -23,7 +23,7 @@ public class TagOperation {
      * @param centerObserver the observer of the current middle window
      * @param treeViewObserver the observer of the current Tree
      */
-    public void addTagToImage(ListView listView, CenterObserver centerObserver, TreeViewObserver treeViewObserver) {
+    void addTagToImage(ListView listView, CenterObserver centerObserver, TreeViewObserver treeViewObserver) {
         ObservableList<Tag> tagList = listView.getSelectionModel().getSelectedItems();
         String location = centerObserver.getTarget().getSelectedItemLocation();
         if (tagList != null && location != null) {
@@ -43,7 +43,7 @@ public class TagOperation {
      *
      * @param listView List of all tags in TagManager (all tags that was instantiated through any way and was not deleted by the user)
      */
-    public void deleteTagClick(ListView<Tag> listView) {
+    void deleteTagClick(ListView<Tag> listView) {
         ObservableList<Tag> selectedItems = listView.getSelectionModel().getSelectedItems();
         ArrayList<Tag> selectedCopies = new ArrayList<>(selectedItems.subList(0, selectedItems.size()));
 
@@ -55,9 +55,18 @@ public class TagOperation {
     }
 
     /**
+     * Delete tags from given image
+     * @param tags Tags we need to delete
+     * @param image The image we are operating on
+     */
+    void deleteTagFromImage(ArrayList<Tag> tags, ImageData image){
+        MainContainer.getAppImageManager().removeTagFromPic(tags,image);
+    }
+
+    /**
      * Deletes tags that is not associated with any images from TagManager
      */
-    public void CleanTagClick(){
+    void CleanTagClick(){
 
         MainContainer.getAppTagManager().cleanUnusedTag();
     }

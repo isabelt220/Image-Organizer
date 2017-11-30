@@ -28,7 +28,7 @@ public class OperatingMenuController implements Initializable {
 
     /** Initializes an empty list view, used to display tags of current image */
     @FXML
-    public ListView currentTagListView = new ListView();
+    public ListView<Tag> currentTagListView = new ListView<>();
 
     /** Context menu that pops up when user right clicks tag list of current operating image, includes delete tag option*/
     @FXML
@@ -36,7 +36,7 @@ public class OperatingMenuController implements Initializable {
 
     /** Initializes an empty list view, used to display list of all existing tags */
     @FXML
-    public ListView masterTagList = new ListView();
+    public ListView<Tag> masterTagList = new ListView<>();
 
     /** Context menu that pops up when user right clicks master tag list, includes add tag option*/
     @FXML
@@ -158,8 +158,12 @@ public class OperatingMenuController implements Initializable {
      * Deletes selected tag in current list view from the operating image
      */
     public void deleteSelected(){
+        System.out.println("SEL:  "+ currentTagListView.getSelectionModel().getSelectedItem());
         TagOperation deleteOperation = new TagOperation();
-        deleteOperation.deleteTagClick(currentTagListView);
+        Tag delete = currentTagListView.getSelectionModel().getSelectedItem();
+        ArrayList<Tag> deleteList = new ArrayList<>();
+        deleteList.add(delete);
+        deleteOperation.deleteTagFromImage(deleteList, operatingImage);
         treeViewObserver.update();
         centerObserver.update(operatingImage.getLocation());
         currentTagListView.refresh();
@@ -178,7 +182,7 @@ public class OperatingMenuController implements Initializable {
         MainContainer.getAppImageManager().imAddTagWithImage(operatingImage, addList);
         treeViewObserver.update();
         centerObserver.update(operatingImage.getLocation());
-        currentTagListView.refresh();
+        currentTagListView.setItems(FXCollections.observableList(operatingImage.getImageTags()));
         masterTagList.refresh();}
         else{
             DialogBox repeatedTags = new DialogBox("Warning", "Don't add repeating tags!");
