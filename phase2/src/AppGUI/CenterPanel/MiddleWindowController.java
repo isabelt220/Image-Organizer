@@ -32,10 +32,6 @@ public class MiddleWindowController extends FolderPanelController {
     @FXML
     public TextField searchTextField = new TextField();
 
-    /**Return button that makes the center panel display the parent directory of the selected item */
-    @FXML
-    public Button returnToParent;
-
     /** ImageView of the selected item*/
     @FXML
     private ImageView imageView = new ImageView();
@@ -81,15 +77,6 @@ public class MiddleWindowController extends FolderPanelController {
         this.imageView.setImage(image);
         this.locationText.setText(location);
 
-    }
-
-    /**
-     * Setter for the location of the selected item
-     *
-     * @param selectedItemLocation String absolute path of the file of the selected item
-     */
-    public void setSelectedItemLocation(String selectedItemLocation) {
-        this.selectedItemLocation = selectedItemLocation;
     }
 
     /**

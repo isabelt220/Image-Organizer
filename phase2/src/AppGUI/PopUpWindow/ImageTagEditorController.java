@@ -5,6 +5,8 @@ import AppGUI.MainContainer;
 import AppGUI.TreeView.OperatingMenuController;
 import Observers.TreeViewObserver;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.net.URL;
@@ -34,7 +36,7 @@ public class ImageTagEditorController extends OperatingMenuController {
             i = new ImageData(treeViewObserver.getSelectedFile().toPath().toString());
         }
         setOperatingImage(i);
-        displayList();
+        displayLists();
     }
 
 //    /**
