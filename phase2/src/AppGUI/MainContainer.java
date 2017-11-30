@@ -26,46 +26,17 @@ public class MainContainer {
      */
     private static ImageManager appImageManager = new ImageManager();
 
-    /** SearchResultsController initiated by the SearchResult when SearchResults is initialized*/
-    private static SearchResultsController searchResultsController;
-
-    /** SearchResults initialized when user clicks search button in MainView */
-    private static SearchResults searchResults;
-
     /** Initializes a new static AppDataSerializer to hold all Tag andImageData initiated (Static so that they can be accessed
      * through getters in other classes)
      */
     private static AppDataSerializer appDataSerializer = new AppDataSerializer();
 
-    /** FolderPanelController which is initialized after user double clicks on an image file*/
-    private static FolderPanelController folderPanelController;
-
     /** Master Log of all the tag modifications of this application */
     private static MasterLog masterLog = new MasterLog();
 
-
     /** Static getter for MasterLog */
     public static MasterLog getMasterLog(){
-
         return masterLog;
-    }
-
-    /**
-     * Static getter for SearchResultsController Object
-     * @return SearchResultsController
-     */
-    public static SearchResultsController getSearchResultsController() {
-
-        return searchResultsController;
-    }
-
-
-    /**
-     * Static getter for FolderPanelController Object
-     */
-    public static FolderPanelController getFolderPanelController() {
-
-        return folderPanelController;
     }
 
     /**
@@ -87,7 +58,7 @@ public class MainContainer {
     /**
      * Static getter for this AppDataSerializer Object
      */
-    public static AppDataSerializer getAppDataSerializer() {
+    static AppDataSerializer getAppDataSerializer() {
 
         return appDataSerializer;
     }

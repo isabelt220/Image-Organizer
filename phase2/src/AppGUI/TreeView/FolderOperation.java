@@ -57,7 +57,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
      * @param mainObserver observer of the current mainView
      * @param treeView File
      */
-     void openFolder(MainObserver mainObserver, TreeView<File> treeView){
+     String openFolder(MainObserver mainObserver, TreeView<File> treeView){
         DirectoryChooser dc = new DirectoryChooser();
         File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
         if (choice != null) {
@@ -78,7 +78,11 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
                 }
             });
             mainObserver.setPanel("folder");
+
+            return choice.toPath().toString();
+
         }
+        return null;
     }
 
 }

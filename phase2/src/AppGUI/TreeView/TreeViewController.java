@@ -127,7 +127,9 @@ public class TreeViewController implements Initializable {
      */
     public void openFolder(){
         FolderOperation folderEditor = new FolderOperation();
-        folderEditor.openFolder(mainObserver,treeView);
+        String location = folderEditor.openFolder(mainObserver,treeView);
+        if(location!=null){
+            folderObserver.update(location);}
     }
 
     /**
@@ -174,7 +176,7 @@ public class TreeViewController implements Initializable {
                         if (t.getButton() == MouseButton.SECONDARY) {
                             contextMenu.show(treeView, t.getScreenX(), t.getScreenY());
                         } else if (t.getButton() == MouseButton.PRIMARY && t.getClickCount() == 2) {
-                            if(!treeView.getSelectionModel().getSelectedItem().getValue().isDirectory()){
+                            if(treeView.getSelectionModel().getSelectedItem()!= null && !treeView.getSelectionModel().getSelectedItem().getValue().isDirectory()){
                             mainObserver.setPanel("OpMenu");
                             ImageData image = MainContainer.getAppImageManager().getImage(currentNode.getValue().toPath().toString());
                             if (image == null) {
