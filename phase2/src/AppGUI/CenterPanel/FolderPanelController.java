@@ -30,54 +30,68 @@ import java.util.ResourceBundle;
  */
 public class FolderPanelController implements Initializable {
 
-    /** Main table view of images to be displayed, any images within the selected directory will be listed.*/
+    /**
+     * Main table view of images to be displayed, any images within the selected directory will be listed.
+     */
     @FXML
     private TableView<ImageData> tableView = new TableView<>();
 
-    /** First column of the tableView, image view of the image file of the ImageData will be displayed here*/
+    /**
+     * First column of the tableView, image view of the image file of the ImageData will be displayed here
+     */
     @FXML
     private TableColumn<ImageData, String> preViewColumn = new TableColumn<>();
 
-    /** Second column of the tableView, the core name of the ImageData of the image file will be displayed here.*/
+    /**
+     * Second column of the tableView, the core name of the ImageData of the image file will be displayed here.
+     */
     @FXML
     private TableColumn<ImageData, String> coreNameColumn = new TableColumn<>();
 
-    /** Third column of the tableView, the full name of the ImageData, including all tags of the image file will be displayed here.*/
+    /**
+     * Third column of the tableView, the full name of the ImageData, including all tags of the image file will be displayed here.
+     */
     @FXML
     private TableColumn<ImageData, String> nameColumn = new TableColumn<>();
 
-    /** CenterObserver initialized by MainGUI to communicate between this folder panel and the center panel*/
+    /**
+     * CenterObserver initialized by MainGUI to communicate between this folder panel and the center panel
+     */
     private CenterObserver centerObserver;
 
-    /** MainObserver initialized by MainGUI to communicate between this folder panel and the Middle Window panel*/
+    /**
+     * MainObserver initialized by MainGUI to communicate between this folder panel and the Middle Window panel
+     */
     private MainObserver mainObserver;
 
-    /** OprObserver initialized by MainGUI to communicate between this folder panel and the operating menu panel*/
+    /**
+     * OprObserver initialized by MainGUI to communicate between this folder panel and the operating menu panel
+     */
     private OpMenuObserver opMenuObserver;
 
-    /** Initiate the table on mouse click on a treeView directory, communicates with other panels and automatically updates itself after
+    /**
+     * Initiate the table on mouse click on a treeView directory, communicates with other panels and automatically updates itself after
      * selected item change, or tag change.
-    */
+     */
     public void initialize(URL location, ResourceBundle r) {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             try {
                 /**Check if the table has an item, if so get the properties
-                of that item and get all the static variables of that item.
-                */
+                 of that item and get all the static variables of that item.
+                 */
                 if (tableView.getSelectionModel().getSelectedItem() != null) {
                     String location1 = tableView.getSelectionModel().getSelectedItem().getLocation();
                     centerObserver.update(location1);
                     mainObserver.setPanel("center");
                     mainObserver.setPanel("OpMenu");
                     ImageData image = MainContainer.getAppImageManager().getImage(location1);
-                    if(image == null){
+                    if (image == null) {
                         image = new ImageData(location1);
                     }
                     opMenuObserver.update(image);
                 }
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -91,8 +105,7 @@ public class FolderPanelController implements Initializable {
                     setText(null);
                     setGraphic(null);
                     setStyle("");
-                }
-                else {
+                } else {
                     File f = new File(image);
                     Image i = new Image(f.toURI().toString(), 120, 120, true, true);
                     ImageView preView = new ImageView();
@@ -107,6 +120,7 @@ public class FolderPanelController implements Initializable {
 
     /**
      * Getter the table view of ImageData*
+     *
      * @return TableView<ImageData></> this table view
      */
     public TableView<ImageData> getTableView() {
@@ -116,6 +130,7 @@ public class FolderPanelController implements Initializable {
 
     /**
      * Clears and initializes a new panel with table view of the file with the absolute path of String location
+     *
      * @param location String absolute path of the folder desired to display.
      */
     public void setPanel(String location) {
@@ -132,7 +147,13 @@ public class FolderPanelController implements Initializable {
 
     }
 
-    public void read(String location,  ArrayList<ImageData> imageTable){
+    /**
+     * Helper function for setPanel. This method add all images under selected folder into the given array list
+     *
+     * @param location   Location of a folder
+     * @param imageTable List that holds the images
+     */
+    private void read(String location, ArrayList<ImageData> imageTable) {
 
         File file = new File(location);
         File[] files = file.listFiles();
@@ -154,8 +175,7 @@ public class FolderPanelController implements Initializable {
 
                         imageTable.add(imageData);
                     }
-                }
-                else{
+                } else {
                     read(f.toPath().toString(), imageTable);
                 }
             }
@@ -194,15 +214,31 @@ public class FolderPanelController implements Initializable {
         this.opMenuObserver = opMenuObserver;
     }
 
-    public CenterObserver getCenterObserver() {
+    /**
+     * Getter for centerObserver
+     *
+     * @return this.centerObserver
+     */
+    CenterObserver getCenterObserver() {
         return centerObserver;
     }
 
-    public MainObserver getMainObserver() {
+    /**
+     * Getter for mainObserver
+     *
+     * @return this.mainObserver
+     */
+    MainObserver getMainObserver() {
         return mainObserver;
     }
 
-    public OpMenuObserver getOpMenuObserver() {
+    /**
+     * Getter for OpMenuObserver
+     *
+     * @return this.opMenuObserver
+     */
+
+    OpMenuObserver getOpMenuObserver() {
         return opMenuObserver;
     }
 }

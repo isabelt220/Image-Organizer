@@ -113,7 +113,7 @@ public class MainGUI extends Application {
                 mainObserver, opMenuObserver, centerObserver);
 
         this.setMiddleWindowControllerObservers(middleController,
-                mainObserver, opMenuObserver, centerObserver);
+                mainObserver, opMenuObserver, centerObserver, folderObserver);
 
         /*
         Set the topPanel and set the controllers to the topPanel
@@ -213,10 +213,12 @@ public class MainGUI extends Application {
     private void setMiddleWindowControllerObservers(MiddleWindowController middleWindowController,
                                                     MainObserver mainObserver,
                                                     OpMenuObserver opMenuObserver,
-                                                    CenterObserver centerObserver) {
+                                                    CenterObserver centerObserver,
+                                                    FolderObserver folderObserver) {
         middleWindowController.setMainObserver(mainObserver);
         middleWindowController.setOpMenuObserver(opMenuObserver);
         middleWindowController.setCenterObserver(centerObserver);
+        middleWindowController.setFolderObserver(folderObserver);
     }
 
     /**
