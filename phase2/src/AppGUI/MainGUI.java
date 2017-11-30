@@ -151,7 +151,13 @@ public class MainGUI extends Application {
         mainLayout.setCenter(folderPanel);
     }
 
+    /**
+     * Checks if the current center panel is the MiddleWindowPanel
+     * @return true if the current center panel is the MiddleWindowPanel
+     */
     public boolean isMiddleWindow(){
+
+
         return mainLayout.getCenter() == centerPanel;
     }
 

@@ -26,7 +26,14 @@
                   <TextField fx:id="addTagTextField" layoutX="6.0" layoutY="69.0" prefHeight="27.0" prefWidth="238.0" />
                   <TextField fx:id="deleteTagTextField" layoutX="6.0" layoutY="155.0" prefHeight="27.0" prefWidth="238.0" />
                   <Button fx:id="deleteButton" layoutX="185.0" layoutY="190.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
-                  <ListView fx:id="currentTagListView" layoutX="14.0" layoutY="245.0" onMouseClicked="#tagListClick" prefHeight="309.0" prefWidth="223.0" />
+                  <ListView fx:id="currentTagListView" layoutX="14.0" layoutY="245.0" onMouseClicked="#tagListClick" prefHeight="309.0" prefWidth="223.0">
+                     <contextMenu>
+                        <ContextMenu fx:id="listContextMenu">
+                          <items>
+                            <MenuItem fx:id="deleteCMItem" mnemonicParsing="false" onAction="#deleteSelected" text="Delete Tag ..." />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu></ListView>
                </children>
             </Pane>
          </children>

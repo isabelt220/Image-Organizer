@@ -26,10 +26,10 @@ public class ImageLocation implements Serializable{
      * Constructor for a new ImageLocation object.
      * Takes the absolute path of an image file, records it, then splices it in to various substrings
      * such as type, path, and name that can be individually manipulated and combined.
-     * @param pathofImage String of the absolute path of the image file of the ImageData that this imageLocation is attached to
+     * @param locationOfImage String of the absolute path of the image file of the ImageData that this imageLocation is attached to
      */
-    public ImageLocation(String pathofImage){
-        location = pathofImage;
+    public ImageLocation(String locationOfImage){
+        location = locationOfImage;
         File imageFile = new File(location);
         String temp = imageFile.getName();
         name = temp.substring(0,temp.lastIndexOf("."));
@@ -44,7 +44,7 @@ public class ImageLocation implements Serializable{
      * symbols to find tags, then returns the core name independent of the tags
      * @return the coreName of the ImageData
      */
-    public String analyzeNameForCore(){
+     String analyzeNameForCore(){
         if (!(name.contains("@"))){
             return name;
         }
@@ -60,7 +60,7 @@ public class ImageLocation implements Serializable{
      * symbols to find tags, then records these tags.
      * @return ArrayList<String> tagNames associated (or to be associated with the ImageData)
      */
-    public ArrayList<String> analyzeNameForTags(){
+     ArrayList<String> analyzeNameForTags(){
         if (!(name.contains("@"))){
             return new ArrayList<String>();
         }
@@ -126,7 +126,7 @@ public class ImageLocation implements Serializable{
      * @return String type of image file
      * eg. .png, .jpg
      */
-    public String getType() {
+     String getType() {
 
         return type;
     }
