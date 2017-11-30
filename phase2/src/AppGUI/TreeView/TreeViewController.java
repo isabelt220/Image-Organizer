@@ -201,17 +201,11 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openImageTagEditor() throws Exception {
-<<<<<<< HEAD
         if(treeView.getRoot()!=null){
-        OpenPopUp openPopUp = new OpenPopUp(this);
-        openPopUp.setCenterObserver(centerObserver);
-        openPopUp.openImageTagEditor();}
-=======
         OpenPopUp openPopUp = new OpenPopUp();
         openPopUp.setCenterObserver(centerObserver);
         openPopUp.setTreeViewObserver(this);
-        openPopUp.openImageTagEditor();
->>>>>>> facd33335ef7bdf418c916c06d3eab1905368ddd
+        openPopUp.openImageTagEditor();}
     }
 
     /**
