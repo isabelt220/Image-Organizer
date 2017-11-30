@@ -5,10 +5,11 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
+
 /**
- Keeps track of and manipulates all Tags and associated information for this application.
- Interacts with Tag (initializes and manages), ImageManager, and MainContainer(is initialized and manipulated by).
- Implements Serializable so information can be saved after ending a session of the application.
+ * Keeps track of and manipulates all Tags and associated information for this application.
+ * Interacts with Tag (initializes and manages), ImageManager, and MainContainer(is initialized and manipulated by).
+ * Implements Serializable so information can be saved after ending a session of the application.
  */
 public class TagManager implements Serializable {
 
@@ -16,7 +17,7 @@ public class TagManager implements Serializable {
     private ArrayList<Tag> listOfTags = new ArrayList<>(0);
 
     // A list that visually displays TagManager's listOfTags to the user.
-    private ObservableList<Tag> observableTagList = FXCollections.observableList(new ArrayList<>());
+    private ObservableList<Tag> observableTagList = FXCollections.observableList(listOfTags);
 
 
     /**
@@ -121,10 +122,10 @@ public class TagManager implements Serializable {
         return null;
     }
 
-    public void cleanUnusedTag(){
+    public void cleanUnusedTag() {
         ArrayList<Tag> temp = new ArrayList<>(observableTagList.subList(0, observableTagList.size()));
-        for(Tag t: temp){
-            if(t.getAssociatedImages().size() == 0){
+        for (Tag t : temp) {
+            if (t.getAssociatedImages().size() == 0) {
                 observableTagList.remove(t);
                 listOfTags.remove(t);
             }
