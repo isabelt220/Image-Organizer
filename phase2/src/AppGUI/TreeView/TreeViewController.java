@@ -91,9 +91,9 @@ public class TreeViewController implements Initializable {
               protected void updateItem(Tag item, boolean empty) {
                 super.updateItem(item, empty);
                 setText((empty || item == null) ? "" : item.getTagName());
-                setStyle("-fx-background-color: #f5f5f5");
+                setStyle("-fx-control-inner-background: #f5f5f5");
                 if (item != null && item.getAssociatedImages().size() == 0) {
-                  setStyle("-fx-background-color: #dcdcdc");
+                  setStyle("-fx-control-inner-background: wheat");
                 }
               }
             };
