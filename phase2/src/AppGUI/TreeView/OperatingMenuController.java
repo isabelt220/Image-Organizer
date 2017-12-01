@@ -222,7 +222,7 @@ public class OperatingMenuController implements Initializable {
         treeViewObserver.update();
         centerObserver.update(operatingImage.getLocation());
         addTagTextField.setText("");
-        currentTagListView.refresh();
+        currentTagListView.setItems(FXCollections.observableList(operatingImage.getImageTags()));
         masterTagList.refresh();
 
     }
