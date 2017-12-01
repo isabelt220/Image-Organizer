@@ -54,8 +54,7 @@ public class ImageLocation implements Serializable {
             return name;
         } else {
             int x = name.indexOf(" @");
-            String core = name.substring(0, x);
-            return core;
+            return name.substring(0, x);
         }
     }
 
@@ -67,13 +66,12 @@ public class ImageLocation implements Serializable {
      */
     ArrayList<String> analyzeNameForTags() {
         if (!(name.contains("@"))) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         } else {
             int x = name.indexOf(" @");
             String unsortedTags = name.substring(x);
             String[] tags = unsortedTags.split(" @");
-            ArrayList<String> tagNames = new ArrayList<String>(Arrays.asList(tags));
-            return tagNames;
+            return new ArrayList<>(Arrays.asList(tags));
         }
     }
 

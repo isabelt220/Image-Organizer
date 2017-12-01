@@ -70,18 +70,6 @@ public class ImageData implements Serializable {
     }
 
     /**
-     * Deletes all tags from tagList, and removes association of this image from all Tags it was
-     * associated by NOT USED BUT PLEASE DO NOT DELETE
-     */
-    public void deleteAllTags() {
-        for (Tag tag : tagList) {
-            tag.removeImage(this);
-        }
-        tagList.clear();
-        setImageTags(tagList);
-    }
-
-    /**
      * Iterates through the tags in newTags, checks for existence in tagList, and adds it if it
      * doesn't exists, adding this ImageData to association of new tags. Calls setImageTags to reset
      * the name of this ImageData according to current Tags.
@@ -131,7 +119,7 @@ public class ImageData implements Serializable {
         tagList = tags;
         for (Tag tag : tags) {
             stringVer.add(tag.getTagName());
-            compressedTags.append(" @" + tag.getTagName());
+            compressedTags.append(" @").append(tag.getTagName());
         }
         MainContainer.getAppTagManager().tmAddTagWithImage(this, stringVer);
         setImageName(compressedTags.toString());
@@ -210,7 +198,7 @@ public class ImageData implements Serializable {
      * the manipulation Is generally called upon by classes that implements the visual display of a
      * history of changes made to an ImageData.
      *
-     * @return LinkedHashMap<String,String> String timestamp to String description of manipulation.
+     * @return LinkedHashMap String timestamp to String description of manipulation.
      */
     public LinkedHashMap<String, String> getNameLog() {
 
@@ -236,7 +224,7 @@ public class ImageData implements Serializable {
      * timestamps will also exist in imageLog, mapped to the visual description of the tag
      * manipulation. Is generally called upon to revert back to a certain set of tags.
      *
-     * @return LinkedHashMap<String, ArrayList<String>> String timestamp mapped to tag name list.
+     * @return LinkedHashMap String timestamp mapped to tag name list.
      */
     public LinkedHashMap<String, ArrayList<String>> getTagLog() {
 
