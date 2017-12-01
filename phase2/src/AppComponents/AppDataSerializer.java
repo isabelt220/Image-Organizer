@@ -76,8 +76,9 @@ public class AppDataSerializer {
 
     /**
      * Saves listOfTags from TagManager and imageList from ImageManager to the file AppDataConfig.txt.
+     * @param s
      */
-    public void saveDataToFile() {
+    public void saveDataToFile(String s) {
         try {
             FileOutputStream fs = new FileOutputStream("AppDataConfig.txt");
             ObjectOutputStream os = new ObjectOutputStream(fs);
