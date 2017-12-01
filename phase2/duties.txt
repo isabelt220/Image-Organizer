@@ -45,8 +45,11 @@ Siyi Wang:
 Isabel Tang:
 - Implemented TagManager and its class methods
 - Implemented TopPanel (menu bar) and menu items
-- Implemented Serializable for TagManager
+- Implemented Serializable for TagManager, ImageManager, and MasterLog
+- Fixed Exceptions that appear when trying to read AppDataConfig.txt for serialization
 - Testing and identifying issues that arise when running and using the program
-- Debugged and fixed problematic code causing errors
-
-
+- Debugged and fixed problematic code causing errors when using program
+- Improved code in classes in AppComponents and AppGUI
+- Wrote Unittests for Tag, TagManager, ImageData, ImageManager classes
+- Adding/modifying docstring and comments as well as reformatting code
+- Helped implementing right/left/double click in treeItemClick in TreeViewController
