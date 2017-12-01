@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * Sets up the stage and controller for a pop up window allowing the user to perform tag modification on the
  * selected file in treeView, and updates centerView for changes in image name.
  */
-class ImageTagEditor{
+class ImageTagEditor {
 
 
     /**
@@ -25,7 +25,7 @@ class ImageTagEditor{
      * @param c centerViewObserver initialized by MainGUI, and is used to obtain selected file information for the ImageTagEditor.
      * @throws Exception IOException
      */
-    void display(TreeViewObserver t, CenterObserver c) throws Exception{
+    void display(TreeViewObserver t, CenterObserver c) throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("PopUpWindow/ImageTagEditor.fxml"));

@@ -22,6 +22,3 @@ public class SearchResultsController extends FolderPanelController {
         getTableView().setItems(FXCollections.observableList(result));
     }
 }
-
-
-

@@ -12,13 +12,18 @@ import java.io.IOException;
  * Controller for the menu bar of the application, communicates with main, and treeViewController to initiate pop ups through
  * their controllers.
  */
-public class TopPanel{
+public class TopPanel {
 
-    /** The controller for the current treeView*/
+    /**
+     * The controller for the current treeView
+     */
     private TreeViewController treeViewController;
 
-    /** Observer for the current mainView*/
+    /**
+     * Observer for the current mainView
+     */
     private MainObserver mainObserver;
+
 
     /**
      * Calls treeViewController to initiate a ImageTagEditor pop up
@@ -27,12 +32,12 @@ public class TopPanel{
      * @throws Exception IOException
      */
     public void openImageTagEditor() throws Exception {
-        try{
-            treeViewController.openImageTagEditor();}
-       catch (NullPointerException e){
-            DialogBox warning = new DialogBox("Warning","Please choose an image");
+        try {
+            treeViewController.openImageTagEditor();
+        } catch (NullPointerException e) {
+            DialogBox warning = new DialogBox("Warning", "Please choose an image");
             warning.display();
-       }
+        }
     }
 
     /**
@@ -40,7 +45,7 @@ public class TopPanel{
      *
      * @throws IOException exceptions
      */
-    public void openChooseDirectory() throws IOException{
+    public void openChooseDirectory() throws IOException {
 
         treeViewController.openFolder();
     }
@@ -68,7 +73,7 @@ public class TopPanel{
      *
      * @throws Exception IOException
      */
-    public void openMasterLog() throws Exception{
+    public void openMasterLog() throws Exception {
 
         OpenPopUp openPopUp = new OpenPopUp();
         openPopUp.openMasterLog();
@@ -79,7 +84,7 @@ public class TopPanel{
      *
      * @param mainObserver initialized in MainGUI
      */
-     void setMainObserver(MainObserver mainObserver) {
+    void setMainObserver(MainObserver mainObserver) {
 
         this.mainObserver = mainObserver;
     }
@@ -89,10 +94,9 @@ public class TopPanel{
      *
      * @param treeViewController of the current treeView panel
      */
-     void setTreeViewController(TreeViewController treeViewController) {
+    void setTreeViewController(TreeViewController treeViewController) {
 
         this.treeViewController = treeViewController;
     }
-
 
 }

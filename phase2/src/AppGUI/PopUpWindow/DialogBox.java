@@ -10,10 +10,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/** Parent class for all alert pop-ups when there is an error in the application*/
+/**
+ * Parent class for all alert pop-ups when there is an error in the application
+ */
 public class DialogBox {
 
-    /**The main stage for the pop up dialog box */
+    /**
+     * The main stage for the pop up dialog box
+     */
     private Stage window = new Stage();
 
     /**
@@ -45,7 +49,9 @@ public class DialogBox {
         window.setScene(scene);
     }
 
-    /**Display this DialogBox.*/
+    /**
+     * Display this DialogBox.
+     */
     public void display() {
         window.showAndWait();
     }

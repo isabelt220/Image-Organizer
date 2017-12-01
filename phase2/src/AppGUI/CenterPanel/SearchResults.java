@@ -23,17 +23,17 @@ public class SearchResults {
      * @throws Exception mostly IOException
      */
     public void display(ArrayList<ImageData> imageList, CenterObserver c, MainObserver m, OpMenuObserver o) throws Exception {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(SearchResults.class.getResource("SearchResults.fxml"));
-            AnchorPane mainLayout = loader.load();
-            SearchResultsController controller = loader.getController();
-            controller.setResults(imageList);
-            controller.setCenterObserver(c);
-            controller.setMainObserver(m);
-            controller.setOpMenuObserver(o);
-            stage.setScene(new Scene(mainLayout));
-            stage.show();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(SearchResults.class.getResource("SearchResults.fxml"));
+        AnchorPane mainLayout = loader.load();
+        SearchResultsController controller = loader.getController();
+        controller.setResults(imageList);
+        controller.setCenterObserver(c);
+        controller.setMainObserver(m);
+        controller.setOpMenuObserver(o);
+        stage.setScene(new Scene(mainLayout));
+        stage.show();
     }
 }
 

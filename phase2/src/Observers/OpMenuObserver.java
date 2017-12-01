@@ -3,13 +3,15 @@ package Observers;
 import AppComponents.ImageData;
 import AppGUI.TreeView.OperatingMenuController;
 
-/** SubClass of Observer, observes an OperatingMenu Controller
+/**
+ * SubClass of Observer, observes an OperatingMenu Controller
  */
-public class OpMenuObserver extends Observer{
+public class OpMenuObserver extends Observer {
 
-    /** The OperatingMenuController that this OpMenuObserver observes*/
+    /**
+     * The OperatingMenuController that this OpMenuObserver observes
+     */
     private OperatingMenuController target;
-
 
 
     /**
@@ -18,12 +20,11 @@ public class OpMenuObserver extends Observer{
      *
      * @param image ImageData of the image file under operation
      */
-    public void update(ImageData image){
+    public void update(ImageData image) {
 
         target.setOperatingImage(image);
         target.displayLists();
     }
-
 
     /**
      * Setter for the target OperatingMenuController that this OperatingMenuObserver observes.
@@ -34,6 +35,5 @@ public class OpMenuObserver extends Observer{
 
         this.target = target;
     }
-
 
 }

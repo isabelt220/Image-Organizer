@@ -19,7 +19,7 @@ public class MasterLogPopUp {
      *
      * @throws Exception Is thrown when the FXMLLoader fails to read the source file
      */
-    public void display() throws Exception{
+    public void display() throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainGUI.class.getResource("PopUpWindow/MasterLogPopUp.fxml"));

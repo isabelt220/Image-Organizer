@@ -26,32 +26,48 @@ import java.util.Map;
  */
 public class NameLogPopUpController {
 
-    /** Main table view of the pop up window, displays the entries in name log in separate rows*/
+    /**
+     * Main table view of the pop up window, displays the entries in name log in separate rows
+     */
     @FXML
-    public TableView<Map.Entry<String,String>> logTable = new TableView<>();
+    public TableView<Map.Entry<String, String>> logTable = new TableView<>();
 
-    /** First column in table view, displays the key of the nameLog: the timestamp of tag change of the ImageData*/
+    /**
+     * First column in table view, displays the key of the nameLog: the timestamp of tag change of the ImageData
+     */
     @FXML
     public TableColumn<HashMap.Entry<String, String>, String> timeStampColumn;
 
-    /** Second column in table view, displays the value of the nameLog: the name and tag change of the ImageData*/
+    /**
+     * Second column in table view, displays the value of the nameLog: the name and tag change of the ImageData
+     */
     @FXML
-    public TableColumn<Map.Entry<String,String>, String> nameColumn;
+    public TableColumn<Map.Entry<String, String>, String> nameColumn;
 
-    /** Revert option when an entry is right clicked, may choose to revert back to tags selected time point. */
+    /**
+     * Revert option when an entry is right clicked, may choose to revert back to tags selected time point.
+     */
     @FXML
     public MenuItem revertButton;
 
-    /** ImageData whose nameLog to display and revert, obtained by communicating with treeViewObserver. */
+    /**
+     * ImageData whose nameLog to display and revert, obtained by communicating with treeViewObserver.
+     */
     private ImageData curImage;
 
-    /** Initializes a LinkedHashMap tht will become a copy of nameLog to be converted to an observable list. */
-    private LinkedHashMap<String,String> data = new LinkedHashMap<>();
+    /**
+     * Initializes a LinkedHashMap tht will become a copy of nameLog to be converted to an observable list.
+     */
+    private LinkedHashMap<String, String> data = new LinkedHashMap<>();
 
-    /** Observer of the treeView that this nameLogPopUpController obtains information from. */
+    /**
+     * Observer of the treeView that this nameLogPopUpController obtains information from.
+     */
     private TreeViewObserver treeViewObserver;
 
-    /** Observer of the centerView that this nameLogPopUpController updates after name and tag change. */
+    /**
+     * Observer of the centerView that this nameLogPopUpController updates after name and tag change.
+     */
     private CenterObserver centerObserver;
 
 
@@ -60,7 +76,7 @@ public class NameLogPopUpController {
      *
      * @throws NullPointerException Exception
      */
-    public void initialize() throws NullPointerException{
+    public void initialize() throws NullPointerException {
 
     }
 
@@ -68,13 +84,12 @@ public class NameLogPopUpController {
      * Displays the Table view according to nameLog extracted from selected file in the format of
      * timestamp | name of image
      */
-     void showView(){
-         File selectedFile;
-        if (treeViewObserver.getSelectedFile() == null){
+    void showView() {
+        File selectedFile;
+        if (treeViewObserver.getSelectedFile() == null) {
             selectedFile = new File(centerObserver.getTarget().getTableView().getSelectionModel().getSelectedItem().getLocation());
-        }
-        else{
-            selectedFile =treeViewObserver.getSelectedFile();
+        } else {
+            selectedFile = treeViewObserver.getSelectedFile();
         }
         curImage = MainContainer.getAppImageManager().getImage(selectedFile.toPath().toString());
         data.putAll(curImage.getNameLog());
@@ -89,13 +104,13 @@ public class NameLogPopUpController {
      * Takes a selection on the tableView of the nameLog and processes the curImage to the name, and tags it had
      * at the chosen timestamp using the corresponding timestamp entry in the tagLog of the selected image.
      */
-    public void revertName(){
+    public void revertName() {
         String chosenTime = logTable.getSelectionModel().getSelectedItem().getKey();
         ArrayList<String> revertList = curImage.getTagLog().get(chosenTime);
         ArrayList<Tag> oldTags = curImage.getImageTags();
         ImageData newNode = MainContainer.getAppImageManager().imSetImageTags(curImage, nameListToTagList(revertList));
         curImage.getImageLog().addEntry(curImage.getLocation(), curImage.getCoreName(), curImage.getImageTags(), oldTags);
-        File f= new File(newNode.getLocation());
+        File f = new File(newNode.getLocation());
         treeViewObserver.setItem(f);
         centerObserver.update(newNode.getLocation());
         treeViewObserver.update();
@@ -107,16 +122,16 @@ public class NameLogPopUpController {
      * For each String tagName in  ArrayList<String> tagNames, existence of a Tag with the tagName is checked in
      * the master tagList of the TagManager, if it exists, the Tag is added to the tagArrayList.
      * If it doesn't exist, a new Tag is initiated and add to the tagArrayList.
+     *
      * @param tagNames list of String tagNames to convert to list of tags
      * @return ArrayList<Tag> of tags
      */
-    private ArrayList<Tag> nameListToTagList(ArrayList<String> tagNames){
+    private ArrayList<Tag> nameListToTagList(ArrayList<String> tagNames) {
         ArrayList<Tag> tagArrayList = new ArrayList<>();
-        for(String tagName: tagNames){
-            if(MainContainer.getAppTagManager().tagExists(tagName)){
+        for (String tagName : tagNames) {
+            if (MainContainer.getAppTagManager().tagExists(tagName)) {
                 tagArrayList.add(MainContainer.getAppTagManager().getTag(tagName));
-            }
-            else{
+            } else {
                 ArrayList<String> tagStringList = new ArrayList<>();
                 tagStringList.add(tagName);
                 MainContainer.getAppTagManager().tmAddTagWithoutImage(tagStringList);
@@ -161,8 +176,4 @@ public class NameLogPopUpController {
 //            data.putAll(curImage.getNameLog());
 //        }
 //    }
-
-
 }
-
-

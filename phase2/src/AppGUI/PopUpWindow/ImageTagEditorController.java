@@ -15,7 +15,9 @@ import javafx.scene.image.ImageView;
  */
 public class ImageTagEditorController extends OperatingMenuController {
 
-    /** Image view placement of image that the ImageTagEditor is currently editing.*/
+    /**
+     * Image view placement of image that the ImageTagEditor is currently editing.
+     */
     @FXML
     private ImageView myImageView = new ImageView();
 
@@ -24,11 +26,11 @@ public class ImageTagEditorController extends OperatingMenuController {
      *
      * @param treeViewObserver initialized by MainGUI and observes the tree view panel that this ImageTagEditor is communicating with.
      */
-    void setView(TreeViewObserver treeViewObserver){
+    void setView(TreeViewObserver treeViewObserver) {
         Image image = new Image(treeViewObserver.getSelectedFile().toURI().toString());
         myImageView.setImage(image);
         ImageData i = MainContainer.getAppImageManager().getImage(treeViewObserver.getSelectedFile().toPath().toString());
-        if(i==null){
+        if (i == null) {
             i = new ImageData(treeViewObserver.getSelectedFile().toPath().toString());
         }
         setOperatingImage(i);

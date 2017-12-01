@@ -25,30 +25,41 @@ import java.util.stream.Collectors;
  * Is initialized by MainGUI when the application first starts, and is observed by a CenterObserver.
  */
 public class MiddleWindowController extends FolderPanelController {
-    /** Search button when searching for tags*/
+    /**
+     * Search button when searching for tags
+     */
     @FXML
     public Button searchButton = new Button();
 
-    /** User manipulable text field when searching for tags*/
+    /**
+     * User manipulable text field when searching for tags
+     */
     @FXML
     public TextField searchTextField = new TextField();
 
-    /** ImageView of the selected item*/
+    /**
+     * ImageView of the selected item
+     */
     @FXML
     private ImageView imageView = new ImageView();
 
-    /**String absolute path of the selected item in treeView*/
+    /**
+     * String absolute path of the selected item in treeView
+     */
     private String selectedItemLocation;
 
-    /** Text of the absolute path of the selected item, not manipulable by the user*/
+    /**
+     * Text of the absolute path of the selected item, not manipulable by the user
+     */
     @FXML
     public Text locationText;
 
     private FolderObserver folderObserver;
 
-    /** Initialize the search field when search is clicked and clears the text after user hits enter.
+    /**
+     * Initialize the search field when search is clicked and clears the text after user hits enter.
      * Returns error message through a dialog box if the search failed.
-     * */
+     */
     @Override
     public void initialize(URL location, ResourceBundle r) {
         super.initialize(location, r);
@@ -66,8 +77,9 @@ public class MiddleWindowController extends FolderPanelController {
     }
 
     /**
-     *  * Setter for this center panel.
+     * * Setter for this center panel.
      * Takes the location of the selected item, and initializes a ImageView and corresponding absolute path of locationText.
+     *
      * @param location String absolute path of the folder desired to display.
      */
     @Override
@@ -93,14 +105,15 @@ public class MiddleWindowController extends FolderPanelController {
     /**
      * When the search button is clicked, search and display the results for the images with the corresponding tags.
      * Otherwise displays a dialog box with corresponding error message to the user.
+     *
      * @throws Exception IOException
      */
     public void searchTagClicked() throws Exception {
         String inquired = searchTextField.getText();
         ArrayList<ImageData> inquiredResults = filterSearchedTags(inquired);
         if (!(inquiredResults.size() == 0)) {
-                SearchResults searchResults = new SearchResults();
-                searchResults.display(inquiredResults,getCenterObserver(), getMainObserver(),getOpMenuObserver());
+            SearchResults searchResults = new SearchResults();
+            searchResults.display(inquiredResults, getCenterObserver(), getMainObserver(), getOpMenuObserver());
         } else {
             DialogBox alertBox = new DialogBox("Warning", "Tag Not Found!");
             alertBox.display();
@@ -110,7 +123,7 @@ public class MiddleWindowController extends FolderPanelController {
     /**
      * Returns the center panel back to the parent directory of the file
      */
-    public void openParentFolder(){
+    public void openParentFolder() {
         getMainObserver().setPanel("Tree");
         getMainObserver().setPanel("folder");
         folderObserver.update(selectedItemLocation);
@@ -131,6 +144,7 @@ public class MiddleWindowController extends FolderPanelController {
 
     /**
      * Setter for folderObserver
+     *
      * @param folderObserver initialized by MainGUI and observes the folder panel that this MiddleWindowController is communicating with
      */
     public void setFolderObserver(FolderObserver folderObserver) {

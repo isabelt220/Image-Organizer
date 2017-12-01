@@ -2,12 +2,15 @@ package Observers;
 
 import AppGUI.CenterPanel.FolderPanelController;
 
-/** SubClass of Observer, observes an FolderPanel Controller */
-public class FolderObserver extends Observer{
+/**
+ * SubClass of Observer, observes an FolderPanel Controller
+ */
+public class FolderObserver extends Observer {
 
-    /** The FolderPanelController that this FolderObserver observes*/
+    /**
+     * The FolderPanelController that this FolderObserver observes
+     */
     private FolderPanelController target;
-
 
 
     /**
@@ -17,7 +20,7 @@ public class FolderObserver extends Observer{
      * @param location String absolute path of file
      */
     public void update(String location) {
-        if(target !=null){
+        if (target != null) {
             target.setPanel(location);
         }
     }
@@ -29,6 +32,7 @@ public class FolderObserver extends Observer{
      */
     public void setTarget(FolderPanelController t) {
 
-        this.target =t;
+        this.target = t;
     }
+
 }

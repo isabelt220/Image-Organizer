@@ -15,7 +15,6 @@ import javafx.stage.Stage;
  */
 public class NameLogPopUp {
 
-
     /**
      * Displays the a new stage, with corresponding controller and sets tree view observer that contains
      * information of the selected image file to obtain tag modification history on.
@@ -36,6 +35,5 @@ public class NameLogPopUp {
         stage.setScene(new Scene(panel));
         stage.show();
     }
-
 
 }

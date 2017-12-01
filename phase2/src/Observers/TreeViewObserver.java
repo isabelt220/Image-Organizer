@@ -5,10 +5,14 @@ import AppGUI.TreeView.TreeViewController;
 
 import java.io.File;
 
-/** SubClass of Observer, observes an TreeView Controller */
-public class TreeViewObserver extends Observer{
+/**
+ * SubClass of Observer, observes an TreeView Controller
+ */
+public class TreeViewObserver extends Observer {
 
-    /** The TreeViewController that this TreeViewResults observes*/
+    /**
+     * The TreeViewController that this TreeViewResults observes
+     */
     private TreeViewController target;
 
     /**
@@ -18,13 +22,13 @@ public class TreeViewObserver extends Observer{
      */
     public void setTarget(TreeViewController t) {
 
-        this.target =t;
+        this.target = t;
     }
 
     /**
      * Calls TreeViewController to refresh and updates the treeView for the newest name and tags of the files.
      */
-    public void update(){
+    public void update() {
         target.getListView().refresh();
         target.reSetTree();
     }
@@ -35,10 +39,11 @@ public class TreeViewObserver extends Observer{
      *
      * @param f File selected by user
      */
-    public void setItem(File f){
-        if (target != null){
+    public void setItem(File f) {
+        if (target != null) {
             target.getTreeView().getSelectionModel().getSelectedItem().setValue(f);
-        }}
+        }
+    }
 
     /**
      * Return the user selected file in treeView, frequently caled upon by other panels to edit/display/etc.
@@ -46,11 +51,12 @@ public class TreeViewObserver extends Observer{
      *
      * @return File User selected file in TreeView.
      */
-    public File getSelectedFile(){
-            if(target != null){
-                return target.getTreeView().getSelectionModel().getSelectedItem().getValue();
-            }
-            else{
-                return null;
-            }}
+    public File getSelectedFile() {
+        if (target != null) {
+            return target.getTreeView().getSelectionModel().getSelectedItem().getValue();
+        } else {
+            return null;
+        }
+    }
+
 }

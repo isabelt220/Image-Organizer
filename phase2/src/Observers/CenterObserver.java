@@ -2,10 +2,14 @@ package Observers;
 
 import AppGUI.CenterPanel.MiddleWindowController;
 
-/** SubClass of Observer, observes an MiddleWindow Controller */
-public class CenterObserver extends Observer{
+/**
+ * SubClass of Observer, observes an MiddleWindow Controller
+ */
+public class CenterObserver extends Observer {
 
-    /** The MiddleWindowController that this CenterObserver observes*/
+    /**
+     * The MiddleWindowController that this CenterObserver observes
+     */
     private MiddleWindowController target;
 
     /**
@@ -14,7 +18,7 @@ public class CenterObserver extends Observer{
      *
      * @param location String absolute path of file
      */
-    public void update(String location){
+    public void update(String location) {
 
         target.setPanel(location);
     }
@@ -26,17 +30,17 @@ public class CenterObserver extends Observer{
      */
     public void setTarget(MiddleWindowController t) {
 
-        this.target =t;
+        this.target = t;
     }
 
     /**
      * Getter for the target MiddleWindowObserver of this CenterObserver.
+     *
      * @return MiddleWindowController observed by this CenterObserver
      */
     public MiddleWindowController getTarget() {
 
         return target;
     }
-
 
 }

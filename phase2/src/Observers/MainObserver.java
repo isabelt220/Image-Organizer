@@ -2,10 +2,14 @@ package Observers;
 
 import AppGUI.MainGUI;
 
-/** SubClass of Observer, observes an Main GUI */
-public class MainObserver extends Observer{
+/**
+ * SubClass of Observer, observes an Main GUI
+ */
+public class MainObserver extends Observer {
 
-    /** The MainGUI that this MainObserver observes*/
+    /**
+     * The MainGUI that this MainObserver observes
+     */
     private MainGUI main;
 
     /**
@@ -22,20 +26,16 @@ public class MainObserver extends Observer{
      *
      * @param panel String description of the panel to be shown.
      */
-    public void setPanel(String panel){
-      if(panel.equals("center")){
-          main.showCenterView();
-      }
-      else if(panel.equals("folder")){
-          main.showFolderPanel();
-      }
-      else if(panel.equals("OpMenu")){
-          main.showOperatingMenu();
-      }
-      else if(panel.equals("Tree")){
-          main.showTreeView();
-      }
-
+    public void setPanel(String panel) {
+        if (panel.equals("center")) {
+            main.showCenterView();
+        } else if (panel.equals("folder")) {
+            main.showFolderPanel();
+        } else if (panel.equals("OpMenu")) {
+            main.showOperatingMenu();
+        } else if (panel.equals("Tree")) {
+            main.showTreeView();
+        }
     }
 
     /**
@@ -58,9 +58,8 @@ public class MainObserver extends Observer{
         return main;
     }
 
-    public boolean isMiddleWindow(){
+    public boolean isMiddleWindow() {
         return main.isMiddleWindow();
     }
-
 
 }

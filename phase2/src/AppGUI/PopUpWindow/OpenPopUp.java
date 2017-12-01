@@ -12,22 +12,24 @@ import java.io.File;
  */
 public class OpenPopUp {
 
-    /** Initializes new tree observer object that will be set to the treeViewController in the constructor*/
+    /**
+     * Initializes new tree observer object that will be set to the treeViewController in the constructor
+     */
     private TreeViewObserver treeViewObserver = new TreeViewObserver();
 
-    /** Initializes new center observer to update*/
+    /**
+     * Initializes new center observer to update
+     */
     private CenterObserver centerObserver = new CenterObserver();
-
 
     /**
      * Set the target of the this treeViewObserver.
      *
      * @param t TreeViewController of the current treeView panel
      */
-    public void setTreeViewObserver(TreeViewController t){
+    public void setTreeViewObserver(TreeViewController t) {
         treeViewObserver.setTarget(t);
     }
-
 
     /**
      * Takes the current selected image from the treeView, and initializes a ImageEditor that modifies selected image
@@ -39,8 +41,7 @@ public class OpenPopUp {
         if (currentFile != null && currentFile.isDirectory()) {
             DialogBox alertBox = new DialogBox("Info", "Cannot rename a folder");
             alertBox.display();
-        }
-        else if (currentFile != null) {
+        } else if (currentFile != null) {
             ImageTagEditor imageTagEditor = new ImageTagEditor();
             imageTagEditor.display(treeViewObserver, centerObserver);
         }
@@ -52,13 +53,12 @@ public class OpenPopUp {
      *
      * @throws Exception IOException
      */
-    public void openNameLog() throws Exception{
+    public void openNameLog() throws Exception {
         File currentFile = treeViewObserver.getSelectedFile();
         if (currentFile != null && currentFile.isDirectory()) {
             DialogBox alertBox = new DialogBox("Info", "Cannot choose a folder!");
             alertBox.display();
-        }
-        else if (currentFile != null) {
+        } else if (currentFile != null) {
             NameLogPopUp nameLogPopUp = new NameLogPopUp();
             nameLogPopUp.display(treeViewObserver, centerObserver);
         }
@@ -70,7 +70,7 @@ public class OpenPopUp {
      *
      * @throws Exception IOException
      */
-    public void openMasterLog() throws Exception{
+    public void openMasterLog() throws Exception {
         MasterLogPopUp masterLogPopUp = new MasterLogPopUp();
         masterLogPopUp.display();
 
@@ -95,6 +95,5 @@ public class OpenPopUp {
 
         this.treeViewObserver = treeViewObserver;
     }
-
 
 }

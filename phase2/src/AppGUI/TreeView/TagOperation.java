@@ -16,11 +16,11 @@ import java.util.ArrayList;
 public class TagOperation {
 
     /**
-     *Takes the location of the target of centerObserver and the selected Tag(s) in list view and uses ImageManager to
+     * Takes the location of the target of centerObserver and the selected Tag(s) in list view and uses ImageManager to
      * associate the tags with the target ImageData.
      *
-     * @param listView List of all tags in TagManager (all tags that was instantiated through any way and was not deleted by the user)
-     * @param centerObserver the observer of the current middle window
+     * @param listView         List of all tags in TagManager (all tags that was instantiated through any way and was not deleted by the user)
+     * @param centerObserver   the observer of the current middle window
      * @param treeViewObserver the observer of the current Tree
      */
     void addTagToImage(ListView listView, CenterObserver centerObserver, TreeViewObserver treeViewObserver) {
@@ -50,24 +50,24 @@ public class TagOperation {
         for (Tag t : selectedCopies) {
             MainContainer.getAppImageManager().removeTagFromAppAndImages(t.getTagName());
         }
-
-
     }
 
     /**
      * Delete tags from given image
-     * @param tags Tags we need to delete
+     *
+     * @param tags  Tags we need to delete
      * @param image The image we are operating on
      */
-    void deleteTagFromImage(ArrayList<Tag> tags, ImageData image){
-        MainContainer.getAppImageManager().removeTagFromPic(tags,image);
+    void deleteTagFromImage(ArrayList<Tag> tags, ImageData image) {
+        MainContainer.getAppImageManager().removeTagFromPic(tags, image);
     }
 
     /**
      * Deletes tags that is not associated with any images from TagManager
      */
-    void CleanTagClick(){
+    void CleanTagClick() {
 
         MainContainer.getAppTagManager().cleanUnusedTag();
     }
+
 }

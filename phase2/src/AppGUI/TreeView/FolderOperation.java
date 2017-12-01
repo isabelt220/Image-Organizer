@@ -19,16 +19,16 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 /**
  * Helper class for TreeViewController, contains methods for file manipulations
  */
- class FolderOperation {
+class FolderOperation {
 
     /**
      * Takes the selected file in treeView and moves the file to the location selected in mainObserver, altering
      * the ImageData if the specified file has one.
      *
      * @param treeViewObserver observer of the current treeView
-     * @param mainObserver observer of the current mainView
+     * @param mainObserver     observer of the current mainView
      */
-     void moveFile(TreeViewObserver treeViewObserver, MainObserver mainObserver) {
+    void moveFile(TreeViewObserver treeViewObserver, MainObserver mainObserver) {
 
         File selectedFile = treeViewObserver.getSelectedFile();
         DirectoryChooser dc = new DirectoryChooser();
@@ -41,13 +41,11 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
                 if (!selectedFile.getParentFile().toPath().toString().equals(choice.toPath().toString())) {
                     treeViewObserver.update();
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 DialogBox warning = new DialogBox("Warning", "Remove Failed");
                 warning.display();
             }
         }
-
     }
 
     /**
@@ -55,9 +53,9 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
      * Sets the tree view in center panel
      *
      * @param mainObserver observer of the current mainView
-     * @param treeView File
+     * @param treeView     File
      */
-     String openFolder(MainObserver mainObserver, TreeView<File> treeView){
+    String openFolder(MainObserver mainObserver, TreeView<File> treeView) {
         DirectoryChooser dc = new DirectoryChooser();
         File choice = dc.showDialog(mainObserver.getMain().getMainStage().getOwner());
         if (choice != null) {

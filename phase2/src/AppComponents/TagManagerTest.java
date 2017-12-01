@@ -89,7 +89,7 @@ class TagManagerTest {
         ArrayList<String> tagNameList = new ArrayList<>();
         tagNameList.add("tag1");
         tagNameList.add("tag2");
-        
+
         MainContainer.getAppTagManager().tmAddTagWithoutImage(tagNameList);
         assertEquals("tag1", MainContainer.getAppTagManager().getTag("tag1").getTagName());
         assertEquals("tag2", MainContainer.getAppTagManager().getTag("tag2").getTagName());

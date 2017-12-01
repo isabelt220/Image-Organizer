@@ -26,13 +26,11 @@ public class TreeViewItem {
             File[] files = dir.listFiles();
             if (files == null) {
                 warning.display();
-            }
-            else {
+            } else {
                 for (File f : files) {
                     if (f.isDirectory()) {
                         directory.getChildren().add(generateTreeItem(f));
-                    }
-                    else {
+                    } else {
                         String mimeType = new MimetypesFileTypeMap().getContentType(f);
                         String type = mimeType.split("/")[0];
                         if (type.equals("image")) {
@@ -42,12 +40,10 @@ public class TreeViewItem {
                 }
             }
             return directory;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             warning.display();
         }
         return null;
     }
-
 
 }
