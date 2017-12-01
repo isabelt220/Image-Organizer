@@ -105,6 +105,7 @@ public class ImageManager implements Serializable {
                         MainContainer.getAppTagManager().getListOfTags().add(tagList.get(j));
                     }
                 }
+
                 i.setImageTags(finalList);
                 return i;
             }
