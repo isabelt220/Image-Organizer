@@ -237,10 +237,12 @@ public class TreeViewController implements Initializable {
      * @throws Exception IOException
      */
     public void openNameLogPopUp() throws Exception {
-        OpenPopUp openPopUp = new OpenPopUp();
-        openPopUp.setCenterObserver(centerObserver);
-        openPopUp.setTreeViewObserver(this);
-        openPopUp.openNameLog();
+        if (treeView.getSelectionModel().getSelectedItem() != null) {
+            OpenPopUp openPopUp = new OpenPopUp();
+            openPopUp.setCenterObserver(centerObserver);
+            openPopUp.setTreeViewObserver(this);
+            openPopUp.openNameLog();
+        }
     }
 
     /**
