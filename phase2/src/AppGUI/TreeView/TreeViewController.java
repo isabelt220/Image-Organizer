@@ -197,6 +197,7 @@ public class TreeViewController implements Initializable {
                                     if (treeView.getSelectionModel().getSelectedItem() != null
                                             && !treeView.getSelectionModel().getSelectedItem().getValue().isDirectory()) {
                                         mainObserver.setPanel("OpMenu");
+                                        reSetTree();
                                         ImageData image =
                                                 MainContainer.getAppImageManager()
                                                         .getImage(currentNode.getValue().toPath().toString());

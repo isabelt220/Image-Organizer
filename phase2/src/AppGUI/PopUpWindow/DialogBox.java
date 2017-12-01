@@ -1,11 +1,9 @@
 package AppGUI.PopUpWindow;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,12 +33,7 @@ public class DialogBox {
         label.setText(message);
 
         Button button = new Button("close");
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                window.close();
-            }
-        });
+        button.setOnMouseClicked(event -> window.close());
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, button);
