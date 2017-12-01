@@ -63,7 +63,7 @@ public class TagManager implements Serializable {
      * @param tagNameList the list of string of tag names to add or create.
      * @return ArrayList<Tag></Tag>
      */
-    public ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
+    ArrayList<Tag> tmAddTagWithImage(ImageData image, ArrayList<String> tagNameList) {
         ArrayList<Tag> listOfTagsToAttachToImage = new ArrayList<>(0);
         for (String tagName : tagNameList) {
             String name = tagName.toLowerCase();
@@ -100,21 +100,6 @@ public class TagManager implements Serializable {
         return null;
     }
 
-    /**
-     * Returns a list of image information that is labelled with tag.
-     *
-     * @param tagName the tag name to be searched for in images.
-     * @return ArrayList<ImageInfo></ImageInfo>
-     */
-    // May be redundant code as getAssociatedImages() exist in Tag class?
-    public ArrayList<ImageData> getImagesWithTag(String tagName) {
-        Tag tag = getTag(tagName);
-        if (tag != null) {
-            return tag.getAssociatedImages();
-        }
-        return null;
-    }
-
     public void cleanUnusedTag() {
         ArrayList<Tag> temp = new ArrayList<>(observableTagList.subList(0, observableTagList.size()));
         for (Tag t : temp) {
@@ -122,19 +107,6 @@ public class TagManager implements Serializable {
                 MainContainer.getMasterLog().deleteTag(t.getTagName());
                 observableTagList.remove(t);
             }
-        }
-    }
-
-    /**
-     * Removes the ImageData image from the list of associatedImages of each tag that the image was
-     * tagged with.
-     *
-     * @param tagList ArrayList of Tags that are attached to the ImageData image.
-     * @param image   the image to be removed from each tag's list of associatedImages.
-     */
-    void removeAssociatedImageFromTags(ArrayList<Tag> tagList, ImageData image) {
-        for (Tag tag : tagList) {
-            tag.removeImage(image);
         }
     }
 
@@ -153,7 +125,7 @@ public class TagManager implements Serializable {
      *
      * @return current existing tags
      */
-    public ArrayList<Tag> getListOfTags() {
+    ArrayList<Tag> getListOfTags() {
 
         return listOfTags;
     }

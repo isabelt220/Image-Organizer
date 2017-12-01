@@ -18,18 +18,6 @@ public class ImageManager implements Serializable {
     private ArrayList<ImageData> imageList = new ArrayList<>();
 
     /**
-     * Takes a newImage ImageData, checks for existence and adds it to this imageList.
-     *
-     * @param newImage ImageData
-     */
-    void addImage(ImageData newImage) {
-
-        if (!(imageList.contains(newImage))) {
-            imageList.add(newImage);
-        }
-    }
-
-    /**
      * Setter for this image list
      *
      * @param list new imageList
@@ -96,17 +84,18 @@ public class ImageManager implements Serializable {
         ArrayList<Tag> finalList = new ArrayList<>();
         for (ImageData i : imageList) {
             if (i.equals(currImage)) {
-                for (int j = 0; j < tagList.size(); j++) {
-                    String tagName = tagList.get(j).getTagName();
+                for (Tag aTag : tagList) {
+                    String tagName = aTag.getTagName();
                     if (MainContainer.getAppTagManager().tagExists(tagName)) {
                         finalList.add(MainContainer.getAppTagManager().getTag(tagName));
                     } else {
-                        finalList.add(tagList.get(j));
+                        finalList.add(aTag);
                         ArrayList<String> tagStringList = new ArrayList<>();
-                        tagStringList.add(tagList.get(j).getTagName());
+                        tagStringList.add(aTag.getTagName());
                         MainContainer.getAppTagManager().tmAddTagWithoutImage(tagStringList);
                     }
                 }
+
                 i.setImageTags(finalList);
                 return i;
             }
@@ -140,7 +129,7 @@ public class ImageManager implements Serializable {
      * @param location String of the absolute path of a image file
      * @return boolean whether this image file has an ImageData attached to it.
      */
-    public boolean imageExists(String location) {
+    boolean imageExists(String location) {
         if (!imageList.isEmpty()) {
             for (ImageData image : imageList) {
                 if (location.equals(image.getLocation())) {

@@ -38,7 +38,7 @@ public class ImageLog implements Serializable {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         if (tags.size() == 0) {
             nameLog.put(time.toString(), "Initially named : " + name);
-            tagLog.put(time.toString(), new ArrayList<String>());
+            tagLog.put(time.toString(), new ArrayList<>());
             MainContainer.getMasterLog().innitImage(imagePath, "");
         } else {
             String temp = convertTagNameListToString(tags);
@@ -101,12 +101,12 @@ public class ImageLog implements Serializable {
      * @return String concatenation tagNames
      */
     private String convertTagListToString(ArrayList<Tag> tagArrayList) {
-        String result = "";
+        StringBuilder result = new StringBuilder("");
         for (Tag tag : tagArrayList) {
-            result += (", " + tag.getTagName());
+            result.append(", ").append(tag.getTagName());
         }
-        if (result.equals("")) {
-            return result;
+        if (result.toString().equals("")) {
+            return result.toString();
         }
         return result.substring(2);
     }
@@ -119,14 +119,14 @@ public class ImageLog implements Serializable {
      * @return String concatenation tagNames
      */
     private String convertTagNameListToString(ArrayList<String> tagNameArrayList) {
-        String result = "";
+        StringBuilder result = new StringBuilder("");
         for (String tagName : tagNameArrayList) {
             if (!tagName.equals("")) {
-                result += (", " + tagName);
+                result.append(", ").append(tagName);
             }
         }
-        if (result.equals("")) {
-            return result;
+        if (result.toString().equals("")) {
+            return result.toString();
         }
         return result.substring(2);
     }
@@ -146,7 +146,7 @@ public class ImageLog implements Serializable {
     /**
      * Getter for tagLog, used to revert back to a certain time point of tags for this ImageData.
      *
-     * @return LinkedHashMap<String,ArrayList<String>> tagLog of this ImageLog
+     * @return LinkedHashMap tagLog of this ImageLog
      */
     LinkedHashMap<String, ArrayList<String>> getTagLog() {
 
@@ -156,7 +156,7 @@ public class ImageLog implements Serializable {
     /**
      * Getter for nameLog, used to view the history of tag modification of this ImageData.
      *
-     * @return LinkedHashMap<String,String> nmeLog of this ImageLog
+     * @return LinkedHashMap<StringString> nmeLog of this ImageLog
      */
     LinkedHashMap<String, String> getNameLog() {
 

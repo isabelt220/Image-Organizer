@@ -44,7 +44,7 @@ public class AppDataSerializer {
      *
      * @param filePath the file path of AppDataConfig.txt
      */
-    public void readDataFromFile(String filePath) {
+    private void readDataFromFile(String filePath) {
         try {
             FileInputStream is = new FileInputStream(filePath);
             ObjectInputStream os = new ObjectInputStream(is);
@@ -76,12 +76,10 @@ public class AppDataSerializer {
 
     /**
      * Saves listOfTags from TagManager and imageList from ImageManager to the file AppDataConfig.txt.
-     *
-     * @param filePath the file path of AppDataConfig.txt
      */
-    public void saveDataToFile(String filePath) {
+    public void saveDataToFile() {
         try {
-            FileOutputStream fs = new FileOutputStream(filePath);
+            FileOutputStream fs = new FileOutputStream("AppDataConfig.txt");
             ObjectOutputStream os = new ObjectOutputStream(fs);
 
             os.writeObject(MainContainer.getAppTagManager().getListOfTags());
