@@ -117,9 +117,11 @@ public class NameLogPopUpController {
                 tagArrayList.add(MainContainer.getAppTagManager().getTag(tagName));
             }
             else{
-                Tag newTag = new Tag(tagName);
-                MainContainer.getAppTagManager().getListOfTags().add(newTag);
-                tagArrayList.add(newTag);
+                ArrayList<String> tagStringList = new ArrayList<>();
+                tagStringList.add(tagName);
+                MainContainer.getAppTagManager().tmAddTagWithoutImage(tagStringList);
+
+                tagArrayList.add(MainContainer.getAppTagManager().getTag(tagName));
             }
         }
 
