@@ -46,6 +46,7 @@ class MainGUIActions {
         this.folderObserver = new FolderObserver();
         this.opObserver = new OpMenuObserver();
         this.mainObserver = new MainObserver();
+
     }
 
     /*
@@ -68,6 +69,7 @@ class MainGUIActions {
         this.setTreeControllerObservers();
         this.setFolderControllerObservers();
         this.setMiddleWindowControllerObservers();
+
     }
 
     /*
@@ -105,5 +107,6 @@ class MainGUIActions {
         middleController.setMainObserver(mainObserver);
         middleController.setOpMenuObserver(opObserver);
         middleController.setCenterObserver(centerObserver);
+        middleController.setFolderObserver(folderObserver);
     }
 }
