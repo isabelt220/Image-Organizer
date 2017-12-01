@@ -4,7 +4,6 @@ import AppGUI.CenterPanel.FolderPanelController;
 import AppGUI.CenterPanel.MiddleWindowController;
 import AppGUI.TreeView.OperatingMenuController;
 import AppGUI.TreeView.TreeViewController;
-import Observers.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
