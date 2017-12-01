@@ -49,6 +49,11 @@ public class MainGUI extends Application {
      */
     private Pane folderPanel;
 
+    /**
+     * Folder pane controlled by FolderPanelController, observed by FolderObserver
+     */
+    private TopPanel topPanel;
+
 
     /**
      * Start the App, initiates main, center, treeView, OpMenu, folder, middle window panels and corresponding controllers
@@ -60,9 +65,6 @@ public class MainGUI extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.mainStage = primaryStage;
         this.mainStage.setTitle("Photo Manager");
-
-//        MainGUIActions mainActions = new MainGUIActions(mainStage, mainLayout, treePanel,
-//                centerPanel, opMenu, folderPanel);
 
         /*
         Initialize all the loaders
@@ -76,7 +78,8 @@ public class MainGUI extends Application {
         /*
         Show and set all the panels on the mainStage
         */
-        this.showAndSetPanels(mainLoader, opLoader, treeLoader, centerLoader, folderLoader);
+        this.showAndSetPanels(mainLoader, opLoader, treeLoader,
+                centerLoader, folderLoader);
 
         /*
         Initialize all the controllers
@@ -85,143 +88,54 @@ public class MainGUI extends Application {
         TreeViewController treeController = treeLoader.getController();
         MiddleWindowController middleController = centerLoader.getController();
         FolderPanelController folderController = folderLoader.getController();
+        topPanel.setTreeViewController(treeController);
 
-        /*
-        Initialize all the observers.
-        */
-        CenterObserver centerObserver = new CenterObserver();
-        TreeViewObserver treeViewObserver = new TreeViewObserver();
-        FolderObserver folderObserver = new FolderObserver();
-        OpMenuObserver opMenuObserver = new OpMenuObserver();
-        MainObserver mainObserver = new MainObserver();
+        // Initialize MainGUIActions to use all actions for MainGUI
+        MainGUIActions mainActions = new MainGUIActions(opController, treeController,
+                middleController, folderController, topPanel);
 
-        /*
-        Set each controller as a target to its affiliated observer. Note that the main
-        observer gets its target set to MainGUI.
-        */
-        this.setObserverTargets(centerObserver, treeViewObserver, folderObserver, opMenuObserver,
-                mainObserver, middleController, treeController, folderController, opController);
+        // Set observers to MainGUIActions
+        mainActions.setObservers();
 
         /*
         Set the needed observers for the OpController, TreeController, FolderController,
         and MiddleWindowController
          */
-        this.setOpMenuControllerObservers(opController,
-                mainObserver, treeViewObserver, centerObserver);
-
-        this.setTreeControllerObservers(treeController,
-                mainObserver, opMenuObserver, centerObserver, folderObserver);
-
-        this.setFolderControllerObservers(folderController,
-                mainObserver, opMenuObserver, centerObserver);
-
-        this.setMiddleWindowControllerObservers(middleController,
-                mainObserver, opMenuObserver, centerObserver, folderObserver);
+        mainActions.setAllControllerObservers();
 
         /*
-        Set the topPanel and set the controllers to the topPanel
+        Set each controller as a target to its affiliated observer. Note that the main
+        observer gets its target set to MainGUI.
         */
-        TopPanel topPanel = mainLoader.getController();
-        topPanel.setTreeViewController(treeController);
-        topPanel.setMainObserver(mainObserver);
+        mainActions.setAllObserverTargets(this);
     }
 
-    private void showAndSetPanels(FXMLLoader mainLoader, FXMLLoader opLoader,
-                                  FXMLLoader treeLoader, FXMLLoader centerLoader,
-                                  FXMLLoader folderLoader) throws IOException {
+    private void showAndSetPanels(FXMLLoader mainLoader, FXMLLoader opLoader, FXMLLoader treeLoader,
+                                  FXMLLoader centerLoader, FXMLLoader folderLoader) throws IOException {
+
         mainLoader.setLocation(MainGUI.class.getResource("MainView.fxml"));
         mainLayout = mainLoader.load();
+
         Scene scene = new Scene(mainLayout);
         mainStage.setScene(scene);
         mainStage.show();
 
-        opLoader.setLocation(MainGUI.class.getResource("TreeView/OperatingMenu.fxml"));
-        opMenu = opLoader.load();
+        topPanel = mainLoader.getController();
+
+        opMenu = this.loadPanel("TreeView/OperatingMenu.fxml", opLoader);
+        treePanel = this.loadPanel("TreeView/TreeView.fxml", treeLoader);
+        centerPanel = this.loadPanel("CenterPanel/CenterPanel.fxml", centerLoader);
+        folderPanel = this.loadPanel("CenterPanel/FolderPanel.fxml", folderLoader);
+
         mainLayout.setLeft(opMenu);
-
-        treeLoader.setLocation(MainGUI.class.getResource("TreeView/TreeView.fxml"));
-        treePanel = treeLoader.load();
         mainLayout.setLeft(treePanel);
-
-        centerLoader.setLocation(MainGUI.class.getResource("CenterPanel/CenterPanel.fxml"));
-        centerPanel = centerLoader.load();
         mainLayout.setCenter(centerPanel);
-
-        folderLoader.setLocation(MainGUI.class.getResource("CenterPanel/FolderPanel.fxml"));
-        folderPanel = folderLoader.load();
         mainLayout.setCenter(folderPanel);
     }
 
-    /*
-    * Set the necessary targets for each Observer.
-    */
-    private void setObserverTargets(CenterObserver centerObserver,
-                                    TreeViewObserver treeViewObserver,
-                                    FolderObserver folderObserver,
-                                    OpMenuObserver opObserver,
-                                    MainObserver mainObserver,
-                                    MiddleWindowController middleController,
-                                    TreeViewController treeController,
-                                    FolderPanelController folderController,
-                                    OperatingMenuController opController) {
-
-        centerObserver.setTarget(middleController);
-        treeViewObserver.setTarget(treeController);
-        folderObserver.setTarget(folderController);
-        opObserver.setTarget(opController);
-        mainObserver.setMain(this);
-    }
-
-    /*
-    * Set the necessary observers for OperatingMenuController
-    */
-    private void setOpMenuControllerObservers(OperatingMenuController opMenuController,
-                                              MainObserver mainObserver,
-                                              TreeViewObserver treeObserver,
-                                              CenterObserver centerObserver) {
-        opMenuController.setMainObserver(mainObserver);
-        opMenuController.setTreeViewObserver(treeObserver);
-        opMenuController.setCenterObserver(centerObserver);
-    }
-
-    /*
-    * Set the necessary observers for TreeViewController
-    */
-    private void setTreeControllerObservers(TreeViewController treeController,
-                                            MainObserver mainObserver,
-                                            OpMenuObserver opMenuObserver,
-                                            CenterObserver centerObserver,
-                                            FolderObserver folderObserver) {
-        treeController.setMainObserver(mainObserver);
-        treeController.setOpMenuObserver(opMenuObserver);
-        treeController.setCenterObserver(centerObserver);
-        treeController.setFolderObserver(folderObserver);
-    }
-
-    /*
-    * Set the necessary observers for FolderPanelController
-    */
-    private void setFolderControllerObservers(FolderPanelController folderPanelController,
-                                              MainObserver mainObserver,
-                                              OpMenuObserver opMenuObserver,
-                                              CenterObserver centerObserver) {
-        folderPanelController.setMainObserver(mainObserver);
-        folderPanelController.setOpMenuObserver(opMenuObserver);
-        folderPanelController.setCenterObserver(centerObserver);
-    }
-
-    /*
-    * Set the necessary observers for MiddleWindowController
-    */
-    private void setMiddleWindowControllerObservers(MiddleWindowController middleWindowController,
-                                                    MainObserver mainObserver,
-                                                    OpMenuObserver opMenuObserver,
-                                                    CenterObserver centerObserver,
-                                                    FolderObserver folderObserver) {
-        middleWindowController.setMainObserver(mainObserver);
-        middleWindowController.setOpMenuObserver(opMenuObserver);
-        middleWindowController.setCenterObserver(centerObserver);
-        middleWindowController.setFolderObserver(folderObserver);
+    private Pane loadPanel(String fxml, FXMLLoader loader) throws IOException {
+        loader.setLocation(MainGUI.class.getResource(fxml));
+        return loader.load();
     }
 
     /**
@@ -237,7 +151,6 @@ public class MainGUI extends Application {
      * @return true if the current center panel is the MiddleWindowPanel
      */
     public boolean isMiddleWindow() {
-
 
         return mainLayout.getCenter() == centerPanel;
     }
