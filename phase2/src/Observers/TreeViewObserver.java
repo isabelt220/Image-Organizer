@@ -1,6 +1,5 @@
 package Observers;
 
-import AppGUI.MainContainer;
 import AppGUI.TreeView.TreeViewController;
 
 import java.io.File;

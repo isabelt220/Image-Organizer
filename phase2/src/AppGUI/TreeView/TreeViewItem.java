@@ -11,7 +11,7 @@ import java.io.File;
  * A helper class for TreeViewController.
  * Used when the item selected in the treeView is a directory, initiates a TreeItem object for all sub files of the selected directory.
  */
-public class TreeViewItem {
+class TreeViewItem {
 
     /**
      * Takes the dir directory as the TreeView Item and displays its children file in the treeView.
@@ -19,7 +19,7 @@ public class TreeViewItem {
      * @param dir Directory selected in TreeView
      * @return TreeItem<File></> TreeItem of a file under File dir
      */
-    public TreeItem<File> generateTreeItem(File dir) {
+    TreeItem<File> generateTreeItem(File dir) {
         DialogBox warning = new DialogBox("Warning", "The folder you are choosing is empty!");
         try {
             TreeItem<File> directory = new TreeItem<>(dir);

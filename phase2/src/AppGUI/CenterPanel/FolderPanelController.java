@@ -76,7 +76,7 @@ public class FolderPanelController implements Initializable {
     public void initialize(URL location, ResourceBundle r) {
         tableView.setOnMouseClicked((MouseEvent event) -> {
             try {
-                /**Check if the table has an item, if so get the properties
+                /*Check if the table has an item, if so get the properties
                  of that item and get all the static variables of that item.
                  */
                 if (tableView.getSelectionModel().getSelectedItem() != null) {

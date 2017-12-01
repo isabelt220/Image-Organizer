@@ -158,7 +158,7 @@ public class NameLogPopUpController {
      *
      * @param centerObserver Initialized by MainGUI and observer for center panel that this nameLog updates.
      */
-    public void setCenterObserver(CenterObserver centerObserver) {
+    void setCenterObserver(CenterObserver centerObserver) {
 
         this.centerObserver = centerObserver;
     }

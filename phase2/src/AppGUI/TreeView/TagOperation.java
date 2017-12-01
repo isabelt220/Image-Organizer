@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Helper class to TreeViewController and contains all tag operations that directly modifies Tags in TagManager.
  */
-public class TagOperation {
+class TagOperation {
 
     /**
      * Takes the location of the target of centerObserver and the selected Tag(s) in list view and uses ImageManager to

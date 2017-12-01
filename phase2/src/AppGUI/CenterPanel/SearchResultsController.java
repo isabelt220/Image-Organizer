@@ -18,7 +18,7 @@ public class SearchResultsController extends FolderPanelController {
      *
      * @param result ArrayList<ImageData> that fits the criteria of the search.
      */
-    public void setResults(ArrayList<ImageData> result) {
+    void setResults(ArrayList<ImageData> result) {
         getTableView().setItems(FXCollections.observableList(result));
     }
 }
