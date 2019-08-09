@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppGUI.TreeView.OperatingMenuController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="250.0">
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+               <items>
+                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#returnToOtherPane" text="←" textFill="RED">
+                     <font>
+                        <Font name="AR DARLING" size="10.0" />
+                     </font>
+                  </Button>
+               </items>
+            </ToolBar>
+            <Pane prefHeight="562.0" prefWidth="250.0">
+               <children>
+                  <Button fx:id="addButton" layoutX="193.0" layoutY="76.0" mnemonicParsing="false" onAction="#addTagButton" prefHeight="23.0" prefWidth="50.0" text="Add" />
+                  <TextField fx:id="addTagTextField" layoutX="6.0" layoutY="44.0" prefHeight="27.0" prefWidth="238.0" />
+                  <TextField fx:id="deleteTagTextField" layoutX="6.0" layoutY="108.0" prefHeight="27.0" prefWidth="238.0" />
+                  <Button fx:id="deleteButton" layoutX="185.0" layoutY="141.0" mnemonicParsing="false" onAction="#deleteTagButton" text="Delete" />
+                  <ListView fx:id="currentTagListView" layoutX="6.0" layoutY="222.0" onMouseClicked="#tagListClick" prefHeight="130.0" prefWidth="238.0">
+                     <contextMenu>
+                        <ContextMenu fx:id="listContextMenu">
+                          <items>
+                            <MenuItem fx:id="deleteCMItem" mnemonicParsing="false" onAction="#deleteSelected" text="Delete Tag ..." />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu></ListView>
+                  <ListView fx:id="masterTagList" layoutX="6.0" layoutY="400.0" onMouseClicked="#masterTagListClicked" prefHeight="130.0" prefWidth="238.0">
+                     <contextMenu>
+                        <ContextMenu fx:id="masterTagListContextMenu">
+                          <items>
+                            <MenuItem fx:id="addTagsCMItem" mnemonicParsing="false" onAction="#addTagsFromList" text="Add Tags ..." />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </ListView>
+                  <Label layoutX="39.0" layoutY="175.0" prefHeight="23.0" prefWidth="173.0" text="↓ Current Tags of Image ↓" />
+                  <Label layoutX="20.0" layoutY="536.0" text="↑ Select Tags To Add To Image ↑" />
+                  <Label layoutX="25.0" layoutY="358.0" text="↑↓ Hold down ctrl and click ↑↓" />
+                  <Label layoutX="61.0" layoutY="198.0" text="↓(Select to delete)↓" />
+                  <Label layoutX="27.0" layoutY="375.0" text="↑↓ To select Multiple Tags ↑↓" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</Pane>
